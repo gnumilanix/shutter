@@ -10,7 +10,7 @@ import com.milanix.shutter.feed.list.view.FeedListActivity;
 import com.milanix.shutter.login.LoginContract;
 import com.milanix.shutter.login.LoginModule;
 import com.milanix.shutter.login.model.Login;
-import com.milanix.shutter.specs.AbstractActivity;
+import com.milanix.shutter.core.AbstractActivity;
 
 /**
  * Activity containing login

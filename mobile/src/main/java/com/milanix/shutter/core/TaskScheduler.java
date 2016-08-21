@@ -1,4 +1,4 @@
-package com.milanix.shutter;
+package com.milanix.shutter.core;
 
 import android.content.Context;
 

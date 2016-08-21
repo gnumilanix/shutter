@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.milanix.shutter.BuildConfig;
-import com.milanix.shutter.TaskScheduler;
+import com.milanix.shutter.core.TaskScheduler;
 
 import javax.inject.Singleton;
 

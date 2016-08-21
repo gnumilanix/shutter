@@ -2,8 +2,8 @@ package com.milanix.shutter.login;
 
 import com.android.annotations.NonNull;
 import com.milanix.shutter.login.model.Login;
-import com.milanix.shutter.specs.IPresenter;
-import com.milanix.shutter.specs.IView;
+import com.milanix.shutter.core.IPresenter;
+import com.milanix.shutter.core.IView;
 
 /**
  * Contract for feed related implementations

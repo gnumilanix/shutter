@@ -1,4 +1,4 @@
-package com.milanix.shutter.specs;
+package com.milanix.shutter.core;
 
 /**
  * Interface to be implemented by all stores

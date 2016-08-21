@@ -22,6 +22,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{
+            buildConfigField "String", "CLIENT_ID", '"10920"'
+            buildConfigField "String", "CLIENT_SECRET", '"9AD0UASP97TDASGAS68RADS"'
+        }
     }
 
     productFlavors {

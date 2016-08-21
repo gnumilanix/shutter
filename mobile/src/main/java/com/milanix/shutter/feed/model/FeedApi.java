@@ -12,9 +12,9 @@ import retrofit2.http.Path;
  * @author milan
  */
 public interface FeedApi {
-    @GET("/api/v1/feeds/{feedId}")
+    @GET("api/v1/feeds/{feedId}")
     Call<Feed> getFeed(@Path("feedId") long feedId);
 
-    @GET("/api/v1/feeds")
+    @GET("api/v1/feeds")
     Call<List<Feed>> getFeeds();
 }

@@ -7,7 +7,7 @@ import com.milanix.shutter.dependencies.component.DaggerAppComponent;
 import com.milanix.shutter.dependencies.module.AppModule;
 import com.milanix.shutter.feed.FeedComponent;
 import com.milanix.shutter.feed.FeedModule;
-import com.milanix.shutter.user.User;
+import com.milanix.shutter.user.model.User;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
 

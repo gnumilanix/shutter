@@ -1,4 +1,4 @@
-package com.milanix.shutter.user;
+package com.milanix.shutter.user.model;
 
 import com.google.gson.annotations.Expose;
 
@@ -11,9 +11,9 @@ import io.realm.annotations.PrimaryKey;
  * @author milan
  */
 public class User extends RealmObject {
-    @PrimaryKey
-    private long id = -1;
+    public static final String FIELD_ID = "email";
     private String name;
+    @PrimaryKey
     private String email;
 
     @Expose(serialize = false, deserialize = true)
@@ -22,15 +22,10 @@ public class User extends RealmObject {
     public User() {
     }
 
-    public User(long id, String name, String email, String token) {
-        this.id = id;
+    public User(String name, String email, String token) {
         this.name = name;
         this.email = email;
         this.token = token;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getName() {
@@ -52,12 +47,12 @@ public class User extends RealmObject {
 
         User user = (User) o;
 
-        return id == user.id;
+        return email.equals(user.email);
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return email.hashCode();
     }
 }

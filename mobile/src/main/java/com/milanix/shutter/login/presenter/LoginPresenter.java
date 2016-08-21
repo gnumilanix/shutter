@@ -3,8 +3,8 @@ package com.milanix.shutter.login.presenter;
 import com.milanix.shutter.App;
 import com.milanix.shutter.login.LoginContract;
 import com.milanix.shutter.login.model.Login;
-import com.milanix.shutter.specs.AbstractPresenter;
-import com.milanix.shutter.user.User;
+import com.milanix.shutter.core.AbstractPresenter;
+import com.milanix.shutter.user.model.User;
 
 import java.util.UUID;
 

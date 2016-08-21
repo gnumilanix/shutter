@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.milanix.shutter.R;
 import com.milanix.shutter.databinding.ItemFeedBinding;
 import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.specs.AbstractRecyclerViewAdapter;
+import com.milanix.shutter.core.AbstractRecyclerViewAdapter;
 
 import javax.inject.Inject;
 

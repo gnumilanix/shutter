@@ -14,7 +14,7 @@ import com.milanix.shutter.databinding.FragmentFeedListBinding;
 import com.milanix.shutter.feed.list.FeedListContract;
 import com.milanix.shutter.feed.list.FeedListModule;
 import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.specs.AbstractFragment;
+import com.milanix.shutter.core.AbstractFragment;
 
 import java.util.List;
 
@@ -36,6 +36,8 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
         getUserComponent().with(new FeedListModule(this)).inject(this);
         performBinding(R.layout.fragment_feed_list);
 
+        presenter.getFeeds();
+
         return binding.getRoot();
     }
 
@@ -48,7 +50,7 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
 
     @Override
     public void showFeeds(List<Feed> feeds) {
-        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0), "New incoming feeds", Snackbar.LENGTH_SHORT);
+        binding.getAdapter().appendItems(feeds);
     }
 
     @Override

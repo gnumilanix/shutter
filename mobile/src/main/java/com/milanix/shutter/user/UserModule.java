@@ -1,6 +1,7 @@
 package com.milanix.shutter.user;
 
 import com.milanix.shutter.dependencies.scope.UserScope;
+import com.milanix.shutter.user.model.User;
 
 import dagger.Module;
 import dagger.Provides;

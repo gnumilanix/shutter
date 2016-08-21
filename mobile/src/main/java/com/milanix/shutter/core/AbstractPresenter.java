@@ -1,4 +1,4 @@
-package com.milanix.shutter.specs;
+package com.milanix.shutter.core;
 
 /**
  * Abstract implementation of presenter that requires view injection to all classes extending it

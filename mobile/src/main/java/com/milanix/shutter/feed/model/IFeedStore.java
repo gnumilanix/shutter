@@ -1,6 +1,6 @@
 package com.milanix.shutter.feed.model;
 
-import com.milanix.shutter.specs.IStore;
+import com.milanix.shutter.core.IStore;
 
 import java.util.List;
 

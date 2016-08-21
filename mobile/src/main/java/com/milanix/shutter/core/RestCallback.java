@@ -1,4 +1,6 @@
-package com.milanix.shutter.specs;
+package com.milanix.shutter.core;
+
+import com.android.annotations.Nullable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -9,7 +11,7 @@ import retrofit2.Response;
  *
  * @author milan
  */
-public abstract class ApiCallback<T> implements Callback<T> {
+public abstract class RestCallback<T> implements Callback<T> {
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
@@ -29,4 +31,13 @@ public abstract class ApiCallback<T> implements Callback<T> {
     abstract public void onResponse(Response<T> response);
 
     abstract public void onFailure(Throwable t);
+
+    public static <T> void invokeCallback(@Nullable T data, @Nullable IStore.Callback<T> callback) {
+        if (null != callback) {
+            if (null != data)
+                callback.onSuccess(data);
+            else
+                callback.onFailure(new NullPointerException("Data not available"));
+        }
+    }
 }

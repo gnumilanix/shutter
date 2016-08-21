@@ -1,8 +1,8 @@
 package com.milanix.shutter.feed.detail;
 
 import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.specs.IPresenter;
-import com.milanix.shutter.specs.IView;
+import com.milanix.shutter.core.IPresenter;
+import com.milanix.shutter.core.IView;
 
 /**
  * Contract for feed related implementations

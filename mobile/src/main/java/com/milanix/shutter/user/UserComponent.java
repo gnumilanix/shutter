@@ -7,6 +7,7 @@ import com.milanix.shutter.feed.list.FeedListComponent;
 import com.milanix.shutter.feed.list.FeedListModule;
 import com.milanix.shutter.feed.model.FeedDataModule;
 import com.milanix.shutter.feed.model.FeedSyncService;
+import com.milanix.shutter.user.UserModule;
 
 import dagger.Subcomponent;
 

@@ -13,7 +13,7 @@ import com.milanix.shutter.feed.FeedModule;
 import com.milanix.shutter.feed.detail.FeedDetailContract;
 import com.milanix.shutter.feed.detail.FeedDetailModule;
 import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.specs.AbstractFragment;
+import com.milanix.shutter.core.AbstractFragment;
 
 /**
  * Fragment containing feeds
@@ -25,9 +25,8 @@ public class FeedDetailFragment extends AbstractFragment<FeedDetailContract.Pres
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        performBinding(R.layout.fragment_feed_detail);
-
         getApp().createFeedComponent(getArguments().getLong(FeedModule.FEED_ID)).with(new FeedDetailModule(this)).inject(this);
+        performBinding(R.layout.fragment_feed_detail);
 
         return binding.getRoot();
     }

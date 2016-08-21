@@ -1,4 +1,4 @@
-package com.milanix.shutter.specs;
+package com.milanix.shutter.core;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;

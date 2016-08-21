@@ -32,10 +32,4 @@ public class AppModule {
     public Context provideContext() {
         return app;
     }
-
-    @Provides
-    @Singleton
-    public LayoutInflater provideLayoutInflater(Context context) {
-        return LayoutInflater.from(context);
-    }
 }

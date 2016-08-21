@@ -1,6 +1,6 @@
 package com.milanix.shutter.feed.model;
 
-import com.milanix.shutter.specs.ApiCallback;
+import com.milanix.shutter.core.RestCallback;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import retrofit2.Response;
 
 /**
- * Repository that provide feed data from remote data source
+ * Store that provide feed data from remote data source
  *
  * @author milan
  */
@@ -23,7 +23,7 @@ public class RemoteFeedStore implements IFeedStore {
 
     @Override
     public void getFeed(long feedId, final Callback<Feed> callback) {
-        feedApi.getFeed(feedId).enqueue(new ApiCallback<Feed>() {
+        feedApi.getFeed(feedId).enqueue(new RestCallback<Feed>() {
             @Override
             public void onResponse(Response<Feed> response) {
                 callback.onSuccess(response.body());
@@ -48,7 +48,7 @@ public class RemoteFeedStore implements IFeedStore {
 
     @Override
     public void getFeeds(final Callback<List<Feed>> callback) {
-        feedApi.getFeeds().enqueue(new ApiCallback<List<Feed>>() {
+        feedApi.getFeeds().enqueue(new RestCallback<List<Feed>>() {
             @Override
             public void onResponse(Response<List<Feed>> response) {
                 callback.onSuccess(response.body());

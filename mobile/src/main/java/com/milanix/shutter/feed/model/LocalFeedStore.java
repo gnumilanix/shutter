@@ -1,7 +1,5 @@
 package com.milanix.shutter.feed.model;
 
-import com.android.annotations.Nullable;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,8 +7,10 @@ import javax.inject.Inject;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 
+import static com.milanix.shutter.core.RestCallback.invokeCallback;
+
 /**
- * Repository that provide feed data from local data source
+ * Store that provide feed data from local data source
  *
  * @author milan
  */
@@ -77,14 +77,5 @@ public class LocalFeedStore implements IFeedStore {
         realm.commitTransaction();
 
         callback.onSuccess(null);
-    }
-
-    private <T> void invokeCallback(@Nullable T data, @Nullable Callback<T> callback) {
-        if (null != callback) {
-            if (null != data)
-                callback.onSuccess(data);
-            else
-                callback.onFailure(new NullPointerException("Data not available"));
-        }
     }
 }
