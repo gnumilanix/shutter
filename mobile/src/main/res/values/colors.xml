@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#D81B60</color>
+    <color name="colorPrimaryDark">#AD1457</color>
+    <color name="colorStatus">#3CAD1457</color>
+    <color name="colorAccent">#FFC400</color>
+    <color name="colorAccentDark">#FFAB00</color>
+    <color name="colorRipple">#FFE57F</color>
+    <color name="colorAccentTranslucent">#80FFC400</color>
+    <color name="colorBackgroundList">#fffafafa</color>
+    <color name="colorBackgroundListDark">#ffe0e0e0</color>
+
+    <color name="colorAccentPink">#FF4081</color>
+    <color name="colorRipplePink">#FF80AB</color>
+
+</resources>
