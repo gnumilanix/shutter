@@ -37,6 +37,21 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public void getSelf(final Callback<User> callback) {
+        localStore.getSelf(new Callback<User>() {
+            @Override
+            public void onSuccess(User result) {
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                remoteStore.getSelf(callback);
+            }
+        });
+    }
+
+    @Override
     public void getUser(final String userId, final Callback<User> callback) {
         localStore.getUser(userId, new Callback<User>() {
             @Override
@@ -57,7 +72,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void deleteUser(User user) {
-        localStore.deleteUser(user);
+    public void deleteUser(String userId) {
+        localStore.deleteUser(userId);
     }
 }

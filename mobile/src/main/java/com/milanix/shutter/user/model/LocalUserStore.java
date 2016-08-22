@@ -1,6 +1,9 @@
 package com.milanix.shutter.user.model;
 
+import android.accounts.Account;
+
 import com.milanix.shutter.feed.model.Feed;
+import com.milanix.shutter.user.account.IAccountStore;
 
 import javax.inject.Inject;
 
@@ -15,8 +18,22 @@ import static com.milanix.shutter.core.RestCallback.invokeCallback;
  */
 public class LocalUserStore implements IUserStore {
 
+    private IAccountStore accountStore;
+
     @Inject
-    public LocalUserStore() {
+    public LocalUserStore(IAccountStore accountStore) {
+        this.accountStore = accountStore;
+    }
+
+    @Override
+    public void getSelf(Callback<User> callback) {
+        final Account account = accountStore.getDefaultAccount();
+
+        if (null == account) {
+            callback.onFailure(new NullPointerException("Self not found"));
+        } else {
+            getUser(account.name, callback);
+        }
     }
 
     @Override
@@ -34,10 +51,10 @@ public class LocalUserStore implements IUserStore {
     }
 
     @Override
-    public void deleteUser(User user) {
+    public void deleteUser(String userId) {
         final Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        realm.where(Feed.class).equalTo(User.FIELD_ID, user.getEmail()).findAll().deleteAllFromRealm();
+        realm.where(Feed.class).equalTo(User.FIELD_ID, userId).findAll().deleteAllFromRealm();
         realm.commitTransaction();
     }
 }

@@ -1,8 +1,8 @@
 <layout>
+
     <data>
-        <variable
-            name="activity"
-            type="com.milanix.shutter.login.view.LoginActivity" />
+
+        <import type="android.text.TextUtils" />
 
         <variable
             name="presenter"
@@ -64,7 +64,6 @@
                         android:hint="@string/hint_email"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
-                        android:singleLine="true"
                         android:text="@={login.username}" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -83,7 +82,6 @@
                         android:imeOptions="actionUnspecified"
                         android:inputType="textPassword"
                         android:maxLines="1"
-                        android:singleLine="true"
                         android:text="@={login.password}" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -94,6 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:enabled="@{!TextUtils.isEmpty(login.username) &amp;&amp; !TextUtils.isEmpty(login.password)}"
                     android:onClick="@{()->presenter.login(login)}"
                     android:text="@string/action_sign_in"
                     android:textStyle="bold" />

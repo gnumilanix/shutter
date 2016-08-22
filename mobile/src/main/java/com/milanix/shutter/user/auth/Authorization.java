@@ -1,6 +1,5 @@
 package com.milanix.shutter.user.auth;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -12,15 +11,14 @@ public class Authorization {
     @SerializedName("access_token")
     String accessToken;
     @SerializedName("issued_at")
-    long issuedAt;
+    long issuedAt = 0L;
     @SerializedName("signature")
     String signature;
     @SerializedName("refresh_token")
     String refreshToken;
     @SerializedName("token_type")
     String tokenType;
-    @Expose(serialize = false, deserialize = false)
-    String username;
+
 
     public String getAccessToken() {
         return accessToken;
@@ -60,13 +58,5 @@ public class Authorization {
 
     public void setTokenType(String tokenType) {
         this.tokenType = tokenType;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

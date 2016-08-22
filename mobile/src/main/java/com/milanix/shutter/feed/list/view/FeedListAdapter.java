@@ -6,9 +6,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.milanix.shutter.R;
-import com.milanix.shutter.databinding.ItemFeedBinding;
-import com.milanix.shutter.feed.model.Feed;
 import com.milanix.shutter.core.AbstractRecyclerViewAdapter;
+import com.milanix.shutter.databinding.ItemFeedBinding;
+import com.milanix.shutter.feed.list.FeedListContract;
+import com.milanix.shutter.feed.model.Feed;
 
 import javax.inject.Inject;
 
@@ -18,10 +19,12 @@ import javax.inject.Inject;
  * @author milan
  */
 public class FeedListAdapter extends AbstractRecyclerViewAdapter<Feed, FeedListAdapter.FeedHolder> {
-    private LayoutInflater inflater;
+    private FeedListContract.View feedListView;
+    private final LayoutInflater inflater;
 
     @Inject
-    public FeedListAdapter(LayoutInflater inflater) {
+    public FeedListAdapter(FeedListContract.View feedListView, LayoutInflater inflater) {
+        this.feedListView = feedListView;
         this.inflater = inflater;
     }
 
@@ -33,6 +36,8 @@ public class FeedListAdapter extends AbstractRecyclerViewAdapter<Feed, FeedListA
     @Override
     protected void bind(int position, FeedHolder viewHolder, Feed item) {
         viewHolder.binding.setFeed(item);
+        viewHolder.binding.setView(feedListView);
+        viewHolder.binding.executePendingBindings();
     }
 
     public class FeedHolder extends RecyclerView.ViewHolder {

@@ -15,16 +15,18 @@ public class Feed extends RealmObject {
     private long id = -1;
     private String title;
     private String description;
-    private String imageUrl;
+    private String thumbnail;
+    private String image;
 
     public Feed() {
     }
 
-    public Feed(long id, String title, String description, String imageUrl) {
+    public Feed(long id, String title, String description, String thumbnail, String image) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.thumbnail = thumbnail;
+        this.image = image;
     }
 
     public long getId() {
@@ -39,8 +41,12 @@ public class Feed extends RealmObject {
         return description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     @Override

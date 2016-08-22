@@ -8,10 +8,11 @@ import com.milanix.shutter.core.IStore;
  * @author milan
  */
 public interface IUserStore extends IStore {
+    void getSelf(Callback<User> callback);
 
     void getUser(String userId, Callback<User> callback);
 
     void putUser(User user);
 
-    void deleteUser(User user);
+    void deleteUser(String userId);
 }

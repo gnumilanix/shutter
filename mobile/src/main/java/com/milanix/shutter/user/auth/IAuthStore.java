@@ -8,12 +8,17 @@ import com.milanix.shutter.core.IStore;
  * @author milan
  */
 public interface IAuthStore extends IStore {
-    Authorization signUp(String username, String password, String email, String firstName, String lastName)
-            throws Exception;
+    void initExistingSession(Callback<Authorization> callback);
+
+    void signUp(String username, String password, String email, String firstName, String lastName,
+                Callback<Authorization> callback);
+
+    void signIn(String username, String password, Callback<Authorization> callback);
 
     Authorization signIn(String username, String password) throws Exception;
 
     Authorization refreshToken(String refreshToken) throws Exception;
 
-    void logout(String accessToken) throws Exception;
+    void logout(Callback<Void> callback);
+
 }

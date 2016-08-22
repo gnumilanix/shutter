@@ -1,20 +1,24 @@
 package com.milanix.shutter.feed.list.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.milanix.shutter.R;
+import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentFeedListBinding;
+import com.milanix.shutter.feed.FeedModule;
+import com.milanix.shutter.feed.detail.view.FeedDetailActivity;
 import com.milanix.shutter.feed.list.FeedListContract;
 import com.milanix.shutter.feed.list.FeedListModule;
 import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.core.AbstractFragment;
 
 import java.util.List;
 
@@ -25,7 +29,8 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public class FeedListFragment extends AbstractFragment<FeedListContract.Presenter, FragmentFeedListBinding> implements FeedListContract.View {
+public class FeedListFragment extends AbstractFragment<FeedListContract.Presenter, FragmentFeedListBinding> implements
+        FeedListContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     FeedListAdapter feedListAdapter;
@@ -34,7 +39,7 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getUserComponent().with(new FeedListModule(this)).inject(this);
-        performBinding(R.layout.fragment_feed_list);
+        performBinding(inflater, R.layout.fragment_feed_list, container);
 
         presenter.getFeeds();
 
@@ -42,10 +47,11 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
     }
 
     @Override
-    protected void performBinding(@LayoutRes int layout) {
-        super.performBinding(layout);
+    protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
+        super.performBinding(inflater, layout, container);
         binding.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.setAdapter(feedListAdapter);
+        binding.setRefreshListener(this);
     }
 
     @Override
@@ -54,7 +60,27 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
     }
 
     @Override
+    public void openFeed(long feedId) {
+        startActivity(new Intent(getActivity(), FeedDetailActivity.class).putExtra(FeedModule.FEED_ID, feedId));
+    }
+
+    @Override
     public void handleFeedRefreshError() {
         Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0), "Error refreshing feeds", Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void showProgress() {
+        binding.swipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void hideProgress() {
+        binding.swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.refreshFeeds();
     }
 }

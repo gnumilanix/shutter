@@ -2,6 +2,9 @@ package com.milanix.shutter.login;
 
 import com.milanix.shutter.App;
 import com.milanix.shutter.login.presenter.LoginPresenter;
+import com.milanix.shutter.user.account.IAccountStore;
+import com.milanix.shutter.user.auth.IAuthStore;
+import com.milanix.shutter.user.model.IUserRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,7 +28,8 @@ public class LoginModule {
     }
 
     @Provides
-    public LoginContract.Presenter provideLoginPresenter(LoginContract.View view, App app) {
-        return new LoginPresenter(view, app);
+    public LoginContract.Presenter provideLoginPresenter(LoginContract.View view, App app, IAuthStore authStore,
+                                                         IAccountStore accountStore, IUserRepository userRepository) {
+        return new LoginPresenter(view, app, authStore, accountStore, userRepository);
     }
 }

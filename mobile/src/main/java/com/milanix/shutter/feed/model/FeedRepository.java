@@ -50,7 +50,10 @@ public class FeedRepository implements IFeedRepository {
         localStore.getFeeds(new Callback<List<Feed>>() {
             @Override
             public void onSuccess(List<Feed> result) {
-                callback.onSuccess(result);
+                if (result.isEmpty())
+                    onFailure(new Exception("No feeds found"));
+                else
+                    callback.onSuccess(result);
             }
 
             @Override

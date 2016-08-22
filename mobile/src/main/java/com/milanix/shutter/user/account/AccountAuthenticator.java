@@ -1,4 +1,4 @@
-package com.milanix.shutter.user.auth;
+package com.milanix.shutter.user.account;
 
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.BundleBuilder;
 import com.milanix.shutter.login.view.LoginActivity;
+import com.milanix.shutter.user.auth.IAuthStore;
 
 import javax.inject.Inject;
 
@@ -25,11 +26,11 @@ import static android.accounts.AccountManager.KEY_ERROR_CODE;
 import static android.accounts.AccountManager.KEY_INTENT;
 
 /**
- * Authenticator that authenticates this user account
+ * AccountAuthenticator that authenticates this user account
  *
  * @author milan
  */
-public class Authenticator extends AbstractAccountAuthenticator {
+public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public final static String ARG_ACCOUNT_TYPE = "_account_type";
     public final static String ARG_ACCOUNT_NAME = "_account_name";
     public final static String ARG_AUTH_TYPE = "_auth_type";
@@ -49,17 +50,17 @@ public class Authenticator extends AbstractAccountAuthenticator {
     public static final String ERROR_INVALID_TOKEN_TYPE = "INVALID_TOKEN_TYPE";
 
     @Inject
-    protected OAuthStore store;
+    protected IAuthStore authStore;
     @Inject
     protected AccountManager manager;
 
     protected final Context context;
 
-    public Authenticator(Context context) {
+    public AccountAuthenticator(Context context) {
         super(context);
         this.context = context;
 
-        ((App) context).getAppComponent().inject(this);
+        ((App) context.getApplicationContext()).getAppComponent().inject(this);
     }
 
     @Override
@@ -100,7 +101,7 @@ public class Authenticator extends AbstractAccountAuthenticator {
                         putExtra(ARG_ACCOUNT_NAME, account.name))
                         .build();
             } else {
-                manager.setAuthToken(account, authToken, authTokenType);
+                manager.setAuthToken(account, authTokenType, authToken);
 
                 return new BundleBuilder().putString(KEY_ACCOUNT_NAME, account.name)
                         .putString(KEY_ACCOUNT_TYPE, account.type)
@@ -147,24 +148,13 @@ public class Authenticator extends AbstractAccountAuthenticator {
     private String getToken(Account account, String authTokenType) {
         final String authToken = manager.peekAuthToken(account, authTokenType);
 
-        if (TextUtils.isEmpty(authToken))
-            return refreshAuthToken(account.name, manager.getPassword(account));
-        else
+        if (TextUtils.isEmpty(authToken)) {
+            try {
+                return authStore.signIn(account.name, manager.getPassword(account)).getAccessToken();
+            } catch (Exception ignored) {
+                return null;
+            }
+        } else
             return authToken;
-    }
-
-    /**
-     * Refreshes a token
-     *
-     * @param username of the user
-     * @param password of the user
-     * @return token if refreshed
-     */
-    private String refreshAuthToken(String username, String password) {
-        try {
-            return store.signIn(username, password).getAccessToken();
-        } catch (Exception ignored) {
-            return null;
-        }
     }
 }

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!-- Required by authenticator -->
+    <!-- Required by accountAuthenticator -->
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
@@ -30,6 +30,14 @@
             android:launchMode="singleTop">
 
         </activity>
+        <activity
+            android:name=".feed.detail.view.FeedDetailActivity"
+            android:parentActivityName=".feed.list.view.FeedListActivity"
+            android:theme="@style/AppTheme.Detail">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".feed.list.view.FeedListActivity" />
+        </activity>
 
         <!-- Sync services -->
         <service
@@ -41,11 +49,12 @@
             </intent-filter>
         </service>
 
-        <!-- Authenticator service-->
-        <service android:name=".user.auth.AuthenticatorService">
+        <!-- AccountAuthenticator service-->
+        <service android:name=".user.account.AccountAuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />

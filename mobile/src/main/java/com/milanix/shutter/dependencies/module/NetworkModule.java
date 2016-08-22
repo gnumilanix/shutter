@@ -1,5 +1,8 @@
 package com.milanix.shutter.dependencies.module;
 
+import com.milanix.shutter.user.auth.AuthorizationInterceptor;
+import com.milanix.shutter.user.auth.OAuthenticator;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -16,7 +19,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class NetworkModule {
-    private static final String BASE_API_URL = "https://api.shutter.com";
+    private static final String BASE_API_URL = " https://shutter.getsandbox.com";
+
+    @Singleton
+    @Provides
+    public OkHttpClient provideHttpClient(OAuthenticator authenticator,
+                                          HttpLoggingInterceptor loggingInterceptor,
+                                          AuthorizationInterceptor authorizationInterceptor) {
+        return new OkHttpClient.Builder().authenticator(authenticator)
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(authorizationInterceptor).build();
+    }
+
+    @Singleton
+    @Provides
+    public GsonConverterFactory provideGsonConverterFactory() {
+        return GsonConverterFactory.create();
+    }
 
     @Singleton
     @Provides
@@ -31,17 +50,5 @@ public class NetworkModule {
                 .baseUrl(BASE_API_URL)
                 .addConverterFactory(gsonConverterFactory)
                 .client(httpClient).build();
-    }
-
-    @Singleton
-    @Provides
-    public OkHttpClient provideHttpClient(HttpLoggingInterceptor loggingInterceptor) {
-        return new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
-    }
-
-    @Singleton
-    @Provides
-    public GsonConverterFactory provideGsonConverterFactory() {
-        return GsonConverterFactory.create();
     }
 }

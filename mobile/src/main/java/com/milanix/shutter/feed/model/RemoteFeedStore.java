@@ -14,7 +14,7 @@ import retrofit2.Response;
  * @author milan
  */
 public class RemoteFeedStore implements IFeedStore {
-    private FeedApi feedApi;
+    private final FeedApi feedApi;
 
     @Inject
     public RemoteFeedStore(FeedApi feedApi) {

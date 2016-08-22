@@ -19,11 +19,13 @@ public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> 
     private final IStore.Callback<List<Feed>> feedsCallback = new IStore.Callback<List<Feed>>() {
         @Override
         public void onSuccess(List<Feed> result) {
+            view.hideProgress();
             view.showFeeds(result);
         }
 
         @Override
         public void onFailure(Throwable t) {
+            view.hideProgress();
             view.handleFeedRefreshError();
         }
     };
@@ -37,11 +39,13 @@ public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> 
 
     @Override
     public void getFeeds() {
+        view.showProgress();
         repository.getFeeds(feedsCallback);
     }
 
     @Override
     public void refreshFeeds() {
+        view.showProgress();
         repository.refreshFeeds(feedsCallback);
     }
 

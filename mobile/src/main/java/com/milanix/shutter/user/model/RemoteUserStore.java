@@ -12,13 +12,28 @@ import retrofit2.Response;
  * @author milan
  */
 public class RemoteUserStore implements IUserStore {
-    private UserApi userApi;
+    private final UserApi userApi;
 
     @Inject
     public RemoteUserStore(UserApi userApi) {
         this.userApi = userApi;
     }
 
+
+    @Override
+    public void getSelf(final Callback<User> callback) {
+        userApi.getSelf().enqueue(new RestCallback<User>() {
+            @Override
+            public void onResponse(Response<User> response) {
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
 
     @Override
     public void getUser(String userId, final Callback<User> callback) {
@@ -41,7 +56,7 @@ public class RemoteUserStore implements IUserStore {
     }
 
     @Override
-    public void deleteUser(User user) {
+    public void deleteUser(String userId) {
         throw new UnsupportedOperationException("Delete operation not supported in this store");
     }
 }

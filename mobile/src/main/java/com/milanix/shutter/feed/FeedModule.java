@@ -14,7 +14,7 @@ import dagger.Provides;
 public class FeedModule {
     public static final String FEED_ID = "_feed_id";
 
-    private long feedId;
+    private final long feedId;
 
     public FeedModule(long feedId) {
         this.feedId = feedId;

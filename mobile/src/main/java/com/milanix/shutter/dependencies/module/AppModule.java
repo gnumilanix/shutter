@@ -1,7 +1,6 @@
 package com.milanix.shutter.dependencies.module;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 
 import com.milanix.shutter.App;
 

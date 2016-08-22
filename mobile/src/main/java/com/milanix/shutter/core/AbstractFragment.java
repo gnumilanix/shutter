@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import com.milanix.shutter.App;
 import com.milanix.shutter.dependencies.component.AppComponent;
@@ -18,13 +20,13 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public abstract class AbstractFragment<T extends IPresenter,B extends ViewDataBinding> extends Fragment {
+public abstract class AbstractFragment<T extends IPresenter, B extends ViewDataBinding> extends Fragment {
     @Inject
     protected T presenter;
     protected B binding;
 
-    protected void performBinding(@LayoutRes int layout) {
-        binding = DataBindingUtil.setContentView(getActivity(), layout);
+    protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
+        binding = DataBindingUtil.inflate(inflater, layout, container, false);
     }
 
     @Override

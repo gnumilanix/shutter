@@ -57,7 +57,8 @@ public class LocalFeedStore implements IFeedStore {
         realm.insertOrUpdate(feeds);
         realm.commitTransaction();
 
-        callback.onSuccess(feeds);
+        if (null != callback)
+            callback.onSuccess(feeds);
     }
 
     @Override

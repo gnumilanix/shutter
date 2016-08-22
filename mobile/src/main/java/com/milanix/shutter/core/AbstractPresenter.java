@@ -6,7 +6,7 @@ package com.milanix.shutter.core;
  * @author milan
  */
 public abstract class AbstractPresenter<T extends IView> implements IPresenter {
-    protected T view;
+    protected final T view;
 
     public AbstractPresenter(T view) {
         this.view = view;

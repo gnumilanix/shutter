@@ -1,30 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="adapter"
-            type="com.milanix.shutter.feed.list.view.FeedListAdapter" />
+            name="feed"
+            type="com.milanix.shutter.feed.model.Feed" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackgroundList"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:background="@android:color/black"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
+        <ImageView
+            android:id="@+id/ivImage"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="@android:color/white">
+            android:layout_height="match_parent"
+            app:imageUrl="@{feed.image}"
+            app:transformation="@{`crop`}"
+            tools:background="@color/colorAccentPink" />
 
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#99000000"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed"
+            android:maxLines="1"
+            android:padding="@dimen/margin_normal"
+            android:text="@{feed.title}"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            tools:text="Stars through lens" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#99000000"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed"
+            android:maxLines="6"
+            android:padding="@dimen/margin_normal"
+            android:text="@{feed.description}"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_small"
+            tools:text="Wondering what is in there, another Earth, another me or just never ending darkness" />
+    </RelativeLayout>
 </layout>

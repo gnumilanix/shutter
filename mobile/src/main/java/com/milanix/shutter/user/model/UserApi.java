@@ -11,10 +11,10 @@ import retrofit2.http.Path;
  */
 public interface UserApi {
 
-    @GET("api/v1/user/me")
-    Call<User> getMe();
+    @GET("api/v1/users/me")
+    Call<User> getSelf();
 
-    @GET("api/v1/user/{userId}")
+    @GET("api/v1/users/{userId}")
     Call<User> getUser(@Path("userId") String userId);
 
 }
