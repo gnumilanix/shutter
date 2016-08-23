@@ -1,11 +1,11 @@
 package com.milanix.shutter.feed.detail.presenter;
 
+import com.milanix.shutter.core.AbstractPresenter;
+import com.milanix.shutter.core.IStore;
 import com.milanix.shutter.feed.FeedModule;
 import com.milanix.shutter.feed.detail.FeedDetailContract;
 import com.milanix.shutter.feed.model.Feed;
 import com.milanix.shutter.feed.model.IFeedRepository;
-import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.core.IStore;
 
 import javax.inject.Inject;
 import javax.inject.Named;

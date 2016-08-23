@@ -11,7 +11,7 @@
 
     <style name="AppTheme" parent="CoreTheme" />
 
-    <style name="AppTheme.Detail" parent="AppTheme"></style>
+    <style name="AppTheme.Detail" parent="AppTheme" />
 
     <!-- Fab-->
     <style name="FabStyle">

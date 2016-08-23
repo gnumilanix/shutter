@@ -25,22 +25,6 @@
             tools:background="@color/colorAccentPink" />
 
         <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="#99000000"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-condensed"
-            android:maxLines="1"
-            android:padding="@dimen/margin_normal"
-            android:text="@{feed.title}"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_large"
-            android:textStyle="bold"
-            tools:text="Stars through lens" />
-
-        <TextView
             android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +36,7 @@
             android:padding="@dimen/margin_normal"
             android:text="@{feed.description}"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_small"
+            android:textSize="@dimen/text_medium"
             tools:text="Wondering what is in there, another Earth, another me or just never ending darkness" />
     </RelativeLayout>
 </layout>

@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.milanix.shutter.HomeActivity;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractActivity;
 import com.milanix.shutter.databinding.ActivityLoginBinding;
-import com.milanix.shutter.feed.list.view.FeedListActivity;
 import com.milanix.shutter.login.LoginContract;
 import com.milanix.shutter.login.LoginModule;
 import com.milanix.shutter.login.model.Login;
@@ -50,7 +50,7 @@ public class LoginActivity extends AbstractActivity<LoginContract.Presenter, Act
     @Override
     public void setSessionAvailable() {
         finish();
-        startActivity(new Intent(this, FeedListActivity.class));
+        startActivity(new Intent(this, HomeActivity.class));
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.milanix.shutter.feed.list.presenter;
 
+import com.milanix.shutter.core.AbstractPresenter;
+import com.milanix.shutter.core.IStore;
 import com.milanix.shutter.feed.list.FeedListContract;
 import com.milanix.shutter.feed.model.Feed;
 import com.milanix.shutter.feed.model.IFeedRepository;
-import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.core.IStore;
 
 import java.util.List;
 

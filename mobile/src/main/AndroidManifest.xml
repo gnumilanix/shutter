@@ -26,17 +26,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".feed.list.view.FeedListActivity"
+            android:name=".HomeActivity"
             android:launchMode="singleTop">
 
         </activity>
         <activity
             android:name=".feed.detail.view.FeedDetailActivity"
-            android:parentActivityName=".feed.list.view.FeedListActivity"
+            android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.Detail">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".feed.list.view.FeedListActivity" />
+                android:value=".HomeActivity" />
         </activity>
 
         <!-- Sync services -->

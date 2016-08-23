@@ -1,22 +1,24 @@
 package com.milanix.shutter.feed.detail.view;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.milanix.shutter.R;
+import com.milanix.shutter.core.AbstractBindingActivity;
+import com.milanix.shutter.databinding.ActivityFeedDetailBinding;
 
 /**
  * Activity containing a single feed
  *
  * @author milan
  */
-public class FeedDetailActivity extends AppCompatActivity {
+public class FeedDetailActivity extends AbstractBindingActivity<ActivityFeedDetailBinding> {
     public static final String TAG_FRAGMENT_FEEDS = "_fragment_feed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_singlepane);
+        performBinding(R.layout.activity_feed_detail);
+        setToolbar();
 
         if (null == savedInstanceState) {
             final FeedDetailFragment feedFragment = new FeedDetailFragment();
@@ -25,5 +27,11 @@ public class FeedDetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, feedFragment,
                     TAG_FRAGMENT_FEEDS).commit();
         }
+    }
+
+    private void setToolbar() {
+        setSupportActionBar(binding.toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 }
