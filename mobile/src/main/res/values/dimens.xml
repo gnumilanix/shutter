@@ -12,6 +12,7 @@
     <dimen name="margin_normal">8dp</dimen>
     <dimen name="margin_large">16dp</dimen>
 
+    <dimen name="item_feed_width">250dp</dimen>
     <dimen name="item_feed_size">120dp</dimen>
     <dimen name="item_notification_size">80dp</dimen>
 

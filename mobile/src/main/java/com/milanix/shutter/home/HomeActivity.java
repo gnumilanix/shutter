@@ -60,6 +60,6 @@ public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> i
                 break;
         }
 
-        transaction.commit();
+        transaction.commitNow();
     }
 }

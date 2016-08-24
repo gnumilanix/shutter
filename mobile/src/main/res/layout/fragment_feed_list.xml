@@ -4,10 +4,6 @@
     <data>
 
         <variable
-            name="layoutManager"
-            type="android.support.v7.widget.LinearLayoutManager" />
-
-        <variable
             name="adapter"
             type="com.milanix.shutter.feed.list.view.FeedListAdapter" />
 
@@ -22,13 +18,13 @@
         android:layout_height="match_parent"
         app:onRefreshListener="@{refreshListener}">
 
-        <android.support.v7.widget.RecyclerView
+        <com.milanix.shutter.view.AutoFitRecyclerView
             android:id="@+id/rvFeedList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBackgroundList"
+            android:columnWidth="@dimen/item_feed_width"
             app:adapter="@{adapter}"
-            app:hasFixedSize="@{true}"
-            app:layoutManager="@{layoutManager}" />
+            app:hasFixedSize="@{true}" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class NetworkModule {
-    private static final String BASE_API_URL = " https://shutter.getsandbox.com";
+    private static final String BASE_API_URL = "https://shutter.getsandbox.com";
 
     @Singleton
     @Provides
