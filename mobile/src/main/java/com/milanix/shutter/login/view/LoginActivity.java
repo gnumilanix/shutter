@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
-import com.milanix.shutter.HomeActivity;
+import com.milanix.shutter.home.HomeActivity;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractActivity;
 import com.milanix.shutter.databinding.ActivityLoginBinding;

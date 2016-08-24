@@ -1,4 +1,4 @@
-package com.milanix.shutter.feed.model;
+package com.milanix.shutter.notification.model;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -12,13 +12,13 @@ import com.milanix.shutter.user.UserComponent;
 import javax.inject.Inject;
 
 /**
- * Implementation of {@link GcmTaskService} for syncing feeds
+ * Implementation of {@link GcmTaskService} for syncing notifications
  *
  * @author milan
  */
-public class FeedSyncService extends GcmTaskService {
+public class NotificationSyncService extends GcmTaskService {
     @Inject
-    IFeedRepository feedRepository;
+    INotificationRepository notificationRepository;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -34,7 +34,7 @@ public class FeedSyncService extends GcmTaskService {
     @Override
     public int onRunTask(TaskParams taskParams) {
         try {
-            feedRepository.refreshFeeds(null);
+            notificationRepository.refreshNotifications(null);
             return GcmNetworkManager.RESULT_SUCCESS;
         } catch (Exception e) {
             return GcmNetworkManager.RESULT_FAILURE;

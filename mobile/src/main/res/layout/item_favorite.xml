@@ -11,16 +11,19 @@
 
         <variable
             name="view"
-            type="com.milanix.shutter.feed.list.FeedListContract.View" />
+            type="com.milanix.shutter.feed.favorite.FavoriteListContract.View" />
     </data>
 
-    <com.milanix.shutter.view.ProportionalFrameLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/item_feed_size"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_small"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()->view.openFeed(feed.id)}"
         app:cardBackgroundColor="@android:color/white"
-        app:proportion="0.75"
         tools:ignore="UnusedAttribute">
 
         <RelativeLayout
@@ -29,7 +32,7 @@
 
             <ImageView
                 android:id="@+id/ivImage"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/item_feed_size"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -41,18 +44,33 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorBlack99"
+                android:layout_margin="@dimen/margin_normal"
+                android:layout_toEndOf="@+id/ivImage"
+                android:layout_toRightOf="@+id/ivImage"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-condensed"
                 android:maxLines="1"
-                android:padding="@dimen/margin_normal"
                 android:text="@{feed.title}"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_large"
+                android:textColor="@android:color/black"
                 android:textStyle="bold"
                 tools:text="Stars through lens" />
 
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/tvTitle"
+                android:layout_alignLeft="@+id/tvTitle"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/tvTitle"
+                android:layout_alignStart="@+id/tvTitle"
+                android:layout_below="@+id/tvTitle"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="4"
+                android:text="@{feed.description}"
+                tools:text="Wondering what is in there, another Earth, another me or just never ending darkness" />
         </RelativeLayout>
-    </com.milanix.shutter.view.ProportionalFrameLayout>
+    </android.support.v7.widget.CardView>
 </layout>

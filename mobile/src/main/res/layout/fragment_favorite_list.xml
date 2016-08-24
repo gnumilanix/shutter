@@ -9,7 +9,7 @@
 
         <variable
             name="adapter"
-            type="com.milanix.shutter.feed.list.view.FeedListAdapter" />
+            type="com.milanix.shutter.feed.favorite.view.FavoriteListAdapter" />
 
         <variable
             name="refreshListener"
