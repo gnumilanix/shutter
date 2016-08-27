@@ -4,10 +4,17 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.milanix.shutter.R;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import static com.milanix.shutter.view.ProportionalFrameLayout.ProportionTo.HORIZONTAL;
+import static com.milanix.shutter.view.ProportionalFrameLayout.ProportionTo.VERTICAL;
 
 /**
  * Extension of {@link FrameLayout} with height proportional to it's weight
@@ -16,7 +23,15 @@ import com.milanix.shutter.R;
  */
 public class ProportionalFrameLayout extends FrameLayout {
 
+    @IntDef({HORIZONTAL, VERTICAL})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ProportionTo {
+        int HORIZONTAL = 0;
+        int VERTICAL = 1;
+    }
+
     private float proportion;
+    private int proportionTo;
 
     public ProportionalFrameLayout(Context context) {
         super(context, null);
@@ -40,14 +55,24 @@ public class ProportionalFrameLayout extends FrameLayout {
     private void setAttributes(Context context, AttributeSet attrs, int defStyleAttr) {
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.proportion, defStyleAttr, 0);
         proportion = a.getFloat(R.styleable.proportion_proportion, 0.75f);
+        proportionTo = a.getInt(R.styleable.proportion_proportion_to, ProportionTo.HORIZONTAL);
         a.recycle();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        final int width = MeasureSpec.getSize(widthMeasureSpec);
-        super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec((int) (width * proportion), MeasureSpec.EXACTLY));
+        switch (proportionTo) {
+            case ProportionTo.VERTICAL:
+                final int height = MeasureSpec.getSize(heightMeasureSpec);
+                super.onMeasure(MeasureSpec.makeMeasureSpec((int) (height * proportion), MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+                break;
+            default:
+                final int width = MeasureSpec.getSize(widthMeasureSpec);
+                super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec((int) (width * proportion), MeasureSpec.EXACTLY));
+                break;
+        }
     }
 
     @Override

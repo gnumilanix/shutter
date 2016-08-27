@@ -9,10 +9,14 @@ import com.milanix.shutter.feed.list.FeedListComponent;
 import com.milanix.shutter.feed.list.FeedListModule;
 import com.milanix.shutter.feed.model.FeedDataModule;
 import com.milanix.shutter.feed.model.FeedSyncService;
+import com.milanix.shutter.home.HomeComponent;
+import com.milanix.shutter.home.HomeModule;
 import com.milanix.shutter.notification.NotificationListComponent;
 import com.milanix.shutter.notification.NotificationListModule;
 import com.milanix.shutter.notification.model.NotificationDataModule;
 import com.milanix.shutter.notification.model.NotificationSyncService;
+import com.milanix.shutter.user.profile.ProfileComponent;
+import com.milanix.shutter.user.profile.ProfileModule;
 
 import dagger.Subcomponent;
 
@@ -24,6 +28,10 @@ import dagger.Subcomponent;
 @UserScope
 @Subcomponent(modules = {UserModule.class, FeedDataModule.class, NotificationDataModule.class})
 public interface UserComponent {
+    HomeComponent with(HomeModule module);
+
+    ProfileComponent with(ProfileModule module);
+
     FeedComponent with(FeedModule module);
 
     FeedListComponent with(FeedListModule module);

@@ -1,7 +1,6 @@
 package com.milanix.shutter.login;
 
 import com.milanix.shutter.dependencies.scope.ActivityScope;
-import com.milanix.shutter.login.view.LoginActivity;
 
 import dagger.Subcomponent;
 

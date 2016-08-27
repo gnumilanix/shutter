@@ -1,7 +1,6 @@
 package com.milanix.shutter.feed.favorite;
 
 import com.milanix.shutter.dependencies.scope.ActivityScope;
-import com.milanix.shutter.feed.favorite.view.FavoriteListFragment;
 
 import dagger.Subcomponent;
 

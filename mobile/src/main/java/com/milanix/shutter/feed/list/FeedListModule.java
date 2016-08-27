@@ -1,6 +1,5 @@
 package com.milanix.shutter.feed.list;
 
-import com.milanix.shutter.feed.list.presenter.FeedListPresenter;
 import com.milanix.shutter.feed.model.IFeedRepository;
 
 import dagger.Module;

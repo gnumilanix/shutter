@@ -1,7 +1,6 @@
 package com.milanix.shutter.feed.detail;
 
 import com.milanix.shutter.feed.FeedModule;
-import com.milanix.shutter.feed.detail.presenter.FeedDetailPresenter;
 import com.milanix.shutter.feed.model.IFeedRepository;
 
 import javax.inject.Named;

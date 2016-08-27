@@ -1,7 +1,6 @@
 package com.milanix.shutter.feed.detail;
 
 import com.milanix.shutter.dependencies.scope.ActivityScope;
-import com.milanix.shutter.feed.detail.view.FeedDetailFragment;
 
 import dagger.Subcomponent;
 

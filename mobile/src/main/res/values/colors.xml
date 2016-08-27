@@ -10,6 +10,8 @@
     <color name="colorBackgroundList">#fffafafa</color>
     <color name="colorBackgroundListDark">#ffe0e0e0</color>
     <color name="colorBlack99">#99000000</color>
+    <color name="colorTextGrey400">#BDBDBD</color>
+    <color name="colorTextGrey300">#EEEEEE</color>
 
     <color name="colorAccentPink">#FF4081</color>
     <color name="colorRipplePink">#FF80AB</color>

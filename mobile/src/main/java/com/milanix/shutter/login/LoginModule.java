@@ -1,7 +1,6 @@
 package com.milanix.shutter.login;
 
 import com.milanix.shutter.App;
-import com.milanix.shutter.login.presenter.LoginPresenter;
 import com.milanix.shutter.user.account.IAccountStore;
 import com.milanix.shutter.user.auth.IAuthStore;
 import com.milanix.shutter.user.model.IUserRepository;

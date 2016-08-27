@@ -1,7 +1,6 @@
 package com.milanix.shutter.notification;
 
 import com.milanix.shutter.dependencies.scope.ActivityScope;
-import com.milanix.shutter.notification.view.NotificationListFragment;
 
 import dagger.Subcomponent;
 

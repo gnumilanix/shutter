@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.milanix.shutter.user.model.User" />
+
+        <variable
+            name="refreshListener"
+            type="android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener" />
+    </data>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{refreshListener}">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.milanix.shutter.view.ProportionalFrameLayout
+                    android:id="@+id/flAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:proportion="1.0">
+
+                    <ImageView
+                        android:id="@+id/ivAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:imageUrl="@{user.avatar}"
+                        app:transformation="@{`crop`}"
+                        tools:background="@color/colorAccentPink" />
+                </com.milanix.shutter.view.ProportionalFrameLayout>
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/flAvatar"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:padding="@dimen/margin_normal"
+                    android:text="@{user.fullName}"
+                    android:textColor="@color/colorTextGrey400"
+                    android:textSize="@dimen/text_whopping"
+                    tools:text="JOHN DOE" />
+
+                <View
+                    android:id="@+id/dividerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvName"
+                    android:background="@drawable/divider_horizontal_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dividerName"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_normal">
+
+                        <TextView
+                            android:id="@+id/tvFollowers"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@{String.valueOf(user.followers)}"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_whopping"
+                            tools:text="180" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/title_followers"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorTextGrey400"
+                            android:textSize="@dimen/text_small" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_normal">
+
+                        <TextView
+                            android:id="@+id/tvPosts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@{String.valueOf(user.posts)}"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_whopping"
+                            tools:text="10" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/title_posts"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorTextGrey400"
+                            android:textSize="@dimen/text_small" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_normal">
+
+                        <TextView
+                            android:id="@+id/tvFollowing"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@{String.valueOf(user.following)}"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_whopping"
+                            tools:text="20" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/title_following"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorTextGrey400"
+                            android:textSize="@dimen/text_small" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</layout>

@@ -83,21 +83,25 @@ public class AccountStore implements IAccountStore {
 
     @Override
     public void getAuthToken(Account account, final IStore.Callback<String> callback) {
-        accountManager.getAuthToken(account, TOKEN_BEARER, null, false, new AccountManagerCallback<Bundle>() {
-            @Override
-            public void run(AccountManagerFuture<Bundle> accountManagerFuture) {
-                try {
-                    final String token = accountManagerFuture.getResult().getString(AccountManager.KEY_AUTHTOKEN);
+        if (null != account) {
+            accountManager.getAuthToken(account, TOKEN_BEARER, null, false, new AccountManagerCallback<Bundle>() {
+                @Override
+                public void run(AccountManagerFuture<Bundle> accountManagerFuture) {
+                    try {
+                        final String token = accountManagerFuture.getResult().getString(AccountManager.KEY_AUTHTOKEN);
 
-                    if (!TextUtils.isEmpty(token))
-                        callback.onSuccess(token);
-                    else
-                        throw new NullPointerException("Token not found");
-                } catch (Exception e) {
-                    callback.onFailure(e);
+                        if (!TextUtils.isEmpty(token))
+                            callback.onSuccess(token);
+                        else
+                            throw new NullPointerException("Token not found");
+                    } catch (Exception e) {
+                        callback.onFailure(e);
+                    }
                 }
-            }
-        }, null);
+            }, null);
+        } else {
+            callback.onFailure(new NullPointerException("Account not found"));
+        }
     }
 
     @Override

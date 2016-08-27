@@ -8,5 +8,7 @@ import com.android.annotations.Nullable;
  * @author milan
  */
 public interface IUserRepository extends IUserStore {
+    void refreshSelf(@Nullable Callback<User> callback);
+
     void refreshUser(String userId, @Nullable Callback<User> callback);
 }

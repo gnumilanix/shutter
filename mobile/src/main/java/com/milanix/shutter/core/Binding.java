@@ -3,7 +3,9 @@ package com.milanix.shutter.core;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -32,5 +34,16 @@ public class Binding {
             }
         }
         requestBuilder.into(view);
+    }
+
+    /**
+     * Sets given time as a relative time string
+     *
+     * @param view         to set relative time text to
+     * @param timeInMillis relative to
+     */
+    @BindingAdapter(value = "timeInMillis")
+    public static void setRelativeTimeString(TextView view, long timeInMillis) {
+        DateUtils.getRelativeTimeSpanString(timeInMillis, System.currentTimeMillis(), 0L, DateUtils.FORMAT_ABBREV_ALL);
     }
 }

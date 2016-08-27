@@ -1,6 +1,7 @@
 package com.milanix.shutter.user.model;
 
 import com.android.annotations.Nullable;
+import com.milanix.shutter.core.IStore;
 import com.milanix.shutter.dependencies.qualifier.Local;
 import com.milanix.shutter.dependencies.qualifier.Remote;
 
@@ -16,6 +17,24 @@ public class UserRepository implements IUserRepository {
     public UserRepository(@Local IUserStore localStore, @Remote IUserStore remoteStore) {
         this.localStore = localStore;
         this.remoteStore = remoteStore;
+    }
+
+    @Override
+    public void refreshSelf(@Nullable final Callback<User> callback) {
+        remoteStore.getSelf( new Callback<User>() {
+            @Override
+            public void onSuccess(User result) {
+                localStore.putUser(result);
+
+                if (null != callback)
+                    callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onFailure(t);
+            }
+        });
     }
 
     @Override

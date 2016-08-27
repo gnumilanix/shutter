@@ -11,6 +11,14 @@
 
     <style name="AppTheme" parent="CoreTheme" />
 
+    <style name="AppTheme.Login" parent="CoreTheme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Home" parent="CoreTheme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <style name="AppTheme.Detail" parent="AppTheme" />
 
     <!-- Fab-->

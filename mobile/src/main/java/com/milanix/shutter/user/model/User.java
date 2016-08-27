@@ -21,16 +21,11 @@ public class User extends RealmObject {
     private String avatar;
     @PrimaryKey
     private String email;
+    private int followers = 0;
+    private int following = 0;
+    private int posts = 0;
 
     public User() {
-    }
-
-    public User(String firstName, String lastName, String fullName, String avatar, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fullName = fullName;
-        this.avatar = avatar;
-        this.email = email;
     }
 
     public String getFirstName() {
@@ -53,6 +48,18 @@ public class User extends RealmObject {
         return email;
     }
 
+    public int getFollowers() {
+        return followers;
+    }
+
+    public int getFollowing() {
+        return following;
+    }
+
+    public int getPosts() {
+        return posts;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,5 +74,19 @@ public class User extends RealmObject {
     @Override
     public int hashCode() {
         return email.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", email='" + email + '\'' +
+                ", followers=" + followers +
+                ", following=" + following +
+                ", posts=" + posts +
+                '}';
     }
 }

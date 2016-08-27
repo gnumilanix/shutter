@@ -14,45 +14,54 @@
             type="com.milanix.shutter.feed.list.FeedListContract.View" />
     </data>
 
-    <com.milanix.shutter.view.ProportionalFrameLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_small"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()->view.openFeed(feed.id)}"
         app:cardBackgroundColor="@android:color/white"
-        app:proportion="0.75"
         tools:ignore="UnusedAttribute">
 
-        <RelativeLayout
+        <com.milanix.shutter.view.ProportionalFrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:proportion="0.75">
 
-            <ImageView
-                android:id="@+id/ivImage"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                app:imageUrl="@{feed.thumbnail}"
-                app:transformation="@{`crop`}"
-                tools:background="@color/colorAccentPink" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorBlack99"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-condensed"
-                android:maxLines="1"
-                android:padding="@dimen/margin_normal"
-                android:text="@{feed.title}"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_large"
-                android:textStyle="bold"
-                tools:text="Stars through lens" />
+                <ImageView
+                    android:id="@+id/ivImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    app:imageUrl="@{feed.thumbnail}"
+                    app:transformation="@{`crop`}"
+                    tools:background="@color/colorAccentPink" />
 
-        </RelativeLayout>
-    </com.milanix.shutter.view.ProportionalFrameLayout>
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorBlack99"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-condensed"
+                    android:maxLines="1"
+                    android:padding="@dimen/margin_normal"
+                    android:text="@{feed.title}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_large"
+                    android:textStyle="bold"
+                    tools:text="Stars through lens" />
+
+            </RelativeLayout>
+        </com.milanix.shutter.view.ProportionalFrameLayout>
+    </android.support.v7.widget.CardView>
 </layout>

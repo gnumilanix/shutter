@@ -1,7 +1,6 @@
 package com.milanix.shutter.notification;
 
 import com.milanix.shutter.notification.model.INotificationRepository;
-import com.milanix.shutter.notification.presenter.NotificationListPresenter;
 
 import dagger.Module;
 import dagger.Provides;

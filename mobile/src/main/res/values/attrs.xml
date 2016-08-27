@@ -2,5 +2,9 @@
 <resources>
     <declare-styleable name="proportion">
         <attr name="proportion" format="float" />
+        <attr name="proportion_to" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
     </declare-styleable>
 </resources>

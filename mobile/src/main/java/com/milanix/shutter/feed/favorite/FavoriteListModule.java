@@ -1,6 +1,5 @@
 package com.milanix.shutter.feed.favorite;
 
-import com.milanix.shutter.feed.favorite.presenter.FavoriteListPresenter;
 import com.milanix.shutter.feed.model.IFeedRepository;
 
 import dagger.Module;

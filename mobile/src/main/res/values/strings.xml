@@ -17,9 +17,18 @@
     <string name="title_feeds">Feeds</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_followers">Followers</string>
+    <string name="title_posts">Posts</string>
+    <string name="title_following">Following</string>
 
     <string name="message_logged_in">Logged in</string>
     <string name="message_hello">Hello %s</string>
     <string name="message_login_error">There was an error while logging in.</string>
     <string name="message_network_disconnected">Can\'t connect to the internet</string>
+
+    <string name="error_refresh_profile">Error refreshing profile</string>
+    <string name="error_refresh_feed">Error refreshing feed</string>
+    <string name="error_refresh_feeds">Error refreshing feeds</string>
+    <string name="error_refresh_favorites">Error refreshing favorites</string>
+    <string name="error_refresh_notifications">Error refreshing notifications</string>
 </resources>

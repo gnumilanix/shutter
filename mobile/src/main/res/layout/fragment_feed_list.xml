@@ -5,7 +5,7 @@
 
         <variable
             name="adapter"
-            type="com.milanix.shutter.feed.list.view.FeedListAdapter" />
+            type="com.milanix.shutter.feed.list.FeedListAdapter" />
 
         <variable
             name="refreshListener"
