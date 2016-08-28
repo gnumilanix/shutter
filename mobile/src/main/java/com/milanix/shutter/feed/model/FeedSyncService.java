@@ -34,7 +34,9 @@ public class FeedSyncService extends GcmTaskService {
     @Override
     public int onRunTask(TaskParams taskParams) {
         try {
-            feedRepository.refreshFeeds(null);
+            feedRepository.refreshFeeds(new Query.Builder().setType(Query.Type.SELF).build(), null);
+            feedRepository.refreshFeeds(new Query.Builder().setType(Query.Type.SELF).setFavorite(true).build(), null);
+            feedRepository.refreshFeeds(new Query.Builder().setType(Query.Type.PUBLIC).build(), null);
             return GcmNetworkManager.RESULT_SUCCESS;
         } catch (Exception e) {
             return GcmNetworkManager.RESULT_FAILURE;

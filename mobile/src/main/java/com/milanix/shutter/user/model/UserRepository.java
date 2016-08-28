@@ -1,7 +1,6 @@
 package com.milanix.shutter.user.model;
 
 import com.android.annotations.Nullable;
-import com.milanix.shutter.core.IStore;
 import com.milanix.shutter.dependencies.qualifier.Local;
 import com.milanix.shutter.dependencies.qualifier.Remote;
 

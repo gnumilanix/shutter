@@ -1,8 +1,10 @@
 package com.milanix.shutter.feed.model;
 
+import com.android.annotations.NonNull;
 import com.milanix.shutter.core.IStore;
 
 import java.util.List;
+
 
 /**
  * Contract for classes providing feed data
@@ -12,13 +14,13 @@ import java.util.List;
 public interface IFeedStore extends IStore {
     void getFeed(long feedId, Callback<Feed> callback);
 
-    void putFeed(Feed feed, Callback<Feed> callback);
+    void putFeed(@NonNull Feed feed, Callback<Feed> callback);
 
-    void deleteFeed(Feed feed, Callback<Void> callback);
+    void deleteFeed(long feedId, Callback<Void> callback);
 
-    void getFeeds(Callback<List<Feed>> callback);
+    void getFeeds(@NonNull Query query, Callback<List<Feed>> callback);
 
-    void putFeeds(List<Feed> feeds, Callback<List<Feed>> callback);
+    void putFeeds(@NonNull List<Feed> feeds, Callback<List<Feed>> callback);
 
-    void deleteFeeds(List<Feed> feeds, Callback<Void> callback);
+    void deleteFeeds(@NonNull List<Long> feedIds, Callback<Void> callback);
 }

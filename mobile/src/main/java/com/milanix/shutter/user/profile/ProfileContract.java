@@ -25,11 +25,15 @@ public interface ProfileContract {
         void showProgress();
 
         void hideProgress();
+
+        void logoutComplete();
     }
 
     interface Presenter extends IPresenter {
         void getProfile();
 
         void refreshProfile();
+
+        void logout();
     }
 }

@@ -35,7 +35,7 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
-    <!-- NavigationDrawer Drawer -->
+    <!-- Navigation drawer -->
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@android:color/white</item>

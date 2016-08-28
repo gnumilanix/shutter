@@ -1,5 +1,6 @@
 package com.milanix.shutter.feed.model;
 
+import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author milan
  */
 public interface IFeedRepository extends IFeedStore {
-    void refreshFeeds(@Nullable Callback<List<Feed>> callback);
+    void refreshFeeds(@NonNull Query query, @Nullable Callback<List<Feed>> callback);
 
     void refreshFeed(long feedId, @Nullable Callback<Feed> callback);
 }

@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import io.realm.Realm;
 
-import static com.milanix.shutter.core.RestCallback.invokeCallback;
+import static com.milanix.shutter.core.RealmHelper.invokeCallback;
 
 /**
  * Store that provide notification data from local data source

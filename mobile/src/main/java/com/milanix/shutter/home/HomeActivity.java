@@ -5,14 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringDef;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractActivity;
 import com.milanix.shutter.databinding.ActivityHomeBinding;
-import com.milanix.shutter.feed.FeedModule;
-import com.milanix.shutter.feed.detail.FeedDetailActivity;
 import com.milanix.shutter.feed.favorite.FavoriteListFragment;
 import com.milanix.shutter.feed.list.FeedListFragment;
 import com.milanix.shutter.notification.NotificationListFragment;
@@ -55,23 +51,6 @@ public class HomeActivity extends AbstractActivity<HomeContract.Presenter, Activ
 
         if (null == savedInstanceState) {
             switchFragment(Tab.FEEDS);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_notifications:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 

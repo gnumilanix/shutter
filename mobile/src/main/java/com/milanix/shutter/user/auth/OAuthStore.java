@@ -32,7 +32,7 @@ public class OAuthStore implements IAuthStore {
     public void initExistingSession(Callback<Authorization> callback) {
         try {
             accountStore.getCachedAuthToken(accountStore.getDefaultAccount());
-        }catch (Exception e){
+        } catch (Exception e) {
             callback.onFailure(e);
         }
     }
@@ -97,7 +97,7 @@ public class OAuthStore implements IAuthStore {
 
             @Override
             public void onFailure(Throwable t) {
-                callback.onFailure(t);
+                deleteAccount(callback);
             }
         });
     }

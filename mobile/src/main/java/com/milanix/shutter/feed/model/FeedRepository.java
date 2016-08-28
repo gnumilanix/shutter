@@ -41,13 +41,13 @@ public class FeedRepository implements IFeedRepository {
     }
 
     @Override
-    public void deleteFeed(final Feed feed, final Callback<Void> callback) {
-        localStore.deleteFeed(feed, callback);
+    public void deleteFeed(final long feedId, final Callback<Void> callback) {
+        localStore.deleteFeed(feedId, callback);
     }
 
     @Override
-    public void getFeeds(final Callback<List<Feed>> callback) {
-        localStore.getFeeds(new Callback<List<Feed>>() {
+    public void getFeeds(final Query query, final Callback<List<Feed>> callback) {
+        localStore.getFeeds(query, new Callback<List<Feed>>() {
             @Override
             public void onSuccess(List<Feed> result) {
                 if (result.isEmpty())
@@ -58,7 +58,7 @@ public class FeedRepository implements IFeedRepository {
 
             @Override
             public void onFailure(Throwable t) {
-                refreshFeeds(callback);
+                refreshFeeds(query, callback);
             }
         });
     }
@@ -69,13 +69,13 @@ public class FeedRepository implements IFeedRepository {
     }
 
     @Override
-    public void deleteFeeds(final List<Feed> feeds, final Callback<Void> callback) {
-        localStore.deleteFeeds(feeds, callback);
+    public void deleteFeeds(final List<Long> feedIds, final Callback<Void> callback) {
+        localStore.deleteFeeds(feedIds, callback);
     }
 
     @Override
-    public void refreshFeeds(final Callback<List<Feed>> callback) {
-        remoteStore.getFeeds(new Callback<List<Feed>>() {
+    public void refreshFeeds(Query query, final Callback<List<Feed>> callback) {
+        remoteStore.getFeeds(query, new Callback<List<Feed>>() {
             @Override
             public void onSuccess(List<Feed> result) {
                 localStore.putFeeds(result, null);

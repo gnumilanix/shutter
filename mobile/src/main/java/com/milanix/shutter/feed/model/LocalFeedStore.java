@@ -5,9 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.realm.Realm;
-import io.realm.RealmQuery;
 
-import static com.milanix.shutter.core.RestCallback.invokeCallback;
+import static com.milanix.shutter.core.RealmHelper.invokeCallback;
+import static com.milanix.shutter.core.RealmHelper.where;
 
 /**
  * Store that provide feed data from local data source
@@ -36,17 +36,17 @@ public class LocalFeedStore implements IFeedStore {
     }
 
     @Override
-    public void deleteFeed(Feed feed, Callback<Void> callback) {
+    public void deleteFeed(long feedId, Callback<Void> callback) {
         final Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        realm.where(Feed.class).equalTo(Feed.FIELD_ID, feed.getId()).findAll().deleteAllFromRealm();
+        realm.where(Feed.class).equalTo(Feed.FIELD_ID, feedId).findAll().deleteAllFromRealm();
         realm.commitTransaction();
 
         callback.onSuccess(null);
     }
 
     @Override
-    public void getFeeds(Callback<List<Feed>> callback) {
+    public void getFeeds(Query query,Callback<List<Feed>> callback) {
         invokeCallback(Realm.getDefaultInstance().where(Feed.class).findAll(), callback);
     }
 
@@ -62,19 +62,10 @@ public class LocalFeedStore implements IFeedStore {
     }
 
     @Override
-    public void deleteFeeds(List<Feed> feeds, Callback<Void> callback) {
+    public void deleteFeeds(List<Long> feedIds, Callback<Void> callback) {
         final Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        final RealmQuery<Feed> where = realm.where(Feed.class);
-
-        for (int i = 0, size = feeds.size(); i < size; i++) {
-            if (i > 0)
-                where.or();
-
-            where.equalTo(Feed.FIELD_ID, feeds.get(i).getId());
-        }
-
-        where.findAll().deleteAllFromRealm();
+        where(realm.where(Feed.class),Feed.FIELD_ID,feedIds).findAll().deleteAllFromRealm();
         realm.commitTransaction();
 
         callback.onSuccess(null);

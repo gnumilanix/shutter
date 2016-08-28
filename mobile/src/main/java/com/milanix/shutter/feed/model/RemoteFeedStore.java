@@ -42,12 +42,12 @@ public class RemoteFeedStore implements IFeedStore {
     }
 
     @Override
-    public void deleteFeed(Feed feed, Callback<Void> callback) {
+    public void deleteFeed(long feedId, Callback<Void> callback) {
         throw new UnsupportedOperationException("Delete operation not supported in this store");
     }
 
     @Override
-    public void getFeeds(final Callback<List<Feed>> callback) {
+    public void getFeeds(Query query,final Callback<List<Feed>> callback) {
         feedApi.getFeeds().enqueue(new RestCallback<List<Feed>>() {
             @Override
             public void onResponse(Response<List<Feed>> response) {
@@ -67,7 +67,7 @@ public class RemoteFeedStore implements IFeedStore {
     }
 
     @Override
-    public void deleteFeeds(List<Feed> feeds, Callback<Void> callback) {
+    public void deleteFeeds(List<Long> feedIds, Callback<Void> callback) {
         throw new UnsupportedOperationException("Delete operation not supported in this store");
     }
 }
