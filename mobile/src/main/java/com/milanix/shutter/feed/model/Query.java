@@ -16,8 +16,11 @@ import static com.milanix.shutter.feed.model.Query.Type.USER;
  * @author milan
  */
 public class Query {
+    @Type
     private final String type;
+    @IntRange(from = 0)
     private final int page;
+    @IntRange(from = 0, to = 60)
     private final int count;
     private final boolean favorite;
 
@@ -34,6 +37,25 @@ public class Query {
         this.page = page;
         this.count = count;
         this.favorite = favorite;
+    }
+
+    @Type
+    public String getType() {
+        return type;
+    }
+
+    @IntRange(from = 0)
+    public int getPage() {
+        return page;
+    }
+
+    @IntRange(from = 0, to = 60)
+    public int getCount() {
+        return count;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
     }
 
     public static class Builder {

@@ -16,62 +16,60 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_feed_size"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_small"
-        android:layout_marginLeft="@dimen/margin_normal"
-        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_small"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()->view.openFeed(feed.id)}"
         app:cardBackgroundColor="@android:color/white"
         tools:ignore="UnusedAttribute">
 
-        <RelativeLayout
+        <com.milanix.shutter.view.ProportionalFrameLayout
+            android:id="@+id/pflPost"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:proportion="1">
 
-            <ImageView
-                android:id="@+id/ivImage"
-                android:layout_width="@dimen/item_feed_size"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                app:imageUrl="@{feed.thumbnail}"
-                app:placeHolder="@{@drawable/ic_placeholder_small}"
-                app:transformation="@{`crop`}"
-                tools:background="@color/colorAccentPink" />
-
-            <TextView
-                android:id="@+id/tvTitle"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal"
-                android:layout_toEndOf="@+id/ivImage"
-                android:layout_toRightOf="@+id/ivImage"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-condensed"
-                android:maxLines="1"
-                android:text="@{feed.title}"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                tools:text="Stars through lens" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/tvTitle"
-                android:layout_alignLeft="@+id/tvTitle"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/tvTitle"
-                android:layout_alignStart="@+id/tvTitle"
-                android:layout_below="@+id/tvTitle"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-condensed"
-                android:maxLines="4"
-                android:text="@{feed.description}"
-                tools:text="Wondering what is in there, another Earth, another me or just never ending darkness" />
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/ivImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:imageUrl="@{feed.thumbnail}"
+                    app:placeHolder="@{@drawable/ic_placeholder_small}"
+                    app:transformation="@{`crop`}"
+                    tools:background="@color/colorTextGrey400" />
+
+                <ImageView
+                    android:id="@+id/ivFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/margin_normal"
+                    android:src="@drawable/ic_action_favorite" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="@dimen/item_feed_avatar"
+                    android:layout_height="@dimen/item_feed_avatar"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="@dimen/margin_normal"
+                    app:civ_border_color="@color/colorTextGrey400"
+                    app:civ_border_width="2dp"
+                    app:imageUrl="@{feed.author.avatar}"
+                    app:placeHolder="@{@drawable/ic_placeholder_small}"
+                    app:transformation="@{`crop`}"
+                    tools:background="@color/colorAccentPink" />
+            </RelativeLayout>
+        </com.milanix.shutter.view.ProportionalFrameLayout>
     </android.support.v7.widget.CardView>
 </layout>

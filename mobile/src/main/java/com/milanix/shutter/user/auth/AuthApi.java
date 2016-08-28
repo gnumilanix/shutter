@@ -38,7 +38,7 @@ public interface AuthApi {
 
     @FormUrlEncoded
     @POST("api/v1/oauth2/revoke")
-    Call<ResponseBody> logout();
+    Call<ResponseBody> logout(@Field("access_token") String accessToken);
 
     @FormUrlEncoded
     @POST("api/v1/users/signup")

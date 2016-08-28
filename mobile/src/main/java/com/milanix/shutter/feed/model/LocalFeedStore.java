@@ -47,6 +47,7 @@ public class LocalFeedStore implements IFeedStore {
 
     @Override
     public void getFeeds(Query query,Callback<List<Feed>> callback) {
+        // TODO: 28/8/2016 add query when changing to real server
         invokeCallback(Realm.getDefaultInstance().where(Feed.class).findAll(), callback);
     }
 

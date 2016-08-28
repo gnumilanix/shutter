@@ -1,5 +1,6 @@
 package com.milanix.shutter.user.profile;
 
+import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
 import com.milanix.shutter.core.IStore;
 import com.milanix.shutter.feed.model.Feed;
@@ -49,14 +50,16 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
     private final IUserRepository userRepository;
     private final IFeedRepository feedRepository;
     private final IAuthStore authStore;
+    private final App app;
 
     @Inject
     public ProfilePresenter(ProfileContract.View view, IUserRepository userRepository,
-                            IFeedRepository feedRepository, IAuthStore authStore) {
+                            IFeedRepository feedRepository, IAuthStore authStore, App app) {
         super(view);
         this.userRepository = userRepository;
         this.feedRepository = feedRepository;
         this.authStore = authStore;
+        this.app = app;
     }
 
     @Override
@@ -83,11 +86,13 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
         authStore.logout(new IStore.Callback<Void>() {
             @Override
             public void onSuccess(Void result) {
+                app.releaseUserComponent();
                 view.logoutComplete();
             }
 
             @Override
             public void onFailure(Throwable t) {
+                app.releaseUserComponent();
                 view.logoutComplete();
             }
         });

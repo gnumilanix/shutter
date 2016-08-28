@@ -23,6 +23,7 @@ public class Feed extends RealmObject {
     private String thumbnail;
     private String image;
     private int views;
+    private boolean favorite;
     private User author;
     private RealmList<Comment> comments;
     private RealmList<Favorite> favorites;
@@ -33,13 +34,14 @@ public class Feed extends RealmObject {
     }
 
     public Feed(long id, String title, String description, String thumbnail, String image, int views,
-                User author, RealmList<Comment> comments, RealmList<Favorite> favorites) {
+                boolean favorite, User author, RealmList<Comment> comments, RealmList<Favorite> favorites) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.thumbnail = thumbnail;
         this.image = image;
         this.views = views;
+        this.favorite = favorite;
         this.author = author;
         this.comments = comments;
         this.favorites = favorites;
@@ -67,6 +69,10 @@ public class Feed extends RealmObject {
 
     public int getViews() {
         return views;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
     }
 
     public User getAuthor() {
@@ -105,6 +111,7 @@ public class Feed extends RealmObject {
                 ", thumbnail='" + thumbnail + '\'' +
                 ", image='" + image + '\'' +
                 ", views=" + views +
+                ", favorite=" + favorite +
                 ", author=" + author +
                 ", comments=" + comments +
                 ", favorites=" + favorites +

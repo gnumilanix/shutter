@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "481407916760",
+    "firebase_url": "https://shutter-fd81d.firebaseio.com",
+    "project_id": "shutter-fd81d",
+    "storage_bucket": "shutter-fd81d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481407916760:android:94f1ed27c76ff44c",
+        "android_client_info": {
+          "package_name": "com.milanix.shutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481407916760-v9b02th95bpnqgo9bkdl0e5r4774dbs1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.milanix.shutter",
+            "certificate_hash": "CC8453FF15AD1A45CBF9F0835C0C1221A5C6A883"
+          }
+        },
+        {
+          "client_id": "481407916760-t234plj7jlenfamje6p59i9friomiov0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0WtpZ-gIUnOdiUFgIbF8Pakt1BUMFyIM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481407916760-t234plj7jlenfamje6p59i9friomiov0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

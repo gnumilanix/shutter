@@ -89,17 +89,18 @@ public class OAuthStore implements IAuthStore {
 
     @Override
     public void logout(final Callback<Void> callback) {
-        api.logout().enqueue(new RestCallback<ResponseBody>() {
-            @Override
-            public void onResponse(Response<ResponseBody> response) {
-                deleteAccount(callback);
-            }
+        api.logout(accountStore.getCachedAuthToken(accountStore.getDefaultAccount())).
+                enqueue(new RestCallback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Response<ResponseBody> response) {
+                        deleteAccount(callback);
+                    }
 
-            @Override
-            public void onFailure(Throwable t) {
-                deleteAccount(callback);
-            }
-        });
+                    @Override
+                    public void onFailure(Throwable t) {
+                        deleteAccount(callback);
+                    }
+                });
     }
 
     private void deleteAccount(final Callback<Void> callback) {

@@ -19,6 +19,7 @@ import com.milanix.shutter.databinding.FragmentProfileBinding;
 import com.milanix.shutter.feed.FeedModule;
 import com.milanix.shutter.feed.detail.FeedDetailActivity;
 import com.milanix.shutter.feed.model.Feed;
+import com.milanix.shutter.login.LoginActivity;
 import com.milanix.shutter.user.model.User;
 
 import java.util.List;
@@ -86,7 +87,8 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
 
     @Override
     public void logoutComplete() {
-
+        getActivity().finish();
+        startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
     @Override

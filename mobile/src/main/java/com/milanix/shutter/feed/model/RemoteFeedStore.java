@@ -47,18 +47,19 @@ public class RemoteFeedStore implements IFeedStore {
     }
 
     @Override
-    public void getFeeds(Query query,final Callback<List<Feed>> callback) {
-        feedApi.getFeeds().enqueue(new RestCallback<List<Feed>>() {
-            @Override
-            public void onResponse(Response<List<Feed>> response) {
-                callback.onSuccess(response.body());
-            }
+    public void getFeeds(Query query, final Callback<List<Feed>> callback) {
+        feedApi.getFeeds(query.getType(), query.getPage(), query.getCount(), query.isFavorite()).
+                enqueue(new RestCallback<List<Feed>>() {
+                    @Override
+                    public void onResponse(Response<List<Feed>> response) {
+                        callback.onSuccess(response.body());
+                    }
 
-            @Override
-            public void onFailure(Throwable t) {
-                callback.onFailure(t);
-            }
-        });
+                    @Override
+                    public void onFailure(Throwable t) {
+                        callback.onFailure(t);
+                    }
+                });
     }
 
     @Override

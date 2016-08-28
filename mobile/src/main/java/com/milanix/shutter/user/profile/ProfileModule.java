@@ -1,5 +1,6 @@
 package com.milanix.shutter.user.profile;
 
+import com.milanix.shutter.App;
 import com.milanix.shutter.feed.model.IFeedRepository;
 import com.milanix.shutter.user.auth.IAuthStore;
 import com.milanix.shutter.user.model.IUserRepository;
@@ -29,7 +30,7 @@ public class ProfileModule {
     public ProfileContract.Presenter provideProfilePresenter(ProfileContract.View view,
                                                              IUserRepository userRepository,
                                                              IFeedRepository feedRepository,
-                                                             IAuthStore authStore) {
-        return new ProfilePresenter(view, userRepository, feedRepository,authStore);
+                                                             IAuthStore authStore, App app) {
+        return new ProfilePresenter(view, userRepository, feedRepository, authStore, app);
     }
 }
