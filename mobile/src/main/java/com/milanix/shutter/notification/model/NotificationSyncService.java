@@ -1,43 +1,32 @@
 package com.milanix.shutter.notification.model;
 
-import android.content.Intent;
-import android.support.annotation.Nullable;
-
-import com.google.android.gms.gcm.GcmNetworkManager;
-import com.google.android.gms.gcm.GcmTaskService;
-import com.google.android.gms.gcm.TaskParams;
-import com.milanix.shutter.App;
-import com.milanix.shutter.user.UserComponent;
+import com.firebase.jobdispatcher.JobParameters;
+import com.firebase.jobdispatcher.JobService;
 
 import javax.inject.Inject;
 
 /**
- * Implementation of {@link GcmTaskService} for syncing notifications
+ * Implementation of {@link JobService} for syncing notifications
  *
  * @author milan
  */
-public class NotificationSyncService extends GcmTaskService {
+public class NotificationSyncService extends JobService {
     @Inject
     INotificationRepository notificationRepository;
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        bind(((App) getApplication()).getUserComponent());
-        return super.onStartCommand(intent, flags, startId);
-    }
+    public boolean onStartJob(JobParameters jobParameters) {
+        try {
+            notificationRepository.refreshNotifications(null);
 
-    protected void bind(@Nullable UserComponent component) {
-        if (null != component)
-            component.inject(this);
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
     }
 
     @Override
-    public int onRunTask(TaskParams taskParams) {
-        try {
-            notificationRepository.refreshNotifications(null);
-            return GcmNetworkManager.RESULT_SUCCESS;
-        } catch (Exception e) {
-            return GcmNetworkManager.RESULT_FAILURE;
-        }
+    public boolean onStopJob(JobParameters jobParameters) {
+        return false;
     }
 }

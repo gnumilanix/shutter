@@ -1,7 +1,10 @@
 package com.milanix.shutter.notification.model;
 
-import com.google.android.gms.gcm.PeriodicTask;
-import com.google.android.gms.gcm.Task;
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.Trigger;
 import com.milanix.shutter.dependencies.qualifier.Local;
 import com.milanix.shutter.dependencies.qualifier.Remote;
 import com.milanix.shutter.dependencies.scope.UserScope;
@@ -50,14 +53,14 @@ public class NotificationDataModule {
     @Provides
     @UserScope
     @Named(NOTIFICATIONS)
-    public Task provideNotificationTask() {
-        return new PeriodicTask.Builder().
-                setService(NotificationSyncService.class).
-                setPeriod(4 * 60 * 60).
-                setFlex(15 * 60).
-                setTag(NOTIFICATIONS).
-                setUpdateCurrent(true).
-                setPersisted(true).
-                build();
+    public Job provideNotificationSyncJob(FirebaseJobDispatcher dispatcher) {
+        return dispatcher.newJobBuilder()
+                .setService(NotificationSyncService.class)
+                .setTag(NOTIFICATIONS)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .setTrigger(Trigger.executionWindow(0, 60))
+                .setLifetime(Lifetime.FOREVER)
+                .setRecurring(true)
+                .build();
     }
 }

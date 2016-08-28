@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,23 +9,42 @@
             type="com.milanix.shutter.feed.list.FeedListAdapter" />
 
         <variable
+            name="view"
+            type="com.milanix.shutter.feed.list.FeedListContract.View" />
+
+        <variable
             name="refreshListener"
             type="android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener" />
     </data>
 
-    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeRefreshLayout"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:onRefreshListener="@{refreshListener}">
+        android:layout_height="match_parent">
 
-        <com.milanix.shutter.view.AutoFitRecyclerView
-            android:id="@+id/rvFeedList"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBackgroundList"
-            android:columnWidth="@dimen/item_feed_width"
-            app:adapter="@{adapter}"
-            app:hasFixedSize="@{true}" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+            app:onRefreshListener="@{refreshListener}">
+
+            <com.milanix.shutter.view.AutoFitRecyclerView
+                android:id="@+id/rvFeedList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackgroundList"
+                android:columnWidth="@dimen/item_feed_width"
+                app:adapter="@{adapter}"
+                app:hasFixedSize="@{true}" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAdd"
+            style="@style/FabStyle"
+            android:onClick="@{()->view.addPost()}"
+            android:src="@drawable/ic_action_add"
+            app:backgroundTint="@color/colorAccentPink"
+            app:layout_anchor="@+id/swipeRefreshLayout"
+            app:layout_anchorGravity="bottom|right|end"
+            app:rippleColor="@color/colorRipplePink" />
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -47,6 +47,7 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
         binding.setAdapter(feedListAdapter);
+        binding.setView(this);
         binding.setRefreshListener(this);
     }
 
@@ -62,7 +63,14 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
 
     @Override
     public void handleFeedRefreshError() {
-        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0), R.string.error_refresh_feeds, Snackbar.LENGTH_SHORT);
+        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
+                R.string.error_refresh_feeds, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void addPost() {
+        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
+                "New post not yet implemented", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

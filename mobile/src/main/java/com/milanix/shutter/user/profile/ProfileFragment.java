@@ -72,7 +72,8 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
 
     @Override
     public void handleProfileRefreshError() {
-        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0), R.string.error_refresh_profile, Snackbar.LENGTH_SHORT);
+        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
+                R.string.error_refresh_profile, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

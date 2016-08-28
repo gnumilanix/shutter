@@ -3,8 +3,11 @@ package com.milanix.shutter.dependencies.module;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.firebase.jobdispatcher.Driver;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.milanix.shutter.BuildConfig;
-import com.milanix.shutter.core.TaskScheduler;
+import com.milanix.shutter.core.JobScheduler;
 
 import javax.inject.Singleton;
 
@@ -26,7 +29,19 @@ public class DataModule {
 
     @Singleton
     @Provides
-    public TaskScheduler provideTaskScheduler(Context context) {
-        return new TaskScheduler(context);
+    public Driver provideDriver(Context context) {
+        return new GooglePlayDriver(context);
+    }
+
+    @Singleton
+    @Provides
+    public FirebaseJobDispatcher provideJobDispatcher(Driver driver) {
+        return new FirebaseJobDispatcher(driver);
+    }
+
+    @Singleton
+    @Provides
+    public JobScheduler provideTaskScheduler(Driver driver, FirebaseJobDispatcher jobDispatcher) {
+        return new JobScheduler(driver, jobDispatcher);
     }
 }

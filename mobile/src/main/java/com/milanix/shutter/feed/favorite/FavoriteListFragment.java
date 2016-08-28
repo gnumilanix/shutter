@@ -6,7 +6,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +62,8 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
 
     @Override
     public void handleFeedRefreshError() {
-        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0), R.string.error_refresh_favorites, Snackbar.LENGTH_SHORT);
+        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
+                R.string.error_refresh_favorites, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

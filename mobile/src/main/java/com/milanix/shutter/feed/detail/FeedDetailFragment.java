@@ -56,6 +56,7 @@ public class FeedDetailFragment extends AbstractFragment<FeedDetailContract.Pres
 
     @Override
     public void handleFeedRefreshError() {
-        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0), R.string.error_refresh_feed, Snackbar.LENGTH_SHORT);
+        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
+                R.string.error_refresh_feed, Snackbar.LENGTH_SHORT).show();
     }
 }

@@ -56,7 +56,8 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
 
     @Override
     public void handleNotificationsRefreshError() {
-        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0), R.string.error_refresh_notifications, Snackbar.LENGTH_SHORT);
+        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
+                R.string.error_refresh_notifications, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
