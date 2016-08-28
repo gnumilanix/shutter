@@ -14,53 +14,83 @@
             type="com.milanix.shutter.notification.NotificationListContract.View" />
     </data>
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_notification_size"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{()->view.openNotification(notification)}"
-        tools:ignore="UnusedAttribute">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:onClick="@{()->view.openNotification(notification)}">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivImage"
-            android:layout_width="@dimen/item_notification_size"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            app:imageUrl="@{notification.icon}"
+            android:layout_width="@dimen/notification_avatar"
+            android:layout_height="@dimen/notification_avatar"
+            android:layout_margin="@dimen/margin_normal"
+            app:civ_border_color="@color/colorTextGrey400"
+            app:civ_border_width="2dp"
+            app:imageUrl="@{notification.avatar}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeHolder="@{@drawable/ic_placeholder_small}"
             app:transformation="@{`crop`}"
             tools:background="@color/colorAccentPink" />
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/ivPostImage"
+            android:layout_width="@dimen/notification_post_image"
+            android:layout_height="@dimen/notification_post_image"
             android:layout_margin="@dimen/margin_normal"
-            android:layout_toEndOf="@+id/ivImage"
-            android:layout_toRightOf="@+id/ivImage"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-condensed"
-            android:maxLines="1"
-            android:text="@{notification.title}"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            tools:text="Stars through lens" />
+            app:imageUrl="@{notification.post}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeHolder="@{@drawable/ic_placeholder_small}"
+            app:transformation="@{`crop`}"
+            tools:background="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/tvTitle"
-            android:layout_alignLeft="@+id/tvTitle"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/tvTitle"
-            android:layout_alignStart="@+id/tvTitle"
-            android:layout_below="@+id/tvTitle"
+            android:id="@+id/tvNotification"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginBottom="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
             android:ellipsize="end"
-            android:fontFamily="sans-serif-condensed"
+            android:gravity="top"
             android:maxLines="2"
             android:text="@{notification.message}"
-            tools:text="Wondering what is in there, another Earth, another me or just never ending darkness" />
-    </RelativeLayout>
+            android:textColor="@color/colorTextGrey900"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintBottom_toTopOf="@+id/tvTimeline"
+            app:layout_constraintEnd_toEndOf="@+id/tvTimeline"
+            app:layout_constraintLeft_toLeftOf="@+id/ivTimeline"
+            app:layout_constraintRight_toRightOf="@+id/tvTimeline"
+            app:layout_constraintStart_toStartOf="@+id/ivTimeline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Material takes cues from contemporary architecture, road signs, pavement marking tape, and athletic courts." />
+
+        <ImageView
+            android:id="@+id/ivTimeline"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:src="@drawable/ic_icon_timeline"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPostImage"
+            app:layout_constraintLeft_toRightOf="@+id/ivImage" />
+
+        <TextView
+            android:id="@+id/tvTimeline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:textColor="@color/colorTextGrey500"
+            android:textSize="@dimen/text_tiny"
+            app:layout_constraintBottom_toBottomOf="@+id/ivTimeline"
+            app:layout_constraintEnd_toStartOf="@+id/ivPostImage"
+            app:layout_constraintLeft_toRightOf="@+id/ivTimeline"
+            app:layout_constraintRight_toLeftOf="@+id/ivPostImage"
+            app:layout_constraintStart_toEndOf="@+id/ivTimeline"
+            app:textInMillis="@{notification.time}"
+            tools:text="20 minutes ago" />
+    </android.support.constraint.ConstraintLayout>
 </layout>

@@ -2,6 +2,7 @@ package com.milanix.shutter.core;
 
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
+import com.milanix.shutter.view.DividerItemDecoration;
 
 /**
  * Class containing generic {@link BindingAdapter}
@@ -25,7 +27,7 @@ public class Binding {
      */
     @BindingAdapter(value = {"imageUrl", "placeHolder", "transformation"}, requireAll = false)
     public static void loadImage(ImageView view, String url, Drawable placeHolder, String transformation) {
-        final DrawableRequestBuilder<String> requestBuilder = Glide.with(view.getContext()).load(url).error(placeHolder);
+        final DrawableRequestBuilder<String> requestBuilder = Glide.with(view.getContext()).load(url).error(placeHolder).placeholder(placeHolder);
 
         if (!TextUtils.isEmpty(transformation)) {
             switch (transformation) {
@@ -40,10 +42,22 @@ public class Binding {
      * Sets given time as a relative time string
      *
      * @param view         to set relative time text to
-     * @param timeInMillis relative to
+     * @param textInMillis relative to
      */
-    @BindingAdapter(value = "timeInMillis")
-    public static void setRelativeTimeString(TextView view, long timeInMillis) {
-        DateUtils.getRelativeTimeSpanString(timeInMillis, System.currentTimeMillis(), 0L, DateUtils.FORMAT_ABBREV_ALL);
+    @BindingAdapter(value = "textInMillis")
+    public static void setRelativeTimeString(TextView view, long textInMillis) {
+        view.setText(DateUtils.getRelativeTimeSpanString(textInMillis, System.currentTimeMillis(), 0L,
+                DateUtils.FORMAT_ABBREV_ALL));
+    }
+
+    /**
+     * Sets given drawable as {@link RecyclerView} divider
+     *
+     * @param view            to set divider to
+     * @param dividerDrawable to set drawable as
+     */
+    @BindingAdapter(value = {"dividerDrawable"})
+    public static void setDividerDrawable(RecyclerView view, Drawable dividerDrawable) {
+        view.addItemDecoration(new DividerItemDecoration(dividerDrawable));
     }
 }

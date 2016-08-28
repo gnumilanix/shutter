@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentNotificationListBinding;
 import com.milanix.shutter.notification.model.Notification;
+import com.milanix.shutter.view.DividerItemDecoration;
 
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
 
     @Override
     public void showNotifications(List<Notification> notifications) {
-        binding.getAdapter().appendItems(notifications);
+        binding.getAdapter().replaceItems(notifications);
     }
 
     @Override

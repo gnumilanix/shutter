@@ -28,6 +28,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorBackgroundList"
             app:adapter="@{adapter}"
+            app:dividerDrawable="@{@drawable/divider_horizontal_dark}"
             app:hasFixedSize="@{true}"
             app:layoutManager="@{layoutManager}" />
     </android.support.v4.widget.SwipeRefreshLayout>

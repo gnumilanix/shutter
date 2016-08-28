@@ -10,6 +10,10 @@
             type="com.milanix.shutter.user.model.User" />
 
         <variable
+            name="adapter"
+            type="com.milanix.shutter.user.profile.PostListAdapter" />
+
+        <variable
             name="refreshListener"
             type="android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener" />
     </data>
@@ -20,155 +24,197 @@
         android:layout_height="match_parent"
         app:onRefreshListener="@{refreshListener}">
 
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white">
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_gradient_black_99">
 
-                <com.milanix.shutter.view.ProportionalFrameLayout
-                    android:id="@+id/flAvatar"
+                <ImageView
+                    android:id="@+id/ivCover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:proportion="1.0">
+                    android:layout_alignBottom="@+id/llProfile"
+                    android:layout_alignTop="@+id/llProfile"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_profile_cover" />
 
-                    <ImageView
-                        android:id="@+id/ivAvatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:imageUrl="@{user.avatar}"
-                        app:transformation="@{`crop`}"
-                        tools:background="@color/colorAccentPink" />
-                </com.milanix.shutter.view.ProportionalFrameLayout>
-
-                <TextView
-                    android:id="@+id/tvName"
+                <ImageView
+                    android:id="@+id/ivCoverOverlay"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/flAvatar"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:padding="@dimen/margin_normal"
-                    android:text="@{user.fullName}"
-                    android:textColor="@color/colorTextGrey400"
-                    android:textSize="@dimen/text_whopping"
-                    tools:text="JOHN DOE" />
-
-                <View
-                    android:id="@+id/dividerName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvName"
-                    android:background="@drawable/divider_horizontal_dark" />
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/llProfile"
+                    android:layout_alignTop="@+id/llProfile"
+                    android:background="@drawable/bg_gradient_black_99"
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
+                    android:id="@+id/llProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/dividerName"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:orientation="horizontal">
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:padding="@dimen/margin_normal">
 
                     <LinearLayout
+                        android:id="@+id/llBasic"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_normal">
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivAvatar"
+                                android:layout_width="@dimen/profile_avatar"
+                                android:layout_height="@dimen/profile_avatar"
+                                android:layout_gravity="end"
+                                app:civ_border_color="@android:color/white"
+                                app:civ_border_width="2dp"
+                                app:imageUrl="@{user.avatar}"
+                                app:placeHolder="@{@drawable/ic_placeholder_small}"
+                                app:transformation="@{`crop`}"
+                                tools:background="@color/colorAccentPink" />
+                        </FrameLayout>
 
                         <TextView
-                            android:id="@+id/tvFollowers"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/tvName"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="@{String.valueOf(user.followers)}"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:gravity="center_vertical|start"
+                            android:maxLines="2"
+                            android:paddingLeft="@dimen/margin_normal"
+                            android:paddingStart="@dimen/margin_normal"
+                            android:text="@{user.fullName}"
+                            android:textColor="@android:color/white"
                             android:textSize="@dimen/text_whopping"
-                            tools:text="180" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="@string/title_followers"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorTextGrey400"
-                            android:textSize="@dimen/text_small" />
+                            tools:text="John doe" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/llSocialStats"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_normal">
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="@dimen/margin_large"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tvPosts"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="@{String.valueOf(user.posts)}"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/text_whopping"
-                            tools:text="10" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:padding="@dimen/padding_normal">
 
-                        <TextView
+                            <TextView
+                                android:id="@+id/tvFollowers"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="@{String.valueOf(user.followers)}"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/text_huge"
+                                tools:text="180" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="@string/title_followers"
+                                android:textColor="@color/colorTextGrey400"
+                                android:textSize="@dimen/text_tiny" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="@string/title_posts"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorTextGrey400"
-                            android:textSize="@dimen/text_small" />
-                    </LinearLayout>
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:padding="@dimen/padding_normal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_normal">
+                            <TextView
+                                android:id="@+id/tvPosts"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="@{String.valueOf(user.posts)}"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/text_huge"
+                                tools:text="10" />
 
-                        <TextView
-                            android:id="@+id/tvFollowing"
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="@string/title_posts"
+                                android:textColor="@color/colorTextGrey400"
+                                android:textSize="@dimen/text_tiny" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="@{String.valueOf(user.following)}"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/text_whopping"
-                            tools:text="20" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:orientation="vertical"
+                            android:padding="@dimen/padding_normal">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="@string/title_following"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorTextGrey400"
-                            android:textSize="@dimen/text_small" />
+                            <TextView
+                                android:id="@+id/tvFollowing"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="@{String.valueOf(user.following)}"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/text_huge"
+                                tools:text="20" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="@string/title_following"
+                                android:textColor="@color/colorTextGrey400"
+                                android:textSize="@dimen/text_tiny" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
-        </android.support.v4.widget.NestedScrollView>
+
+            <com.milanix.shutter.view.AutoFitRecyclerView
+                android:id="@+id/rvNotificationList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackgroundList"
+                android:columnWidth="@dimen/item_post_width"
+                app:adapter="@{adapter}"
+                app:hasFixedSize="@{true}" />
+        </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

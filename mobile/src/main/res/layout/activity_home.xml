@@ -49,34 +49,37 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:padding="@dimen/padding_normal"
-                        android:src="@drawable/ic_title"
-                        android:layout_alignParentLeft="true" />
-                <com.milanix.shutter.view.ProportionalFrameLayout
-                    android:id="@+id/flAvatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:onClick="@{()->view.openProfile(user)}"
-                    android:padding="@dimen/padding_normal"
-                    app:proportion="1.0"
-                    app:proportion_to="vertical"
-                    android:layout_alignParentRight="true">
+                        android:src="@drawable/ic_title" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivAvatar"
-                        android:layout_width="match_parent"
+                    <com.milanix.shutter.view.ProportionalFrameLayout
+                        android:id="@+id/flAvatar"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_icon_user"
-                        app:civ_border_color="@android:color/white"
-                        app:civ_border_width="2dp"
-                        app:imageUrl="@{user.avatar}"
-                        app:transformation="@{`crop`}" />
-                </com.milanix.shutter.view.ProportionalFrameLayout>
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:onClick="@{()->view.openProfile(user)}"
+                        android:padding="@dimen/padding_normal"
+                        app:proportion="1.0"
+                        app:proportion_to="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_icon_user"
+                            app:civ_border_color="@android:color/white"
+                            app:civ_border_width="2dp"
+                            app:imageUrl="@{user.avatar}"
+                            app:placeHolder="@{@drawable/ic_placeholder_small}"
+                            app:transformation="@{`crop`}" />
+                    </com.milanix.shutter.view.ProportionalFrameLayout>
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>

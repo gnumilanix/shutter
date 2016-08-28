@@ -12,14 +12,25 @@
     <dimen name="margin_small">4dp</dimen>
     <dimen name="margin_normal">8dp</dimen>
     <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_huge">24dp</dimen>
 
+    <dimen name="item_post_width">150dp</dimen>
     <dimen name="item_feed_width">250dp</dimen>
     <dimen name="item_feed_size">120dp</dimen>
+    <dimen name="item_feed_avatar">32dp</dimen>
     <dimen name="item_notification_size">80dp</dimen>
+    <dimen name="item_text_drawable">20dp</dimen>
 
+    <dimen name="text_tiny">12sp</dimen>
     <dimen name="text_small">14sp</dimen>
     <dimen name="text_medium">16sp</dimen>
     <dimen name="text_large">18sp</dimen>
+    <dimen name="text_huge">22sp</dimen>
     <dimen name="text_whopping">24sp</dimen>
+
+    <dimen name="notification_avatar">40dp</dimen>
+    <dimen name="notification_post_image">65dp</dimen>
+
+    <dimen name="profile_avatar">60dp</dimen>
 
 </resources>

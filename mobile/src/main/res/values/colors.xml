@@ -7,9 +7,11 @@
     <color name="colorAccentDark">#FFAB00</color>
     <color name="colorRipple">#FFE57F</color>
     <color name="colorAccentTranslucent">#80FFC400</color>
-    <color name="colorBackgroundList">#fffafafa</color>
+    <color name="colorBackgroundList">#F5F5F5</color>
     <color name="colorBackgroundListDark">#ffe0e0e0</color>
     <color name="colorBlack99">#99000000</color>
+    <color name="colorTextGrey900">#212121</color>
+    <color name="colorTextGrey500">#616161</color>
     <color name="colorTextGrey400">#BDBDBD</color>
     <color name="colorTextGrey300">#EEEEEE</color>
 

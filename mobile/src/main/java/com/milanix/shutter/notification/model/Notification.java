@@ -12,8 +12,8 @@ public class Notification extends RealmObject {
     public static final String FIELD_ID = "id";
     @PrimaryKey
     private String id;
-    private String icon;
-    private String title;
+    private String avatar;
+    private String post;
     private String message;
     private long time = 0L;
     private boolean isRead = false;
@@ -22,13 +22,13 @@ public class Notification extends RealmObject {
     }
 
     public Notification(Notification other) {
-        this(other.id, other.icon, other.title, other.message, other.time, other.isRead);
+        this(other.id, other.avatar, other.post, other.message, other.time, other.isRead);
     }
 
-    public Notification(String id, String icon, String title, String message, long time, boolean isRead) {
+    public Notification(String id, String avatar, String post, String message, long time, boolean isRead) {
         this.id = id;
-        this.icon = icon;
-        this.title = title;
+        this.avatar = avatar;
+        this.post = post;
         this.message = message;
         this.time = time;
         this.isRead = isRead;
@@ -38,12 +38,12 @@ public class Notification extends RealmObject {
         return id;
     }
 
-    public String getIcon() {
-        return icon;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public String getTitle() {
-        return title;
+    public String getPost() {
+        return post;
     }
 
     public String getMessage() {
@@ -54,8 +54,8 @@ public class Notification extends RealmObject {
         return time;
     }
 
-    public void setRead(boolean read) {
-        isRead = read;
+    public void setRead(boolean isRead) {
+        this.isRead = isRead;
     }
 
     public boolean isRead() {
@@ -70,11 +70,22 @@ public class Notification extends RealmObject {
         Notification that = (Notification) o;
 
         return id.equals(that.id);
-
     }
 
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "id='" + id + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", post='" + post + '\'' +
+                ", message='" + message + '\'' +
+                ", time=" + time +
+                ", isRead=" + isRead +
+                '}';
     }
 }

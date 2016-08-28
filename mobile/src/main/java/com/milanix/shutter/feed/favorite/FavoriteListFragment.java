@@ -54,7 +54,7 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
 
     @Override
     public void showFeeds(List<Feed> feeds) {
-        binding.getAdapter().appendItems(feeds);
+        binding.getAdapter().replaceItems(feeds);
     }
 
     @Override

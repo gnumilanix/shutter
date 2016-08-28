@@ -26,42 +26,148 @@
         app:cardBackgroundColor="@android:color/white"
         tools:ignore="UnusedAttribute">
 
-        <com.milanix.shutter.view.ProportionalFrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:proportion="0.75">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <com.milanix.shutter.view.ProportionalFrameLayout
+                android:id="@+id/pflPost"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                app:proportion="0.6">
 
                 <ImageView
-                    android:id="@+id/ivImage"
+                    android:id="@+id/ivPost"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    app:imageUrl="@{feed.thumbnail}"
+                    app:imageUrl="@{feed.image}"
+                    app:placeHolder="@{@drawable/ic_placeholder_large}"
                     app:transformation="@{`crop`}"
                     tools:background="@color/colorAccentPink" />
+            </com.milanix.shutter.view.ProportionalFrameLayout>
 
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/colorBlack99"
-                    android:ellipsize="end"
-                    android:fontFamily="sans-serif-condensed"
-                    android:maxLines="1"
-                    android:padding="@dimen/margin_normal"
-                    android:text="@{feed.title}"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_large"
-                    android:textStyle="bold"
-                    tools:text="Stars through lens" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="@dimen/item_feed_avatar"
+                android:layout_height="@dimen/item_feed_avatar"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/pflPost"
+                android:layout_margin="@dimen/margin_normal"
+                app:civ_border_color="@color/colorTextGrey400"
+                app:civ_border_width="2dp"
+                app:imageUrl="@{feed.author.avatar}"
+                app:placeHolder="@{@drawable/ic_placeholder_small}"
+                app:transformation="@{`crop`}"
+                tools:background="@color/colorAccentPink" />
 
-            </RelativeLayout>
-        </com.milanix.shutter.view.ProportionalFrameLayout>
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/pflPost"
+                android:background="@drawable/bg_gradient_black_99"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="1"
+                android:padding="@dimen/margin_normal"
+                android:text="@{feed.title}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                tools:text="Stars through lens" />
+
+            <ImageView
+                android:id="@+id/ivFavorites"
+                android:layout_width="@dimen/item_text_drawable"
+                android:layout_height="@dimen/item_text_drawable"
+                android:layout_alignBottom="@+id/tvFavorites"
+                android:layout_alignTop="@+id/tvFavorites"
+                android:layout_below="@+id/pflPost"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_toLeftOf="@+id/tvFavorites"
+                android:layout_toStartOf="@+id/tvFavorites"
+                android:src="@drawable/ic_icon_favorites" />
+
+            <TextView
+                android:id="@+id/tvFavorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/ivAvatar"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@{String.valueOf(feed.favorites.size())}"
+                android:textColor="@color/colorTextGrey500"
+                android:textSize="@dimen/text_small"
+                tools:text="100" />
+
+            <ImageView
+                android:id="@+id/ivComments"
+                android:layout_width="@dimen/item_text_drawable"
+                android:layout_height="@dimen/item_text_drawable"
+                android:layout_alignBottom="@+id/tvFavorites"
+                android:layout_alignTop="@+id/tvFavorites"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_toLeftOf="@+id/tvComments"
+                android:layout_toStartOf="@+id/tvComments"
+                android:src="@drawable/ic_icon_comments" />
+
+            <TextView
+                android:id="@+id/tvComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvFavorites"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_toLeftOf="@+id/ivFavorites"
+                android:layout_toStartOf="@+id/ivFavorites"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@{String.valueOf(feed.comments.size())}"
+                android:textColor="@color/colorTextGrey500"
+                android:textSize="@dimen/text_small"
+                tools:text="100" />
+
+            <ImageView
+                android:id="@+id/ivViews"
+                android:layout_width="@dimen/item_text_drawable"
+                android:layout_height="@dimen/item_text_drawable"
+                android:layout_alignBottom="@+id/tvFavorites"
+                android:layout_alignTop="@+id/tvFavorites"
+                android:layout_below="@+id/pflPost"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_toLeftOf="@+id/tvViews"
+                android:layout_toStartOf="@+id/tvViews"
+                android:src="@drawable/ic_icon_views" />
+
+            <TextView
+                android:id="@+id/tvViews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvFavorites"
+                android:layout_below="@+id/pflPost"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_toLeftOf="@+id/ivComments"
+                android:layout_toStartOf="@+id/ivComments"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@{String.valueOf(feed.views)}"
+                android:textColor="@color/colorTextGrey500"
+                android:textSize="@dimen/text_small"
+                tools:text="100" />
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </layout>

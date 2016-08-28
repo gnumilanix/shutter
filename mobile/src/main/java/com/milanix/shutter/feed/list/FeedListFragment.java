@@ -52,7 +52,7 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
 
     @Override
     public void showFeeds(List<Feed> feeds) {
-        binding.getAdapter().appendItems(feeds);
+        binding.getAdapter().replaceItems(feeds);
     }
 
     @Override
