@@ -40,7 +40,6 @@ public class FavoriteListAdapter extends AbstractRecyclerAdapter<Feed, FavoriteL
     }
 
     class FeedHolder extends BindingViewHolder<ItemFavoriteBinding> {
-
         FeedHolder(ItemFavoriteBinding binding) {
             super(binding);
         }

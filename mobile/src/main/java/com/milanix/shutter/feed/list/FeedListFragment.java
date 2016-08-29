@@ -37,7 +37,6 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getUserComponent().with(new FeedListModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_feed_list, container);
-
         presenter.getFeeds();
 
         return binding.getRoot();

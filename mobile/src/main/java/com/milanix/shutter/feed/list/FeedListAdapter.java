@@ -40,7 +40,6 @@ public class FeedListAdapter extends AbstractRecyclerAdapter<Feed, FeedListAdapt
     }
 
     class FeedHolder extends BindingViewHolder<ItemFeedBinding> {
-
         FeedHolder(ItemFeedBinding binding) {
             super(binding);
         }

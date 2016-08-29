@@ -40,10 +40,6 @@ public abstract class AbstractFragment<T extends IPresenter, B extends ViewDataB
         return ((App) getActivity().getApplication());
     }
 
-    public AppComponent getAppComponent() {
-        return getApp().getAppComponent();
-    }
-
     public UserComponent getUserComponent() {
         return getApp().getUserComponent();
     }

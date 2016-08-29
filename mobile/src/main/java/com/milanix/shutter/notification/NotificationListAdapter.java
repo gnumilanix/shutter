@@ -40,7 +40,6 @@ public class NotificationListAdapter extends AbstractRecyclerAdapter<Notificatio
     }
 
     class NotificationHolder extends BindingViewHolder<ItemNotificationBinding> {
-
         NotificationHolder(ItemNotificationBinding binding) {
             super(binding);
         }

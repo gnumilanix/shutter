@@ -40,7 +40,6 @@ public class PostListAdapter extends AbstractRecyclerAdapter<Feed, PostListAdapt
     }
 
     class NotificationHolder extends BindingViewHolder<ItemPostBinding> {
-
         NotificationHolder(ItemPostBinding binding) {
             super(binding);
         }
