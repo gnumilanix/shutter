@@ -1,7 +1,7 @@
 package com.milanix.shutter.feed.list;
 
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.core.IStore;
+import com.milanix.shutter.core.specification.IStore;
 import com.milanix.shutter.feed.model.Feed;
 import com.milanix.shutter.feed.model.IFeedRepository;
 import com.milanix.shutter.feed.model.Query;

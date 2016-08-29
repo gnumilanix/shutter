@@ -14,11 +14,13 @@ import android.support.annotation.WorkerThread;
 import android.text.TextUtils;
 
 import com.milanix.shutter.core.BundleBuilder;
-import com.milanix.shutter.core.IStore;
+import com.milanix.shutter.core.specification.IStore;
 
 import java.io.IOException;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 import static android.accounts.AccountManager.KEY_ACCOUNT_NAME;
 import static android.accounts.AccountManager.KEY_ACCOUNT_TYPE;
@@ -95,6 +97,7 @@ public class AccountStore implements IAccountStore {
                         else
                             throw new NullPointerException("Token not found");
                     } catch (Exception e) {
+                        Timber.i(e, "Failed to retrieve auth token");
                         callback.onFailure(e);
                     }
                 }
@@ -137,6 +140,7 @@ public class AccountStore implements IAccountStore {
             try {
                 return accountManager.removeAccount(account, null, null).getResult();
             } catch (OperationCanceledException | IOException | AuthenticatorException e) {
+                Timber.i(e, "Failed to remove account");
                 return false;
             }
         }
@@ -181,6 +185,7 @@ public class AccountStore implements IAccountStore {
                         else
                             throw new Exception("Cannot remove the account");
                     } catch (Exception e) {
+                        Timber.i(e, "Failed to remove account");
                         callback.onFailure(e);
                     }
                 }

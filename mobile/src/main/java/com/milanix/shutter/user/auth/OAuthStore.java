@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
+import timber.log.Timber;
 
 import static com.milanix.shutter.BuildConfig.CLIENT_ID;
 import static com.milanix.shutter.BuildConfig.CLIENT_SECRET;
@@ -33,6 +34,7 @@ public class OAuthStore implements IAuthStore {
         try {
             accountStore.getCachedAuthToken(accountStore.getDefaultAccount());
         } catch (Exception e) {
+            Timber.i(e, "Failed to retrieve cached token");
             callback.onFailure(e);
         }
     }
@@ -51,6 +53,7 @@ public class OAuthStore implements IAuthStore {
 
                     @Override
                     public void onFailure(Throwable t) {
+                        Timber.i(t, "Failed to sign up");
                         callback.onFailure(t);
                     }
                 });
@@ -69,6 +72,7 @@ public class OAuthStore implements IAuthStore {
 
                     @Override
                     public void onFailure(Throwable t) {
+                        Timber.i(t, "Failed to sign in");
                         callback.onFailure(t);
                     }
                 });
@@ -98,6 +102,7 @@ public class OAuthStore implements IAuthStore {
 
                     @Override
                     public void onFailure(Throwable t) {
+                        Timber.i(t, "Failed to log out");
                         deleteAccount(callback);
                     }
                 });
@@ -112,6 +117,7 @@ public class OAuthStore implements IAuthStore {
 
             @Override
             public void onFailure(Throwable t) {
+                Timber.i(t, "Failed to delete account");
                 callback.onSuccess(null);
             }
         });

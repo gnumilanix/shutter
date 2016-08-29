@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
-import com.milanix.shutter.core.IStore;
+import com.milanix.shutter.core.specification.IStore;
 
 /**
  * Interface to be implemented by account stores

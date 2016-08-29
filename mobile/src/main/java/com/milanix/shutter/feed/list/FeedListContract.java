@@ -1,7 +1,7 @@
 package com.milanix.shutter.feed.list;
 
-import com.milanix.shutter.core.IPresenter;
-import com.milanix.shutter.core.IView;
+import com.milanix.shutter.core.specification.IPresenter;
+import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.feed.model.Feed;
 
 import java.util.List;

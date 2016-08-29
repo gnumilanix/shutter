@@ -2,7 +2,9 @@ package com.milanix.shutter.login;
 
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.core.IStore;
+import com.milanix.shutter.core.MessageSubscriber;
+import com.milanix.shutter.core.specification.IStore;
+import com.milanix.shutter.notification.model.NotificationDataModule;
 import com.milanix.shutter.user.account.IAccountStore;
 import com.milanix.shutter.user.auth.Authorization;
 import com.milanix.shutter.user.auth.IAuthStore;
@@ -21,14 +23,16 @@ public class LoginPresenter extends AbstractPresenter<LoginContract.View> implem
     private final IAuthStore authStore;
     private final IAccountStore accountStore;
     private final IUserRepository userRepository;
+    private final MessageSubscriber messageSubscriber;
 
     @Inject
-    public LoginPresenter(LoginContract.View view, App app, IAuthStore authStore, IAccountStore accountStore, IUserRepository userRepository) {
+    public LoginPresenter(LoginContract.View view, App app, IAuthStore authStore, IAccountStore accountStore, IUserRepository userRepository, MessageSubscriber messageSubscriber) {
         super(view);
         this.app = app;
         this.authStore = authStore;
         this.accountStore = accountStore;
         this.userRepository = userRepository;
+        this.messageSubscriber = messageSubscriber;
     }
 
     @Override
@@ -38,6 +42,7 @@ public class LoginPresenter extends AbstractPresenter<LoginContract.View> implem
         accountStore.getAuthToken(accountStore.getDefaultAccount(), new IStore.Callback<String>() {
             @Override
             public void onSuccess(String result) {
+                subscribeNotifications();
                 getSelf();
             }
 
@@ -54,6 +59,7 @@ public class LoginPresenter extends AbstractPresenter<LoginContract.View> implem
         authStore.signIn(login.getUsername(), login.getPassword(), new IStore.Callback<Authorization>() {
             @Override
             public void onSuccess(Authorization result) {
+                subscribeNotifications();
                 getSelf();
             }
 
@@ -63,6 +69,10 @@ public class LoginPresenter extends AbstractPresenter<LoginContract.View> implem
                 view.handleInvalidLogin();
             }
         });
+    }
+
+    private void subscribeNotifications() {
+        messageSubscriber.subscribe(NotificationDataModule.NOTIFICATIONS);
     }
 
     private void getSelf() {

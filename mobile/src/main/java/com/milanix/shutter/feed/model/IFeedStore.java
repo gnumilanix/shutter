@@ -1,7 +1,7 @@
 package com.milanix.shutter.feed.model;
 
 import com.android.annotations.NonNull;
-import com.milanix.shutter.core.IStore;
+import com.milanix.shutter.core.specification.IStore;
 
 import java.util.List;
 

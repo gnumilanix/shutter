@@ -1,4 +1,4 @@
-package com.milanix.shutter.core;
+package com.milanix.shutter.core.specification;
 
 /**
  * Interface to be implemented by all presenters

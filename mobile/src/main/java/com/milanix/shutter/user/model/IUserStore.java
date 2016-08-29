@@ -1,6 +1,6 @@
 package com.milanix.shutter.user.model;
 
-import com.milanix.shutter.core.IStore;
+import com.milanix.shutter.core.specification.IStore;
 
 /**
  * Interface to be implemented by user stores

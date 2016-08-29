@@ -17,12 +17,8 @@ import com.milanix.shutter.user.model.User;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import javax.inject.Inject;
 
 import static com.milanix.shutter.home.HomeActivity.Tab.FAVORITES;
 import static com.milanix.shutter.home.HomeActivity.Tab.FEEDS;

@@ -4,6 +4,7 @@ import com.milanix.shutter.App;
 import com.milanix.shutter.dependencies.module.AppModule;
 import com.milanix.shutter.dependencies.module.AuthModule;
 import com.milanix.shutter.dependencies.module.DataModule;
+import com.milanix.shutter.dependencies.module.LogModule;
 import com.milanix.shutter.dependencies.module.NetworkModule;
 import com.milanix.shutter.dependencies.module.SystemModule;
 import com.milanix.shutter.login.LoginComponent;
@@ -23,7 +24,7 @@ import dagger.Component;
  * @author milan
  */
 @Singleton
-@Component(modules = {AppModule.class, DataModule.class, NetworkModule.class, SystemModule.class, UserDataModule.class, AuthModule.class})
+@Component(modules = {AppModule.class, DataModule.class, NetworkModule.class, SystemModule.class, LogModule.class, AuthModule.class, UserDataModule.class})
 public interface AppComponent {
     void inject(App app);
 

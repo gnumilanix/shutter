@@ -13,6 +13,7 @@ import okhttp3.Authenticator;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
+import timber.log.Timber;
 
 /**
  * Authenticator that will be used by ok http
@@ -45,8 +46,8 @@ public class OAuthenticator implements Authenticator {
             } else {
                 accountProvider.invalidateAuthToken(account, accessToken);
             }
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            Timber.i(e, "Failed to authenticate");
         }
 
         return response.request();

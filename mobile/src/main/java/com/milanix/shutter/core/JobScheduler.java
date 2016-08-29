@@ -28,7 +28,7 @@ public class JobScheduler {
      * @return true on success, otherwise false
      */
     public boolean schedule(Job job) {
-        if (driver.isAvailable()) {
+        if (isAvailable()) {
             dispatcher.schedule(job);
 
             return true;
@@ -44,7 +44,7 @@ public class JobScheduler {
      * @return true on success, otherwise false
      */
     public boolean cancel(String tag) {
-        if (driver.isAvailable()) {
+        if (isAvailable()) {
             dispatcher.cancel(tag);
 
             return true;
@@ -54,8 +54,17 @@ public class JobScheduler {
     }
 
     public void cancelAll() {
-        if (driver.isAvailable()) {
+        if (isAvailable()) {
             dispatcher.cancelAll();
         }
+    }
+
+    /**
+     * Returns if job scheduling is available
+     *
+     * @return true if available
+     */
+    public boolean isAvailable() {
+        return driver.isAvailable();
     }
 }

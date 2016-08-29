@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.milanix.shutter.App;
+import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.user.UserComponent;
 

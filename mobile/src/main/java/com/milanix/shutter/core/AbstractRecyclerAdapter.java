@@ -13,7 +13,7 @@ import java.util.List;
  * @param <H> of the view holder
  * @author milan
  */
-public abstract class AbstractRecyclerViewAdapter<T, H extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<H> {
+public abstract class AbstractRecyclerAdapter<T, H extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<H> {
     private final List<T> items = new ArrayList<>();
 
 

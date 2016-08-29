@@ -2,6 +2,8 @@ package com.milanix.shutter.core;
 
 import android.databinding.ViewDataBinding;
 
+import com.milanix.shutter.core.specification.IPresenter;
+
 import javax.inject.Inject;
 
 /**

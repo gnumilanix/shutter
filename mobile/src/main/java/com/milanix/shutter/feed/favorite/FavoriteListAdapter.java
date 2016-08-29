@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.milanix.shutter.R;
-import com.milanix.shutter.core.AbstractRecyclerViewAdapter;
+import com.milanix.shutter.core.AbstractRecyclerAdapter;
 import com.milanix.shutter.core.BindingViewHolder;
 import com.milanix.shutter.databinding.ItemFavoriteBinding;
 import com.milanix.shutter.feed.model.Feed;
@@ -17,7 +17,7 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public class FavoriteListAdapter extends AbstractRecyclerViewAdapter<Feed, FavoriteListAdapter.FeedHolder> {
+public class FavoriteListAdapter extends AbstractRecyclerAdapter<Feed, FavoriteListAdapter.FeedHolder> {
     private FavoriteListContract.View feedListView;
     private final LayoutInflater inflater;
 

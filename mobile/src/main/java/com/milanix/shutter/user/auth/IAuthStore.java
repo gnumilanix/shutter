@@ -1,6 +1,6 @@
 package com.milanix.shutter.user.auth;
 
-import com.milanix.shutter.core.IStore;
+import com.milanix.shutter.core.specification.IStore;
 
 /**
  * Interface to be implemented by authentication stores

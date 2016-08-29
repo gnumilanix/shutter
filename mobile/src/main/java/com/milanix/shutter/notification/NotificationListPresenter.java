@@ -1,7 +1,7 @@
 package com.milanix.shutter.notification;
 
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.core.IStore;
+import com.milanix.shutter.core.specification.IStore;
 import com.milanix.shutter.notification.model.INotificationRepository;
 import com.milanix.shutter.notification.model.Notification;
 

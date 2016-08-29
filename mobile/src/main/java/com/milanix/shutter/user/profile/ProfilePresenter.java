@@ -2,10 +2,12 @@ package com.milanix.shutter.user.profile;
 
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.core.IStore;
+import com.milanix.shutter.core.MessageSubscriber;
+import com.milanix.shutter.core.specification.IStore;
 import com.milanix.shutter.feed.model.Feed;
 import com.milanix.shutter.feed.model.IFeedRepository;
 import com.milanix.shutter.feed.model.Query;
+import com.milanix.shutter.notification.model.NotificationDataModule;
 import com.milanix.shutter.user.auth.IAuthStore;
 import com.milanix.shutter.user.model.IUserRepository;
 import com.milanix.shutter.user.model.User;
@@ -51,15 +53,18 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
     private final IFeedRepository feedRepository;
     private final IAuthStore authStore;
     private final App app;
+    private final MessageSubscriber subscriber;
 
     @Inject
     public ProfilePresenter(ProfileContract.View view, IUserRepository userRepository,
-                            IFeedRepository feedRepository, IAuthStore authStore, App app) {
+                            IFeedRepository feedRepository, IAuthStore authStore, App app,
+                            MessageSubscriber subscriber) {
         super(view);
         this.userRepository = userRepository;
         this.feedRepository = feedRepository;
         this.authStore = authStore;
         this.app = app;
+        this.subscriber = subscriber;
     }
 
     @Override
@@ -86,6 +91,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
         authStore.logout(new IStore.Callback<Void>() {
             @Override
             public void onSuccess(Void result) {
+                subscriber.unsubscribe(NotificationDataModule.NOTIFICATIONS);
                 app.releaseUserComponent();
                 view.logoutComplete();
             }

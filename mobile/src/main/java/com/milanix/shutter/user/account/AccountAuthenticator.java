@@ -17,6 +17,8 @@ import com.milanix.shutter.user.auth.IAuthStore;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static android.accounts.AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE;
 import static android.accounts.AccountManager.KEY_ACCOUNT_NAME;
 import static android.accounts.AccountManager.KEY_ACCOUNT_TYPE;
@@ -71,6 +73,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     @Override
     public Bundle addAccount(AccountAuthenticatorResponse response, String accountType, String authTokenType,
                              String[] requiredFeatures, Bundle options) throws NetworkErrorException {
+        Timber.d("adding new account");
         return new BundleBuilder().putParcelable(KEY_INTENT, new Intent(context, LoginActivity.class).
                 putExtra(ARG_ACCOUNT_TYPE, accountType).
                 putExtra(ARG_AUTH_TYPE, authTokenType).
@@ -90,6 +93,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse response, Account account, String authTokenType,
                                Bundle options) throws NetworkErrorException {
+        Timber.d("Getting auth token");
+
         if (authTokenType.equals(TOKEN_BEARER)) {
             final String authToken = getToken(account, authTokenType);
 
@@ -123,6 +128,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     @Override
     public Bundle updateCredentials(AccountAuthenticatorResponse response, Account account,
                                     String authTokenType, Bundle options) throws NetworkErrorException {
+        Timber.d("updating credentials");
+
         return new BundleBuilder().putParcelable(KEY_INTENT, new Intent(context, LoginActivity.class).
                 putExtra(ARG_ACCOUNT_TYPE, account.type).
                 putExtra(ARG_AUTH_TYPE, account).
@@ -152,6 +159,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             try {
                 return authStore.signIn(account.name, manager.getPassword(account)).getAccessToken();
             } catch (Exception ignored) {
+                Timber.i("Failed to retrieve token");
                 return null;
             }
         } else

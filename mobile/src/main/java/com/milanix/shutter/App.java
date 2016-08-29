@@ -11,8 +11,11 @@ import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
 import com.milanix.shutter.user.model.User;
 
+import javax.inject.Inject;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import timber.log.Timber;
 
 /**
  * {@link android.app.Application} class for this app
@@ -24,12 +27,16 @@ public class App extends MultiDexApplication {
     protected UserComponent userComponent;
     protected FeedComponent feedComponent;
 
+    @Inject
+    Timber.Tree logTree;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         initRealm();
         createAppComponent(this).inject(this);
+        Timber.plant(logTree);
     }
 
     private void initRealm() {

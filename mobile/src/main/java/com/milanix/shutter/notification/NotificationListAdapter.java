@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.milanix.shutter.R;
-import com.milanix.shutter.core.AbstractRecyclerViewAdapter;
+import com.milanix.shutter.core.AbstractRecyclerAdapter;
 import com.milanix.shutter.core.BindingViewHolder;
 import com.milanix.shutter.databinding.ItemNotificationBinding;
 import com.milanix.shutter.notification.model.Notification;
@@ -17,7 +17,7 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public class NotificationListAdapter extends AbstractRecyclerViewAdapter<Notification, NotificationListAdapter.NotificationHolder> {
+public class NotificationListAdapter extends AbstractRecyclerAdapter<Notification, NotificationListAdapter.NotificationHolder> {
     private NotificationListContract.View feedListView;
     private final LayoutInflater inflater;
 
