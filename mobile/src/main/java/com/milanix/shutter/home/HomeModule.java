@@ -24,7 +24,7 @@ public class HomeModule {
     }
 
     @Provides
-    public HomeContract.Presenter provideHomePresenter(HomeContract.View view,  IUserRepository userRepository) {
-        return new HomePresenter(view,  userRepository);
+    public HomeContract.Presenter provideHomePresenter(HomeContract.View view, IUserRepository userRepository) {
+        return new HomePresenter(view, userRepository);
     }
 }

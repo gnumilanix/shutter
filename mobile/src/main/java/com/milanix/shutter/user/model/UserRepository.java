@@ -20,7 +20,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void refreshSelf(@Nullable final Callback<User> callback) {
-        remoteStore.getSelf( new Callback<User>() {
+        remoteStore.getSelf(new Callback<User>() {
             @Override
             public void onSuccess(User result) {
                 localStore.putUser(result);

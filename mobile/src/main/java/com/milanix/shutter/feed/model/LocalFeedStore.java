@@ -46,7 +46,7 @@ public class LocalFeedStore implements IFeedStore {
     }
 
     @Override
-    public void getFeeds(Query query,Callback<List<Feed>> callback) {
+    public void getFeeds(Query query, Callback<List<Feed>> callback) {
         // TODO: 28/8/2016 add query when changing to real server
         invokeCallback(Realm.getDefaultInstance().where(Feed.class).findAll(), callback);
     }
@@ -66,7 +66,7 @@ public class LocalFeedStore implements IFeedStore {
     public void deleteFeeds(List<Long> feedIds, Callback<Void> callback) {
         final Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        where(realm.where(Feed.class),Feed.FIELD_ID,feedIds).findAll().deleteAllFromRealm();
+        where(realm.where(Feed.class), Feed.FIELD_ID, feedIds).findAll().deleteAllFromRealm();
         realm.commitTransaction();
 
         callback.onSuccess(null);

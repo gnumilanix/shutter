@@ -31,6 +31,6 @@ public class LoginModule {
     public LoginContract.Presenter provideLoginPresenter(LoginContract.View view, App app, IAuthStore authStore,
                                                          IAccountStore accountStore, IUserRepository userRepository,
                                                          MessageSubscriber messageSubscriber) {
-        return new LoginPresenter(view, app, authStore, accountStore, userRepository,messageSubscriber);
+        return new LoginPresenter(view, app, authStore, accountStore, userRepository, messageSubscriber);
     }
 }
