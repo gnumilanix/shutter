@@ -7,7 +7,7 @@ import com.milanix.shutter.core.specification.IStore;
 import com.milanix.shutter.feed.model.Feed;
 import com.milanix.shutter.feed.model.IFeedRepository;
 import com.milanix.shutter.feed.model.Query;
-import com.milanix.shutter.notification.model.NotificationDataModule;
+import com.milanix.shutter.notification.model.NotificationMessagingService;
 import com.milanix.shutter.user.auth.IAuthStore;
 import com.milanix.shutter.user.model.IUserRepository;
 import com.milanix.shutter.user.model.User;
@@ -91,7 +91,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
         authStore.logout(new IStore.Callback<Void>() {
             @Override
             public void onSuccess(Void result) {
-                subscriber.unsubscribe(NotificationDataModule.NOTIFICATIONS);
+                subscriber.unsubscribe(NotificationMessagingService.NOTIFICATIONS);
                 app.releaseUserComponent();
                 view.logoutComplete();
             }

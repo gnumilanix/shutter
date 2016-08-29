@@ -22,7 +22,6 @@ import retrofit2.Retrofit;
  */
 @Module
 public class NotificationDataModule {
-    public static final String NOTIFICATIONS = "_NOTIFICATIONS";
 
     @Provides
     @UserScope
@@ -52,15 +51,14 @@ public class NotificationDataModule {
 
     @Provides
     @UserScope
-    @Named(NOTIFICATIONS)
+    @Named(NotificationMessagingService.NOTIFICATIONS)
     public Job provideNotificationSyncJob(FirebaseJobDispatcher dispatcher) {
         return dispatcher.newJobBuilder()
                 .setService(NotificationSyncService.class)
-                .setTag(NOTIFICATIONS)
+                .setTag(NotificationMessagingService.NOTIFICATIONS)
                 .setConstraints(Constraint.ON_ANY_NETWORK)
-                .setTrigger(Trigger.executionWindow(0, 60))
+                .setTrigger(Trigger.NOW)
                 .setLifetime(Lifetime.FOREVER)
-                .setRecurring(true)
                 .build();
     }
 }

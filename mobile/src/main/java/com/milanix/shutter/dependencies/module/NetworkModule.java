@@ -1,5 +1,6 @@
 package com.milanix.shutter.dependencies.module;
 
+import com.google.gson.Gson;
 import com.milanix.shutter.user.auth.AuthorizationInterceptor;
 import com.milanix.shutter.user.auth.OAuthenticator;
 
@@ -33,8 +34,8 @@ public class NetworkModule {
 
     @Singleton
     @Provides
-    public GsonConverterFactory provideGsonConverterFactory() {
-        return GsonConverterFactory.create();
+    public GsonConverterFactory provideGsonConverterFactory(Gson gson) {
+        return GsonConverterFactory.create(gson);
     }
 
     @Singleton

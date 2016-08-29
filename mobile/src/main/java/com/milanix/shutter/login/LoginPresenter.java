@@ -4,7 +4,7 @@ import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
 import com.milanix.shutter.core.MessageSubscriber;
 import com.milanix.shutter.core.specification.IStore;
-import com.milanix.shutter.notification.model.NotificationDataModule;
+import com.milanix.shutter.notification.model.NotificationMessagingService;
 import com.milanix.shutter.user.account.IAccountStore;
 import com.milanix.shutter.user.auth.Authorization;
 import com.milanix.shutter.user.auth.IAuthStore;
@@ -72,7 +72,7 @@ public class LoginPresenter extends AbstractPresenter<LoginContract.View> implem
     }
 
     private void subscribeNotifications() {
-        messageSubscriber.subscribe(NotificationDataModule.NOTIFICATIONS);
+        messageSubscriber.subscribe(NotificationMessagingService.NOTIFICATIONS);
     }
 
     private void getSelf() {

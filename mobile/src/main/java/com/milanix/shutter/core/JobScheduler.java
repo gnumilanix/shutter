@@ -1,5 +1,6 @@
 package com.milanix.shutter.core;
 
+import com.android.annotations.NonNull;
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.Job;
@@ -27,7 +28,7 @@ public class JobScheduler {
      * @param job to schedule
      * @return true on success, otherwise false
      */
-    public boolean schedule(Job job) {
+    public boolean schedule(@NonNull Job job) {
         if (isAvailable()) {
             dispatcher.schedule(job);
 
@@ -43,7 +44,7 @@ public class JobScheduler {
      * @param tag running job tag to cancel
      * @return true on success, otherwise false
      */
-    public boolean cancel(String tag) {
+    public boolean cancel(@NonNull String tag) {
         if (isAvailable()) {
             dispatcher.cancel(tag);
 

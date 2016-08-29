@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.milanix.shutter.BuildConfig;
 import com.milanix.shutter.core.JobScheduler;
 
@@ -25,6 +27,12 @@ public class DataModule {
     @Provides
     public SharedPreferences provideSharedPreferences(Context context) {
         return context.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
+    }
+
+    @Singleton
+    @Provides
+    public Gson provideGson() {
+        return new GsonBuilder().create();
     }
 
     @Singleton

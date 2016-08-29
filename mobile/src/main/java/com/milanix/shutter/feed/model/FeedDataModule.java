@@ -8,6 +8,7 @@ import com.firebase.jobdispatcher.Trigger;
 import com.milanix.shutter.dependencies.qualifier.Local;
 import com.milanix.shutter.dependencies.qualifier.Remote;
 import com.milanix.shutter.dependencies.scope.UserScope;
+import com.milanix.shutter.notification.model.NotificationMessagingService;
 
 import javax.inject.Named;
 
@@ -22,7 +23,6 @@ import retrofit2.Retrofit;
  */
 @Module
 public class FeedDataModule {
-    public static final String FEEDS = "_FEEDS";
 
     @Provides
     @UserScope
@@ -52,11 +52,11 @@ public class FeedDataModule {
 
     @Provides
     @UserScope
-    @Named(FEEDS)
+    @Named(NotificationMessagingService.FEEDS)
     public Job provideFeedSyncJob(FirebaseJobDispatcher dispatcher) {
         return dispatcher.newJobBuilder()
                 .setService(FeedSyncService.class)
-                .setTag(FEEDS)
+                .setTag(NotificationMessagingService.FEEDS)
                 .setConstraints(Constraint.ON_UNMETERED_NETWORK)
                 .setTrigger(Trigger.executionWindow(0, 60))
                 .setLifetime(Lifetime.FOREVER)
