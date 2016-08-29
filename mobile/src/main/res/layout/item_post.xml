@@ -82,13 +82,13 @@
                 android:id="@+id/ivViews"
                 android:layout_width="@dimen/item_text_drawable"
                 android:layout_height="@dimen/item_text_drawable"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/pflPost"
                 android:layout_marginBottom="@dimen/margin_normal"
                 android:layout_marginLeft="@dimen/margin_normal"
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
+                android:layout_toLeftOf="@+id/tvViews"
+                android:layout_toStartOf="@+id/tvViews"
                 android:src="@drawable/ic_icon_views" />
 
             <TextView
@@ -97,8 +97,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/ivViews"
                 android:layout_alignTop="@+id/ivViews"
-                android:layout_toEndOf="@+id/ivViews"
-                android:layout_toRightOf="@+id/ivViews"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_toLeftOf="@+id/ivFavorites"
+                android:layout_toStartOf="@+id/ivFavorites"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"

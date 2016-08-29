@@ -19,8 +19,6 @@ public interface FeedListContract {
 
         void handleFeedRefreshError();
 
-        void addPost();
-
         void showProgress();
 
         void hideProgress();

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringDef;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 
 import com.milanix.shutter.R;
@@ -16,8 +17,12 @@ import com.milanix.shutter.user.model.User;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import javax.inject.Inject;
 
 import static com.milanix.shutter.home.HomeActivity.Tab.FAVORITES;
 import static com.milanix.shutter.home.HomeActivity.Tab.FEEDS;
@@ -32,7 +37,7 @@ public class HomeActivity extends AbstractActivity<HomeContract.Presenter, Activ
 
     @StringDef({FEEDS, FAVORITES, NOTIFICATIONS})
     @Retention(RetentionPolicy.SOURCE)
-    public static @interface Tab {
+    public @interface Tab {
         String FEEDS = "FEEDS";
         String FAVORITES = "FAVORITES";
         String NOTIFICATIONS = "NOTIFICATIONS";
@@ -58,12 +63,15 @@ public class HomeActivity extends AbstractActivity<HomeContract.Presenter, Activ
     public void onTabSelected(@IdRes int tabId) {
         switch (tabId) {
             case R.id.tab_feeds:
+                binding.fabAdd.show();
                 switchFragment(Tab.FEEDS);
                 break;
             case R.id.tab_favorites:
+                binding.fabAdd.hide();
                 switchFragment(FAVORITES);
                 break;
             case R.id.tab_notifications:
+                binding.fabAdd.hide();
                 switchFragment(Tab.NOTIFICATIONS);
                 break;
         }
@@ -77,6 +85,11 @@ public class HomeActivity extends AbstractActivity<HomeContract.Presenter, Activ
     @Override
     public void openProfile(User user) {
         startActivity(new Intent(this, ProfileActivity.class));
+    }
+
+    @Override
+    public void addPost() {
+        Snackbar.make(binding.root, "New post not yet implemented", Snackbar.LENGTH_SHORT).show();
     }
 
     private void switchFragment(@Tab String tab) {

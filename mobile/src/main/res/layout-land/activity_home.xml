@@ -103,6 +103,18 @@
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAdd"
+            style="@style/FabStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->view.addPost()}"
+            android:src="@drawable/ic_action_add"
+            app:backgroundTint="@color/colorAccent"
+            app:layout_anchor="@+id/nestedContainer"
+            app:layout_anchorGravity="bottom|right|end"
+            app:rippleColor="@color/colorRipplePink" />
+
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

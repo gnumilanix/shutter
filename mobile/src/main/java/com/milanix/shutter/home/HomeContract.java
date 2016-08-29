@@ -14,6 +14,8 @@ public interface HomeContract {
         void setUser(User user);
 
         void openProfile(User user);
+
+        void addPost();
     }
 
     interface Presenter extends IPresenter {
