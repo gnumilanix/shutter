@@ -77,7 +77,7 @@ public class LoginFragment extends AbstractFragment<LoginContract.Presenter, Fra
     @Override
     public void setSessionAvailable() {
         getActivity().finish();
-        startActivity(new Intent(getActivity(), HomeActivity.class));
+        startActivity(new Intent(getActivity(), HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
     @Override
@@ -87,7 +87,7 @@ public class LoginFragment extends AbstractFragment<LoginContract.Presenter, Fra
 
     @Override
     public void showProgress() {
-        progressDialog = ProgressDialog.show(getActivity(), getString(R.string.title_logging_in), getString(R.string.missing_password), true);
+        progressDialog = ProgressDialog.show(getActivity(), getString(R.string.title_logging_in), getString(R.string.message_logging_in), true);
 
         binding.tlEmail.setErrorEnabled(false);
         binding.tlPassword.setErrorEnabled(false);

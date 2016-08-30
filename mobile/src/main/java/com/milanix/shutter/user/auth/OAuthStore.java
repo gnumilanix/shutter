@@ -1,6 +1,7 @@
 package com.milanix.shutter.user.auth;
 
-import com.android.annotations.NonNull;
+import android.support.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.core.RestCallback;

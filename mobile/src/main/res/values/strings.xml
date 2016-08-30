@@ -35,7 +35,9 @@
     <string name="title_posts">Posts</string>
     <string name="title_following">Following</string>
     <string name="title_logging_in">Logging in</string>
+    <string name="title_signing_up">Signing up</string>
     <string name="title_request_email">Reset Password</string>
+    <string name="title_select_avatar">Select Avatar</string>
 
     <string name="message_logged_in">Logged in</string>
     <string name="message_hello">Hello %s</string>
@@ -43,6 +45,7 @@
     <string name="message_login_error">There was an error while logging in.</string>
     <string name="message_network_disconnected">Can\'t connect to the internet</string>
     <string name="message_logging_in">Please wait while we log you in.</string>
+    <string name="message_signing_up">Please wait while we sign you up.</string>
     <string name="missing_email">Please enter your email</string>
     <string name="missing_password">Please enter your password</string>
     <string name="error_email_invalid">Please enter a valid email</string>
@@ -54,4 +57,6 @@
     <string name="error_refresh_favorites">Error refreshing favorites</string>
     <string name="error_refresh_notifications">Error refreshing notifications</string>
 
+    <string name="storage_permission_request_title">Storage permission request</string>
+    <string name="storage_permission_request_rationale">Storage permission is needed for uploading profile avatar</string>
 </resources>

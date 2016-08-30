@@ -1,6 +1,7 @@
 package com.milanix.shutter.notification.model;
 
-import com.android.annotations.Nullable;
+import android.support.annotation.Nullable;
+
 import com.milanix.shutter.dependencies.qualifier.Local;
 import com.milanix.shutter.dependencies.qualifier.Remote;
 

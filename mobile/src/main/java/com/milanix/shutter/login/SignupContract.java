@@ -20,10 +20,19 @@ public interface SignUpContract {
 
         void completeSignUp();
 
+        void selectAvatar();
+
+        void openAgreement();
+
         void showProgress();
 
         void hideProgress();
 
+        void passwordResetEmailSent();
+
+        void handleResetPasswordError();
+
+        void handleLoginFailure();
     }
 
     interface Presenter extends IPresenter {

@@ -13,7 +13,6 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 
 /**
  * OAuth interceptor to be used with retrofit that adds auth headers too all requests going through
@@ -40,7 +39,7 @@ public class AuthorizationInterceptor implements Interceptor {
 
             if (!TextUtils.isEmpty(accessToken))
                 return chain.proceed(request.newBuilder()
-                        .header(AUTHORIZATION, BEARER_PREFIX + accessToken)
+                        .header("", BEARER_PREFIX + accessToken)
                         .build());
         }
 

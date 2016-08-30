@@ -1,6 +1,6 @@
 package com.milanix.shutter.notification.model;
 
-import com.android.annotations.Nullable;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 

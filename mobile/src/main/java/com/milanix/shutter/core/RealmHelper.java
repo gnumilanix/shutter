@@ -1,7 +1,8 @@
 package com.milanix.shutter.core;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.milanix.shutter.core.specification.IStore;
 
 import java.util.List;

@@ -20,6 +20,8 @@ public interface AuthContract {
 
         void handleLoginError();
 
+        void openAgreement();
+
         void showProgress();
 
         void hideProgress();

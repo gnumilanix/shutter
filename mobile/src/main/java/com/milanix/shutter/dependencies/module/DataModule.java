@@ -8,6 +8,7 @@ import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.milanix.shutter.BuildConfig;
@@ -25,6 +26,8 @@ import dagger.Provides;
  */
 @Module
 public class DataModule {
+    public static final String STORAGE_URL = "gs://shutter-fd81d.appspot.com";
+
     @Singleton
     @Provides
     public SharedPreferences provideSharedPreferences(Context context) {
@@ -45,8 +48,8 @@ public class DataModule {
 
     @Singleton
     @Provides
-    public FirebaseStorage provideStorage() {
-        return FirebaseStorage.getInstance();
+    public StorageReference provideStorage() {
+        return FirebaseStorage.getInstance().getReferenceFromUrl(STORAGE_URL);
     }
 
     @Singleton

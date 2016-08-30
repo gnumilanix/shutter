@@ -1,6 +1,7 @@
 package com.milanix.shutter.core;
 
-import com.android.annotations.NonNull;
+import android.support.annotation.NonNull;
+
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.Job;

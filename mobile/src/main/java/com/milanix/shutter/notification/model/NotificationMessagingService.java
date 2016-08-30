@@ -1,6 +1,7 @@
 package com.milanix.shutter.notification.model;
 
-import com.android.annotations.Nullable;
+import android.support.annotation.Nullable;
+
 import com.firebase.jobdispatcher.Job;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

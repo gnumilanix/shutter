@@ -1,7 +1,7 @@
 package com.milanix.shutter.feed.model;
 
-import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 

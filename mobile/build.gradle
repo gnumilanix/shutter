@@ -77,6 +77,7 @@ dependencies {
     compile 'com.roughike:bottom-bar:2.0.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
+    compile 'com.karumi:dexter:2.2.2'
     compile 'com.jakewharton.timber:timber:4.1.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.google.dagger:dagger:2.6'

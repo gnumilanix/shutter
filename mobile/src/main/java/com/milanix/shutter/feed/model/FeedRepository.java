@@ -1,6 +1,7 @@
 package com.milanix.shutter.feed.model;
 
-import com.android.annotations.Nullable;
+import android.support.annotation.Nullable;
+
 import com.milanix.shutter.dependencies.qualifier.Local;
 import com.milanix.shutter.dependencies.qualifier.Remote;
 
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author milan
  */
-public class FeedRepository implements IFeedRepository {
+public class FeedRepository implements com.milanix.shutter.feed.model.IFeedRepository {
     private final IFeedStore localStore;
     private final IFeedStore remoteStore;
 

@@ -1,6 +1,7 @@
 package com.milanix.shutter.user.model;
 
-import com.android.annotations.Nullable;
+import android.support.annotation.Nullable;
+
 import com.google.firebase.auth.UserInfo;
 
 /**

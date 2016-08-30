@@ -14,4 +14,8 @@ public abstract class AbstractPresenter<T extends IView> implements IPresenter {
     public AbstractPresenter(T view) {
         this.view = view;
     }
+
+    public boolean hasView() {
+        return null != view;
+    }
 }

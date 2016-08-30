@@ -58,7 +58,7 @@ public class AuthFragment extends AbstractFragment<AuthContract.Presenter, Fragm
 
     @Override
     public void signUp() {
-
+        startActivity(new Intent(getActivity(), SignUpActivity.class));
     }
 
     @Override
@@ -73,6 +73,11 @@ public class AuthFragment extends AbstractFragment<AuthContract.Presenter, Fragm
 
     @Override
     public void handleLoginError() {
+
+    }
+
+    @Override
+    public void openAgreement() {
 
     }
 

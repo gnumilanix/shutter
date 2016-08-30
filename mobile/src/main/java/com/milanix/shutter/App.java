@@ -3,6 +3,7 @@ package com.milanix.shutter;
 import android.support.multidex.MultiDexApplication;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.karumi.dexter.Dexter;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.dependencies.component.DaggerAppComponent;
 import com.milanix.shutter.dependencies.module.AppModule;
@@ -10,7 +11,6 @@ import com.milanix.shutter.feed.FeedComponent;
 import com.milanix.shutter.feed.FeedModule;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
-import com.milanix.shutter.user.model.User;
 
 import javax.inject.Inject;
 
@@ -38,6 +38,7 @@ public class App extends MultiDexApplication {
         initRealm();
         createAppComponent(this).inject(this);
         Timber.plant(logTree);
+        Dexter.initialize(this);
     }
 
     private void initRealm() {
