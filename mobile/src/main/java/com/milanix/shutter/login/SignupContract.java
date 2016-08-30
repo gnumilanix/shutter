@@ -10,17 +10,15 @@ import com.milanix.shutter.core.specification.IView;
  *
  * @author milan
  */
-public interface LoginContract {
+public interface SignUpContract {
     interface View extends IView {
-        void handleInvalidUsername();
+        void handleExistingUser();
 
-        void handleInvalidPassword();
+        void handleSignUpFailure();
 
-        void handleInvalidLogin();
+        void handleUploadAvatarFailure();
 
-        void setSessionAvailable();
-
-        void setSessionUnavailable();
+        void completeSignUp();
 
         void showProgress();
 
@@ -29,7 +27,7 @@ public interface LoginContract {
     }
 
     interface Presenter extends IPresenter {
-        void login(@NonNull Login login);
+        void signUp(@NonNull SignUp signUp);
 
         void requestPassword(String email);
     }

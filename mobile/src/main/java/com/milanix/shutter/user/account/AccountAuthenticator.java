@@ -12,7 +12,7 @@ import android.text.TextUtils;
 
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.BundleBuilder;
-import com.milanix.shutter.login.LoginActivity;
+import com.milanix.shutter.login.LoginFragment;
 import com.milanix.shutter.user.auth.IAuthStore;
 
 import javax.inject.Inject;
@@ -74,7 +74,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public Bundle addAccount(AccountAuthenticatorResponse response, String accountType, String authTokenType,
                              String[] requiredFeatures, Bundle options) throws NetworkErrorException {
         Timber.d("adding new account");
-        return new BundleBuilder().putParcelable(KEY_INTENT, new Intent(context, LoginActivity.class).
+        return new BundleBuilder().putParcelable(KEY_INTENT, new Intent(context, LoginFragment.class).
                 putExtra(ARG_ACCOUNT_TYPE, accountType).
                 putExtra(ARG_AUTH_TYPE, authTokenType).
                 putExtra(ARG_IS_ADDING_NEW_ACCOUNT, true).
@@ -99,7 +99,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             final String authToken = getToken(account, authTokenType);
 
             if (TextUtils.isEmpty(authToken)) {
-                return new BundleBuilder().putParcelable(KEY_INTENT, new Intent(context, LoginActivity.class).
+                return new BundleBuilder().putParcelable(KEY_INTENT, new Intent(context, LoginFragment.class).
                         putExtra(KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response).
                         putExtra(ARG_ACCOUNT_TYPE, account.type).
                         putExtra(ARG_AUTH_TYPE, authTokenType).
@@ -130,7 +130,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
                                     String authTokenType, Bundle options) throws NetworkErrorException {
         Timber.d("updating credentials");
 
-        return new BundleBuilder().putParcelable(KEY_INTENT, new Intent(context, LoginActivity.class).
+        return new BundleBuilder().putParcelable(KEY_INTENT, new Intent(context, LoginFragment.class).
                 putExtra(ARG_ACCOUNT_TYPE, account.type).
                 putExtra(ARG_AUTH_TYPE, account).
                 putExtra(ARG_IS_ADDING_NEW_ACCOUNT, true).

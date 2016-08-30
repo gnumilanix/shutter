@@ -1,5 +1,4 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -12,96 +11,108 @@
             type="com.milanix.shutter.login.AuthContract.Presenter" />
     </data>
 
-            <RelativeLayout
-                android:id="@+id/vgLoginForm"
+    <RelativeLayout
+        android:id="@+id/vgLoginForm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/flBanner"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_title">
+
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/activity_vertical_margin">
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_profile_cover" />
 
-                <FrameLayout
-                    android:id="@+id/flBanner"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:src="@drawable/ic_title">
+            <ImageView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/margin_large"
+                android:src="@drawable/ic_title" />
+        </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_profile_cover" />
+        <Button
+            android:id="@+id/btnGoogle"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flBanner"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/margin_large"
+            android:background="@drawable/btn_google"
+            android:onClick="@{()->presenter.loginWithGoogle()}"
+            android:text="@string/action_signin_google"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/margin_large"
-                        android:padding="@dimen/padding_large"
-                        android:text="@string/sign_in"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/text_whopping" />
-                </FrameLayout>
+        <Button
+            android:id="@+id/btnFacebook"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnGoogle"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_facebook"
+            android:onClick="@{()->presenter.loginWithFacebook()}"
+            android:text="@string/action_signin_facebook"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnGoogle"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/flBanner"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/btn_google"
-                    android:text="@string/action_signin_google"
-                    android:onClick="@{()->presenter.loginWithGoogle()}"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnSignUp"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnFacebook"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_shutter"
+            android:onClick="@{()->view.signUp()}"
+            android:text="@string/action_create_account"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnFacebook"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/btnGoogle"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:onClick="@{()->presenter.loginWithFacebook()}"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/btn_facebook"
-                    android:text="@string/action_signin_facebook"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnSignUp"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_large"
+            android:gravity="center"
+            android:onClick="@{()->view.login()}"
+            android:padding="@dimen/padding_normal"
+            android:text="@string/action_signin_existing"
+            android:textColor="@color/colorTextGrey500"
+            android:textSize="@dimen/text_small" />
 
-                <Button
-                    android:id="@+id/btnSignUp"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/btnFacebook"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/btn_shutter"
-                    android:onClick="@{()->view.signUp()}"
-                    android:text="@string/action_create_account"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvAgreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/margin_large"
+            android:gravity="center"
+            android:onClick="@{()->view.login()}"
+            android:text="@string/action_signin_accept_terms"
+            android:textColor="@color/colorTextGrey500"
+            android:textSize="@dimen/text_small" />
 
-                <TextView
-                    android:id="@+id/tvLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/btnSignUp"
-                    android:layout_marginBottom="@dimen/margin_small"
-                    android:layout_marginTop="@dimen/margin_large"
-                    android:onClick="@{()->view.login()}"
-                    android:gravity="center"
-                    android:padding="@dimen/padding_normal"
-                    android:text="@string/action_signin_existing"
-                    android:textColor="@color/colorTextGrey400"
-                    android:textSize="@dimen/text_small" />
-
-            </RelativeLayout>
+    </RelativeLayout>
 </layout>

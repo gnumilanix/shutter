@@ -10,7 +10,7 @@ import dagger.Subcomponent;
  * @author milan
  */
 @ActivityScope
-@Subcomponent(modules = {LoginModule.class})
-public interface LoginComponent {
-    void inject(LoginFragment fragment);
+@Subcomponent(modules = {SignUpModule.class})
+public interface SignUpComponent {
+    void inject(SignUpFragment fragment);
 }

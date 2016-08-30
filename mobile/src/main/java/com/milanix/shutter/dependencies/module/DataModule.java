@@ -7,6 +7,7 @@ import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.milanix.shutter.BuildConfig;
@@ -38,8 +39,14 @@ public class DataModule {
 
     @Singleton
     @Provides
-    public FirebaseDatabase provideFirebaseDatabase() {
+    public FirebaseDatabase provideDatabase() {
         return FirebaseDatabase.getInstance();
+    }
+
+    @Singleton
+    @Provides
+    public FirebaseStorage provideStorage() {
+        return FirebaseStorage.getInstance();
     }
 
     @Singleton

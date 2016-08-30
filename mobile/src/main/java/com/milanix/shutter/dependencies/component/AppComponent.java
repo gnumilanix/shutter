@@ -11,6 +11,8 @@ import com.milanix.shutter.login.AuthComponent;
 import com.milanix.shutter.login.AuthModule;
 import com.milanix.shutter.login.LoginComponent;
 import com.milanix.shutter.login.LoginModule;
+import com.milanix.shutter.login.SignUpComponent;
+import com.milanix.shutter.login.SignUpModule;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
 import com.milanix.shutter.user.account.AccountAuthenticator;
@@ -38,4 +40,5 @@ public interface AppComponent {
 
     UserComponent with(UserModule module);
 
+    SignUpComponent with(SignUpModule module);
 }

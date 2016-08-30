@@ -81,6 +81,11 @@ public class LoginPresenter extends AbstractPresenter<LoginContract.View> implem
         }
     }
 
+    @Override
+    public void requestPassword(String email) {
+
+    }
+
     private boolean areLoginFieldsValid(Login login) {
         if (TextUtils.isEmpty(login.getUsername())) {
             view.handleInvalidUsername();

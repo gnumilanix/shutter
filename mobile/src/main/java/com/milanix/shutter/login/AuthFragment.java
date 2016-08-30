@@ -1,5 +1,6 @@
 package com.milanix.shutter.login;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -11,15 +12,13 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentAuthBinding;
 
-/**
- * Created by milan on 30/8/2016.
- */
-
+//// TODO: 30/8/2016 comment
 public class AuthFragment extends AbstractFragment<AuthContract.Presenter, FragmentAuthBinding> implements AuthContract.View {
     @Nullable
     @Override
@@ -35,25 +34,26 @@ public class AuthFragment extends AbstractFragment<AuthContract.Presenter, Fragm
     @Override
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
-        setLoginUnderlineHint();
+        setBoldUnderlineSpan(binding.tvLogin, getString(R.string.action_signin_existing),
+                getString(R.string.action_signin_existing_highlight));
+        setBoldUnderlineSpan(binding.tvAgreement, getString(R.string.action_signin_accept_terms),
+                getString(R.string.action_signin_accept_terms_highlight));
     }
 
-    private void setLoginUnderlineHint() {
-        final String fullText = getString(R.string.action_signin_existing);
-        final String textToUnderline = getString(R.string.action_signin_existing_login);
-        final int beginIndex = fullText.indexOf(textToUnderline);
-        final int endIndex = beginIndex + textToUnderline.length();
+    private void setBoldUnderlineSpan(TextView view, String fullText, String textToStyle) {
+        final int beginIndex = fullText.indexOf(textToStyle);
+        final int endIndex = beginIndex + textToStyle.length();
 
         final SpannableString spannableString = new SpannableString(fullText);
         spannableString.setSpan(new StyleSpan(Typeface.BOLD), beginIndex, endIndex, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         spannableString.setSpan(new UnderlineSpan(), beginIndex, endIndex, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 
-        binding.tvLogin.setText(spannableString);
+        view.setText(spannableString);
     }
 
     @Override
     public void login() {
-
+        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 
     @Override
