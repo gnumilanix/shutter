@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@android:color/white">
+    android:color="#e57566">
 
-    <item
-        android:drawable="@drawable/btn_google_pressed"
-        android:state_pressed="true" />
-    <item android:drawable="@drawable/btn_google_normal" />
+    <item>
+        <selector>
+            <item
+                android:drawable="@drawable/btn_google_pressed"
+                android:state_pressed="true" />
+            <item android:drawable="@drawable/btn_google_normal" />
+        </selector>
+    </item>
 </ripple>

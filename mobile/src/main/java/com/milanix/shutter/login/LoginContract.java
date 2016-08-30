@@ -11,6 +11,8 @@ import com.milanix.shutter.core.specification.IView;
  */
 public interface LoginContract {
     interface View extends IView {
+        void handleInvalidUsername();
+
         void handleInvalidPassword();
 
         void handleInvalidLogin();
@@ -22,6 +24,7 @@ public interface LoginContract {
         void showProgress();
 
         void hideProgress();
+
     }
 
     interface Presenter extends IPresenter {

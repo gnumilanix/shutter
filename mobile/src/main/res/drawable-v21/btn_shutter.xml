@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@android:color/white">
+    android:color="#e63374">
 
-    <item
-        android:drawable="@drawable/btn_shutter_disabled"
-        android:state_enabled="false" />
-    <item
-        android:drawable="@drawable/btn_shutter_pressed"
-        android:state_pressed="true" />
-    <item android:drawable="@drawable/btn_shutter_normal" />
-
+    <item>
+        <selector>
+            <item
+                android:drawable="@drawable/btn_shutter_disabled"
+                android:state_enabled="false" />
+            <item
+                android:drawable="@drawable/btn_shutter_pressed"
+                android:state_pressed="true" />
+            <item android:drawable="@drawable/btn_shutter_normal" />
+        </selector>
+    </item>
 </ripple>

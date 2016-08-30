@@ -21,7 +21,7 @@ import retrofit2.Retrofit;
  * @author milan
  */
 @Module
-public class AuthModule {
+public class AuthenticationModule {
 
     @Provides
     @Singleton

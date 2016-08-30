@@ -1,15 +1,23 @@
 package com.milanix.shutter.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
+import com.android.annotations.NonNull;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractActivity;
 import com.milanix.shutter.databinding.ActivityLoginBinding;
 import com.milanix.shutter.home.HomeActivity;
+
+import javax.inject.Inject;
 
 /**
  * Activity containing login
@@ -18,6 +26,10 @@ import com.milanix.shutter.home.HomeActivity;
  */
 public class LoginActivity extends AbstractActivity<LoginContract.Presenter, ActivityLoginBinding> implements LoginContract.View {
 
+    @Inject
+    InputMethodManager inputMethodManager;
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +37,22 @@ public class LoginActivity extends AbstractActivity<LoginContract.Presenter, Act
         getAppComponent().with(new LoginModule(this)).inject(this);
         performBinding(R.layout.activity_login);
         binding.setPresenter(presenter);
+        binding.setActivity(this);
         binding.setLogin(new Login());
 
         presenter.subscribe();
     }
 
     @Override
-    public void handleInvalidPassword() {
+    public void handleInvalidUsername() {
+        binding.tlEmail.setErrorEnabled(true);
+        binding.tlEmail.setError(getString(R.string.missing_email));
+    }
 
+    @Override
+    public void handleInvalidPassword() {
+        binding.tlPassword.setErrorEnabled(true);
+        binding.tlPassword.setError(getString(R.string.missing_password));
     }
 
     @Override
@@ -57,13 +77,33 @@ public class LoginActivity extends AbstractActivity<LoginContract.Presenter, Act
 
     @Override
     public void showProgress() {
-        binding.progressBar.setVisibility(View.VISIBLE);
-        binding.vgLoginForm.setVisibility(View.GONE);
+        progressDialog = ProgressDialog.show(this, getString(R.string.title_logging_in), getString(R.string.missing_password), true);
+
+        binding.tlEmail.setErrorEnabled(false);
+        binding.tlPassword.setErrorEnabled(false);
     }
 
     @Override
     public void hideProgress() {
-        binding.progressBar.setVisibility(View.GONE);
-        binding.vgLoginForm.setVisibility(View.VISIBLE);
+        if (null != progressDialog)
+            progressDialog.dismiss();
+    }
+
+    public boolean onEditorAction(@NonNull final TextView view, final int actionId, @Nullable final KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            hideKeyboard();
+            presenter.login(binding.getLogin());
+            return true;
+        }
+
+        return false;
+    }
+
+    private void hideKeyboard() {
+        final View view = getCurrentFocus();
+
+        if (view != null) {
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }

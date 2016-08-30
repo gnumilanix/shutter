@@ -1,6 +1,7 @@
 package com.milanix.shutter.login;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,27 +56,41 @@ public class LoginPresenter extends AbstractPresenter<LoginContract.View> implem
 
     @Override
     public void login(final Login login) {
-        view.showProgress();
+        if (areLoginFieldsValid(login)) {
+            view.showProgress();
 
-        auth.signInWithEmailAndPassword(login.getUsername(), login.getPassword()).
-                addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult result) {
-                        final FirebaseUser user = result.getUser();
+            auth.signInWithEmailAndPassword(login.getUsername(), login.getPassword()).
+                    addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult result) {
+                            final FirebaseUser user = result.getUser();
 
-                        if (null != user) {
-                            subscribeNotifications();
-                            app.createUserComponent(user);
-                            view.setSessionAvailable();
+                            if (null != user) {
+                                subscribeNotifications();
+                                app.createUserComponent(user);
+                                view.setSessionAvailable();
+                            }
                         }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                view.hideProgress();
-                view.handleInvalidLogin();
-            }
-        });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    view.hideProgress();
+                    view.handleInvalidLogin();
+                }
+            });
+        }
+    }
+
+    private boolean areLoginFieldsValid(Login login) {
+        if (TextUtils.isEmpty(login.getUsername())) {
+            view.handleInvalidUsername();
+            return false;
+        } else if (TextUtils.isEmpty(login.getPassword())) {
+            view.handleInvalidPassword();
+            return false;
+        }
+
+        return true;
     }
 
     private void subscribeNotifications() {

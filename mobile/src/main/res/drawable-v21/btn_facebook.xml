@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@android:color/white">
+    android:color="#476bb8">
 
-    <item
-        android:drawable="@drawable/btn_facebook_pressed"
-        android:state_pressed="true" />
-    <item android:drawable="@drawable/btn_facebook_normal" />
-
+    <item>
+        <selector>
+            <item
+                android:drawable="@drawable/btn_facebook_pressed"
+                android:state_pressed="true" />
+            <item android:drawable="@drawable/btn_facebook_normal" />
+        </selector>
+    </item>
 </ripple>

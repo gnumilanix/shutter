@@ -2,6 +2,7 @@ package com.milanix.shutter.login;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.TextUtils;
 
 import com.milanix.shutter.BR;
 

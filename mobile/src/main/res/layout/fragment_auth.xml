@@ -3,38 +3,19 @@
 
     <data>
 
-        <import type="android.text.TextUtils" />
+        <variable
+            name="view"
+            type="com.milanix.shutter.login.AuthContract.View" />
 
         <variable
             name="presenter"
-            type="com.milanix.shutter.login.LoginContract.Presenter" />
-
-        <variable
-            name="activity"
-            type="com.milanix.shutter.login.LoginActivity" />
-
-        <variable
-            name="login"
-            type="com.milanix.shutter.login.Login" />
+            type="com.milanix.shutter.login.AuthContract.Presenter" />
     </data>
-
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nestedContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <RelativeLayout
                 android:id="@+id/vgLoginForm"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/activity_vertical_margin">
 
@@ -72,6 +53,7 @@
                     android:layout_marginTop="16dp"
                     android:background="@drawable/btn_google"
                     android:text="@string/action_signin_google"
+                    android:onClick="@{()->presenter.loginWithGoogle()}"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
@@ -84,6 +66,7 @@
                     android:layout_below="@id/btnGoogle"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:onClick="@{()->presenter.loginWithFacebook()}"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/btn_facebook"
                     android:text="@string/action_signin_facebook"
@@ -101,85 +84,24 @@
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/btn_shutter"
-                    android:onClick="@{()->presenter.login(login)}"
+                    android:onClick="@{()->view.signUp()}"
                     android:text="@string/action_create_account"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvOr"
+                    android:id="@+id/tvLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btnSignUp"
                     android:layout_marginBottom="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_large"
+                    android:onClick="@{()->view.login()}"
                     android:gravity="center"
                     android:padding="@dimen/padding_normal"
-                    android:text="@string/hint_or"
+                    android:text="@string/action_signin_existing"
                     android:textColor="@color/colorTextGrey400"
                     android:textSize="@dimen/text_small" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tlEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tvOr"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/etEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_email"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:nextFocusDown="@+id/tlPassword"
-                        android:nextFocusForward="@+id/tlPassword"
-                        android:text="@={login.username}" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tlPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tlEmail"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin">
-
-                    <EditText
-                        android:id="@+id/etPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_password"
-                        android:imeActionId="@+id/login"
-                        android:imeActionLabel="@string/action_sign_in_short"
-                        android:imeOptions="actionUnspecified"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:onEditorAction="@{activity::onEditorAction}"
-                        android:text="@={login.password}" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btnSignIn"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tlPassword"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/btn_shutter"
-                    android:enabled="@{!TextUtils.isEmpty(login.username) &amp;&amp; !TextUtils.isEmpty(login.password)}"
-                    android:onClick="@{()->presenter.login(login)}"
-                    android:text="@string/action_sign_in"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
-
             </RelativeLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.design.widget.CoordinatorLayout>
 </layout>
