@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="com.milanix.shutter.user.model.User" />
+            type="com.milanix.shutter.feed.model.User" />
 
         <variable
             name="adapter"
@@ -100,7 +100,7 @@
                 android:layout_marginTop="@dimen/margin_normal"
                 android:text="@{user.fullName}"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_whopping"
+                android:textSize="@dimen/text_massive"
                 app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
                 app:layout_constraintTop_toTopOf="@+id/ivAvatar"
                 tools:text="John doe" />
@@ -115,7 +115,7 @@
                 android:maxLines="1"
                 android:paddingLeft="@dimen/padding_normal"
                 android:paddingRight="@dimen/padding_normal"
-                android:text="@{String.valueOf(user.followers)}"
+                android:text="@{String.valueOf(user.followers.size())}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_huge"
                 app:layout_constraintEnd_toEndOf="@+id/glStats33"
@@ -153,7 +153,7 @@
                 android:maxLines="1"
                 android:paddingLeft="@dimen/padding_normal"
                 android:paddingRight="@dimen/padding_normal"
-                android:text="@{String.valueOf(user.posts)}"
+                android:text="@{String.valueOf(user.posts.size())}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_huge"
                 app:layout_constraintEnd_toEndOf="@+id/glStats66"
@@ -190,7 +190,7 @@
                 android:maxLines="1"
                 android:paddingLeft="@dimen/padding_normal"
                 android:paddingRight="@dimen/padding_normal"
-                android:text="@{String.valueOf(user.posts)}"
+                android:text="@{String.valueOf(user.followings.size())}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_huge"
                 app:layout_constraintEnd_toEndOf="parent"

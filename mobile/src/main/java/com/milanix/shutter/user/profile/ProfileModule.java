@@ -1,5 +1,8 @@
 package com.milanix.shutter.user.profile;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.MessageSubscriber;
 import com.milanix.shutter.feed.model.IFeedRepository;
@@ -29,10 +32,10 @@ public class ProfileModule {
 
     @Provides
     public ProfileContract.Presenter provideProfilePresenter(ProfileContract.View view,
-                                                             IUserRepository userRepository,
-                                                             IFeedRepository feedRepository,
-                                                             IAuthStore authStore, App app,
-                                                             MessageSubscriber subscriber) {
-        return new ProfilePresenter(view, userRepository, feedRepository, authStore, app, subscriber);
+                                                             App app, MessageSubscriber subscriber,
+                                                             FirebaseUser user,
+                                                             FirebaseAuth auth,
+                                                             FirebaseDatabase database ) {
+        return new ProfilePresenter(view,app, subscriber,user,auth,database);
     }
 }

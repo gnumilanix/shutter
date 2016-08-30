@@ -1,7 +1,7 @@
 package com.milanix.shutter.user;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.dependencies.scope.UserScope;
-import com.milanix.shutter.user.model.User;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,15 +13,15 @@ import dagger.Provides;
  */
 @Module
 public class UserModule {
-    private final User user;
+    private final FirebaseUser user;
 
-    public UserModule(User user) {
+    public UserModule(FirebaseUser user) {
         this.user = user;
     }
 
     @Provides
     @UserScope
-    public User provideUser() {
+    public FirebaseUser provideUser() {
         return user;
     }
 }

@@ -1,5 +1,8 @@
 package com.milanix.shutter.user.auth;
 
+import com.android.annotations.NonNull;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.core.RestCallback;
 import com.milanix.shutter.user.account.IAccountStore;
 
@@ -37,6 +40,18 @@ public class OAuthStore implements IAuthStore {
             Timber.i(e, "Failed to retrieve cached token");
             callback.onFailure(e);
         }
+
+        new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Timber.d("onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    Timber.d("onAuthStateChanged:signed_out");
+                }
+            }
+        };
     }
 
     @Override

@@ -1,9 +1,5 @@
 package com.milanix.shutter.user.model;
 
-import com.milanix.shutter.dependencies.qualifier.Local;
-import com.milanix.shutter.dependencies.qualifier.Remote;
-import com.milanix.shutter.user.account.IAccountStore;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -22,26 +18,6 @@ public class UserDataModule {
     @Singleton
     public UserApi provideUserApi(Retrofit retrofit) {
         return retrofit.create(UserApi.class);
-    }
-
-    @Provides
-    @Local
-    @Singleton
-    public IUserStore provideLocalUserStore(IAccountStore accountStore) {
-        return new LocalUserStore(accountStore);
-    }
-
-    @Provides
-    @Remote
-    @Singleton
-    public IUserStore provideRemoteUserStore(UserApi UserApi) {
-        return new RemoteUserStore(UserApi);
-    }
-
-    @Provides
-    @Singleton
-    public IUserRepository provideUserRepository(@Local IUserStore local, @Remote IUserStore remote) {
-        return new UserRepository(local, remote);
     }
 
 }

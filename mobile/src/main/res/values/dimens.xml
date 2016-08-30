@@ -27,7 +27,8 @@
     <dimen name="text_medium">16sp</dimen>
     <dimen name="text_large">18sp</dimen>
     <dimen name="text_huge">22sp</dimen>
-    <dimen name="text_whopping">24sp</dimen>
+    <dimen name="text_massive">24sp</dimen>
+    <dimen name="text_whopping">28sp</dimen>
 
     <dimen name="notification_avatar">40dp</dimen>
     <dimen name="notification_post_image">65dp</dimen>

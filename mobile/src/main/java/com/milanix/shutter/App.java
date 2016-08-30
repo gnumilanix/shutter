@@ -2,6 +2,7 @@ package com.milanix.shutter;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.dependencies.component.DaggerAppComponent;
 import com.milanix.shutter.dependencies.module.AppModule;
@@ -53,7 +54,7 @@ public class App extends MultiDexApplication {
         return appComponent;
     }
 
-    public synchronized UserComponent createUserComponent(User user) {
+    public synchronized UserComponent createUserComponent(FirebaseUser user) {
         userComponent = getAppComponent().with(new UserModule(user));
 
         return userComponent;

@@ -3,7 +3,7 @@ package com.milanix.shutter.user.profile;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.user.model.User;
+import com.milanix.shutter.feed.model.User;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ProfileContract {
     interface View extends IView {
-        void showProfile(User user);
+        void setProfile(User user);
 
         void showPosts(List<Feed> posts);
 

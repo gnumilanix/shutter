@@ -1,5 +1,6 @@
 package com.milanix.shutter.user.model;
 
+import com.google.firebase.auth.UserInfo;
 import com.milanix.shutter.core.specification.IStore;
 
 /**
@@ -8,7 +9,7 @@ import com.milanix.shutter.core.specification.IStore;
  * @author milan
  */
 public interface IUserStore extends IStore {
-    void getSelf(Callback<User> callback);
+    void getSelf(Callback<UserInfo> callback);
 
     void getUser(String userId, Callback<User> callback);
 

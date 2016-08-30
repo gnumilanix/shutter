@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,36 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:contentInsetEnd="0dp"
-                android:contentInsetLeft="0dp"
-                android:contentInsetRight="0dp"
-                android:contentInsetStart="0dp"
-                android:theme="@style/Toolbar"
-                app:contentInsetEnd="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:padding="@dimen/padding_normal"
-                    android:src="@drawable/ic_title" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedContainer"
@@ -70,19 +41,86 @@
                     android:layout_marginBottom="8dp"
                     android:visibility="gone" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/vgLoginForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin">
+                    android:paddingBottom="@dimen/activity_vertical_margin">
+
+                    <FrameLayout
+                        android:id="@+id/flBanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:src="@drawable/ic_title">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_profile_cover" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/margin_large"
+                            android:padding="@dimen/padding_large"
+                            android:text="@string/sign_in"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/text_whopping" />
+                    </FrameLayout>
+
+                    <Button
+                        android:id="@+id/btnGoogle"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/flBanner"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/btn_google"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:text="@string/action_signin_google" />
+
+                    <Button
+                        android:id="@+id/btnFacebook"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/btnGoogle"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/btn_facebook"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:text="@string/action_signin_facebook" />
+
+                    <TextView
+                        android:id="@+id/tvOr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/btnFacebook"
+                        android:layout_marginTop="@dimen/margin_large"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_normal"
+                        android:text="@string/hint_or"
+                        android:textColor="@color/colorTextGrey400"
+                        android:textSize="@dimen/text_small" />
 
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tlEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvOr"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                         <AutoCompleteTextView
                             android:id="@+id/etEmail"
@@ -96,8 +134,12 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tlPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tlEmail"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                         <EditText
                             android:id="@+id/etPassword"
@@ -118,13 +160,18 @@
                         style="?android:textAppearanceSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tlPassword"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="16dp"
+                        android:background="@drawable/btn_shutter"
                         android:enabled="@{!TextUtils.isEmpty(login.username) &amp;&amp; !TextUtils.isEmpty(login.password)}"
                         android:onClick="@{()->presenter.login(login)}"
                         android:text="@string/action_sign_in"
+                        android:textColor="@android:color/white"
                         android:textStyle="bold" />
 
-                </LinearLayout>
+                </RelativeLayout>
             </FrameLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>

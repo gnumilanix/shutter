@@ -2,6 +2,7 @@ package com.milanix.shutter.dependencies.module;
 
 import android.accounts.AccountManager;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.milanix.shutter.user.account.AccountStore;
 import com.milanix.shutter.user.account.IAccountStore;
 import com.milanix.shutter.user.auth.AuthApi;
@@ -21,6 +22,13 @@ import retrofit2.Retrofit;
  */
 @Module
 public class AuthModule {
+
+    @Provides
+    @Singleton
+    public FirebaseAuth provideFirebaseAuth() {
+        return FirebaseAuth.getInstance();
+    }
+
     @Provides
     @Singleton
     public AuthApi provideAuthApi(Retrofit retrofit) {
