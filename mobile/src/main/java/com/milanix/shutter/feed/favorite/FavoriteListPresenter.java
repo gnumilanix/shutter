@@ -21,14 +21,18 @@ public class FavoriteListPresenter extends AbstractPresenter<FavoriteListContrac
     private final IStore.Callback<List<Feed>> feedsCallback = new IStore.Callback<List<Feed>>() {
         @Override
         public void onSuccess(List<Feed> result) {
-            view.hideProgress();
-            view.showFeeds(result);
+            if (isActive()) {
+                view.hideProgress();
+                view.showFeeds(result);
+            }
         }
 
         @Override
         public void onFailure(Throwable t) {
-            view.hideProgress();
-            view.handleFeedRefreshError();
+            if (isActive()) {
+                view.hideProgress();
+                view.handleFeedRefreshError();
+            }
         }
     };
     private final IFeedRepository repository;

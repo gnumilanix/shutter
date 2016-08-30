@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.specification.IPresenter;
+import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.user.UserComponent;
 
@@ -21,9 +22,9 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public abstract class AbstractFragment<T extends IPresenter, B extends ViewDataBinding> extends Fragment {
+public abstract class AbstractFragment<P extends IPresenter, B extends ViewDataBinding> extends Fragment implements IView {
     @Inject
-    protected T presenter;
+    protected P presenter;
     protected B binding;
 
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
@@ -34,6 +35,11 @@ public abstract class AbstractFragment<T extends IPresenter, B extends ViewDataB
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+    }
+
+    @Override
+    public boolean isActive() {
+        return isAdded();
     }
 
     public App getApp() {
@@ -47,4 +53,5 @@ public abstract class AbstractFragment<T extends IPresenter, B extends ViewDataB
     public UserComponent getUserComponent() {
         return getApp().getUserComponent();
     }
+
 }

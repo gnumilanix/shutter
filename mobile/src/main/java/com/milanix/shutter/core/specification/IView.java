@@ -7,4 +7,5 @@ package com.milanix.shutter.core.specification;
  */
 
 public interface IView {
+    boolean isActive();
 }

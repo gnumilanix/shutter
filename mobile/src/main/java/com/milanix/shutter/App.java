@@ -4,11 +4,13 @@ import android.support.multidex.MultiDexApplication;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.karumi.dexter.Dexter;
+import com.milanix.shutter.core.MessageSubscriber;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.dependencies.component.DaggerAppComponent;
 import com.milanix.shutter.dependencies.module.AppModule;
 import com.milanix.shutter.feed.FeedComponent;
 import com.milanix.shutter.feed.FeedModule;
+import com.milanix.shutter.notification.model.NotificationMessagingService;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
 
@@ -29,7 +31,9 @@ public class App extends MultiDexApplication {
     protected FeedComponent feedComponent;
 
     @Inject
-    Timber.Tree logTree;
+    protected Timber.Tree logTree;
+    @Inject
+    protected MessageSubscriber messageSubscriber;
 
     @Override
     public void onCreate() {
@@ -57,6 +61,7 @@ public class App extends MultiDexApplication {
 
     public synchronized UserComponent createUserComponent(FirebaseUser user) {
         userComponent = getAppComponent().with(new UserModule(user));
+        subscribeNotifications();
 
         return userComponent;
     }
@@ -66,6 +71,7 @@ public class App extends MultiDexApplication {
     }
 
     public void releaseUserComponent() {
+        unsubscribeNotifications();
         userComponent = null;
     }
 
@@ -77,5 +83,13 @@ public class App extends MultiDexApplication {
 
     public FeedComponent getFeedComponent() {
         return feedComponent;
+    }
+
+    private void subscribeNotifications() {
+        messageSubscriber.subscribe(NotificationMessagingService.NOTIFICATIONS);
+    }
+
+    private void unsubscribeNotifications() {
+        messageSubscriber.unsubscribe(NotificationMessagingService.NOTIFICATIONS);
     }
 }

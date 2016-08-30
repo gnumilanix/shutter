@@ -9,17 +9,18 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.R;
-import com.milanix.shutter.core.AbstractActivity;
+import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityHomeBinding;
 import com.milanix.shutter.feed.favorite.FavoriteListFragment;
 import com.milanix.shutter.feed.list.FeedListFragment;
 import com.milanix.shutter.notification.NotificationListFragment;
-import com.milanix.shutter.user.model.User;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import javax.inject.Inject;
 
 import static com.milanix.shutter.home.HomeActivity.Tab.FAVORITES;
 import static com.milanix.shutter.home.HomeActivity.Tab.FEEDS;
@@ -30,7 +31,7 @@ import static com.milanix.shutter.home.HomeActivity.Tab.NOTIFICATIONS;
  *
  * @author milan
  */
-public class HomeActivity extends AbstractActivity<HomeContract.Presenter, ActivityHomeBinding> implements HomeContract.View, OnTabSelectListener {
+public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> implements HomeContract.View, OnTabSelectListener {
 
     @StringDef({FEEDS, FAVORITES, NOTIFICATIONS})
     @Retention(RetentionPolicy.SOURCE)
@@ -39,6 +40,9 @@ public class HomeActivity extends AbstractActivity<HomeContract.Presenter, Activ
         String FAVORITES = "FAVORITES";
         String NOTIFICATIONS = "NOTIFICATIONS";
     }
+
+    @Inject
+    protected HomeContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

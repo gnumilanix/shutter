@@ -20,14 +20,18 @@ public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> 
     private final IStore.Callback<List<Feed>> feedsCallback = new IStore.Callback<List<Feed>>() {
         @Override
         public void onSuccess(List<Feed> result) {
-            view.hideProgress();
-            view.showFeeds(result);
+            if (isActive()) {
+                view.hideProgress();
+                view.showFeeds(result);
+            }
         }
 
         @Override
         public void onFailure(Throwable t) {
-            view.hideProgress();
-            view.handleFeedRefreshError();
+            if (isActive()) {
+                view.hideProgress();
+                view.handleFeedRefreshError();
+            }
         }
     };
     private final IFeedRepository repository;
@@ -40,13 +44,19 @@ public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> 
 
     @Override
     public void getFeeds() {
-        view.showProgress();
+        if (isActive()) {
+            view.showProgress();
+        }
+
         repository.getFeeds(favoriteListQuery, feedsCallback);
     }
 
     @Override
     public void refreshFeeds() {
-        view.showProgress();
+        if (isActive()) {
+            view.showProgress();
+        }
+
         repository.refreshFeeds(favoriteListQuery, feedsCallback);
     }
 

@@ -2,9 +2,6 @@ package com.milanix.shutter.login;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.milanix.shutter.App;
-import com.milanix.shutter.core.MessageSubscriber;
-import com.milanix.shutter.user.auth.IAuthStore;
-import com.milanix.shutter.user.model.IUserRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,8 +26,7 @@ public class LoginModule {
 
     @Provides
     public LoginContract.Presenter provideLoginPresenter(LoginContract.View view, App app,
-                                                         FirebaseAuth auth,
-                                                         MessageSubscriber messageSubscriber) {
-        return new LoginPresenter(view, app, auth, messageSubscriber);
+                                                         FirebaseAuth auth) {
+        return new LoginPresenter(view, app, auth);
     }
 }

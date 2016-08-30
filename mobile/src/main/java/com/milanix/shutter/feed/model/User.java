@@ -25,15 +25,24 @@ public class User {
         posts = new ArrayList<>();
     }
 
-    public class Follower {
+    public static class Follower {
         public String followerId;
+
+        public Follower() {
+        }
     }
 
-    public class Following {
+    public static class Following {
         public String followingId;
+
+        public Following() {
+        }
     }
 
-    public class Post {
+    public static class Post {
         public String postId;
+
+        public Post() {
+        }
     }
 }

@@ -43,14 +43,17 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
 
     @Override
     public void signUp(@NonNull final SignUp signUp) {
-        view.showProgress();
+        if (isActive()) {
+            view.showProgress();
+        }
+
         auth.createUserWithEmailAndPassword(signUp.getEmail(), signUp.getPassword()).
                 addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             login(signUp);
-                        } else {
+                        } else if (isActive()) {
                             view.handleSignUpFailure();
                         }
                     }
@@ -64,7 +67,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
                 if (task.isSuccessful()) {
                     app.createUserComponent(auth.getCurrentUser());
                     uploadPhoto(signUp, auth.getCurrentUser());
-                } else {
+                } else if (isActive()) {
                     view.handleLoginFailure();
                 }
             }
@@ -87,7 +90,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
                     view.completeSignUp();
                 }
             });
-        } else {
+        } else if (isActive()) {
             view.completeSignUp();
         }
     }
@@ -108,11 +111,13 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
                 .build()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    view.completeSignUp();
-                } else {
-                    //try on later stage to update profile
-                    view.completeSignUp();
+                if (isActive()) {
+                    if (task.isSuccessful()) {
+                        view.completeSignUp();
+                    } else {
+                        //try on later stage to update profile
+                        view.completeSignUp();
+                    }
                 }
             }
         });
@@ -124,10 +129,12 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            view.passwordResetEmailSent();
-                        } else {
-                            view.handleResetPasswordError();
+                        if (isActive()) {
+                            if (task.isSuccessful()) {
+                                view.passwordResetEmailSent();
+                            } else {
+                                view.handleResetPasswordError();
+                            }
                         }
                     }
                 });

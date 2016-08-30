@@ -1,11 +1,7 @@
 package com.milanix.shutter.home;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.core.specification.IStore;
-import com.milanix.shutter.user.model.IUserRepository;
-import com.milanix.shutter.user.model.User;
 
 /**
  * Home presenter
