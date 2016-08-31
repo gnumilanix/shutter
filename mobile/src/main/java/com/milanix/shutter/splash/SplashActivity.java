@@ -3,9 +3,9 @@ package com.milanix.shutter.splash;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.milanix.shutter.auth.AuthActivity;
 import com.milanix.shutter.core.AbstractActivity;
 import com.milanix.shutter.home.HomeActivity;
-import com.milanix.shutter.auth.AuthActivity;
 
 import javax.inject.Inject;
 

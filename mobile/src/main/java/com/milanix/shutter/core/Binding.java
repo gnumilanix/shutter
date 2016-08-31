@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.util.Patterns;
 import android.widget.ImageView;
 import android.widget.TextView;
 

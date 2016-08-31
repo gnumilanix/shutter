@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.milanix.shutter.R;
-import com.milanix.shutter.auth.signup.SignUpFragment;
 import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityRequestPasswordBinding;
 

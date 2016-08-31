@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractBindingActivity;
-import com.milanix.shutter.databinding.ActivityAuthBinding;
 import com.milanix.shutter.databinding.ActivityLoginBinding;
 
 //// TODO: 30/8/2016 add comment

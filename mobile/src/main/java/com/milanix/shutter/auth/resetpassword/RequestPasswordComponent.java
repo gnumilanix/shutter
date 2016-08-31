@@ -1,7 +1,5 @@
 package com.milanix.shutter.auth.resetpassword;
 
-import com.milanix.shutter.auth.signup.SignUpFragment;
-import com.milanix.shutter.auth.signup.SignUpModule;
 import com.milanix.shutter.dependencies.scope.ActivityScope;
 
 import dagger.Subcomponent;
