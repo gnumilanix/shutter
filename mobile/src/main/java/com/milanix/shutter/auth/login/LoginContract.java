@@ -1,4 +1,4 @@
-package com.milanix.shutter.login;
+package com.milanix.shutter.auth.login;
 
 import android.support.annotation.NonNull;
 
@@ -10,33 +10,26 @@ import com.milanix.shutter.core.specification.IView;
  *
  * @author milan
  */
-public interface SignUpContract {
+public interface LoginContract {
     interface View extends IView {
-        void handleExistingUser();
+        void handleInvalidUsername();
 
-        void handleSignUpFailure();
+        void handleInvalidPassword();
 
-        void handleUploadAvatarFailure();
+        void handleInvalidLogin();
 
-        void completeSignUp();
+        void setSessionAvailable();
 
-        void selectAvatar();
-
-        void openAgreement();
+        void setSessionUnavailable();
 
         void showProgress();
 
         void hideProgress();
 
-        void passwordResetEmailSent();
-
-        void handleResetPasswordError();
-
-        void handleLoginFailure();
     }
 
     interface Presenter extends IPresenter {
-        void signUp(@NonNull SignUp signUp);
+        void login(@NonNull Login login);
 
         void requestPassword(String email);
     }

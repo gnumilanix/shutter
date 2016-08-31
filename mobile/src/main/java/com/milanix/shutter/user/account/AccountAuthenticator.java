@@ -12,7 +12,7 @@ import android.text.TextUtils;
 
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.BundleBuilder;
-import com.milanix.shutter.login.LoginFragment;
+import com.milanix.shutter.auth.login.LoginFragment;
 import com.milanix.shutter.user.auth.IAuthStore;
 
 import javax.inject.Inject;

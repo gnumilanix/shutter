@@ -1,4 +1,4 @@
-package com.milanix.shutter.login;
+package com.milanix.shutter.auth.signup;
 
 import android.Manifest;
 import android.annotation.TargetApi;

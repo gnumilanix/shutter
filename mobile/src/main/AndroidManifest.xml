@@ -32,30 +32,40 @@
         </activity>
 
         <activity
-            android:name=".login.AuthActivity"
+            android:name=".auth.AuthActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Login">
 
         </activity>
 
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".auth.login.LoginActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".login.AuthActivity"
+            android:parentActivityName=".auth.AuthActivity"
             android:theme="@style/AppTheme.Login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".login.AuthActivity" />
+                android:value=".auth.AuthActivity" />
         </activity>
 
         <activity
-            android:name=".login.SignUpActivity"
+            android:name=".auth.resetpassword.RequestPasswordActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".login.AuthActivity"
+            android:parentActivityName=".auth.login.LoginActivity"
             android:theme="@style/AppTheme.Login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".login.AuthActivity" />
+                android:value=".auth.login.LoginActivity" />
+        </activity>
+
+        <activity
+            android:name=".auth.signup.SignUpActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".auth.AuthActivity"
+            android:theme="@style/AppTheme.Login">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".auth.AuthActivity" />
         </activity>
 
         <activity

@@ -1,4 +1,4 @@
-package com.milanix.shutter.login;
+package com.milanix.shutter.auth;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.milanix.shutter.R;
+import com.milanix.shutter.auth.login.LoginActivity;
+import com.milanix.shutter.auth.signup.SignUpActivity;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentAuthBinding;
 

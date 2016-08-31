@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.milanix.shutter.core.AbstractActivity;
 import com.milanix.shutter.home.HomeActivity;
-import com.milanix.shutter.login.AuthActivity;
+import com.milanix.shutter.auth.AuthActivity;
 
 import javax.inject.Inject;
 

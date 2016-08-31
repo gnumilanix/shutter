@@ -1,4 +1,4 @@
-package com.milanix.shutter.login;
+package com.milanix.shutter.auth.signup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.StorageReference;

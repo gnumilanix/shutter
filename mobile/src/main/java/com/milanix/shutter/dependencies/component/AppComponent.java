@@ -1,18 +1,20 @@
 package com.milanix.shutter.dependencies.component;
 
 import com.milanix.shutter.App;
+import com.milanix.shutter.auth.AuthComponent;
+import com.milanix.shutter.auth.AuthModule;
+import com.milanix.shutter.auth.login.LoginComponent;
+import com.milanix.shutter.auth.login.LoginModule;
+import com.milanix.shutter.auth.resetpassword.RequestPasswordComponent;
+import com.milanix.shutter.auth.resetpassword.RequestPasswordModule;
+import com.milanix.shutter.auth.signup.SignUpComponent;
+import com.milanix.shutter.auth.signup.SignUpModule;
 import com.milanix.shutter.dependencies.module.AppModule;
 import com.milanix.shutter.dependencies.module.AuthenticationModule;
 import com.milanix.shutter.dependencies.module.DataModule;
 import com.milanix.shutter.dependencies.module.LogModule;
 import com.milanix.shutter.dependencies.module.NetworkModule;
 import com.milanix.shutter.dependencies.module.SystemModule;
-import com.milanix.shutter.login.AuthComponent;
-import com.milanix.shutter.login.AuthModule;
-import com.milanix.shutter.login.LoginComponent;
-import com.milanix.shutter.login.LoginModule;
-import com.milanix.shutter.login.SignUpComponent;
-import com.milanix.shutter.login.SignUpModule;
 import com.milanix.shutter.splash.SplashComponent;
 import com.milanix.shutter.splash.SplashModule;
 import com.milanix.shutter.user.UserComponent;
@@ -44,5 +46,8 @@ public interface AppComponent {
 
     SignUpComponent with(SignUpModule module);
 
+    RequestPasswordComponent with(RequestPasswordModule module);
+
     UserComponent with(UserModule module);
+
 }

@@ -1,4 +1,4 @@
-package com.milanix.shutter.login;
+package com.milanix.shutter.auth.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.milanix.shutter.R;
+import com.milanix.shutter.auth.resetpassword.RequestPasswordActivity;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentLoginBinding;
 import com.milanix.shutter.home.HomeActivity;
@@ -39,7 +40,7 @@ public class LoginFragment extends AbstractFragment<LoginContract.Presenter, Fra
         getAppComponent().with(new LoginModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_login, container);
         binding.setPresenter(presenter);
-        binding.setActivity(this);
+        binding.setFragment(this);
         binding.setLogin(new Login());
 
         return binding.getRoot();
@@ -118,6 +119,7 @@ public class LoginFragment extends AbstractFragment<LoginContract.Presenter, Fra
     }
 
     public void requestPassword() {
+        startActivity(new Intent(getActivity(), RequestPasswordActivity.class));
     }
 
     private void setBoldUnderlineSpan(TextView view, String fullText, String textToStyle) {

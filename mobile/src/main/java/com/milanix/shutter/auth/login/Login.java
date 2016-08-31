@@ -1,4 +1,4 @@
-package com.milanix.shutter.login;
+package com.milanix.shutter.auth.login;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

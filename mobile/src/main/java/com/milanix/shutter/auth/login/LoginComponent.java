@@ -1,4 +1,4 @@
-package com.milanix.shutter.login;
+package com.milanix.shutter.auth.login;
 
 import com.milanix.shutter.dependencies.scope.ActivityScope;
 
@@ -10,7 +10,7 @@ import dagger.Subcomponent;
  * @author milan
  */
 @ActivityScope
-@Subcomponent(modules = {SignUpModule.class})
-public interface SignUpComponent {
-    void inject(SignUpFragment fragment);
+@Subcomponent(modules = {LoginModule.class})
+public interface LoginComponent {
+    void inject(LoginFragment fragment);
 }

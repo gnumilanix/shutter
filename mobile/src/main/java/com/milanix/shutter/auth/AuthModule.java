@@ -1,4 +1,4 @@
-package com.milanix.shutter.login;
+package com.milanix.shutter.auth;
 
 import dagger.Module;
 import dagger.Provides;

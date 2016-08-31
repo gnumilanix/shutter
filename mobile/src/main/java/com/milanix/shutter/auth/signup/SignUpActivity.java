@@ -1,4 +1,4 @@
-package com.milanix.shutter.login;
+package com.milanix.shutter.auth.signup;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -6,15 +6,15 @@
 
         <variable
             name="presenter"
-            type="com.milanix.shutter.login.LoginContract.Presenter" />
+            type="com.milanix.shutter.auth.login.LoginContract.Presenter" />
 
         <variable
-            name="activity"
-            type="com.milanix.shutter.login.LoginFragment" />
+            name="fragment"
+            type="com.milanix.shutter.auth.login.LoginFragment" />
 
         <variable
             name="login"
-            type="com.milanix.shutter.login.Login" />
+            type="com.milanix.shutter.auth.login.Login" />
     </data>
 
     <RelativeLayout
@@ -23,34 +23,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/flBanner"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/ic_title">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile_cover" />
-
-            <ImageView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/margin_large"
-                android:src="@drawable/ic_title" />
-        </RelativeLayout>
-
-
         <android.support.design.widget.TextInputLayout
             android:id="@+id/tlEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/flBanner"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/margin_large">
@@ -86,7 +63,7 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:onEditorAction="@{activity::onEditorAction}"
+                android:onEditorAction="@{fragment::onEditorAction}"
                 android:text="@={login.password}" />
 
         </android.support.design.widget.TextInputLayout>
@@ -99,7 +76,7 @@
             android:layout_below="@id/tlPassword"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_large"
             android:background="@drawable/btn_shutter"
             android:enabled="@{!TextUtils.isEmpty(login.username) &amp;&amp; !TextUtils.isEmpty(login.password)}"
             android:onClick="@{()->presenter.login(login)}"
@@ -115,10 +92,9 @@
             android:layout_marginBottom="@dimen/margin_normal"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_huge"
             android:gravity="center"
-            android:onClick="@{()->activity.requestPassword()}"
-            android:padding="@dimen/padding_normal"
+            android:onClick="@{()->fragment.requestPassword()}"
             android:text="@string/action_signin_forget_password"
             android:textColor="@color/colorTextGrey500"
             android:textSize="@dimen/text_small" />

@@ -7,26 +7,25 @@
 
         <variable
             name="presenter"
-            type="com.milanix.shutter.login.SignUpContract.Presenter" />
+            type="com.milanix.shutter.auth.signup.SignUpContract.Presenter" />
 
         <variable
             name="fragment"
-            type="com.milanix.shutter.login.SignUpFragment" />
+            type="com.milanix.shutter.auth.signup.SignUpFragment" />
 
         <variable
             name="view"
-            type="com.milanix.shutter.login.SignUpContract.View" />
+            type="com.milanix.shutter.auth.signup.SignUpContract.View" />
 
         <variable
             name="signup"
-            type="com.milanix.shutter.login.SignUp" />
+            type="com.milanix.shutter.auth.signup.SignUp" />
     </data>
 
     <RelativeLayout
         android:id="@+id/vgLoginForm"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/ivCover"
