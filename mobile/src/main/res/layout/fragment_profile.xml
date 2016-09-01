@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="user"
-            type="com.milanix.shutter.feed.model.User" />
+            name="profile"
+            type="com.milanix.shutter.feed.model.Profile" />
 
         <variable
             name="adapter"
@@ -83,7 +83,7 @@
                 android:layout_marginTop="@dimen/margin_normal"
                 app:civ_border_color="@android:color/white"
                 app:civ_border_width="2dp"
-                app:imageUrl="@{user.avatar}"
+                app:imageUrl="@{profile.avatar}"
                 app:layout_constraintRight_toLeftOf="@+id/glStats50"
                 app:layout_constraintTop_toTopOf="parent"
                 app:placeHolder="@{@drawable/ic_placeholder_small}"
@@ -101,7 +101,7 @@
                 android:maxLines="2"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@{user.fullName}"
+                android:text="@{profile.fullName}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_massive"
                 app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
@@ -118,7 +118,7 @@
                 android:maxLines="1"
                 android:paddingLeft="@dimen/padding_normal"
                 android:paddingRight="@dimen/padding_normal"
-                android:text="@{String.valueOf(user.followers.size())}"
+                android:text="@{String.valueOf(profile.followers.size())}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_huge"
                 app:layout_constraintEnd_toEndOf="@+id/glStats33"
@@ -156,7 +156,7 @@
                 android:maxLines="1"
                 android:paddingLeft="@dimen/padding_normal"
                 android:paddingRight="@dimen/padding_normal"
-                android:text="@{String.valueOf(user.posts.size())}"
+                android:text="@{String.valueOf(profile.posts.size())}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_huge"
                 app:layout_constraintEnd_toEndOf="@+id/glStats66"
@@ -193,7 +193,7 @@
                 android:maxLines="1"
                 android:paddingLeft="@dimen/padding_normal"
                 android:paddingRight="@dimen/padding_normal"
-                android:text="@{String.valueOf(user.followings.size())}"
+                android:text="@{String.valueOf(profile.followings.size())}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_huge"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -6,7 +6,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * User data object
+ * Profile data object
  *
  * @author milan
  */
@@ -78,7 +78,7 @@ public class User extends RealmObject {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Profile{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", fullName='" + fullName + '\'' +

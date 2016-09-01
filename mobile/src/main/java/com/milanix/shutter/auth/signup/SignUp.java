@@ -16,15 +16,9 @@ public class SignUp extends BaseObservable {
     private String email;
     private String password;
     private Uri avatar;
+    private boolean isTermsAgreed;
 
     public SignUp() {
-    }
-
-    public SignUp(String username, String email, String password, Uri avatar) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.avatar = avatar;
     }
 
     @Bindable
@@ -65,5 +59,15 @@ public class SignUp extends BaseObservable {
     public void setAvatar(Uri avatar) {
         this.avatar = avatar;
         notifyPropertyChanged(BR.avatar);
+    }
+
+    @Bindable
+    public boolean getIsTermsAgreed() {
+        return isTermsAgreed;
+    }
+
+    public void setIsTermsAgreed(boolean termsAgreed) {
+        isTermsAgreed = termsAgreed;
+        notifyPropertyChanged(BR.isTermsAgreed);
     }
 }

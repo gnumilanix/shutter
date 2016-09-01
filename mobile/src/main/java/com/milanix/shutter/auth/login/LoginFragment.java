@@ -78,7 +78,8 @@ public class LoginFragment extends AbstractFragment<LoginContract.Presenter, Fra
     @Override
     public void setSessionAvailable() {
         getActivity().finish();
-        startActivity(new Intent(getActivity(), HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        startActivity(new Intent(getActivity(), HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override

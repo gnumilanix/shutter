@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.android.annotations.Nullable;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -12,10 +13,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
+import com.milanix.shutter.feed.model.Profile;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -26,13 +29,15 @@ import javax.inject.Inject;
 public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> implements SignUpContract.Presenter {
     private final App app;
     private final FirebaseAuth auth;
+    private final FirebaseDatabase database;
     private final StorageReference storage;
 
     @Inject
-    public SignUpPresenter(SignUpContract.View view, App app, FirebaseAuth auth, StorageReference storage) {
+    public SignUpPresenter(SignUpContract.View view, App app, FirebaseAuth auth, FirebaseDatabase database, StorageReference storage) {
         super(view);
         this.app = app;
         this.auth = auth;
+        this.database = database;
         this.storage = storage;
     }
 
@@ -52,7 +57,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            login(signUp);
+                            uploadAvatar(signUp, task.getResult().getUser());
                         } else if (isActive()) {
                             view.handleSignUpFailure();
                         }
@@ -60,37 +65,62 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
                 });
     }
 
-    private void login(final SignUp signUp) {
-        auth.signInWithEmailAndPassword(signUp.getEmail(), signUp.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    app.createUserComponent(auth.getCurrentUser());
-                    uploadPhoto(signUp, auth.getCurrentUser());
-                } else if (isActive()) {
-                    view.handleLoginFailure();
-                }
-            }
-        });
-    }
-
-    private void uploadPhoto(final SignUp signUp, final FirebaseUser user) {
+    private void uploadAvatar(final SignUp signUp, final FirebaseUser user) {
         final InputStream avatarStream = getInputStream(signUp.getAvatar());
 
         if (null != avatarStream) {
-            storage.child("user/" + user.getUid() + "/profile.jpeg").putStream(avatarStream).
+            storage.child("users/" + user.getUid() + "/profile.jpeg").putStream(avatarStream).
                     addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            updateProfile(signUp, user, taskSnapshot.getMetadata().getDownloadUrl());
+                            createProfile(signUp, user, taskSnapshot.getDownloadUrl());
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    view.completeSignUp();
+                    createProfile(signUp, user, null);
                 }
             });
         } else if (isActive()) {
+            createProfile(signUp, user, null);
+        }
+    }
+
+    private void createProfile(final SignUp signUp, final FirebaseUser user, final Uri avatarUri) {
+        final Profile profile = new Profile(user.getUid(), user.getEmail(), avatarUri == null ? null :
+                avatarUri.toString(), signUp.getUsername(), null, null, null);
+        database.getReference().child("users").child(user.getUid()).setValue(profile).
+                continueWith(new Continuation<Void, Void>() {
+                    @Override
+                    public Void then(@NonNull Task<Void> task) throws Exception {
+                        updateProfile(signUp, user, avatarUri);
+
+                        return null;
+                    }
+                });
+    }
+
+    private void updateProfile(SignUp signUp, FirebaseUser user, Uri avatarUri) {
+        user.updateProfile(new UserProfileChangeRequest.Builder()
+                .setDisplayName(signUp.getUsername())
+                .setPhotoUri(avatarUri)
+                .build()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                completeSignUp();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (isActive())
+                    completeSignUp();
+            }
+        });
+    }
+
+    private void completeSignUp() {
+        if (isActive()) {
+            app.createUserComponent(auth.getCurrentUser());
             view.completeSignUp();
         }
     }
@@ -102,41 +132,5 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
         } catch (FileNotFoundException e) {
             return null;
         }
-    }
-
-    private void updateProfile(SignUp signUp, FirebaseUser user, Uri avatarUri) {
-        user.updateProfile(new UserProfileChangeRequest.Builder()
-                .setDisplayName(signUp.getUsername())
-                .setPhotoUri(avatarUri)
-                .build()).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (isActive()) {
-                    if (task.isSuccessful()) {
-                        view.completeSignUp();
-                    } else {
-                        //try on later stage to update profile
-                        view.completeSignUp();
-                    }
-                }
-            }
-        });
-    }
-
-    @Override
-    public void requestPassword(String email) {
-        auth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (isActive()) {
-                            if (task.isSuccessful()) {
-                                view.passwordResetEmailSent();
-                            } else {
-                                view.handleResetPasswordError();
-                            }
-                        }
-                    }
-                });
     }
 }

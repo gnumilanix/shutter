@@ -34,11 +34,14 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.milanix.shutter.R;
+import com.milanix.shutter.auth.AuthActivity;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentSignupBinding;
 import com.milanix.shutter.home.HomeActivity;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -62,6 +65,8 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
         binding.setView(this);
         createPermissionListeners();
 
+        Dexter.continuePendingRequestIfPossible(dialogOnDeniedStoragePermissionListener);
+
         return binding.getRoot();
     }
 
@@ -69,8 +74,11 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
 
-        setBoldUnderlineSpan(binding.tvAgreement, getString(R.string.action_signin_accept_terms),
+        setBoldUnderlineSpan(binding.cbAgreement, getString(R.string.action_signin_accept_terms),
                 getString(R.string.action_signin_accept_terms_highlight));
+        setBoldUnderlineSpan(binding.tvLogin, getString(R.string.action_signin_existing),
+                getString(R.string.action_signin_existing_highlight));
+
     }
 
     private void setBoldUnderlineSpan(TextView view, String fullText, String textToStyle) {
@@ -101,7 +109,8 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
 
     @Override
     public void completeSignUp() {
-        startActivity(new Intent(getActivity(), HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        startActivity(new Intent(getActivity(), HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override
@@ -109,13 +118,22 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (!Dexter.isRequestOngoing())
                 Dexter.checkPermission(dialogOnDeniedStoragePermissionListener, Manifest.permission.READ_EXTERNAL_STORAGE);
-        } else
+            else
+                Dexter.continuePendingRequestIfPossible(dialogOnDeniedStoragePermissionListener);
+        } else {
             launchImagePicker();
+        }
     }
 
     @Override
     public void openAgreement() {
 
+    }
+
+    @Override
+    public void openLogin() {
+        startActivity(new Intent(getActivity(), AuthActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override
@@ -127,21 +145,6 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
     public void hideProgress() {
         if (null != progressDialog)
             progressDialog.dismiss();
-    }
-
-    @Override
-    public void passwordResetEmailSent() {
-
-    }
-
-    @Override
-    public void handleResetPasswordError() {
-
-    }
-
-    @Override
-    public void handleLoginFailure() {
-
     }
 
     public boolean onEditorAction(@NonNull final TextView view, final int actionId, @Nullable final KeyEvent event) {
@@ -178,7 +181,7 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
 
     @Override
     public void onPermissionDenied(PermissionDeniedResponse response) {
-
+        Timber.i("%s denied", response.getPermissionName());
     }
 
     @Override

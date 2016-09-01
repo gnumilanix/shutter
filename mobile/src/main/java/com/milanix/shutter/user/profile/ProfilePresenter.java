@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.feed.model.User;
+import com.milanix.shutter.feed.model.Profile;
 
 import javax.inject.Inject;
 
@@ -43,11 +43,11 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
         database.getReference().child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final User user = dataSnapshot.getValue(User.class);
+                final Profile profile = dataSnapshot.getValue(Profile.class);
 
                 if (isActive()) {
-                    if (null != user) {
-                        view.setProfile(user);
+                    if (null != profile) {
+                        view.setProfile(profile);
                         view.hideProgress();
                     } else {
                         view.handleProfileRefreshError();

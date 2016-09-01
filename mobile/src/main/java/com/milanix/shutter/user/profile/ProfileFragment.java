@@ -14,13 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.milanix.shutter.R;
-import com.milanix.shutter.auth.login.LoginActivity;
+import com.milanix.shutter.auth.AuthActivity;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentProfileBinding;
 import com.milanix.shutter.feed.FeedModule;
 import com.milanix.shutter.feed.detail.FeedDetailActivity;
 import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.feed.model.User;
+import com.milanix.shutter.feed.model.Profile;
 
 import java.util.List;
 
@@ -49,8 +49,8 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
     }
 
     @Override
-    public void setProfile(User user) {
-        binding.setUser(user);
+    public void setProfile(Profile profile) {
+        binding.setProfile(profile);
     }
 
     @Override
@@ -89,7 +89,8 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
     @Override
     public void logoutComplete() {
         getActivity().finish();
-        startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        startActivity(new Intent(getActivity(), AuthActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     @Override

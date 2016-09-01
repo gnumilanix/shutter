@@ -65,7 +65,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/margin_large">
 
-            <AutoCompleteTextView
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,24 +122,39 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cbAgreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tlPassword"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/margin_large"
+            android:checked="@={signup.isTermsAgreed}"
+            android:onClick="@{()->view.openAgreement()}"
+            android:text="@string/action_signin_accept_terms"
+            android:textColor="@color/colorTextGrey500"
+            android:textSize="@dimen/text_small" />
+
         <Button
             android:id="@+id/btnSignIn"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tlPassword"
+            android:layout_below="@id/cbAgreement"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_normal"
             android:background="@drawable/btn_shutter"
-            android:enabled="@{!TextUtils.isEmpty(signup.username) &amp;&amp; !TextUtils.isEmpty(signup.email) &amp;&amp; !TextUtils.isEmpty(signup.password) &amp;&amp; !TextUtils.isEmpty(signup.avatar.toString())}"
+            android:enabled="@{!TextUtils.isEmpty(signup.username) &amp;&amp; !TextUtils.isEmpty(signup.email) &amp;&amp; !TextUtils.isEmpty(signup.password) &amp;&amp; !TextUtils.isEmpty(signup.avatar.toString()) &amp;&amp; signup.isTermsAgreed}"
             android:onClick="@{()->presenter.signUp(signup)}"
             android:text="@string/action_sign_up"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvAgreement"
+            android:id="@+id/tvLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -148,7 +163,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/margin_large"
             android:gravity="center"
-            android:onClick="@{()->view.openAgreement()}"
+            android:onClick="@{()->view.openLogin()}"
             android:text="@string/action_signin_accept_terms"
             android:textColor="@color/colorTextGrey500"
             android:textSize="@dimen/text_small" />

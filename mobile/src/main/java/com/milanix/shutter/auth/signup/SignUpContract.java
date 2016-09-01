@@ -24,20 +24,14 @@ public interface SignUpContract {
 
         void openAgreement();
 
+        void openLogin();
+
         void showProgress();
 
         void hideProgress();
-
-        void passwordResetEmailSent();
-
-        void handleResetPasswordError();
-
-        void handleLoginFailure();
     }
 
     interface Presenter extends IPresenter {
         void signUp(@NonNull SignUp signUp);
-
-        void requestPassword(String email);
     }
 }
