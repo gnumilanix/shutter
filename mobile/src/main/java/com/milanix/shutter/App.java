@@ -2,6 +2,8 @@ package com.milanix.shutter;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseUser;
 import com.karumi.dexter.Dexter;
 import com.milanix.shutter.core.MessageSubscriber;
@@ -39,14 +41,17 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        initRealm();
+        initSDKs();
         createAppComponent(this).inject(this);
+
         Timber.plant(logTree);
-        Dexter.initialize(this);
     }
 
-    private void initRealm() {
+    private void initSDKs() {
         Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).schemaVersion(0).deleteRealmIfMigrationNeeded().build());
+        Dexter.initialize(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
     public synchronized AppComponent createAppComponent(App app) {

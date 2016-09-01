@@ -3,7 +3,7 @@ package com.milanix.shutter.splash;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.milanix.shutter.auth.AuthActivity;
+import com.milanix.shutter.auth.LandingActivity;
 import com.milanix.shutter.core.AbstractActivity;
 import com.milanix.shutter.home.HomeActivity;
 
@@ -34,7 +34,7 @@ public class SplashActivity extends AbstractActivity implements SplashContract.V
 
     @Override
     public void setSessionUnavailable() {
-        startActivity(new Intent(this, AuthActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        startActivity(new Intent(this, LandingActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         finish();
     }
 }

@@ -10,7 +10,7 @@ import com.milanix.shutter.databinding.ActivityAuthBinding;
 /**
  * Created by milan on 30/8/2016.
  */
-public class AuthActivity extends AbstractBindingActivity<ActivityAuthBinding> {
+public class LandingActivity extends AbstractBindingActivity<ActivityAuthBinding> {
     public static final String TAG_FRAGMENT_AUTH = "_fragment_auth";
 
     @Override
@@ -19,7 +19,7 @@ public class AuthActivity extends AbstractBindingActivity<ActivityAuthBinding> {
         performBinding(R.layout.activity_auth);
 
         if (null == savedInstanceState) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new AuthFragment(),
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new LandingFragment(),
                     TAG_FRAGMENT_AUTH).commit();
         }
     }

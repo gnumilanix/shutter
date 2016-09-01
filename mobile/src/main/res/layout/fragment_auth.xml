@@ -4,11 +4,11 @@
 
         <variable
             name="view"
-            type="com.milanix.shutter.auth.AuthContract.View" />
+            type="com.milanix.shutter.auth.LandingContract.View" />
 
         <variable
             name="presenter"
-            type="com.milanix.shutter.auth.AuthContract.Presenter" />
+            type="com.milanix.shutter.auth.LandingContract.Presenter" />
     </data>
 
     <RelativeLayout

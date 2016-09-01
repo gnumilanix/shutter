@@ -15,6 +15,16 @@ public abstract class AbstractPresenter<T extends IView> implements IPresenter {
         this.view = view;
     }
 
+    @Override
+    public void subscribe() {
+
+    }
+
+    @Override
+    public void unsubscribe() {
+
+    }
+
     public boolean isActive() {
         return view.isActive();
     }

@@ -1,5 +1,6 @@
 package com.milanix.shutter.user.profile;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,7 +32,8 @@ public class ProfileModule {
                                                              App app,
                                                              FirebaseUser user,
                                                              FirebaseAuth auth,
-                                                             FirebaseDatabase database) {
-        return new ProfilePresenter(view, app, user, auth, database);
+                                                             FirebaseDatabase database,
+                                                             GoogleSignInOptions googleSignInOptions) {
+        return new ProfilePresenter(view, app, user, auth, database, googleSignInOptions);
     }
 }

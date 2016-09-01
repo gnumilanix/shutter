@@ -1,7 +1,11 @@
 package com.milanix.shutter.feed.model;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Profile schema
@@ -50,5 +54,16 @@ public class Profile {
 
         public Post() {
         }
+    }
+
+    @Exclude
+    public Map<String, Object> toCreateProfileMap() {
+        final HashMap<String, Object> result = new HashMap<>();
+        result.put("userId", userId);
+        result.put("email", email);
+        result.put("avatar", avatar);
+        result.put("fullName", fullName);
+
+        return result;
     }
 }

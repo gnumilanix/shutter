@@ -1,8 +1,8 @@
 package com.milanix.shutter.dependencies.component;
 
 import com.milanix.shutter.App;
-import com.milanix.shutter.auth.AuthComponent;
-import com.milanix.shutter.auth.AuthModule;
+import com.milanix.shutter.auth.LandingComponent;
+import com.milanix.shutter.auth.LandingModule;
 import com.milanix.shutter.auth.login.LoginComponent;
 import com.milanix.shutter.auth.login.LoginModule;
 import com.milanix.shutter.auth.resetpassword.RequestPasswordComponent;
@@ -10,8 +10,9 @@ import com.milanix.shutter.auth.resetpassword.RequestPasswordModule;
 import com.milanix.shutter.auth.signup.SignUpComponent;
 import com.milanix.shutter.auth.signup.SignUpModule;
 import com.milanix.shutter.dependencies.module.AppModule;
-import com.milanix.shutter.dependencies.module.AuthenticationModule;
+import com.milanix.shutter.dependencies.module.AuthModule;
 import com.milanix.shutter.dependencies.module.DataModule;
+import com.milanix.shutter.dependencies.module.FirebaseModule;
 import com.milanix.shutter.dependencies.module.LogModule;
 import com.milanix.shutter.dependencies.module.NetworkModule;
 import com.milanix.shutter.dependencies.module.SystemModule;
@@ -32,7 +33,8 @@ import dagger.Component;
  * @author milan
  */
 @Singleton
-@Component(modules = {AppModule.class, DataModule.class, NetworkModule.class, SystemModule.class, LogModule.class, AuthenticationModule.class, UserDataModule.class})
+@Component(modules = {AppModule.class, DataModule.class, NetworkModule.class, SystemModule.class,
+        LogModule.class, AuthModule.class, UserDataModule.class, FirebaseModule.class})
 public interface AppComponent {
     void inject(App app);
 
@@ -40,7 +42,7 @@ public interface AppComponent {
 
     SplashComponent with(SplashModule module);
 
-    AuthComponent with(AuthModule authModule);
+    LandingComponent with(LandingModule landingModule);
 
     LoginComponent with(LoginModule module);
 

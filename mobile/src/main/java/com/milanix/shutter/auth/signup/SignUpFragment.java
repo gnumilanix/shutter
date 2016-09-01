@@ -34,7 +34,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.milanix.shutter.R;
-import com.milanix.shutter.auth.AuthActivity;
+import com.milanix.shutter.auth.LandingActivity;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentSignupBinding;
 import com.milanix.shutter.home.HomeActivity;
@@ -132,7 +132,7 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
 
     @Override
     public void openLogin() {
-        startActivity(new Intent(getActivity(), AuthActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+        startActivity(new Intent(getActivity(), LandingActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 

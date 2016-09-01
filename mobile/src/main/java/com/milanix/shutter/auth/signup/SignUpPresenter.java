@@ -112,8 +112,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                if (isActive())
-                    completeSignUp();
+                completeSignUp();
             }
         });
     }

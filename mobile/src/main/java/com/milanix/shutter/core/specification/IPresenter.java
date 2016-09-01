@@ -10,4 +10,9 @@ public interface IPresenter {
      * Subscribes to this presenter
      */
     void subscribe();
+
+    /**
+     * Unsubscribe from this presenter
+     */
+    void unsubscribe();
 }
