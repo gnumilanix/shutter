@@ -78,6 +78,14 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Home" />
 
+        <activity
+            android:name=".post.NewPostActivity"
+            android:parentActivityName=".home.HomeActivity"
+            android:theme="@style/AppTheme.Home">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.HomeActivity" />
+        </activity>
 
         <activity
             android:name=".user.profile.ProfileActivity"

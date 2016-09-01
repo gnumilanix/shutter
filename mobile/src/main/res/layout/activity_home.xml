@@ -118,7 +118,7 @@
             app:layout_anchor="@+id/nestedContainer"
             app:layout_anchorGravity="bottom|right|end"
             app:layout_behavior="com.milanix.shutter.view.BottomBarAwareFabBehavior"
-            app:rippleColor="@color/colorRipplePink" />
+            app:rippleColor="@color/colorRipple" />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

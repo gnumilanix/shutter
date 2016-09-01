@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringDef;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -14,6 +13,7 @@ import com.milanix.shutter.databinding.ActivityHomeBinding;
 import com.milanix.shutter.feed.favorite.FavoriteListFragment;
 import com.milanix.shutter.feed.list.FeedListFragment;
 import com.milanix.shutter.notification.NotificationListFragment;
+import com.milanix.shutter.post.NewPostActivity;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -86,11 +86,13 @@ public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> i
     @Override
     public void openProfile() {
         startActivity(new Intent(this, ProfileActivity.class));
+        overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
     }
 
     @Override
     public void addPost() {
-        Snackbar.make(binding.root, "New post not yet implemented", Snackbar.LENGTH_SHORT).show();
+        startActivity(new Intent(this, NewPostActivity.class));
+        overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
     }
 
     private void switchFragment(@Tab String tab) {

@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-        <variable
-            name="profile"
-            type="com.milanix.shutter.feed.model.Profile" />
 
         <variable
             name="adapter"
@@ -24,216 +19,14 @@
         android:layout_height="match_parent"
         app:onRefreshListener="@{refreshListener}">
 
-        <android.support.constraint.ConstraintLayout
+        <com.milanix.shutter.view.AutoFitRecyclerView
+            android:id="@+id/rvPostList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <android.support.constraint.Guideline
-                android:id="@+id/glStats50"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/glStats33"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.333" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/glStats66"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.666" />
-
-            <ImageView
-                android:id="@+id/ivCover"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile_cover"
-                app:layout_constraintBottom_toTopOf="@+id/rvPostList"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/ivCoverOverlay"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/bg_gradient_black_99"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@+id/ivCover"
-                app:layout_constraintLeft_toLeftOf="@+id/ivCover"
-                app:layout_constraintRight_toRightOf="@+id/ivCover"
-                app:layout_constraintTop_toTopOf="@+id/ivCover" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivAvatar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginEnd="@dimen/margin_normal"
-                android:layout_marginLeft="@dimen/margin_normal"
-                android:layout_marginRight="@dimen/margin_normal"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_normal"
-                app:civ_border_color="@android:color/white"
-                app:civ_border_width="2dp"
-                app:imageUrl="@{profile.avatar}"
-                app:layout_constraintRight_toLeftOf="@+id/glStats50"
-                app:layout_constraintTop_toTopOf="parent"
-                app:placeHolder="@{@drawable/ic_placeholder_small}"
-                app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
-                app:transformation="@{`crop`}"
-                tools:background="@color/colorAccentPink" />
-
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_normal"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:ellipsize="end"
-                android:maxLines="2"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@{profile.fullName}"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_massive"
-                app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
-                app:layout_constraintTop_toTopOf="@+id/ivAvatar"
-                tools:text="John doe" />
-
-            <TextView
-                android:id="@+id/tvFollowers"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_large"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/padding_normal"
-                android:paddingRight="@dimen/padding_normal"
-                android:text="@{String.valueOf(profile.followers.size())}"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_huge"
-                app:layout_constraintEnd_toEndOf="@+id/glStats33"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@+id/glStats33"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
-                tools:text="180" />
-
-            <TextView
-                android:id="@+id/tvFollowersHint"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/padding_normal"
-                android:paddingRight="@dimen/padding_normal"
-                android:text="@string/title_followers"
-                android:textColor="@color/colorTextGrey400"
-                android:textSize="@dimen/text_tiny"
-                app:layout_constraintEnd_toEndOf="@+id/tvFollowers"
-                app:layout_constraintLeft_toLeftOf="@+id/tvFollowers"
-                app:layout_constraintRight_toRightOf="@+id/tvFollowers"
-                app:layout_constraintStart_toStartOf="@+id/tvFollowers"
-                app:layout_constraintTop_toBottomOf="@+id/tvFollowers" />
-
-            <TextView
-                android:id="@+id/tvPosts"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/padding_normal"
-                android:paddingRight="@dimen/padding_normal"
-                android:text="@{String.valueOf(profile.posts.size())}"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_huge"
-                app:layout_constraintEnd_toEndOf="@+id/glStats66"
-                app:layout_constraintLeft_toLeftOf="@+id/glStats33"
-                app:layout_constraintRight_toRightOf="@+id/glStats66"
-                app:layout_constraintStart_toStartOf="@+id/glStats33"
-                app:layout_constraintTop_toTopOf="@+id/tvFollowers"
-                tools:text="10" />
-
-            <TextView
-                android:id="@+id/tvPostsHint"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/padding_normal"
-                android:paddingRight="@dimen/padding_normal"
-                android:text="@string/title_posts"
-                android:textColor="@color/colorTextGrey400"
-                android:textSize="@dimen/text_tiny"
-                app:layout_constraintEnd_toEndOf="@+id/tvPosts"
-                app:layout_constraintLeft_toLeftOf="@+id/tvPosts"
-                app:layout_constraintRight_toRightOf="@+id/tvPosts"
-                app:layout_constraintStart_toStartOf="@+id/tvPosts"
-                app:layout_constraintTop_toBottomOf="@+id/tvPosts" />
-
-            <TextView
-                android:id="@+id/tvFollowing"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/padding_normal"
-                android:paddingRight="@dimen/padding_normal"
-                android:text="@{String.valueOf(profile.followings.size())}"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_huge"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="@+id/glStats66"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/glStats66"
-                app:layout_constraintTop_toTopOf="@+id/tvFollowers"
-                tools:text="180" />
-
-            <TextView
-                android:id="@+id/tvFollowingHint"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/padding_normal"
-                android:paddingRight="@dimen/padding_normal"
-                android:text="@string/title_following"
-                android:textColor="@color/colorTextGrey400"
-                android:textSize="@dimen/text_tiny"
-                app:layout_constraintEnd_toEndOf="@+id/tvFollowing"
-                app:layout_constraintLeft_toLeftOf="@+id/tvFollowing"
-                app:layout_constraintRight_toRightOf="@+id/tvFollowing"
-                app:layout_constraintStart_toStartOf="@+id/tvFollowing"
-                app:layout_constraintTop_toBottomOf="@+id/tvFollowing" />
-
-            <com.milanix.shutter.view.AutoFitRecyclerView
-                android:id="@+id/rvPostList"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_normal"
-                android:background="@color/colorBackgroundList"
-                android:columnWidth="@dimen/item_post_width"
-                app:adapter="@{adapter}"
-                app:hasFixedSize="@{true}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvFollowersHint" />
-        </android.support.constraint.ConstraintLayout>
+            android:layout_marginTop="@dimen/margin_normal"
+            android:background="@color/colorBackgroundList"
+            android:columnWidth="@dimen/item_post_width"
+            app:adapter="@{adapter}"
+            app:hasFixedSize="@{true}" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

@@ -1,5 +1,7 @@
 package com.milanix.shutter.user.profile;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -26,6 +28,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 /**
  * Fragment containing profile
  *
@@ -37,6 +41,8 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
     @Inject
     PostListAdapter postListAdapter;
 
+    private OnReadyListener onReadyCallback;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +52,19 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
         presenter.getProfile();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        final Activity activity = getActivity();
+
+        if (activity instanceof ProfileFragment.OnReadyListener) {
+            this.onReadyCallback = (ProfileFragment.OnReadyListener) activity;
+        } else {
+            Timber.d("Caller did not implement OnReadyListener");
+        }
     }
 
     @Override
@@ -62,7 +81,7 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
 
     @Override
     public void setProfile(Profile profile) {
-        binding.setProfile(profile);
+        onReadyCallback.onReady(this, profile);
     }
 
     @Override
@@ -125,5 +144,9 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    interface OnReadyListener {
+        void onReady(ProfileContract.View view, Profile signUp);
     }
 }

@@ -21,20 +21,20 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.auth.login.LoginActivity;
 import com.milanix.shutter.auth.signup.SignUpActivity;
 import com.milanix.shutter.core.AbstractFragment;
-import com.milanix.shutter.databinding.FragmentAuthBinding;
+import com.milanix.shutter.databinding.FragmentLandingBinding;
 import com.milanix.shutter.home.HomeActivity;
 
 import java.util.List;
 
 //// TODO: 30/8/2016 comment
-public class LandingFragment extends AbstractFragment<LandingContract.Presenter, FragmentAuthBinding> implements LandingContract.View {
+public class LandingFragment extends AbstractFragment<LandingContract.Presenter, FragmentLandingBinding> implements LandingContract.View {
     private ProgressDialog progressDialog;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getAppComponent().with(new LandingModule(this)).inject(this);
-        performBinding(inflater, R.layout.fragment_auth, container);
+        performBinding(inflater, R.layout.fragment_landing, container);
         binding.setView(this);
         binding.setPresenter(presenter);
 
@@ -88,6 +88,7 @@ public class LandingFragment extends AbstractFragment<LandingContract.Presenter,
         getActivity().finish();
         startActivity(new Intent(getActivity(), HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK));
+
     }
 
     @Override

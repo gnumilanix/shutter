@@ -18,14 +18,18 @@ public class NotificationListPresenter extends AbstractPresenter<NotificationLis
     private final IStore.Callback<List<Notification>> notificationsCallback = new IStore.Callback<List<Notification>>() {
         @Override
         public void onSuccess(List<Notification> result) {
-            view.hideProgress();
-            view.showNotifications(result);
+            if (isActive()) {
+                view.hideProgress();
+                view.showNotifications(result);
+            }
         }
 
         @Override
         public void onFailure(Throwable t) {
-            view.hideProgress();
-            view.handleNotificationsRefreshError();
+            if (isActive()) {
+                view.hideProgress();
+                view.handleNotificationsRefreshError();
+            }
         }
     };
 
@@ -44,14 +48,18 @@ public class NotificationListPresenter extends AbstractPresenter<NotificationLis
 
     @Override
     public void getNotifications() {
-        view.showProgress();
-        repository.getNotifications(notificationsCallback);
+        if (isActive()) {
+            view.showProgress();
+            repository.getNotifications(notificationsCallback);
+        }
     }
 
     @Override
     public void refreshNotifications() {
-        view.showProgress();
-        repository.refreshNotifications(notificationsCallback);
+        if (isActive()) {
+            view.showProgress();
+            repository.refreshNotifications(notificationsCallback);
+        }
     }
 
     @Override

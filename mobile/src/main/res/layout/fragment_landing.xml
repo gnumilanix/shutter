@@ -17,33 +17,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/flBanner"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:src="@drawable/ic_title">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile_cover" />
-
-            <ImageView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/margin_large"
-                android:src="@drawable/ic_title" />
-        </RelativeLayout>
-
         <Button
             android:id="@+id/btnGoogle"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/flBanner"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/margin_large"

@@ -3,6 +3,7 @@ package com.milanix.shutter.core;
 import android.support.v7.app.AppCompatActivity;
 
 import com.milanix.shutter.App;
+import com.milanix.shutter.R;
 import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.user.UserComponent;
@@ -38,4 +39,12 @@ public class AbstractActivity extends AppCompatActivity implements IView {
     public boolean isActive() {
         return !isDestroyed;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.activity_slide_in_left, R.anim.activity_slide_out_right);
+    }
+
+
 }

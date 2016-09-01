@@ -4,6 +4,13 @@
 
     <data>
 
+        <variable
+            name="view"
+            type="com.milanix.shutter.auth.signup.SignUpContract.View" />
+
+        <variable
+            name="signup"
+            type="com.milanix.shutter.auth.signup.SignUp" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -18,29 +25,68 @@
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            <RelativeLayout
+                android:id="@+id/flBanner"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:contentInsetEnd="0dp"
-                android:contentInsetLeft="0dp"
-                android:contentInsetRight="0dp"
-                android:contentInsetStart="0dp"
-                android:theme="@style/Toolbar"
-                app:contentInsetEnd="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp"
-                tools:targetApi="lollipop">
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/bg_branding_gradient">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:padding="@dimen/padding_normal"
-                    android:src="@drawable/ic_title" />
-            </android.support.v7.widget.Toolbar>
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:contentInsetEnd="0dp"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetRight="0dp"
+                    android:contentInsetStart="0dp"
+                    android:theme="@style/Toolbar"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetStart="0dp"
+                    tools:targetApi="lollipop">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_title" />
+                </android.support.v7.widget.Toolbar>
+
+                <FrameLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/toolbar"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/padding_large">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ivAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:civ_border_color="@color/colorTextGrey300"
+                        app:civ_border_width="2dp"
+                        app:imageUrl="@{signup.avatar}"
+                        app:placeHolder="@{@drawable/ic_placeholder_small}"
+                        app:transformation="@{`crop`}"
+                        tools:src="@drawable/ic_placeholder_small" />
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fabAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:onClick="@{()->view.selectAvatar()}"
+                        android:src="@drawable/ic_action_add"
+                        app:backgroundTint="@color/colorAccent"
+                        app:borderWidth="0dp"
+                        app:fabSize="mini"
+                        app:rippleColor="@color/colorRipple" />
+                </FrameLayout>
+            </RelativeLayout>
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView

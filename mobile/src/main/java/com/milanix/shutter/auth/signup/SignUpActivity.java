@@ -8,7 +8,7 @@ import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivitySignupBinding;
 
 //// TODO: 30/8/2016 add comment
-public class SignUpActivity extends AbstractBindingActivity<ActivitySignupBinding> {
+public class SignUpActivity extends AbstractBindingActivity<ActivitySignupBinding> implements SignUpFragment.OnReadyListener {
     public static final String TAG_FRAGMENT_SIGNUP = "_fragment_signup";
 
     @Override
@@ -28,5 +28,11 @@ public class SignUpActivity extends AbstractBindingActivity<ActivitySignupBindin
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public void onReady(SignUpContract.View view, SignUp signUp) {
+        binding.setView(view);
+        binding.setSignup(signUp);
     }
 }

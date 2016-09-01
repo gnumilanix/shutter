@@ -2,7 +2,9 @@ package com.milanix.shutter.auth.signup;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -53,6 +55,7 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
     ProgressDialog progressDialog;
 
     private DialogOnDeniedPermissionListener dialogOnDeniedStoragePermissionListener;
+    private OnReadyListener onReadyCallback;
 
     @Nullable
     @Override
@@ -63,6 +66,7 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
         binding.setFragment(this);
         binding.setSignup(new SignUp());
         binding.setView(this);
+        onReadyCallback.onReady(this, binding.getSignup());
         createPermissionListeners();
 
         Dexter.continuePendingRequestIfPossible(dialogOnDeniedStoragePermissionListener);
@@ -78,7 +82,19 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
                 getString(R.string.action_signin_accept_terms_highlight));
         setBoldUnderlineSpan(binding.tvLogin, getString(R.string.action_signin_existing),
                 getString(R.string.action_signin_existing_highlight));
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        final Activity activity = getActivity();
+
+        if (activity instanceof OnReadyListener) {
+            this.onReadyCallback = (OnReadyListener) activity;
+        } else {
+            Timber.d("Caller did not implement OnReadyListener");
+        }
     }
 
     private void setBoldUnderlineSpan(TextView view, String fullText, String textToStyle) {
@@ -228,5 +244,9 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
     private void launchImagePicker() {
         startActivityForResult(Intent.createChooser(new Intent().setType("image/*").setAction(Intent.ACTION_GET_CONTENT),
                 getString(R.string.title_select_avatar)), PICK_AVATAR_REQUEST);
+    }
+
+    interface OnReadyListener {
+        void onReady(SignUpContract.View view, SignUp signUp);
     }
 }

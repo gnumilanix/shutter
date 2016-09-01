@@ -6,6 +6,8 @@
     <string name="hint_password">Password (optional)</string>
     <string name="hint_caption">Caption</string>
     <string name="hint_or">or</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_description">Description</string>
 
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_up">Sign Up</string>
