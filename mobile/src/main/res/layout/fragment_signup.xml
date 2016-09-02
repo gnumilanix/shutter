@@ -5,6 +5,10 @@
         <import type="android.text.TextUtils" />
 
         <variable
+            name="signup"
+            type="com.milanix.shutter.auth.signup.SignUp" />
+
+        <variable
             name="presenter"
             type="com.milanix.shutter.auth.signup.SignUpContract.Presenter" />
 
@@ -15,10 +19,6 @@
         <variable
             name="view"
             type="com.milanix.shutter.auth.signup.SignUpContract.View" />
-
-        <variable
-            name="signup"
-            type="com.milanix.shutter.auth.signup.SignUp" />
     </data>
 
     <RelativeLayout

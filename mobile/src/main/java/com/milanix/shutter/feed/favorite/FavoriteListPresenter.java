@@ -54,9 +54,4 @@ public class FavoriteListPresenter extends AbstractPresenter<FavoriteListContrac
         view.showProgress();
         repository.refreshFeeds(favoriteListQuery, feedsCallback);
     }
-
-    @Override
-    public void subscribe() {
-
-    }
 }

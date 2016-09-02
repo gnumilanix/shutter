@@ -200,7 +200,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
     private void createProfile(final FirebaseUser user) {
         final UserInfo providerData = user.getProviderData().get(0);
         final String avatarUrl = null == providerData.getPhotoUrl() ? null : providerData.getPhotoUrl().toString();
-        final Profile profile = new Profile(user.getUid(), user.getEmail(), avatarUrl, providerData.getDisplayName(), null, null, null);
+        final Profile profile = new Profile(user.getUid(), user.getEmail(), avatarUrl, providerData.getDisplayName());
         final Map<String, Object> updates = new HashMap<>();
         updates.put("/users/" + user.getUid(), profile.toCreateProfileMap());
 

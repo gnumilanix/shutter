@@ -39,8 +39,7 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
         ProfileContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
-    PostListAdapter postListAdapter;
-
+    protected PostListAdapter postListAdapter;
     private OnReadyListener onReadyCallback;
 
     @Nullable
@@ -81,7 +80,9 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
 
     @Override
     public void setProfile(Profile profile) {
-        onReadyCallback.onReady(this, profile);
+        if (null != onReadyCallback) {
+            onReadyCallback.onReady(this, profile);
+        }
     }
 
     @Override
@@ -97,7 +98,7 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
     }
 
     @Override
-    public void openPost(long postId) {
+    public void openPost(String postId) {
         startActivity(new Intent(getActivity(), FeedDetailActivity.class).putExtra(FeedModule.FEED_ID, postId));
     }
 

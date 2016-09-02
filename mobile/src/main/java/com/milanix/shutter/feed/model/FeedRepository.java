@@ -3,7 +3,6 @@ package com.milanix.shutter.feed.model;
 import android.support.annotation.Nullable;
 
 import com.milanix.shutter.dependencies.qualifier.Local;
-import com.milanix.shutter.dependencies.qualifier.Remote;
 
 import java.util.List;
 
@@ -14,11 +13,9 @@ import java.util.List;
  */
 public class FeedRepository implements com.milanix.shutter.feed.model.IFeedRepository {
     private final IFeedStore localStore;
-    private final IFeedStore remoteStore;
 
-    public FeedRepository(@Local IFeedStore localStore, @Remote IFeedStore remoteStore) {
+    public FeedRepository(@Local IFeedStore localStore) {
         this.localStore = localStore;
-        this.remoteStore = remoteStore;
     }
 
     @Override
@@ -31,7 +28,7 @@ public class FeedRepository implements com.milanix.shutter.feed.model.IFeedRepos
 
             @Override
             public void onFailure(Throwable t) {
-                remoteStore.getFeed(feedId, callback);
+                onFailure(new Exception("No feeds found"));
             }
         });
     }
@@ -76,39 +73,11 @@ public class FeedRepository implements com.milanix.shutter.feed.model.IFeedRepos
 
     @Override
     public void refreshFeeds(Query query, final Callback<List<Feed>> callback) {
-        remoteStore.getFeeds(query, new Callback<List<Feed>>() {
-            @Override
-            public void onSuccess(List<Feed> result) {
-                localStore.putFeeds(result, null);
-
-                if (null != callback)
-                    callback.onSuccess(result);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                if (null != callback)
-                    callback.onFailure(t);
-            }
-        });
+        getFeeds(query, callback);
     }
 
     @Override
     public void refreshFeed(long feedId, @Nullable final Callback<Feed> callback) {
-        remoteStore.getFeed(feedId, new Callback<Feed>() {
-            @Override
-            public void onSuccess(Feed result) {
-                localStore.putFeed(result, null);
-
-                if (null != callback)
-                    callback.onSuccess(result);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                if (null != callback)
-                    callback.onFailure(t);
-            }
-        });
+        getFeed(feedId, callback);
     }
 }

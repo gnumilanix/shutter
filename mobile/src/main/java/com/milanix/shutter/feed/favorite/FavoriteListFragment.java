@@ -56,7 +56,7 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
     }
 
     @Override
-    public void openFeed(long feedId) {
+    public void openFeed(String feedId) {
         startActivity(new Intent(getActivity(), FeedDetailActivity.class).putExtra(FeedModule.FEED_ID, feedId));
     }
 

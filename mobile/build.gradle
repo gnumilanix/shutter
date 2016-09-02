@@ -67,6 +67,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:9.4.0'
     compile 'com.facebook.android:facebook-android-sdk:4.14.1'
 
+    compile 'com.firebaseui:firebase-ui-database:0.5.1'
     compile(name: 'jobdispatcher', ext: 'aar')
 
     compile 'com.squareup.retrofit2:retrofit:2.1.0'

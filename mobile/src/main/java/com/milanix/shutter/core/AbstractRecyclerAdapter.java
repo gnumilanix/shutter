@@ -14,8 +14,7 @@ import java.util.List;
  * @author milan
  */
 public abstract class AbstractRecyclerAdapter<T, H extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<H> {
-    private final List<T> items = new ArrayList<>();
-
+    protected final List<T> items = new ArrayList<>();
 
     @Override
     public void onBindViewHolder(final H viewHolder, final int position) {

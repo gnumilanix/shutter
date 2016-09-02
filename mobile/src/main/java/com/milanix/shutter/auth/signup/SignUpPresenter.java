@@ -42,11 +42,6 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
     }
 
     @Override
-    public void subscribe() {
-
-    }
-
-    @Override
     public void signUp(@NonNull final SignUp signUp) {
         if (isActive()) {
             view.showProgress();
@@ -88,7 +83,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
 
     private void createProfile(final SignUp signUp, final FirebaseUser user, final Uri avatarUri) {
         final Profile profile = new Profile(user.getUid(), user.getEmail(), avatarUri == null ? null :
-                avatarUri.toString(), signUp.getUsername(), null, null, null);
+                avatarUri.toString(), signUp.getUsername());
         database.getReference().child("users").child(user.getUid()).setValue(profile).
                 continueWith(new Continuation<Void, Void>() {
                     @Override

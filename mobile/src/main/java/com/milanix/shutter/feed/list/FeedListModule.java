@@ -1,6 +1,6 @@
 package com.milanix.shutter.feed.list;
 
-import com.milanix.shutter.feed.model.IFeedRepository;
+import com.google.firebase.database.FirebaseDatabase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,7 +24,8 @@ public class FeedListModule {
     }
 
     @Provides
-    public FeedListContract.Presenter provideFeedPresenter(FeedListContract.View view, IFeedRepository feedRepository) {
-        return new FeedListPresenter(view, feedRepository);
+    public FeedListContract.Presenter provideFeedPresenter(FeedListContract.View view,
+                                                           FirebaseDatabase database) {
+        return new FeedListPresenter(view, database);
     }
 }

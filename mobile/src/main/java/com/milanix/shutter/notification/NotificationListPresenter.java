@@ -42,11 +42,6 @@ public class NotificationListPresenter extends AbstractPresenter<NotificationLis
     }
 
     @Override
-    public void subscribe() {
-
-    }
-
-    @Override
     public void getNotifications() {
         if (isActive()) {
             view.showProgress();

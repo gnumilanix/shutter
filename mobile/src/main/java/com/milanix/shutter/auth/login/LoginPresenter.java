@@ -29,11 +29,6 @@ public class LoginPresenter extends AbstractPresenter<LoginContract.View> implem
     }
 
     @Override
-    public void subscribe() {
-
-    }
-
-    @Override
     public void login(final Login login) {
         if (areLoginFieldsValid(login)) {
             if (isActive())

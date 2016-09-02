@@ -16,6 +16,8 @@ import com.milanix.shutter.notification.NotificationListModule;
 import com.milanix.shutter.notification.model.NotificationDataModule;
 import com.milanix.shutter.notification.model.NotificationMessagingService;
 import com.milanix.shutter.notification.model.NotificationSyncService;
+import com.milanix.shutter.post.NewPostComponent;
+import com.milanix.shutter.post.NewPostModule;
 import com.milanix.shutter.user.profile.ProfileComponent;
 import com.milanix.shutter.user.profile.ProfileModule;
 
@@ -32,6 +34,8 @@ public interface UserComponent {
     HomeComponent with(HomeModule module);
 
     ProfileComponent with(ProfileModule module);
+
+    NewPostComponent with(NewPostModule module);
 
     FeedComponent with(FeedModule module);
 

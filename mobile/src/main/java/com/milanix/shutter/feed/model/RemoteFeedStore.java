@@ -1,12 +1,8 @@
 package com.milanix.shutter.feed.model;
 
-import com.milanix.shutter.core.RestCallback;
-
 import java.util.List;
 
 import javax.inject.Inject;
-
-import retrofit2.Response;
 
 /**
  * Store that provide feed data from remote data source
@@ -14,26 +10,14 @@ import retrofit2.Response;
  * @author milan
  */
 public class RemoteFeedStore implements IFeedStore {
-    private final FeedApi feedApi;
 
     @Inject
-    public RemoteFeedStore(FeedApi feedApi) {
-        this.feedApi = feedApi;
+    public RemoteFeedStore() {
     }
 
     @Override
     public void getFeed(long feedId, final Callback<Feed> callback) {
-        feedApi.getFeed(feedId).enqueue(new RestCallback<Feed>() {
-            @Override
-            public void onResponse(Response<Feed> response) {
-                callback.onSuccess(response.body());
-            }
 
-            @Override
-            public void onFailure(Throwable t) {
-                callback.onFailure(t);
-            }
-        });
     }
 
     @Override
@@ -48,18 +32,7 @@ public class RemoteFeedStore implements IFeedStore {
 
     @Override
     public void getFeeds(Query query, final Callback<List<Feed>> callback) {
-        feedApi.getFeeds(query.getType(), query.getPage(), query.getCount(), query.isFavorite()).
-                enqueue(new RestCallback<List<Feed>>() {
-                    @Override
-                    public void onResponse(Response<List<Feed>> response) {
-                        callback.onSuccess(response.body());
-                    }
 
-                    @Override
-                    public void onFailure(Throwable t) {
-                        callback.onFailure(t);
-                    }
-                });
     }
 
     @Override

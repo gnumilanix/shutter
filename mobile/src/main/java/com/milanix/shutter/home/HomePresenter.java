@@ -18,11 +18,6 @@ public class HomePresenter extends AbstractPresenter<HomeContract.View> implemen
 
     @Override
     public void getUser() {
-    view.setUser(user);
-    }
-
-    @Override
-    public void subscribe() {
-
+        view.setUser(user);
     }
 }

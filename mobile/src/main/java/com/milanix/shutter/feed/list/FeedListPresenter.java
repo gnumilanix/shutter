@@ -1,10 +1,10 @@
 package com.milanix.shutter.feed.list;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.milanix.shutter.core.AbstractPresenter;
 import com.milanix.shutter.core.specification.IStore;
 import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.feed.model.IFeedRepository;
-import com.milanix.shutter.feed.model.Query;
 
 import java.util.List;
 
@@ -16,52 +16,27 @@ import javax.inject.Inject;
  * @author milan
  */
 public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> implements FeedListContract.Presenter {
-    private final Query favoriteListQuery = new Query.Builder().setType(Query.Type.PUBLIC).build();
-    private final IStore.Callback<List<Feed>> feedsCallback = new IStore.Callback<List<Feed>>() {
-        @Override
-        public void onSuccess(List<Feed> result) {
-            if (isActive()) {
-                view.hideProgress();
-                view.showFeeds(result);
-            }
-        }
-
-        @Override
-        public void onFailure(Throwable t) {
-            if (isActive()) {
-                view.hideProgress();
-                view.handleFeedRefreshError();
-            }
-        }
-    };
-    private final IFeedRepository repository;
+    private final FirebaseDatabase database;
 
     @Inject
-    public FeedListPresenter(FeedListContract.View view, IFeedRepository repository) {
+    public FeedListPresenter(FeedListContract.View view, FirebaseDatabase database) {
         super(view);
-        this.repository = repository;
+        this.database = database;
     }
 
     @Override
-    public void getFeeds() {
-        if (isActive()) {
-            view.showProgress();
-        }
+    public void subscribe(ChildEventListener childEventListener) {
+        super.subscribe();
+        database.getReference().child("posts").addChildEventListener(childEventListener);
+    }
 
-        repository.getFeeds(favoriteListQuery, feedsCallback);
+    @Override
+    public void unsubscribe(ChildEventListener childEventListener) {
+        super.unsubscribe();
+        database.getReference().child("posts").removeEventListener(childEventListener);
     }
 
     @Override
     public void refreshFeeds() {
-        if (isActive()) {
-            view.showProgress();
-        }
-
-        repository.refreshFeeds(favoriteListQuery, feedsCallback);
-    }
-
-    @Override
-    public void subscribe() {
-
     }
 }

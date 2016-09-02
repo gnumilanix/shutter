@@ -1,10 +1,8 @@
 package com.milanix.shutter.feed.list;
 
+import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
-import com.milanix.shutter.feed.model.Feed;
-
-import java.util.List;
 
 /**
  * Contract for feeds related implementations
@@ -13,11 +11,7 @@ import java.util.List;
  */
 public interface FeedListContract {
     interface View extends IView {
-        void showFeeds(List<Feed> feeds);
-
-        void openFeed(long feedId);
-
-        void handleFeedRefreshError();
+        void openFeed(String feedId);
 
         void showProgress();
 
@@ -25,7 +19,9 @@ public interface FeedListContract {
     }
 
     interface Presenter extends IPresenter {
-        void getFeeds();
+        void subscribe(ChildEventListener childEventListener);
+
+        void unsubscribe(ChildEventListener childEventListener);
 
         void refreshFeeds();
     }

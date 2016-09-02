@@ -1,11 +1,9 @@
 package com.milanix.shutter.feed.model;
 
-import com.milanix.shutter.user.model.User;
+import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
 
-import java.util.List;
+import java.util.HashMap;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -13,42 +11,30 @@ import io.realm.annotations.PrimaryKey;
  *
  * @author milan
  */
-public class Feed extends RealmObject {
+public class Feed implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
     public static final String FIELD_ID = "id";
 
     @PrimaryKey
-    private long id = -1;
+    private String postId;
     private String title;
     private String description;
     private String thumbnail;
     private String image;
-    private int views;
-    private boolean favorite;
-    private User author;
-    private RealmList<Comment> comments;
-    private RealmList<Favorite> favorites;
+    private String authorId;
+    private HashMap<String, Boolean> favoriters = new HashMap<>();
+    private HashMap<String, Boolean> viewers = new HashMap<>();
+    private HashMap<String, Boolean> commenters = new HashMap<>();
 
     public Feed() {
-        this.comments = new RealmList<>();
-        this.favorites = new RealmList<>();
     }
 
-    public Feed(long id, String title, String description, String thumbnail, String image, int views,
-                boolean favorite, User author, RealmList<Comment> comments, RealmList<Favorite> favorites) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.thumbnail = thumbnail;
-        this.image = image;
-        this.views = views;
-        this.favorite = favorite;
-        this.author = author;
-        this.comments = comments;
-        this.favorites = favorites;
+    @Override
+    public String key() {
+        return postId;
     }
 
-    public long getId() {
-        return id;
+    public String getPostId() {
+        return postId;
     }
 
     public String getTitle() {
@@ -67,24 +53,20 @@ public class Feed extends RealmObject {
         return image;
     }
 
-    public int getViews() {
-        return views;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public boolean isFavorite() {
-        return favorite;
+    public HashMap<String, Boolean> getFavoriters() {
+        return favoriters;
     }
 
-    public User getAuthor() {
-        return author;
+    public HashMap<String, Boolean> getViewers() {
+        return viewers;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public List<Favorite> getFavorites() {
-        return favorites;
+    public HashMap<String, Boolean> getCommenters() {
+        return commenters;
     }
 
     @Override
@@ -94,27 +76,27 @@ public class Feed extends RealmObject {
 
         Feed feed = (Feed) o;
 
-        return id == feed.id;
+        return postId.equals(feed.postId);
+
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return postId.hashCode();
     }
 
     @Override
     public String toString() {
         return "Feed{" +
-                "id=" + id +
+                "postId='" + postId + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", image='" + image + '\'' +
-                ", views=" + views +
-                ", favorite=" + favorite +
-                ", author=" + author +
-                ", comments=" + comments +
-                ", favorites=" + favorites +
+                ", authorId='" + authorId + '\'' +
+                ", favoriters=" + favoriters +
+                ", viewers=" + viewers +
+                ", commenters=" + commenters +
                 '}';
     }
 }

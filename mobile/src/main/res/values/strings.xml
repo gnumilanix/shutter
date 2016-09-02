@@ -17,6 +17,7 @@
     <string name="action_request_now">Request Now</string>
     <string name="action_not_now">Not now</string>
     <string name="action_logout">Log out</string>
+    <string name="action_post">Post</string>
     <string name="action_create_account">Create An Account</string>
     <string name="action_signin_google">Sign In With Google</string>
     <string name="action_signin_facebook">Sign In With Facebook</string>
@@ -29,6 +30,10 @@
     <string name="action_request_password_request">Request now</string>
 
     <string name="title_login_error">Login error</string>
+    <string name="title_signup_error">Sign Up error</string>
+    <string name="title_upload_error">Upload error</string>
+    <string name="title_post_upload_error">Upload post error</string>
+    <string name="title_publish_post_error">Publish post error</string>
     <string name="title_request_password_error">Request password error</string>
     <string name="title_settings">Settings</string>
     <string name="title_logout">Log Out</string>
@@ -40,19 +45,26 @@
     <string name="title_following">Following</string>
     <string name="title_logging_in">Logging in</string>
     <string name="title_signing_up">Signing up</string>
+    <string name="title_uploading_post">Uploading post</string>
     <string name="title_requesting_password">Requesting reset instructions</string>
     <string name="title_request_email">Reset Password</string>
     <string name="title_request_email_sent">Reset instructions sent</string>
     <string name="title_select_avatar">Select Avatar</string>
+    <string name="title_select_image">Select Image</string>
 
     <string name="message_logged_in">Logged in</string>
     <string name="message_hello">Hello %s</string>
     <string name="message_banner">Connecting amazing photographers to you</string>
     <string name="message_login_error">There was an error while logging in.</string>
+    <string name="message_avatar_upload_error">There was an error while uploading avatar.</string>
+    <string name="message_signup_error">There was an error while signing up.</string>
+    <string name="message_post_upload_error">There was an error while uploading post.</string>
+    <string name="message_publish_post_error">There was an error while publishing post.</string>
     <string name="message_request_password_error">There was an error while requesting a password reset email.</string>
     <string name="message_network_disconnected">Can\'t connect to the internet</string>
     <string name="message_logging_in">Please wait while we log you in.</string>
     <string name="message_signing_up">Please wait while we sign you up.</string>
+    <string name="message_uploading_post">Please wait while we are publishing your post.</string>
     <string name="message_requesting_password">Please wait while we send you a password reset email.</string>
     <string name="message_reset_password_send_email">We will send instructions on how to reset you password to your email address.</string>
     <string name="message_reset_password_complete">We have sent instructions on how to reset your password to your email address:\n%s</string>
@@ -68,5 +80,6 @@
     <string name="error_refresh_notifications">Error refreshing notifications</string>
 
     <string name="storage_permission_request_title">Storage permission request</string>
-    <string name="storage_permission_request_rationale">Storage permission is needed for uploading profile avatar</string>
+    <string name="storage_permission_request_rationale_avatar">Storage permission is needed for uploading profile avatar</string>
+    <string name="storage_permission_request_rationale_post">Storage permission is needed for uploading post image</string>
 </resources>

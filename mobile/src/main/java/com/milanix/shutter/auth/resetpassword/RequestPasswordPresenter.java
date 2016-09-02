@@ -20,11 +20,6 @@ public class RequestPasswordPresenter extends AbstractPresenter<RequestPasswordC
     }
 
     @Override
-    public void subscribe() {
-
-    }
-
-    @Override
     public void requestPassword(final RequestPassword requestPassword) {
         view.showProgress();
         auth.sendPasswordResetEmail(requestPassword.getEmail())

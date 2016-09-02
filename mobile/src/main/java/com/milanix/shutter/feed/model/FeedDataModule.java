@@ -6,7 +6,6 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.Trigger;
 import com.milanix.shutter.dependencies.qualifier.Local;
-import com.milanix.shutter.dependencies.qualifier.Remote;
 import com.milanix.shutter.dependencies.scope.UserScope;
 import com.milanix.shutter.notification.model.NotificationMessagingService;
 
@@ -34,20 +33,13 @@ public class FeedDataModule {
     @Local
     @UserScope
     public IFeedStore provideLocalFeedStore() {
-        return new LocalFeedStore();
-    }
-
-    @Provides
-    @Remote
-    @UserScope
-    public IFeedStore provideRemoteFeedStore(FeedApi feedApi) {
-        return new RemoteFeedStore(feedApi);
+        return new RemoteFeedStore();
     }
 
     @Provides
     @UserScope
-    public IFeedRepository provideFeedRepository(@Local IFeedStore local, @Remote IFeedStore remote) {
-        return new FeedRepository(local, remote);
+    public IFeedRepository provideFeedRepository(@Local IFeedStore local) {
+        return new FeedRepository(local);
     }
 
     @Provides

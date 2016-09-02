@@ -51,5 +51,4 @@ public interface AppComponent {
     RequestPasswordComponent with(RequestPasswordModule module);
 
     UserComponent with(UserModule module);
-
 }

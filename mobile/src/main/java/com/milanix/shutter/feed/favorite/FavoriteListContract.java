@@ -15,7 +15,7 @@ public interface FavoriteListContract {
     interface View extends IView {
         void showFeeds(List<Feed> feeds);
 
-        void openFeed(long feedId);
+        void openFeed(String feedId);
 
         void handleFeedRefreshError();
 

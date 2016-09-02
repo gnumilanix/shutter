@@ -45,9 +45,4 @@ public class FeedDetailPresenter extends AbstractPresenter<FeedDetailContract.Vi
     public void refreshFeed() {
         repository.refreshFeed(feedId, feedCallback);
     }
-
-    @Override
-    public void subscribe() {
-
-    }
 }

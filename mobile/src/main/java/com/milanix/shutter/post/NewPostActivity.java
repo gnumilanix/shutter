@@ -11,8 +11,8 @@ import com.milanix.shutter.databinding.ActivityNewPostBinding;
  *
  * @author milan
  */
-public class NewPostActivity extends AbstractBindingActivity<ActivityNewPostBinding> {
-    public static final String TAG_FRAGMENT_FEEDS = "_fragment_feed";
+public class NewPostActivity extends AbstractBindingActivity<ActivityNewPostBinding> implements NewPostFragment.OnReadyListener {
+    public static final String TAG_FRAGMENT_NEW_POST = "_fragment_new_post";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,13 +20,10 @@ public class NewPostActivity extends AbstractBindingActivity<ActivityNewPostBind
         performBinding(R.layout.activity_new_post);
         setToolbar();
 
-//        if (null == savedInstanceState) {
-//            final FeedDetailFragment feedFragment = new FeedDetailFragment();
-//            feedFragment.setArguments(getIntent().getExtras());
-//
-//            getSupportFragmentManager().beginTransaction().replace(R.id.container, feedFragment,
-//                    TAG_FRAGMENT_FEEDS).commit();
-//        }
+        if (null == savedInstanceState) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new NewPostFragment(),
+                    TAG_FRAGMENT_NEW_POST).commit();
+        }
     }
 
     private void setToolbar() {
@@ -34,5 +31,9 @@ public class NewPostActivity extends AbstractBindingActivity<ActivityNewPostBind
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public void onReady(NewPostContract.View view, NewPost post) {
     }
 }

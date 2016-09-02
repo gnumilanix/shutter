@@ -22,7 +22,7 @@
         android:layout_marginRight="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_small"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{()->view.openFeed(feed.id)}"
+        android:onClick="@{()->view.openFeed(feed.postId)}"
         app:cardBackgroundColor="@android:color/white"
         tools:ignore="UnusedAttribute">
 
@@ -56,7 +56,6 @@
                 android:layout_margin="@dimen/margin_normal"
                 app:civ_border_color="@color/colorTextGrey400"
                 app:civ_border_width="2dp"
-                app:imageUrl="@{feed.author.avatar}"
                 app:placeHolder="@{@drawable/ic_placeholder_small}"
                 app:transformation="@{`crop`}"
                 tools:background="@color/colorAccentPink" />
@@ -104,7 +103,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="@{String.valueOf(feed.favorites.size())}"
+                android:text="@{String.valueOf(feed.favoriters.size())}"
                 android:textColor="@color/colorTextGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />
@@ -133,7 +132,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="@{String.valueOf(feed.comments.size())}"
+                android:text="@{String.valueOf(feed.commenters.size())}"
                 android:textColor="@color/colorTextGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />
@@ -164,7 +163,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="@{String.valueOf(feed.views)}"
+                android:text="@{String.valueOf(feed.viewers.size())}"
                 android:textColor="@color/colorTextGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />

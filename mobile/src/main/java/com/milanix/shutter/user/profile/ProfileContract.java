@@ -18,7 +18,7 @@ public interface ProfileContract {
 
         void showPosts(List<Feed> posts);
 
-        void openPost(long postId);
+        void openPost(String postId);
 
         void handleProfileRefreshError();
 
