@@ -18,8 +18,6 @@ import com.milanix.shutter.user.UserModule;
 
 import javax.inject.Inject;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import timber.log.Timber;
 
 /**
@@ -48,7 +46,6 @@ public class App extends MultiDexApplication {
     }
 
     private void initSDKs() {
-        Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).schemaVersion(0).deleteRealmIfMigrationNeeded().build());
         Dexter.initialize(this);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);

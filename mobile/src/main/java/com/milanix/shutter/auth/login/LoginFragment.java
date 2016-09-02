@@ -39,9 +39,6 @@ public class LoginFragment extends AbstractFragment<LoginContract.Presenter, Fra
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getAppComponent().with(new LoginModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_login, container);
-        binding.setPresenter(presenter);
-        binding.setFragment(this);
-        binding.setLogin(new Login());
 
         return binding.getRoot();
     }
@@ -49,6 +46,10 @@ public class LoginFragment extends AbstractFragment<LoginContract.Presenter, Fra
     @Override
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
+
+        binding.setPresenter(presenter);
+        binding.setFragment(this);
+        binding.setLogin(new Login());
 
         setBoldUnderlineSpan(binding.tvRequestPassword, getString(R.string.action_signin_forget_password),
                 getString(R.string.action_signin_forget_password_highlight));

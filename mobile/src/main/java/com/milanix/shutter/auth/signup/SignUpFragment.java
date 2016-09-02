@@ -51,8 +51,8 @@ import static android.app.Activity.RESULT_OK;
 public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, FragmentSignupBinding> implements SignUpContract.View, PermissionListener {
     private static final int PICK_AVATAR_REQUEST = 1;
     @Inject
-    InputMethodManager inputMethodManager;
-    ProgressDialog progressDialog;
+    protected InputMethodManager inputMethodManager;
+    protected ProgressDialog progressDialog;
 
     private DialogOnDeniedPermissionListener dialogOnDeniedStoragePermissionListener;
     private OnReadyListener onReadyCallback;
@@ -62,10 +62,6 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getAppComponent().with(new SignUpModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_signup, container);
-        binding.setPresenter(presenter);
-        binding.setFragment(this);
-        binding.setSignup(new SignUp());
-        binding.setView(this);
         createPermissionListeners();
 
         Dexter.continuePendingRequestIfPossible(dialogOnDeniedStoragePermissionListener);
@@ -76,6 +72,11 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
     @Override
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
+
+        binding.setPresenter(presenter);
+        binding.setFragment(this);
+        binding.setSignup(new SignUp());
+        binding.setView(this);
 
         setBoldUnderlineSpan(binding.cbAgreement, getString(R.string.action_signin_accept_terms),
                 getString(R.string.action_signin_accept_terms_highlight));

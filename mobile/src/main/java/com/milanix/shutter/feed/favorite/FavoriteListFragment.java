@@ -50,6 +50,7 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
     @Override
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
+        
         binding.setAdapter(favoriteListAdapter);
         binding.setRefreshListener(this);
     }

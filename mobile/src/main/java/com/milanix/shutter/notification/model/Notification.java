@@ -1,16 +1,11 @@
 package com.milanix.shutter.notification.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 /**
  * Notification data object
  *
  * @author milan
  */
-public class Notification extends RealmObject {
-    public static final String FIELD_ID = "id";
-    @PrimaryKey
+public class Notification {
     private String id;
     private String avatar;
     private String post;

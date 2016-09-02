@@ -36,8 +36,6 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
         getUserComponent().with(new NotificationListModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_notification_list, container);
 
-        presenter.getNotifications();
-
         return binding.getRoot();
     }
 

@@ -5,7 +5,6 @@ import com.milanix.shutter.user.model.Profile;
 
 import java.util.HashMap;
 
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Post data object
@@ -13,9 +12,6 @@ import io.realm.annotations.PrimaryKey;
  * @author milan
  */
 public class Post implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
-    public static final String FIELD_ID = "id";
-
-    @PrimaryKey
     private String postId;
     private String title;
     private String description;

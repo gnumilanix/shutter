@@ -35,8 +35,6 @@ public class LandingFragment extends AbstractFragment<LandingContract.Presenter,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getAppComponent().with(new LandingModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_landing, container);
-        binding.setView(this);
-        binding.setPresenter(presenter);
 
         return binding.getRoot();
     }
@@ -56,6 +54,10 @@ public class LandingFragment extends AbstractFragment<LandingContract.Presenter,
     @Override
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
+
+        binding.setView(this);
+        binding.setPresenter(presenter);
+
         setBoldUnderlineSpan(binding.tvLogin, getString(R.string.action_signin_existing),
                 getString(R.string.action_signin_existing_highlight));
         setBoldUnderlineSpan(binding.tvAgreement, getString(R.string.action_signin_accept_terms),

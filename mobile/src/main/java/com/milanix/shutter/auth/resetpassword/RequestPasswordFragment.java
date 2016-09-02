@@ -3,6 +3,7 @@ package com.milanix.shutter.auth.resetpassword;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -31,11 +32,16 @@ public class RequestPasswordFragment extends AbstractFragment<RequestPasswordCon
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getAppComponent().with(new RequestPasswordModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_reset_password, container);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
+        super.performBinding(inflater, layout, container);
         binding.setPresenter(presenter);
         binding.setFragment(this);
         binding.setRequestpassword(new RequestPassword());
-
-        return binding.getRoot();
     }
 
     @Override

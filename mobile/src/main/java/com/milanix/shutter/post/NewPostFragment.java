@@ -58,9 +58,6 @@ public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter,
         getUserComponent().with(new NewPostModule(this)).inject(this);
         setHasOptionsMenu(true);
         performBinding(inflater, R.layout.fragment_new_post, container);
-        binding.setPresenter(presenter);
-        binding.setPost(new NewPost());
-        binding.setView(this);
         createPermissionListeners();
 
         Dexter.continuePendingRequestIfPossible(dialogOnDeniedStoragePermissionListener);
@@ -71,6 +68,10 @@ public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter,
     @Override
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
+
+        binding.setPresenter(presenter);
+        binding.setPost(new NewPost());
+        binding.setView(this);
 
         if (null != onReadyCallback) {
             onReadyCallback.onReady(this, binding.getPost());
