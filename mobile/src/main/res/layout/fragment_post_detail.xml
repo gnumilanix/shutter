@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="feed"
-            type="com.milanix.shutter.feed.model.Feed" />
+            name="post"
+            type="com.milanix.shutter.feed.model.Post" />
     </data>
 
     <RelativeLayout
@@ -20,8 +20,7 @@
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:imageUrl="@{feed.image}"
-            app:transformation="@{`crop`}"
+            app:imageUrl="@{post.image}"
             tools:background="@color/colorAccentPink" />
 
         <TextView
@@ -34,7 +33,7 @@
             android:fontFamily="sans-serif-condensed"
             android:maxLines="6"
             android:padding="@dimen/margin_normal"
-            android:text="@{feed.description}"
+            android:text="@{post.description}"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_medium"
             tools:text="Wondering what is in there, another Earth, another me or just never ending darkness" />

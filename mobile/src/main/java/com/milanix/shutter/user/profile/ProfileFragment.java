@@ -20,9 +20,9 @@ import com.milanix.shutter.auth.LandingActivity;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentProfileBinding;
 import com.milanix.shutter.feed.FeedModule;
-import com.milanix.shutter.feed.detail.FeedDetailActivity;
-import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.feed.model.Profile;
+import com.milanix.shutter.feed.detail.PostDetailActivity;
+import com.milanix.shutter.feed.model.Post;
+import com.milanix.shutter.user.model.Profile;
 
 import java.util.List;
 
@@ -49,6 +49,7 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
         getUserComponent().with(new ProfileModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_profile, container);
         presenter.getProfile();
+        presenter.getPosts();
 
         return binding.getRoot();
     }
@@ -86,7 +87,7 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
     }
 
     @Override
-    public void showPosts(List<Feed> posts) {
+    public void showPosts(List<Post> posts) {
         postListAdapter.replaceItems(posts);
     }
 
@@ -99,13 +100,19 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
 
     @Override
     public void openPost(String postId) {
-        startActivity(new Intent(getActivity(), FeedDetailActivity.class).putExtra(FeedModule.FEED_ID, postId));
+        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(FeedModule.POST_ID, postId));
     }
 
     @Override
     public void handleProfileRefreshError() {
         Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
                 R.string.error_refresh_profile, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void handlePostRefreshError() {
+        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
+                R.string.error_refresh_feed, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -127,7 +134,7 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
 
     @Override
     public void onRefresh() {
-        presenter.refreshProfile();
+        presenter.getPosts();
     }
 
     @Override

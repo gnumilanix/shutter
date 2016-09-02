@@ -20,13 +20,13 @@ public class SplashModule {
     }
 
     @Provides
-    public SplashContract.View provideSplashView() {
+    public SplashContract.View provideView() {
         return view;
     }
 
     @Provides
-    public SplashContract.Presenter provideSplashPresenter(SplashContract.View view, App app,
-                                                           FirebaseAuth auth) {
+    public SplashContract.Presenter providePresenter(SplashContract.View view, App app,
+                                                     FirebaseAuth auth) {
         return new SplashPresenter(view, app, auth);
     }
 }

@@ -1,8 +1,8 @@
 package com.milanix.shutter.feed;
 
 import com.milanix.shutter.dependencies.scope.ActivityScope;
-import com.milanix.shutter.feed.detail.FeedDetailComponent;
-import com.milanix.shutter.feed.detail.FeedDetailModule;
+import com.milanix.shutter.feed.detail.PostDetailComponent;
+import com.milanix.shutter.feed.detail.PostDetailModule;
 
 import dagger.Subcomponent;
 
@@ -14,5 +14,5 @@ import dagger.Subcomponent;
 @ActivityScope
 @Subcomponent(modules = FeedModule.class)
 public interface FeedComponent {
-    FeedDetailComponent with(FeedDetailModule module);
+    PostDetailComponent with(PostDetailModule module);
 }

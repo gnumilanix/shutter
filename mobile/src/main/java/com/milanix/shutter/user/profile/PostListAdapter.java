@@ -8,7 +8,7 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractRecyclerAdapter;
 import com.milanix.shutter.core.BindingViewHolder;
 import com.milanix.shutter.databinding.ItemPostBinding;
-import com.milanix.shutter.feed.model.Feed;
+import com.milanix.shutter.feed.model.Post;
 
 import javax.inject.Inject;
 
@@ -17,7 +17,7 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public class PostListAdapter extends AbstractRecyclerAdapter<Feed, PostListAdapter.NotificationHolder> {
+public class PostListAdapter extends AbstractRecyclerAdapter<Post, PostListAdapter.NotificationHolder> {
     private ProfileContract.View feedListView;
     private final LayoutInflater inflater;
 
@@ -33,7 +33,7 @@ public class PostListAdapter extends AbstractRecyclerAdapter<Feed, PostListAdapt
     }
 
     @Override
-    protected void bind(int position, NotificationHolder viewHolder, Feed item) {
+    protected void bind(int position, NotificationHolder viewHolder, Post item) {
         viewHolder.binding.setPost(item);
         viewHolder.binding.setView(feedListView);
         viewHolder.binding.executePendingBindings();

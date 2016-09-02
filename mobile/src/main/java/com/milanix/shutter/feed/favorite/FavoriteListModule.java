@@ -1,6 +1,7 @@
 package com.milanix.shutter.feed.favorite;
 
-import com.milanix.shutter.feed.model.IFeedRepository;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -19,12 +20,14 @@ public class FavoriteListModule {
     }
 
     @Provides
-    public FavoriteListContract.View provideFavoriteListView() {
+    public FavoriteListContract.View provideView() {
         return view;
     }
 
     @Provides
-    public FavoriteListContract.Presenter provideFavoriteListPresenter(FavoriteListContract.View view, IFeedRepository feedRepository) {
-        return new FavoriteListPresenter(view, feedRepository);
+    public FavoriteListContract.Presenter providePresenter(FavoriteListContract.View view,
+                                                           FirebaseUser user,
+                                                           FirebaseDatabase database) {
+        return new FavoriteListPresenter(view, user,database);
     }
 }

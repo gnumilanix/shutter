@@ -1,4 +1,4 @@
-package com.milanix.shutter.feed.model;
+package com.milanix.shutter.user.model;
 
 import com.google.firebase.database.Exclude;
 

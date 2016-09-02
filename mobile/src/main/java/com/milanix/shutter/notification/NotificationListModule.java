@@ -1,6 +1,7 @@
 package com.milanix.shutter.notification;
 
-import com.milanix.shutter.notification.model.INotificationRepository;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -19,13 +20,14 @@ public class NotificationListModule {
     }
 
     @Provides
-    public NotificationListContract.View provideNotificationListView() {
+    public NotificationListContract.View provideView() {
         return view;
     }
 
     @Provides
-    public NotificationListContract.Presenter provideNotificationListPresenter(NotificationListContract.View view,
-                                                                               INotificationRepository repository) {
-        return new NotificationListPresenter(view, repository);
+    public NotificationListContract.Presenter providePresenter(NotificationListContract.View view,
+                                                               FirebaseUser user,
+                                                               FirebaseDatabase database) {
+        return new NotificationListPresenter(view, user,database);
     }
 }

@@ -27,8 +27,6 @@ public interface NotificationListContract {
     interface Presenter extends IPresenter {
         void getNotifications();
 
-        void refreshNotifications();
-
         void markRead(Notification notification);
     }
 }

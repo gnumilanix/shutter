@@ -7,15 +7,11 @@ import com.milanix.shutter.feed.favorite.FavoriteListComponent;
 import com.milanix.shutter.feed.favorite.FavoriteListModule;
 import com.milanix.shutter.feed.list.FeedListComponent;
 import com.milanix.shutter.feed.list.FeedListModule;
-import com.milanix.shutter.feed.model.FeedDataModule;
-import com.milanix.shutter.feed.model.FeedSyncService;
 import com.milanix.shutter.home.HomeComponent;
 import com.milanix.shutter.home.HomeModule;
 import com.milanix.shutter.notification.NotificationListComponent;
 import com.milanix.shutter.notification.NotificationListModule;
-import com.milanix.shutter.notification.model.NotificationDataModule;
 import com.milanix.shutter.notification.model.NotificationMessagingService;
-import com.milanix.shutter.notification.model.NotificationSyncService;
 import com.milanix.shutter.post.NewPostComponent;
 import com.milanix.shutter.post.NewPostModule;
 import com.milanix.shutter.user.profile.ProfileComponent;
@@ -29,7 +25,7 @@ import dagger.Subcomponent;
  * @author milan
  */
 @UserScope
-@Subcomponent(modules = {UserModule.class, FeedDataModule.class, NotificationDataModule.class})
+@Subcomponent(modules = {UserModule.class})
 public interface UserComponent {
     HomeComponent with(HomeModule module);
 
@@ -45,9 +41,6 @@ public interface UserComponent {
 
     NotificationListComponent with(NotificationListModule module);
 
-    void inject(FeedSyncService service);
-
-    void inject(NotificationSyncService service);
 
     void inject(NotificationMessagingService service);
 }

@@ -22,14 +22,14 @@ public class LandingModule {
     }
 
     @Provides
-    public LandingContract.View provideAuthView() {
+    public LandingContract.View provideView() {
         return view;
     }
 
     @Provides
-    public LandingContract.Presenter provideAuthPresenter(LandingContract.View view, App app,
-                                                          FirebaseAuth auth,FirebaseDatabase database,
-                                                          GoogleSignInOptions googleSignInOptions) {
-        return new LandingPresenter(view, app, auth, database,googleSignInOptions);
+    public LandingContract.Presenter providePresenter(LandingContract.View view, App app,
+                                                      FirebaseAuth auth, FirebaseDatabase database,
+                                                      GoogleSignInOptions googleSignInOptions) {
+        return new LandingPresenter(view, app, auth, database, googleSignInOptions);
     }
 }

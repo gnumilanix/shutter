@@ -19,13 +19,13 @@ public class RequestPasswordModule {
     }
 
     @Provides
-    public RequestPasswordContract.View provideRequestPasswordView() {
+    public RequestPasswordContract.View provideView() {
         return view;
     }
 
     @Provides
-    public RequestPasswordContract.Presenter provideRequestPasswordPresenter(RequestPasswordContract.View view,
-                                                                             FirebaseAuth auth) {
+    public RequestPasswordContract.Presenter providePresenter(RequestPasswordContract.View view,
+                                                              FirebaseAuth auth) {
         return new RequestPasswordPresenter(view, auth);
     }
 }

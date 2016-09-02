@@ -14,8 +14,8 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentFavoriteListBinding;
 import com.milanix.shutter.feed.FeedModule;
-import com.milanix.shutter.feed.detail.FeedDetailActivity;
-import com.milanix.shutter.feed.model.Feed;
+import com.milanix.shutter.feed.detail.PostDetailActivity;
+import com.milanix.shutter.feed.model.Post;
 
 import java.util.List;
 
@@ -30,15 +30,19 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
         FavoriteListContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
-    FavoriteListAdapter favoriteListAdapter;
+    protected FavoriteListAdapter favoriteListAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getUserComponent().with(new FavoriteListModule(this)).inject(this);
+        presenter.subscribe(favoriteListAdapter);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getUserComponent().with(new FavoriteListModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_favorite_list, container);
-
-        presenter.getFeeds();
 
         return binding.getRoot();
     }
@@ -51,13 +55,19 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
     }
 
     @Override
-    public void showFeeds(List<Feed> feeds) {
-        binding.getAdapter().replaceItems(feeds);
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.unsubscribe(favoriteListAdapter);
+    }
+
+    @Override
+    public void showFeeds(List<Post> posts) {
+        binding.getAdapter().replaceItems(posts);
     }
 
     @Override
     public void openFeed(String feedId) {
-        startActivity(new Intent(getActivity(), FeedDetailActivity.class).putExtra(FeedModule.FEED_ID, feedId));
+        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(FeedModule.POST_ID, feedId));
     }
 
     @Override
@@ -78,6 +88,6 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
 
     @Override
     public void onRefresh() {
-        presenter.refreshFeeds();
+        presenter.refreshFavorites();
     }
 }

@@ -22,14 +22,14 @@ public class SignUpModule {
     }
 
     @Provides
-    public SignUpContract.View provideSignUpView() {
+    public SignUpContract.View provideView() {
         return view;
     }
 
     @Provides
-    public SignUpContract.Presenter provideSignUpPresenter(SignUpContract.View view, App app,
-                                                           FirebaseAuth auth, FirebaseDatabase database,
-                                                           StorageReference storage) {
-        return new SignUpPresenter(view, app, auth, database,storage);
+    public SignUpContract.Presenter providePresenter(SignUpContract.View view, App app,
+                                                     FirebaseAuth auth, FirebaseDatabase database,
+                                                     StorageReference storage) {
+        return new SignUpPresenter(view, app, auth, database, storage);
     }
 }

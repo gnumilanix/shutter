@@ -1,17 +1,18 @@
 package com.milanix.shutter.feed.model;
 
 import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
+import com.milanix.shutter.user.model.Profile;
 
 import java.util.HashMap;
 
 import io.realm.annotations.PrimaryKey;
 
 /**
- * Feed data object
+ * Post data object
  *
  * @author milan
  */
-public class Feed implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
+public class Post implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
     public static final String FIELD_ID = "id";
 
     @PrimaryKey
@@ -21,11 +22,12 @@ public class Feed implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
     private String thumbnail;
     private String image;
     private String authorId;
+    private Profile author;
     private HashMap<String, Boolean> favoriters = new HashMap<>();
     private HashMap<String, Boolean> viewers = new HashMap<>();
     private HashMap<String, Boolean> commenters = new HashMap<>();
 
-    public Feed() {
+    public Post() {
     }
 
     @Override
@@ -57,6 +59,10 @@ public class Feed implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
         return authorId;
     }
 
+    public Profile getAuthor() {
+        return author;
+    }
+
     public HashMap<String, Boolean> getFavoriters() {
         return favoriters;
     }
@@ -74,9 +80,9 @@ public class Feed implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Feed feed = (Feed) o;
+        Post post = (Post) o;
 
-        return postId.equals(feed.postId);
+        return postId.equals(post.postId);
 
     }
 
@@ -87,13 +93,14 @@ public class Feed implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
 
     @Override
     public String toString() {
-        return "Feed{" +
+        return "Post{" +
                 "postId='" + postId + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", image='" + image + '\'' +
                 ", authorId='" + authorId + '\'' +
+                ", author=" + author +
                 ", favoriters=" + favoriters +
                 ", viewers=" + viewers +
                 ", commenters=" + commenters +

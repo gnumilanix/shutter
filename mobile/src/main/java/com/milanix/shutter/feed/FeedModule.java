@@ -12,17 +12,17 @@ import dagger.Provides;
  */
 @Module
 public class FeedModule {
-    public static final String FEED_ID = "_feed_id";
+    public static final String POST_ID = "_post_id";
 
-    private final long feedId;
+    private final String postId;
 
-    public FeedModule(long feedId) {
-        this.feedId = feedId;
+    public FeedModule(String postId) {
+        this.postId = postId;
     }
 
     @Provides
-    @Named(FEED_ID)
-    public long provideFeedId() {
-        return feedId;
+    @Named(POST_ID)
+    public String providePostId() {
+        return postId;
     }
 }

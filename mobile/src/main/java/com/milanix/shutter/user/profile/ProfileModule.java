@@ -23,17 +23,17 @@ public class ProfileModule {
     }
 
     @Provides
-    public ProfileContract.View provideProfileView() {
+    public ProfileContract.View provideView() {
         return view;
     }
 
     @Provides
-    public ProfileContract.Presenter provideProfilePresenter(ProfileContract.View view,
-                                                             App app,
-                                                             FirebaseUser user,
-                                                             FirebaseAuth auth,
-                                                             FirebaseDatabase database,
-                                                             GoogleSignInOptions googleSignInOptions) {
+    public ProfileContract.Presenter providePresenter(ProfileContract.View view,
+                                                      App app,
+                                                      FirebaseUser user,
+                                                      FirebaseAuth auth,
+                                                      FirebaseDatabase database,
+                                                      GoogleSignInOptions googleSignInOptions) {
         return new ProfilePresenter(view, app, user, auth, database, googleSignInOptions);
     }
 }

@@ -10,7 +10,7 @@ import dagger.Subcomponent;
  * @author milan
  */
 @ActivityScope
-@Subcomponent(modules = FeedDetailModule.class)
-public interface FeedDetailComponent {
-    void inject(FeedDetailFragment fragment);
+@Subcomponent(modules = PostDetailModule.class)
+public interface PostDetailComponent {
+    void inject(PostDetailFragment fragment);
 }

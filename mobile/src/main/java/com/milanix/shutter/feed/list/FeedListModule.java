@@ -19,13 +19,13 @@ public class FeedListModule {
     }
 
     @Provides
-    public FeedListContract.View provideFeedView() {
+    public FeedListContract.View provideView() {
         return view;
     }
 
     @Provides
-    public FeedListContract.Presenter provideFeedPresenter(FeedListContract.View view,
-                                                           FirebaseDatabase database) {
+    public FeedListContract.Presenter providePresenter(FeedListContract.View view,
+                                                       FirebaseDatabase database) {
         return new FeedListPresenter(view, database);
     }
 }

@@ -23,16 +23,16 @@ public class NewPostModule {
     }
 
     @Provides
-    public NewPostContract.View provideNewPostView() {
+    public NewPostContract.View provideView() {
         return view;
     }
 
     @Provides
-    public NewPostContract.Presenter provideNewPostPresenter(NewPostContract.View view,
-                                                             Context context,
-                                                             FirebaseUser user,
-                                                             FirebaseDatabase database,
-                                                             StorageReference storage) {
+    public NewPostContract.Presenter providePresenter(NewPostContract.View view,
+                                                      Context context,
+                                                      FirebaseUser user,
+                                                      FirebaseDatabase database,
+                                                      StorageReference storage) {
         return new NewPostPresenter(view, context, user, database, storage);
     }
 }

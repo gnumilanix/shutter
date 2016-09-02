@@ -2,8 +2,8 @@ package com.milanix.shutter.user.profile;
 
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
-import com.milanix.shutter.feed.model.Feed;
-import com.milanix.shutter.feed.model.Profile;
+import com.milanix.shutter.feed.model.Post;
+import com.milanix.shutter.user.model.Profile;
 
 import java.util.List;
 
@@ -16,11 +16,13 @@ public interface ProfileContract {
     interface View extends IView {
         void setProfile(Profile profile);
 
-        void showPosts(List<Feed> posts);
+        void showPosts(List<Post> posts);
 
         void openPost(String postId);
 
         void handleProfileRefreshError();
+
+        void handlePostRefreshError();
 
         void showProgress();
 
@@ -32,7 +34,7 @@ public interface ProfileContract {
     interface Presenter extends IPresenter {
         void getProfile();
 
-        void refreshProfile();
+        void getPosts();
 
         void logout();
     }

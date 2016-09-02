@@ -8,23 +8,17 @@ import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.milanix.shutter.App;
 import com.milanix.shutter.auth.login.LoginFragment;
 import com.milanix.shutter.core.BundleBuilder;
-import com.milanix.shutter.user.auth.IAuthStore;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
 import static android.accounts.AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE;
-import static android.accounts.AccountManager.KEY_ACCOUNT_NAME;
-import static android.accounts.AccountManager.KEY_ACCOUNT_TYPE;
-import static android.accounts.AccountManager.KEY_AUTHTOKEN;
 import static android.accounts.AccountManager.KEY_BOOLEAN_RESULT;
-import static android.accounts.AccountManager.KEY_ERROR_CODE;
 import static android.accounts.AccountManager.KEY_INTENT;
 
 /**
@@ -33,11 +27,10 @@ import static android.accounts.AccountManager.KEY_INTENT;
  * @author milan
  */
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
-    public final static String ARG_ACCOUNT_TYPE = "_account_type";
-    public final static String ARG_ACCOUNT_NAME = "_account_name";
-    public final static String ARG_AUTH_TYPE = "_auth_type";
-    public final static String ARG_IS_ADDING_NEW_ACCOUNT = "_is_adding_account";
-    public final static String ARG_ACCOUNT_FEATURES = "_account_features";
+    private final static String ARG_ACCOUNT_TYPE = "_account_type";
+    private final static String ARG_AUTH_TYPE = "_auth_type";
+    private final static String ARG_IS_ADDING_NEW_ACCOUNT = "_is_adding_account";
+    private final static String ARG_ACCOUNT_FEATURES = "_account_features";
 
     public static final String ACCOUNT_TYPE = "shutter.com";
     public static final String ACCOUNT_PASSWORD = "_password";
@@ -45,14 +38,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public static final String TOKEN_BEARER = "Bearer";
     public static final String TOKEN_BEARER_FULL_LABEL = "Full user access to example account";
 
-    public static final String GRANT_PASSWORD = "password";
-    public static final String GRANT_REFRESH_TOKEN = "refresh_token";
-    public static final String GRANT_AUTHORIZATION_CODE = "authorization_code";
 
-    public static final String ERROR_INVALID_TOKEN_TYPE = "INVALID_TOKEN_TYPE";
-
-    @Inject
-    protected IAuthStore authStore;
     @Inject
     protected AccountManager manager;
 
@@ -93,28 +79,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse response, Account account, String authTokenType,
                                Bundle options) throws NetworkErrorException {
-        Timber.d("Getting auth token");
-
-        if (authTokenType.equals(TOKEN_BEARER)) {
-            final String authToken = getToken(account, authTokenType);
-
-            if (TextUtils.isEmpty(authToken)) {
-                return new BundleBuilder().putParcelable(KEY_INTENT, new Intent(context, LoginFragment.class).
-                        putExtra(KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response).
-                        putExtra(ARG_ACCOUNT_TYPE, account.type).
-                        putExtra(ARG_AUTH_TYPE, authTokenType).
-                        putExtra(ARG_ACCOUNT_NAME, account.name))
-                        .build();
-            } else {
-                manager.setAuthToken(account, authTokenType, authToken);
-
-                return new BundleBuilder().putString(KEY_ACCOUNT_NAME, account.name)
-                        .putString(KEY_ACCOUNT_TYPE, account.type)
-                        .putString(KEY_AUTHTOKEN, authToken).build();
-            }
-        }
-
-        return new BundleBuilder().putString(KEY_ERROR_CODE, ERROR_INVALID_TOKEN_TYPE).build();
+        throw new UnsupportedOperationException("getAuthToken not supported by this authenticator");
     }
 
     @Override
@@ -145,24 +110,4 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         return new BundleBuilder().putBoolean(KEY_BOOLEAN_RESULT, false).build();
     }
 
-    /**
-     * Returns a auth token, if does not exist will try to refresh with the given account
-     *
-     * @param account       to get token for
-     * @param authTokenType to get
-     * @return token if available, otherwise null
-     */
-    private String getToken(Account account, String authTokenType) {
-        final String authToken = manager.peekAuthToken(account, authTokenType);
-
-        if (TextUtils.isEmpty(authToken)) {
-            try {
-                return authStore.signIn(account.name, manager.getPassword(account)).getAccessToken();
-            } catch (Exception ignored) {
-                Timber.i("Failed to retrieve token");
-                return null;
-            }
-        } else
-            return authToken;
-    }
 }

@@ -32,7 +32,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.feed.model.Profile;
+import com.milanix.shutter.user.model.Profile;
 
 import java.util.Arrays;
 import java.util.HashMap;

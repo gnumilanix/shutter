@@ -20,7 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.feed.model.Profile;
+import com.milanix.shutter.feed.model.Post;
+import com.milanix.shutter.user.model.Profile;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -75,7 +78,6 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
                 if (isActive()) {
                     if (null != profile) {
                         view.setProfile(profile);
-                        view.hideProgress();
                     } else {
                         view.handleProfileRefreshError();
                     }
@@ -92,8 +94,29 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
     }
 
     @Override
-    public void refreshProfile() {
-        getProfile();
+    public void getPosts() {
+        database.getReference().child("posts").orderByChild("authorId").equalTo(user.getUid()).
+                addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        final ArrayList<Post> posts = new ArrayList<>();
+
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            posts.add(postSnapshot.getValue(Post.class));
+                        }
+
+                        if (isActive()) {
+                            view.showPosts(posts);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        if (isActive()) {
+                            view.handlePostRefreshError();
+                        }
+                    }
+                });
     }
 
     @Override

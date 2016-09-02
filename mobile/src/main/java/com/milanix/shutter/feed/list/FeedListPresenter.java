@@ -3,10 +3,6 @@ package com.milanix.shutter.feed.list;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.FirebaseDatabase;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.core.specification.IStore;
-import com.milanix.shutter.feed.model.Feed;
-
-import java.util.List;
 
 import javax.inject.Inject;
 

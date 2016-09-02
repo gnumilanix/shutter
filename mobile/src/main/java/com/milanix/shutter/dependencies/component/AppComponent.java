@@ -14,14 +14,12 @@ import com.milanix.shutter.dependencies.module.AuthModule;
 import com.milanix.shutter.dependencies.module.DataModule;
 import com.milanix.shutter.dependencies.module.FirebaseModule;
 import com.milanix.shutter.dependencies.module.LogModule;
-import com.milanix.shutter.dependencies.module.NetworkModule;
 import com.milanix.shutter.dependencies.module.SystemModule;
 import com.milanix.shutter.splash.SplashComponent;
 import com.milanix.shutter.splash.SplashModule;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
 import com.milanix.shutter.user.account.AccountAuthenticator;
-import com.milanix.shutter.user.model.UserDataModule;
 
 import javax.inject.Singleton;
 
@@ -33,8 +31,8 @@ import dagger.Component;
  * @author milan
  */
 @Singleton
-@Component(modules = {AppModule.class, DataModule.class, NetworkModule.class, SystemModule.class,
-        LogModule.class, AuthModule.class, UserDataModule.class, FirebaseModule.class})
+@Component(modules = {AppModule.class, DataModule.class, SystemModule.class, LogModule.class, AuthModule.class,
+        FirebaseModule.class})
 public interface AppComponent {
     void inject(App app);
 

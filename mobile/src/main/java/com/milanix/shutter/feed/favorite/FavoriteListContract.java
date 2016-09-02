@@ -1,8 +1,9 @@
 package com.milanix.shutter.feed.favorite;
 
+import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
-import com.milanix.shutter.feed.model.Feed;
+import com.milanix.shutter.feed.model.Post;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface FavoriteListContract {
     interface View extends IView {
-        void showFeeds(List<Feed> feeds);
+        void showFeeds(List<Post> posts);
 
         void openFeed(String feedId);
 
@@ -25,8 +26,10 @@ public interface FavoriteListContract {
     }
 
     interface Presenter extends IPresenter {
-        void getFeeds();
+        void subscribe(ChildEventListener childEventListener);
 
-        void refreshFeeds();
+        void unsubscribe(ChildEventListener childEventListener);
+
+        void refreshFavorites();
     }
 }

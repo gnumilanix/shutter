@@ -1,19 +1,14 @@
 package com.milanix.shutter.notification.model;
 
-import android.support.annotation.Nullable;
-
-import com.firebase.jobdispatcher.Job;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 import com.milanix.shutter.App;
-import com.milanix.shutter.core.JobScheduler;
 import com.milanix.shutter.user.UserComponent;
 
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * Implementation of {@link FirebaseMessagingService} used by this app
@@ -22,17 +17,10 @@ import javax.inject.Named;
  */
 public class NotificationMessagingService extends FirebaseMessagingService {
     private static final String KEY_DATA = "data";
-    public static final String FEEDS = "feeds";
     public static final String NOTIFICATIONS = "notifications";
 
     @Inject
     protected Gson gson;
-    @Inject
-    @Named(NOTIFICATIONS)
-    protected Job notificationSyncJob;
-    @Inject
-    protected JobScheduler jobScheduler;
-
 
     @Override
     public void onCreate() {
@@ -58,12 +46,11 @@ public class NotificationMessagingService extends FirebaseMessagingService {
         if (null != topic) {
             final List<String> topics = topic.getTopics();
 
-            scheduleJob(topics.contains(NOTIFICATIONS), notificationSyncJob);
+            retrieveNotifications(topics.contains(NOTIFICATIONS));
         }
     }
 
-    private void scheduleJob(boolean sync, @Nullable Job job) {
-        if (sync && null != jobScheduler && null != job)
-            jobScheduler.schedule(job);
+    private void retrieveNotifications(boolean sync) {
+
     }
 }

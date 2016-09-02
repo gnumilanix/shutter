@@ -80,8 +80,8 @@ public class App extends MultiDexApplication {
         userComponent = null;
     }
 
-    public synchronized FeedComponent createFeedComponent(long feedId) {
-        feedComponent = getUserComponent().with(new FeedModule(feedId));
+    public synchronized FeedComponent createFeedComponent(String postId) {
+        feedComponent = getUserComponent().with(new FeedModule(postId));
 
         return feedComponent;
     }

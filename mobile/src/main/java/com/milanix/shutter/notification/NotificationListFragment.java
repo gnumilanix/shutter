@@ -28,7 +28,7 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
         NotificationListContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
-    NotificationListAdapter feedListAdapter;
+    protected NotificationListAdapter feedListAdapter;
 
     @Nullable
     @Override
@@ -77,6 +77,6 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
 
     @Override
     public void onRefresh() {
-        presenter.refreshNotifications();
+        presenter.getNotifications();
     }
 }

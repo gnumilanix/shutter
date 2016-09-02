@@ -18,7 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.feed.model.Profile;
+import com.milanix.shutter.user.model.Profile;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;

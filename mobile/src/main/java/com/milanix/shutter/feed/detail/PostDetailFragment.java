@@ -17,26 +17,37 @@ import android.view.WindowManager;
 
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
-import com.milanix.shutter.databinding.FragmentFeedDetailBinding;
+import com.milanix.shutter.databinding.FragmentPostDetailBinding;
 import com.milanix.shutter.feed.FeedModule;
-import com.milanix.shutter.feed.model.Feed;
+import com.milanix.shutter.feed.model.Post;
 
 /**
  * Fragment containing feeds
  *
  * @author milan
  */
-public class FeedDetailFragment extends AbstractFragment<FeedDetailContract.Presenter, FragmentFeedDetailBinding> implements FeedDetailContract.View {
+public class PostDetailFragment extends AbstractFragment<PostDetailContract.Presenter, FragmentPostDetailBinding> implements PostDetailContract.View {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getApp().createFeedComponent(getArguments().getLong(FeedModule.FEED_ID)).with(new FeedDetailModule(this)).inject(this);
-        performBinding(inflater, R.layout.fragment_feed_detail, container);
+        getApp().createFeedComponent(getArguments().getString(FeedModule.POST_ID)).with(new PostDetailModule(this)).inject(this);
+        performBinding(inflater, R.layout.fragment_post_detail, container);
         setStatusColor(getActivity(), android.R.color.black);
-        presenter.getFeed();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.subscribe();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.unsubscribe();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -49,13 +60,13 @@ public class FeedDetailFragment extends AbstractFragment<FeedDetailContract.Pres
     }
 
     @Override
-    public void showFeed(Feed feed) {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(feed.getTitle());
-        binding.setFeed(feed);
+    public void showPost(Post post) {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(post.getTitle());
+        binding.setPost(post);
     }
 
     @Override
-    public void handleFeedRefreshError() {
+    public void handlePostRetrieveError() {
         Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
                 R.string.error_refresh_feed, Snackbar.LENGTH_SHORT).show();
     }

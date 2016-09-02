@@ -19,12 +19,12 @@ public class HomeModule {
     }
 
     @Provides
-    public HomeContract.View provideHomeView() {
+    public HomeContract.View provideView() {
         return view;
     }
 
     @Provides
-    public HomeContract.Presenter provideHomePresenter(HomeContract.View view, FirebaseUser user) {
+    public HomeContract.Presenter providePresenter(HomeContract.View view, FirebaseUser user) {
         return new HomePresenter(view, user);
     }
 }

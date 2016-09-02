@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="feed"
-            type="com.milanix.shutter.feed.model.Feed" />
+            name="post"
+            type="com.milanix.shutter.feed.model.Post" />
 
         <variable
             name="view"
@@ -22,7 +22,7 @@
         android:layout_marginRight="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_small"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{()->view.openFeed(feed.postId)}"
+        android:onClick="@{()->view.openFeed(post.postId)}"
         app:cardBackgroundColor="@android:color/white"
         tools:ignore="UnusedAttribute">
 
@@ -40,7 +40,7 @@
                     android:id="@+id/ivPost"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:imageUrl="@{feed.image}"
+                    app:imageUrl="@{post.image}"
                     app:placeHolder="@{@drawable/ic_placeholder_large}"
                     app:transformation="@{`crop`}"
                     tools:background="@color/colorAccentPink" />
@@ -56,6 +56,7 @@
                 android:layout_margin="@dimen/margin_normal"
                 app:civ_border_color="@color/colorTextGrey400"
                 app:civ_border_width="2dp"
+                app:imageUrl="@{post.author.avatar}"
                 app:placeHolder="@{@drawable/ic_placeholder_small}"
                 app:transformation="@{`crop`}"
                 tools:background="@color/colorAccentPink" />
@@ -70,7 +71,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:maxLines="1"
                 android:padding="@dimen/margin_normal"
-                android:text="@{feed.title}"
+                android:text="@{post.title}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_large"
                 android:textStyle="bold"
@@ -103,7 +104,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="@{String.valueOf(feed.favoriters.size())}"
+                android:text="@{String.valueOf(post.favoriters.size())}"
                 android:textColor="@color/colorTextGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />
@@ -132,7 +133,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="@{String.valueOf(feed.commenters.size())}"
+                android:text="@{String.valueOf(post.commenters.size())}"
                 android:textColor="@color/colorTextGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />
@@ -163,7 +164,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="@{String.valueOf(feed.viewers.size())}"
+                android:text="@{String.valueOf(post.viewers.size())}"
                 android:textColor="@color/colorTextGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />

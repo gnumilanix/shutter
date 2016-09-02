@@ -20,13 +20,13 @@ public class LoginModule {
     }
 
     @Provides
-    public LoginContract.View provideLoginView() {
+    public LoginContract.View provideView() {
         return view;
     }
 
     @Provides
-    public LoginContract.Presenter provideLoginPresenter(LoginContract.View view, App app,
-                                                         FirebaseAuth auth) {
+    public LoginContract.Presenter providePresenter(LoginContract.View view, App app,
+                                                    FirebaseAuth auth) {
         return new LoginPresenter(view, app, auth);
     }
 }

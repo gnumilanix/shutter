@@ -4,28 +4,28 @@ import android.os.Bundle;
 
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractBindingActivity;
-import com.milanix.shutter.databinding.ActivityFeedDetailBinding;
+import com.milanix.shutter.databinding.ActivityPostDetailBinding;
 
 /**
  * Activity containing a single feed
  *
  * @author milan
  */
-public class FeedDetailActivity extends AbstractBindingActivity<ActivityFeedDetailBinding> {
-    public static final String TAG_FRAGMENT_FEEDS = "_fragment_feed";
+public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDetailBinding> {
+    public static final String TAG_FRAGMENT_POST_DETAIL = "_fragment_post_detail";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        performBinding(R.layout.activity_feed_detail);
+        performBinding(R.layout.activity_post_detail);
         setToolbar();
 
         if (null == savedInstanceState) {
-            final FeedDetailFragment feedFragment = new FeedDetailFragment();
-            feedFragment.setArguments(getIntent().getExtras());
+            final PostDetailFragment postDetailFragment = new PostDetailFragment();
+            postDetailFragment.setArguments(getIntent().getExtras());
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, feedFragment,
-                    TAG_FRAGMENT_FEEDS).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, postDetailFragment,
+                    TAG_FRAGMENT_POST_DETAIL).commit();
         }
     }
 

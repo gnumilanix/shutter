@@ -74,8 +74,8 @@
 
     <string name="error_email_invalid">Please enter a valid email</string>
     <string name="error_refresh_profile">Error refreshing profile</string>
-    <string name="error_refresh_feed">Error refreshing feed</string>
-    <string name="error_refresh_feeds">Error refreshing feeds</string>
+    <string name="error_refresh_feed">Error refreshing post</string>
+    <string name="error_refresh_feeds">Error refreshing posts</string>
     <string name="error_refresh_favorites">Error refreshing favorites</string>
     <string name="error_refresh_notifications">Error refreshing notifications</string>
 

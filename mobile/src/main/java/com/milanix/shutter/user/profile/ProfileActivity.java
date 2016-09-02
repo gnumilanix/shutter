@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityProfileBinding;
-import com.milanix.shutter.feed.model.Profile;
+import com.milanix.shutter.user.model.Profile;
 
 /**
  * Activity containing a user profile

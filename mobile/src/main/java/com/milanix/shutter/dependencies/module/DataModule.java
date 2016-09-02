@@ -36,7 +36,6 @@ public class DataModule {
         return new GsonBuilder().create();
     }
 
-
     @Singleton
     @Provides
     public Driver provideDriver(Context context) {

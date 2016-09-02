@@ -7,7 +7,7 @@
 
         <variable
             name="post"
-            type="com.milanix.shutter.feed.model.Feed" />
+            type="com.milanix.shutter.feed.model.Post" />
 
         <variable
             name="view"

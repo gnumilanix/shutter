@@ -13,7 +13,7 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentFeedListBinding;
 import com.milanix.shutter.feed.FeedModule;
-import com.milanix.shutter.feed.detail.FeedDetailActivity;
+import com.milanix.shutter.feed.detail.PostDetailActivity;
 
 import javax.inject.Inject;
 
@@ -26,12 +26,18 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
         FeedListContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
-    FeedListAdapter feedListAdapter;
+    protected FeedListAdapter feedListAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getUserComponent().with(new FeedListModule(this)).inject(this);
+        presenter.subscribe(feedListAdapter);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getUserComponent().with(new FeedListModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_feed_list, container);
 
         return binding.getRoot();
@@ -45,20 +51,14 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        presenter.subscribe(feedListAdapter);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         presenter.unsubscribe(feedListAdapter);
     }
 
     @Override
     public void openFeed(String feedId) {
-        startActivity(new Intent(getActivity(), FeedDetailActivity.class).putExtra(FeedModule.FEED_ID, feedId));
+        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(FeedModule.POST_ID, feedId));
     }
 
     @Override
