@@ -1,4 +1,4 @@
-package com.milanix.shutter.user.profile;
+package com.milanix.shutter.user.profile.detail;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,7 +19,7 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.auth.LandingActivity;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentProfileBinding;
-import com.milanix.shutter.feed.FeedModule;
+import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
 import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.model.Profile;
@@ -35,8 +35,8 @@ import timber.log.Timber;
  *
  * @author milan
  */
-public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter, FragmentProfileBinding> implements
-        ProfileContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContract.Presenter, FragmentProfileBinding> implements
+        ProfileDetailContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     protected PostListAdapter postListAdapter;
@@ -46,7 +46,7 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        getUserComponent().with(new ProfileModule(this)).inject(this);
+        getApp().getProfileComponent().with(new ProfileDetailModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_profile, container);
         presenter.getProfile();
         presenter.getPosts();
@@ -60,8 +60,8 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
 
         final Activity activity = getActivity();
 
-        if (activity instanceof ProfileFragment.OnReadyListener) {
-            this.onReadyCallback = (ProfileFragment.OnReadyListener) activity;
+        if (activity instanceof ProfileDetailFragment.OnReadyListener) {
+            this.onReadyCallback = (ProfileDetailFragment.OnReadyListener) activity;
         } else {
             Timber.d("Caller did not implement OnReadyListener");
         }
@@ -81,6 +81,7 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
 
     @Override
     public void setProfile(Profile profile) {
+        getActivity().invalidateOptionsMenu();
         if (null != onReadyCallback) {
             onReadyCallback.onReady(this, profile);
         }
@@ -100,7 +101,7 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
 
     @Override
     public void openPost(String postId) {
-        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(FeedModule.POST_ID, postId));
+        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, postId));
     }
 
     @Override
@@ -138,6 +139,13 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        menu.findItem(R.id.action_logout).setVisible(null != presenter && presenter.isCurrentUserProfile());
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_profile, menu);
@@ -155,6 +163,6 @@ public class ProfileFragment extends AbstractFragment<ProfileContract.Presenter,
     }
 
     interface OnReadyListener {
-        void onReady(ProfileContract.View view, Profile signUp);
+        void onReady(ProfileDetailContract.View view, Profile signUp);
     }
 }

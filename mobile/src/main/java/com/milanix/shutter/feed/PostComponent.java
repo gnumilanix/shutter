@@ -12,7 +12,7 @@ import dagger.Subcomponent;
  * @author milan
  */
 @ActivityScope
-@Subcomponent(modules = FeedModule.class)
-public interface FeedComponent {
+@Subcomponent(modules = PostModule.class)
+public interface PostComponent {
     PostDetailComponent with(PostDetailModule module);
 }

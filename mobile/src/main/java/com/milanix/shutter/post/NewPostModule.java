@@ -5,7 +5,6 @@ import android.content.Context;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import dagger.Module;
 import dagger.Provides;

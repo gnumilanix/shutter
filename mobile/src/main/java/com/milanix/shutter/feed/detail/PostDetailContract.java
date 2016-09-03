@@ -29,6 +29,8 @@ public interface PostDetailContract {
         void completeMarkFavorite();
 
         void handleMarkFavoriteError();
+
+        void openProfile(String authorId);
     }
 
     interface Presenter extends IPresenter {

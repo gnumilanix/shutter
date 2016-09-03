@@ -11,7 +11,7 @@
 
         <variable
             name="view"
-            type="com.milanix.shutter.user.profile.ProfileContract.View" />
+            type="com.milanix.shutter.user.profile.detail.ProfileDetailContract.View" />
     </data>
 
     <android.support.v7.widget.CardView

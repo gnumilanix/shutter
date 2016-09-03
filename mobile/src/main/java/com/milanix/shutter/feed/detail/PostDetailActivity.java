@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityPostDetailBinding;
+import com.milanix.shutter.feed.PostModule;
 
 /**
  * Activity containing a single feed
@@ -21,10 +22,8 @@ public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDeta
         setToolbar();
 
         if (null == savedInstanceState) {
-            final PostDetailFragment postDetailFragment = new PostDetailFragment();
-            postDetailFragment.setArguments(getIntent().getExtras());
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, postDetailFragment,
+            getApp().createPostComponent(getIntent().getExtras().getString(PostModule.POST_ID));
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new PostDetailFragment(),
                     TAG_FRAGMENT_POST_DETAIL).commit();
         }
     }

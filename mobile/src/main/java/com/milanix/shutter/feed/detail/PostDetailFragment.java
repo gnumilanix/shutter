@@ -26,8 +26,9 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentPostDetailBinding;
-import com.milanix.shutter.feed.FeedModule;
 import com.milanix.shutter.feed.model.Post;
+import com.milanix.shutter.user.profile.ProfileModule;
+import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
 
 /**
  * Fragment containing feeds
@@ -42,7 +43,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        getApp().createFeedComponent(getArguments().getString(FeedModule.POST_ID)).with(new PostDetailModule(this)).inject(this);
+        getApp().getPostComponent().with(new PostDetailModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_post_detail, container);
         setStatusColor(getActivity(), android.R.color.black);
 
@@ -53,6 +54,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
         binding.setPresenter(presenter);
+        binding.setView(this);
     }
 
     @Override
@@ -148,6 +150,12 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     @Override
     public void handleMarkFavoriteError() {
         binding.ivFavorites.setChecked(true);
+    }
+
+    @Override
+    public void openProfile(String profileId) {
+        startActivity(new Intent(getActivity(), ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, profileId));
+        getActivity().overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
     }
 
     @Override

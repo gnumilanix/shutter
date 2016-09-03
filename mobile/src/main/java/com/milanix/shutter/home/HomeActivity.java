@@ -14,7 +14,8 @@ import com.milanix.shutter.feed.favorite.FavoriteListFragment;
 import com.milanix.shutter.feed.list.FeedListFragment;
 import com.milanix.shutter.notification.NotificationListFragment;
 import com.milanix.shutter.post.NewPostActivity;
-import com.milanix.shutter.user.profile.ProfileActivity;
+import com.milanix.shutter.user.profile.ProfileModule;
+import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import java.lang.annotation.Retention;
@@ -84,8 +85,8 @@ public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> i
     }
 
     @Override
-    public void openProfile() {
-        startActivity(new Intent(this, ProfileActivity.class));
+    public void openProfile(String profileId) {
+        startActivity(new Intent(this, ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, profileId));
         overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
     }
 

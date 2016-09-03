@@ -11,11 +11,13 @@ import com.milanix.shutter.core.MessageSubscriber;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.dependencies.component.DaggerAppComponent;
 import com.milanix.shutter.dependencies.module.AppModule;
-import com.milanix.shutter.feed.FeedComponent;
-import com.milanix.shutter.feed.FeedModule;
+import com.milanix.shutter.feed.PostComponent;
+import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.notification.model.NotificationMessagingService;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
+import com.milanix.shutter.user.profile.ProfileComponent;
+import com.milanix.shutter.user.profile.ProfileModule;
 
 import javax.inject.Inject;
 
@@ -29,7 +31,8 @@ import timber.log.Timber;
 public class App extends MultiDexApplication {
     protected AppComponent appComponent;
     protected UserComponent userComponent;
-    protected FeedComponent feedComponent;
+    protected ProfileComponent profileComponent;
+    protected PostComponent postComponent;
 
     @Inject
     protected Timber.Tree logTree;
@@ -87,14 +90,24 @@ public class App extends MultiDexApplication {
         userComponent = null;
     }
 
-    public synchronized FeedComponent createFeedComponent(String postId) {
-        feedComponent = getUserComponent().with(new FeedModule(postId));
+    public synchronized ProfileComponent createProfileComponent(String profileId) {
+        profileComponent = getUserComponent().with(new ProfileModule(profileId));
 
-        return feedComponent;
+        return profileComponent;
     }
 
-    public FeedComponent getFeedComponent() {
-        return feedComponent;
+    public ProfileComponent getProfileComponent() {
+        return profileComponent;
+    }
+
+    public synchronized PostComponent createPostComponent(String postId) {
+        postComponent = getUserComponent().with(new PostModule(postId));
+
+        return postComponent;
+    }
+
+    public PostComponent getPostComponent() {
+        return postComponent;
     }
 
     private void subscribeNotifications() {

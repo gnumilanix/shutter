@@ -3,8 +3,10 @@
     package="com.milanix.shutter">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Required by accountAuthenticator -->
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -88,7 +90,7 @@
         </activity>
 
         <activity
-            android:name=".user.profile.ProfileActivity"
+            android:name=".user.profile.detail.ProfileDetailActivity"
             android:parentActivityName=".home.HomeActivity"
             android:theme="@style/AppTheme.Home">
             <meta-data
@@ -124,6 +126,20 @@
                 <data android:scheme="@string/facebook_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+        <!-- Muzei services -->
+        <service
+            android:name=".muzei.ShutterArtSource"
+            android:description="@string/shutter_source_description"
+            android:icon="@drawable/ic_shutter_source"
+            android:label="@string/shutter_source_name">
+            <intent-filter>
+                <action android:name="com.google.android.apps.muzei.api.MuzeiArtSource" />
+            </intent-filter>
+            <meta-data
+                android:name="color"
+                android:value="@color/colorPrimary" />
+        </service>
 
         <!-- Sync services -->
         <service android:name=".notification.model.NotificationMessagingService">

@@ -11,12 +11,12 @@ import dagger.Provides;
  * @author milan
  */
 @Module
-public class FeedModule {
+public class PostModule {
     public static final String POST_ID = "_post_id";
 
     private final String postId;
 
-    public FeedModule(String postId) {
+    public PostModule(String postId) {
         this.postId = postId;
     }
 

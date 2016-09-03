@@ -1,10 +1,6 @@
 package com.milanix.shutter.user.profile;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.milanix.shutter.App;
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,24 +12,17 @@ import dagger.Provides;
  */
 @Module
 public class ProfileModule {
-    private final ProfileContract.View view;
+    public static final String PROFILE_ID = "_profile_id";
 
-    public ProfileModule(ProfileContract.View view) {
-        this.view = view;
+    private final String profileId;
+
+    public ProfileModule(String profileId) {
+        this.profileId = profileId;
     }
 
     @Provides
-    public ProfileContract.View provideView() {
-        return view;
-    }
-
-    @Provides
-    public ProfileContract.Presenter providePresenter(ProfileContract.View view,
-                                                      App app,
-                                                      FirebaseUser user,
-                                                      FirebaseAuth auth,
-                                                      FirebaseDatabase database,
-                                                      GoogleSignInOptions googleSignInOptions) {
-        return new ProfilePresenter(view, app, user, auth, database, googleSignInOptions);
+    @Named(PROFILE_ID)
+    public String provideId() {
+        return profileId;
     }
 }

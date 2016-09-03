@@ -13,7 +13,7 @@ public interface HomeContract {
     interface View extends IView {
         void setUser(FirebaseUser user);
 
-        void openProfile();
+        void openProfile(String profileId);
 
         void addPost();
     }

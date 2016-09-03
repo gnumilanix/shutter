@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentFavoriteListBinding;
-import com.milanix.shutter.feed.FeedModule;
+import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
 import com.milanix.shutter.feed.model.Post;
 
@@ -68,7 +68,7 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
 
     @Override
     public void openFeed(String feedId) {
-        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(FeedModule.POST_ID, feedId));
+        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, feedId));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.milanix.shutter.user.profile;
+package com.milanix.shutter.user.profile.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +11,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,27 +21,31 @@ import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
 import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.model.Profile;
+import com.milanix.shutter.user.profile.ProfileModule;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Profile presenter
  *
  * @author milan
  */
-public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> implements ProfileContract.Presenter,
+public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContract.View> implements ProfileDetailContract.Presenter,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private final App app;
     private final FirebaseUser user;
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
     private final GoogleApiClient googleApi;
+    private final String profileId;
 
     @Inject
-    public ProfilePresenter(ProfileContract.View view, App app, FirebaseUser user, FirebaseAuth auth,
-                            FirebaseDatabase database, GoogleSignInOptions googleSignInOptions) {
+    public ProfileDetailPresenter(ProfileDetailContract.View view, App app, FirebaseUser user, FirebaseAuth auth,
+                                  FirebaseDatabase database, GoogleSignInOptions googleSignInOptions,
+                                  @Named(ProfileModule.PROFILE_ID) String profileId) {
         super(view);
         this.app = app;
         this.user = user;
@@ -51,6 +54,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
         this.googleApi = new GoogleApiClient.Builder(app)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
+        this.profileId = profileId;
     }
 
     @Override
@@ -70,7 +74,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
 
     @Override
     public void getProfile() {
-        database.getReference().child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        database.getReference().child("users").child(profileId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final Profile profile = dataSnapshot.getValue(Profile.class);
@@ -95,7 +99,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
 
     @Override
     public void getPosts() {
-        database.getReference().child("posts").orderByChild("authorId").equalTo(user.getUid()).
+        database.getReference().child("posts").orderByChild("authorId").equalTo(profileId).
                 addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -126,6 +130,11 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
         logoutFromGoogle();
     }
 
+    @Override
+    public boolean isCurrentUserProfile() {
+        return profileId.equals(user.getUid());
+    }
+
     private void logoutFromGoogle() {
         if (googleApi.isConnected()) {
             Auth.GoogleSignInApi.signOut(googleApi).setResultCallback(
@@ -141,10 +150,8 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
     }
 
     private void logoutFromFacebook() {
-        if (user.getProviderId().equals(FacebookAuthProvider.PROVIDER_ID)) {
-            LoginManager.getInstance().logOut();
-            finishLogout();
-        }
+        LoginManager.getInstance().logOut();
+        finishLogout();
     }
 
     private void finishLogout() {

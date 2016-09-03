@@ -64,7 +64,7 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:onClick="@{()->view.openProfile()}"
+                        android:onClick="@{()->view.openProfile(user.getUid())}"
                         android:padding="@dimen/padding_normal"
                         app:proportion="1.0"
                         app:proportion_to="vertical">

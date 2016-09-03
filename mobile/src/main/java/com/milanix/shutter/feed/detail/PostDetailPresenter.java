@@ -14,7 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.feed.FeedModule;
+import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.model.Post;
 
 import java.io.File;
@@ -40,7 +40,7 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
 
     @Inject
     public PostDetailPresenter(PostDetailContract.View view, FirebaseUser user, FirebaseDatabase database,
-                               FirebaseStorage storage, @Named(FeedModule.POST_ID) String postId) {
+                               FirebaseStorage storage, @Named(PostModule.POST_ID) String postId) {
         super(view);
         this.user = user;
         this.database = database;

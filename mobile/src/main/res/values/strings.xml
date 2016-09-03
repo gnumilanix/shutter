@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Shutter</string>
 
+    <string name="shutter_source_name">Featured Shutter</string>
+    <string name="shutter_source_description">Featured in Shutter</string>
+
     <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password (optional)</string>

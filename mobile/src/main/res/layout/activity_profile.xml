@@ -40,11 +40,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/toolbar"
-                    app:layout_collapseMode="pin"
                     android:layout_marginBottom="@dimen/padding_large"
                     android:layout_marginLeft="@dimen/padding_large"
                     android:layout_marginRight="@dimen/padding_large"
-                    android:layout_marginTop="?attr/actionBarSize">
+                    android:layout_marginTop="?attr/actionBarSize"
+                    app:layout_collapseMode="pin">
 
                     <android.support.constraint.Guideline
                         android:id="@+id/glStats25"
@@ -228,6 +228,7 @@
                         app:layout_constraintStart_toStartOf="@+id/tvFollowing"
                         app:layout_constraintTop_toBottomOf="@+id/tvFollowing" />
                 </android.support.constraint.ConstraintLayout>
+
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
@@ -237,12 +238,12 @@
                     android:contentInsetLeft="0dp"
                     android:contentInsetRight="0dp"
                     android:contentInsetStart="0dp"
-                    app:layout_collapseMode="pin"
                     android:theme="@style/Toolbar"
                     app:contentInsetEnd="0dp"
                     app:contentInsetLeft="0dp"
                     app:contentInsetRight="0dp"
                     app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
                     app:popupTheme="@style/Toolbar.PopUp"
                     tools:targetApi="lollipop">
 

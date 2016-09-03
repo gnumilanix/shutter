@@ -15,6 +15,7 @@ import com.milanix.shutter.dependencies.module.DataModule;
 import com.milanix.shutter.dependencies.module.FirebaseModule;
 import com.milanix.shutter.dependencies.module.LogModule;
 import com.milanix.shutter.dependencies.module.SystemModule;
+import com.milanix.shutter.muzei.ShutterArtSource;
 import com.milanix.shutter.splash.SplashComponent;
 import com.milanix.shutter.splash.SplashModule;
 import com.milanix.shutter.user.UserComponent;
@@ -36,6 +37,8 @@ import dagger.Component;
 public interface AppComponent {
     void inject(App app);
 
+    void inject(ShutterArtSource artSource);
+
     void inject(AccountAuthenticator accountAuthenticator);
 
     SplashComponent with(SplashModule module);
@@ -49,4 +52,5 @@ public interface AppComponent {
     RequestPasswordComponent with(RequestPasswordModule module);
 
     UserComponent with(UserModule module);
+
 }

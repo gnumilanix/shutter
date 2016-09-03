@@ -1,4 +1,4 @@
-package com.milanix.shutter.user.profile;
+package com.milanix.shutter.user.profile.detail;
 
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author milan
  */
-public interface ProfileContract {
+public interface ProfileDetailContract {
     interface View extends IView {
         void setProfile(Profile profile);
 
@@ -37,5 +37,7 @@ public interface ProfileContract {
         void getPosts();
 
         void logout();
+
+        boolean isCurrentUserProfile();
     }
 }
