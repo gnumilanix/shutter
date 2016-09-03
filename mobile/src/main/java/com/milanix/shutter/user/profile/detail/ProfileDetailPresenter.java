@@ -13,17 +13,17 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.model.Profile;
 import com.milanix.shutter.user.profile.ProfileModule;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -38,9 +38,10 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
     private final App app;
     private final FirebaseUser user;
     private final FirebaseAuth auth;
-    private final FirebaseDatabase database;
     private final GoogleApiClient googleApi;
     private final String profileId;
+    private final Query postsQuery;
+    private final DatabaseReference profileReference;
 
     @Inject
     public ProfileDetailPresenter(ProfileDetailContract.View view, App app, FirebaseUser user, FirebaseAuth auth,
@@ -50,11 +51,29 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
         this.app = app;
         this.user = user;
         this.auth = auth;
-        this.database = database;
         this.googleApi = new GoogleApiClient.Builder(app)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
         this.profileId = profileId;
+        this.profileReference =database.getReference().child("users").child(profileId);
+        this.postsQuery =database.getReference().child("posts").orderByChild("authorId").equalTo(profileId);
+    }
+
+    @Override
+    public void subscribe(ChildEventListener childEventListener) {
+        super.subscribe();
+        postsQuery.addChildEventListener(childEventListener);
+    }
+
+    @Override
+    public void unsubscribe(ChildEventListener childEventListener) {
+        super.unsubscribe();
+        postsQuery.removeEventListener(childEventListener);
+    }
+
+    @Override
+    public void refreshPosts() {
+        view.hideProgress();
     }
 
     @Override
@@ -74,7 +93,7 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
 
     @Override
     public void getProfile() {
-        database.getReference().child("users").child(profileId).addListenerForSingleValueEvent(new ValueEventListener() {
+        profileReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final Profile profile = dataSnapshot.getValue(Profile.class);
@@ -95,32 +114,6 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
                 }
             }
         });
-    }
-
-    @Override
-    public void getPosts() {
-        database.getReference().child("posts").orderByChild("authorId").equalTo(profileId).
-                addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        final ArrayList<Post> posts = new ArrayList<>();
-
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            posts.add(postSnapshot.getValue(Post.class));
-                        }
-
-                        if (isActive()) {
-                            view.showPosts(posts);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        if (isActive()) {
-                            view.handlePostRefreshError();
-                        }
-                    }
-                });
     }
 
     @Override

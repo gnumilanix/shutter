@@ -21,10 +21,7 @@ import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentProfileBinding;
 import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
-import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.model.Profile;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,14 +39,19 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     protected PostListAdapter postListAdapter;
     private OnReadyListener onReadyCallback;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        getApp().getProfileComponent().with(new ProfileDetailModule(this)).inject(this);
+        presenter.subscribe(postListAdapter);
+        presenter.getProfile();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        getApp().getProfileComponent().with(new ProfileDetailModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_profile, container);
-        presenter.getProfile();
-        presenter.getPosts();
 
         return binding.getRoot();
     }
@@ -68,15 +70,9 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        presenter.subscribe();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        presenter.unsubscribe();
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.unsubscribe(postListAdapter);
     }
 
     @Override
@@ -85,11 +81,6 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
         if (null != onReadyCallback) {
             onReadyCallback.onReady(this, profile);
         }
-    }
-
-    @Override
-    public void showPosts(List<Post> posts) {
-        postListAdapter.replaceItems(posts);
     }
 
     @Override
@@ -111,12 +102,6 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     }
 
     @Override
-    public void handlePostRefreshError() {
-        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
-                R.string.error_refresh_feed, Snackbar.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void showProgress() {
         binding.swipeRefreshLayout.setRefreshing(true);
     }
@@ -135,7 +120,7 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
 
     @Override
     public void onRefresh() {
-        presenter.getPosts();
+        presenter.refreshPosts();
     }
 
     @Override

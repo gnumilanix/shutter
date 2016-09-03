@@ -19,6 +19,7 @@ public class Post implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
     private String image;
     private String authorId;
     private Profile author;
+    private long createTime;
     private HashMap<String, Boolean> favoriters = new HashMap<>();
     private HashMap<String, Boolean> viewers = new HashMap<>();
     private HashMap<String, Boolean> commenters = new HashMap<>();
@@ -59,6 +60,10 @@ public class Post implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
         return author;
     }
 
+    public long getCreateTime() {
+        return createTime;
+    }
+
     public HashMap<String, Boolean> getFavoriters() {
         return favoriters;
     }
@@ -97,6 +102,7 @@ public class Post implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
                 ", image='" + image + '\'' +
                 ", authorId='" + authorId + '\'' +
                 ", author=" + author +
+                ", createTime=" + createTime +
                 ", favoriters=" + favoriters +
                 ", viewers=" + viewers +
                 ", commenters=" + commenters +

@@ -2,6 +2,7 @@ package com.milanix.shutter.feed.list;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.milanix.shutter.core.AbstractPresenter;
 
 import javax.inject.Inject;
@@ -12,24 +13,24 @@ import javax.inject.Inject;
  * @author milan
  */
 public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> implements FeedListContract.Presenter {
-    private final FirebaseDatabase database;
+    private final Query query;
 
     @Inject
     public FeedListPresenter(FeedListContract.View view, FirebaseDatabase database) {
         super(view);
-        this.database = database;
+        this.query = database.getReference().child("posts").orderByChild("createTime");
     }
 
     @Override
     public void subscribe(ChildEventListener childEventListener) {
         super.subscribe();
-        database.getReference().child("posts").addChildEventListener(childEventListener);
+        query.addChildEventListener(childEventListener);
     }
 
     @Override
     public void unsubscribe(ChildEventListener childEventListener) {
         super.unsubscribe();
-        database.getReference().child("posts").removeEventListener(childEventListener);
+        query.removeEventListener(childEventListener);
     }
 
     @Override

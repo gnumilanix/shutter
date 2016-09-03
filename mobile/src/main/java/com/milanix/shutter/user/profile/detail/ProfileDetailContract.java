@@ -1,11 +1,9 @@
 package com.milanix.shutter.user.profile.detail;
 
+import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
-import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.model.Profile;
-
-import java.util.List;
 
 /**
  * Contract for profile related implementations
@@ -16,13 +14,9 @@ public interface ProfileDetailContract {
     interface View extends IView {
         void setProfile(Profile profile);
 
-        void showPosts(List<Post> posts);
-
         void openPost(String postId);
 
         void handleProfileRefreshError();
-
-        void handlePostRefreshError();
 
         void showProgress();
 
@@ -32,9 +26,13 @@ public interface ProfileDetailContract {
     }
 
     interface Presenter extends IPresenter {
-        void getProfile();
+        void subscribe(ChildEventListener childEventListener);
 
-        void getPosts();
+        void unsubscribe(ChildEventListener childEventListener);
+
+        void refreshPosts();
+
+        void getProfile();
 
         void logout();
 
