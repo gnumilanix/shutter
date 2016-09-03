@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import dagger.Module;
@@ -32,7 +33,7 @@ public class NewPostModule {
                                                       Context context,
                                                       FirebaseUser user,
                                                       FirebaseDatabase database,
-                                                      StorageReference storage) {
+                                                      FirebaseStorage storage) {
         return new NewPostPresenter(view, context, user, database, storage);
     }
 }

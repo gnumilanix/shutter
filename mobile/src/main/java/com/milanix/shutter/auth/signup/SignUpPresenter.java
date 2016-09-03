@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
@@ -30,10 +30,10 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
     private final App app;
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
-    private final StorageReference storage;
+    private final FirebaseStorage storage;
 
     @Inject
-    public SignUpPresenter(SignUpContract.View view, App app, FirebaseAuth auth, FirebaseDatabase database, StorageReference storage) {
+    public SignUpPresenter(SignUpContract.View view, App app, FirebaseAuth auth, FirebaseDatabase database, FirebaseStorage storage) {
         super(view);
         this.app = app;
         this.auth = auth;
@@ -64,7 +64,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
         final InputStream avatarStream = getInputStream(signUp.getAvatar());
 
         if (null != avatarStream) {
-            storage.child("users/" + user.getUid() + "/profile.jpeg").putStream(avatarStream).
+            storage.getReference().child("users/" + user.getUid() + "/profile.jpeg").putStream(avatarStream).
                     addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

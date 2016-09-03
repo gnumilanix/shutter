@@ -9,7 +9,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 import com.milanix.shutter.core.AbstractPresenter;
 
@@ -29,10 +29,11 @@ public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> im
     private Context context;
     private final FirebaseUser user;
     private FirebaseDatabase database;
-    private StorageReference storage;
+    private FirebaseStorage storage;
 
     @Inject
-    public NewPostPresenter(NewPostContract.View view, Context context, FirebaseUser user, FirebaseDatabase database, StorageReference storage) {
+    public NewPostPresenter(NewPostContract.View view, Context context, FirebaseUser user, FirebaseDatabase database,
+                            FirebaseStorage storage) {
         super(view);
         this.context = context;
         this.user = user;
@@ -48,7 +49,7 @@ public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> im
         if (null != avatarStream) {
             final String postId = database.getReference().child("posts").push().getKey();
             final String uid = user.getUid();
-            storage.child("users/" + uid + "/posts/" + postId + ".jpeg").putStream(avatarStream).
+            storage.getReference().child("users/" + uid + "/posts/" + postId + ".jpeg").putStream(avatarStream).
                     addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

@@ -45,16 +45,6 @@
                     app:transformation="@{`crop`}"
                     tools:background="@color/colorTextGrey400" />
 
-                <ImageView
-                    android:id="@+id/ivFavorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="@dimen/margin_normal"
-                    android:src="@drawable/ic_action_favorite" />
-
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivAvatar"
                     android:layout_width="@dimen/item_feed_avatar"

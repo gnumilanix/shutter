@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.karumi.dexter.Dexter;
 import com.milanix.shutter.core.MessageSubscriber;
@@ -41,7 +42,6 @@ public class App extends MultiDexApplication {
 
         initSDKs();
         createAppComponent(this).inject(this);
-
         Timber.plant(logTree);
     }
 
@@ -69,7 +69,17 @@ public class App extends MultiDexApplication {
     }
 
     public UserComponent getUserComponent() {
+        createUserComponent();
         return userComponent;
+    }
+
+    private void createUserComponent() {
+        if (null == userComponent) {
+            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+            if (null != user)
+                createUserComponent(user);
+        }
     }
 
     public void releaseUserComponent() {

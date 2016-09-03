@@ -3,7 +3,6 @@ package com.milanix.shutter.dependencies.module;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import javax.inject.Singleton;
 
@@ -17,8 +16,6 @@ import dagger.Provides;
  */
 @Module
 public class FirebaseModule {
-    public static final String STORAGE_URL = "gs://shutter-fd81d.appspot.com";
-
     @Provides
     @Singleton
     public FirebaseAuth provideAuth() {
@@ -36,7 +33,7 @@ public class FirebaseModule {
 
     @Singleton
     @Provides
-    public StorageReference provideStorage() {
-        return FirebaseStorage.getInstance().getReferenceFromUrl(STORAGE_URL);
+    public FirebaseStorage provideStorageReference() {
+        return FirebaseStorage.getInstance();
     }
 }

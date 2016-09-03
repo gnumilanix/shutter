@@ -25,44 +25,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/flBanner"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="match_parent"
                 android:background="@drawable/bg_branding_gradient"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@android:color/transparent"
-                    android:contentInsetEnd="0dp"
-                    android:contentInsetLeft="0dp"
-                    android:contentInsetRight="0dp"
-                    android:contentInsetStart="0dp"
-                    android:theme="@style/Toolbar"
-                    app:contentInsetEnd="0dp"
-                    app:contentInsetLeft="0dp"
-                    app:contentInsetRight="0dp"
-                    app:contentInsetStart="0dp"
-                    app:popupTheme="@style/Toolbar.PopUp"
-                    tools:targetApi="lollipop">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_title" />
-                </android.support.v7.widget.Toolbar>
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/toolbar"
-                    android:layout_margin="@dimen/padding_large">
+                    app:layout_collapseMode="pin"
+                    android:layout_marginBottom="@dimen/padding_large"
+                    android:layout_marginLeft="@dimen/padding_large"
+                    android:layout_marginRight="@dimen/padding_large"
+                    android:layout_marginTop="?attr/actionBarSize">
 
                     <android.support.constraint.Guideline
                         android:id="@+id/glStats25"
@@ -246,7 +228,32 @@
                         app:layout_constraintStart_toStartOf="@+id/tvFollowing"
                         app:layout_constraintTop_toBottomOf="@+id/tvFollowing" />
                 </android.support.constraint.ConstraintLayout>
-            </RelativeLayout>
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:contentInsetEnd="0dp"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetRight="0dp"
+                    android:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+                    android:theme="@style/Toolbar"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetStart="0dp"
+                    app:popupTheme="@style/Toolbar.PopUp"
+                    tools:targetApi="lollipop">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_title" />
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
