@@ -5,9 +5,15 @@
 
     <data>
 
+        <import type="java.util.HashMap" />
+
         <variable
             name="post"
             type="com.milanix.shutter.feed.model.Post" />
+
+        <variable
+            name="user"
+            type="com.google.firebase.auth.FirebaseUser" />
 
         <variable
             name="view"
@@ -46,7 +52,7 @@
                     tools:background="@color/colorAccentPink" />
             </com.milanix.shutter.view.ProportionalFrameLayout>
 
-            <ImageView
+            <android.support.design.widget.CheckableImageButton
                 android:id="@+id/ivFavorites"
                 android:layout_width="@dimen/item_text_drawable"
                 android:layout_height="@dimen/item_text_drawable"
@@ -57,7 +63,8 @@
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_toLeftOf="@+id/tvFavorites"
                 android:layout_toStartOf="@+id/tvFavorites"
-                android:src="@drawable/ic_icon_favorites" />
+                android:background="@drawable/btn_favorite_outline"
+                app:checked="@{post.favoriters.containsKey(user.getUid())}" />
 
             <TextView
                 android:id="@+id/tvFavorites"
@@ -73,7 +80,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="@{String.valueOf(post.commenters.size())}"
+                android:text="@{post.favoriters.size()}"
                 android:textColor="@color/colorTextGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />

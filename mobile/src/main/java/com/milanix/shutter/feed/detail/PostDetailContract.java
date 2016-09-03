@@ -2,7 +2,6 @@ package com.milanix.shutter.feed.detail;
 
 import android.net.Uri;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.feed.model.Post;
@@ -37,7 +36,5 @@ public interface PostDetailContract {
         void share(Post post);
 
         void markFavorite(Post post);
-
-        FirebaseUser getUser();
     }
 }

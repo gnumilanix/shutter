@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.BindingViewHolder;
 import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
@@ -18,12 +19,14 @@ import javax.inject.Inject;
  * @author milan
  */
 public class FeedListAdapter extends AbstractFirebaseRecyclerAdapter<Post, FeedListAdapter.FeedHolder> {
-    private FeedListContract.View feedListView;
+    private final FeedListContract.View feedListView;
+    private final FirebaseUser user;
     private final LayoutInflater inflater;
 
     @Inject
-    public FeedListAdapter(FeedListContract.View feedListView, LayoutInflater inflater) {
+    public FeedListAdapter(FeedListContract.View feedListView, FirebaseUser user, LayoutInflater inflater) {
         this.feedListView = feedListView;
+        this.user = user;
         this.inflater = inflater;
     }
 
@@ -36,6 +39,7 @@ public class FeedListAdapter extends AbstractFirebaseRecyclerAdapter<Post, FeedL
     protected void bind(int position, FeedHolder viewHolder, Post item) {
         viewHolder.binding.setPost(item);
         viewHolder.binding.setView(feedListView);
+        viewHolder.binding.setUser(user);
         viewHolder.binding.executePendingBindings();
     }
 

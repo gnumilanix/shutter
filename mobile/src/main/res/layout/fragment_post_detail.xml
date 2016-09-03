@@ -8,6 +8,10 @@
         <import type="java.util.HashMap" />
 
         <variable
+            name="user"
+            type="com.google.firebase.auth.FirebaseUser" />
+
+        <variable
             name="post"
             type="com.milanix.shutter.feed.model.Post" />
 
@@ -59,10 +63,10 @@
             android:layout_width="@dimen/item_feed_avatar"
             android:layout_height="@dimen/item_feed_avatar"
             android:layout_margin="@dimen/margin_normal"
+            android:onClick="@{()->view.openProfile(post.authorId)}"
             app:civ_border_color="@color/colorTextGrey400"
             app:civ_border_width="2dp"
             app:imageUrl="@{post.author.avatar}"
-            android:onClick="@{()->view.openProfile(post.authorId)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +106,7 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:background="@drawable/btn_favorite"
             android:onClick="@{()->presenter.markFavorite(post)}"
-            app:checked="@{post.favoriters.containsKey(presenter.getUser().getUid())}"
+            app:checked="@{post.favoriters.containsKey(user.getUid())}"
             app:layout_constraintBottom_toBottomOf="@+id/tvFavorites"
             app:layout_constraintEnd_toStartOf="@+id/tvFavorites"
             app:layout_constraintRight_toLeftOf="@+id/tvFavorites"
@@ -137,7 +141,7 @@
             android:layout_marginLeft="@dimen/margin_normal"
             android:layout_marginRight="@dimen/margin_small"
             android:layout_marginStart="@dimen/margin_normal"
-            android:src="@drawable/ic_action_comment_normal"
+            android:src="@drawable/ic_icon_comment_normal"
             app:layout_constraintBottom_toBottomOf="@+id/tvFavorites"
             app:layout_constraintEnd_toStartOf="@+id/tvComments"
             app:layout_constraintRight_toLeftOf="@+id/tvComments"

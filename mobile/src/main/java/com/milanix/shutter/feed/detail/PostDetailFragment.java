@@ -23,12 +23,15 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentPostDetailBinding;
 import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.profile.ProfileModule;
 import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
+
+import javax.inject.Inject;
 
 /**
  * Fragment containing feeds
@@ -37,7 +40,10 @@ import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
  */
 public class PostDetailFragment extends AbstractFragment<PostDetailContract.Presenter, FragmentPostDetailBinding> implements PostDetailContract.View {
     private static final int RC_SHARE_POST = 100;
-    protected ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
+
+    @Inject
+    protected FirebaseUser user;
 
     @Nullable
     @Override
@@ -54,6 +60,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
         binding.setPresenter(presenter);
+        binding.setUser(user);
         binding.setView(this);
     }
 

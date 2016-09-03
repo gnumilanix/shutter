@@ -55,8 +55,8 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
         this.profileId = profileId;
-        this.profileReference =database.getReference().child("users").child(profileId);
-        this.postsQuery =database.getReference().child("posts").orderByChild("authorId").equalTo(profileId);
+        this.profileReference = database.getReference().child("users").child(profileId);
+        this.postsQuery = database.getReference().child("posts").orderByChild("authorId").equalTo(profileId);
     }
 
     @Override

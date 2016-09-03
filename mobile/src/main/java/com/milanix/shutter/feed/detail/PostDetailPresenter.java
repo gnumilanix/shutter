@@ -164,11 +164,6 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
         });
     }
 
-    @Override
-    public FirebaseUser getUser() {
-        return user;
-    }
-
     @Nullable
     private Uri getShareUri(final Post post) {
         try {
