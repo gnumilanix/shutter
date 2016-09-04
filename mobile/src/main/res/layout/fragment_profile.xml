@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.milanix.shutter.R" />
+
         <variable
             name="adapter"
             type="com.milanix.shutter.user.profile.detail.PostListAdapter" />
@@ -26,7 +28,9 @@
             android:layout_marginTop="@dimen/margin_normal"
             android:background="@color/colorBackgroundList"
             android:columnWidth="@dimen/item_post_width"
+            android:padding="@dimen/margin_small"
             app:adapter="@{adapter}"
-            app:hasFixedSize="@{true}" />
+            app:hasFixedSize="@{true}"
+            app:itemOffsetDecoration="@{R.dimen.margin_small}" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

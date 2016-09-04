@@ -37,7 +37,9 @@ public class ProfileDetailActivity extends AbstractBindingActivity<ActivityProfi
     }
 
     @Override
-    public void onReady(ProfileDetailContract.View view, Profile profile) {
+    public void onReady(ProfileDetailContract.View view,ProfileDetailContract.Presenter presenter, Profile profile) {
+        binding.setView(view);
+        binding.setPresenter(presenter);
         binding.setProfile(profile);
     }
 }

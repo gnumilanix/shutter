@@ -35,5 +35,6 @@ public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> 
 
     @Override
     public void refreshFeeds() {
+        view.hideProgress();
     }
 }

@@ -11,6 +11,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -25,8 +27,13 @@ import com.milanix.shutter.core.AbstractPresenter;
 import com.milanix.shutter.user.model.Profile;
 import com.milanix.shutter.user.profile.ProfileModule;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import timber.log.Timber;
 
 /**
  * Profile presenter
@@ -34,10 +41,11 @@ import javax.inject.Named;
  * @author milan
  */
 public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContract.View> implements ProfileDetailContract.Presenter,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ValueEventListener {
     private final App app;
     private final FirebaseUser user;
     private final FirebaseAuth auth;
+    private FirebaseDatabase database;
     private final GoogleApiClient googleApi;
     private final String profileId;
     private final Query postsQuery;
@@ -51,6 +59,7 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
         this.app = app;
         this.user = user;
         this.auth = auth;
+        this.database = database;
         this.googleApi = new GoogleApiClient.Builder(app)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
@@ -59,21 +68,15 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
         this.postsQuery = database.getReference().child("posts").orderByChild("authorId").equalTo(profileId);
     }
 
+
     @Override
     public void subscribe(ChildEventListener childEventListener) {
-        super.subscribe();
         postsQuery.addChildEventListener(childEventListener);
     }
 
     @Override
     public void unsubscribe(ChildEventListener childEventListener) {
-        super.unsubscribe();
         postsQuery.removeEventListener(childEventListener);
-    }
-
-    @Override
-    public void refreshPosts() {
-        view.hideProgress();
     }
 
     @Override
@@ -83,37 +86,14 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
 
         googleApi.registerConnectionCallbacks(this);
         googleApi.registerConnectionFailedListener(this);
+        profileReference.addValueEventListener(this);
     }
 
     @Override
     public void unsubscribe() {
         googleApi.unregisterConnectionCallbacks(this);
         googleApi.unregisterConnectionFailedListener(this);
-    }
-
-    @Override
-    public void getProfile() {
-        profileReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final Profile profile = dataSnapshot.getValue(Profile.class);
-
-                if (isActive()) {
-                    if (null != profile) {
-                        view.setProfile(profile);
-                    } else {
-                        view.handleProfileRefreshError();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                if (isActive()) {
-                    view.handleProfileRefreshError();
-                }
-            }
-        });
+        profileReference.removeEventListener(this);
     }
 
     @Override
@@ -124,8 +104,81 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
     }
 
     @Override
-    public boolean isCurrentUserProfile() {
+    public FirebaseUser getMe() {
+        return user;
+    }
+
+    @Override
+    public boolean isMyProfile() {
         return profileId.equals(user.getUid());
+    }
+
+
+    @Override
+    public void refreshPosts() {
+        view.hideProgress();
+    }
+
+    @Override
+    public void toggleFollow() {
+        database.getReference().child("users").child(user.getUid()).child("followings").child(profileId).
+                addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists())
+                            unfollow();
+                        else
+                            follow();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        view.handleToggleFollowError();
+                    }
+                });
+
+    }
+
+    private void follow() {
+        final Map<String, Object> followerValue = new HashMap<>();
+        followerValue.put(user.getUid(), true);
+
+        final Map<String, Object> followingValue = new HashMap<>();
+        followingValue.put(profileId, true);
+
+        final Map<String, Object> update = new HashMap<>();
+        update.put("/users/" + profileId + "/followers/", followerValue);
+        update.put("/users/" + user.getUid() + "/followings/", followingValue);
+
+        database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Timber.d("success");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Timber.d("failure");
+            }
+        });
+    }
+
+    private void unfollow() {
+        final Map<String, Object> update = new HashMap<>();
+        update.put("/users/" + profileId + "/followers/" + user.getUid(), null);
+        update.put("/users/" + user.getUid() + "/followings/" + profileId, null);
+
+        database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Timber.d("success");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Timber.d("failure");
+            }
+        });
     }
 
     private void logoutFromGoogle() {
@@ -167,6 +220,24 @@ public class ProfileDetailPresenter extends AbstractPresenter<ProfileDetailContr
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        final Profile profile = dataSnapshot.getValue(Profile.class);
+
+        if (isActive()) {
+            if (null != profile) {
+                view.setProfile(profile);
+            } else {
+                view.handleProfileRefreshError();
+            }
+        }
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
 
     }
 }

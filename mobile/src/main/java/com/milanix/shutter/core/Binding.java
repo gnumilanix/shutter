@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.DimenRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -18,6 +19,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.milanix.shutter.view.DividerItemDecoration;
+import com.milanix.shutter.view.ItemOffsetDecoration;
 
 /**
  * Class containing generic {@link BindingAdapter}
@@ -25,6 +27,7 @@ import com.milanix.shutter.view.DividerItemDecoration;
  * @author milan
  */
 public class Binding {
+
     /**
      * Loads given image url to the given view
      *
@@ -109,8 +112,19 @@ public class Binding {
      * @param view            to set divider to
      * @param dividerDrawable to set drawable as
      */
-    @BindingAdapter(value = {"dividerDrawable"})
-    public static void setDividerDrawable(RecyclerView view, Drawable dividerDrawable) {
+    @BindingAdapter(value = {"dividerItemDecoration"})
+    public static void setDivideritemDecoration(RecyclerView view, Drawable dividerDrawable) {
         view.addItemDecoration(new DividerItemDecoration(dividerDrawable));
+    }
+
+    /**
+     * Sets given dimen as {@link RecyclerView} divider offset
+     *
+     * @param view     to set divider to
+     * @param dimenRes to set dimen as
+     */
+    @BindingAdapter(value = {"itemOffsetDecoration"})
+    public static void setItemOffsetDecoration(RecyclerView view, @DimenRes int dimenRes) {
+        view.addItemDecoration(new ItemOffsetDecoration(view.getContext(), dimenRes));
     }
 }

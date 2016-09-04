@@ -5,6 +5,10 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="java.util.HashMap" />
+
         <variable
             name="profile"
             type="com.milanix.shutter.user.model.Profile" />
@@ -12,6 +16,14 @@
         <variable
             name="tabSelectListener"
             type="com.roughike.bottombar.OnTabSelectListener" />
+
+        <variable
+            name="presenter"
+            type="com.milanix.shutter.user.profile.detail.ProfileDetailContract.Presenter" />
+
+        <variable
+            name="view"
+            type="com.milanix.shutter.user.profile.detail.ProfileDetailContract.View" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -26,7 +38,7 @@
             android:layout_height="wrap_content">
 
             <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
+                android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_branding_gradient"
@@ -271,5 +283,15 @@
 
         </android.support.v4.widget.NestedScrollView>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabSend"
+            style="@style/FabStyle"
+            android:onClick="@{()->view.toggleFollow()}"
+            android:src="@{profile.followers.containsKey(presenter.getMe().getUid()) ? @drawable/ic_action_unfollow : @drawable/ic_action_follow}"
+            android:visibility="@{presenter.myProfile?View.GONE : View.VISIBLE}"
+            app:backgroundTint="@color/colorAccent"
+            app:layout_anchor="@+id/nestedContainer"
+            app:layout_anchorGravity="bottom|end|right"
+            app:rippleColor="@color/colorRipple" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

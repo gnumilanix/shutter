@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.milanix.shutter.R" />
+
         <variable
             name="adapter"
             type="com.milanix.shutter.feed.list.FeedListAdapter" />
@@ -29,8 +31,10 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorBackgroundList"
                 android:columnWidth="@dimen/item_feed_width"
+                android:padding="@dimen/margin_small"
                 app:adapter="@{adapter}"
-                app:hasFixedSize="@{true}" />
+                app:hasFixedSize="@{true}"
+                app:itemOffsetDecoration="@{R.dimen.margin_small}" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </android.support.design.widget.CoordinatorLayout>

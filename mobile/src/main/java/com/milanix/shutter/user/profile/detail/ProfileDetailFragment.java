@@ -45,7 +45,6 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
         setHasOptionsMenu(true);
         getApp().getProfileComponent().with(new ProfileDetailModule(this)).inject(this);
         presenter.subscribe(postListAdapter);
-        presenter.getProfile();
     }
 
     @Nullable
@@ -78,8 +77,9 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     @Override
     public void setProfile(Profile profile) {
         getActivity().invalidateOptionsMenu();
+
         if (null != onReadyCallback) {
-            onReadyCallback.onReady(this, profile);
+            onReadyCallback.onReady(this, presenter, profile);
         }
     }
 
@@ -119,6 +119,17 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     }
 
     @Override
+    public void toggleFollow() {
+        presenter.toggleFollow();
+    }
+
+    @Override
+    public void handleToggleFollowError() {
+        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
+                "Toggling follow not yet implemented", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onRefresh() {
         presenter.refreshPosts();
     }
@@ -127,7 +138,7 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        menu.findItem(R.id.action_logout).setVisible(null != presenter && presenter.isCurrentUserProfile());
+        menu.findItem(R.id.action_logout).setVisible(null != presenter && presenter.isMyProfile());
     }
 
     @Override
@@ -148,6 +159,6 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     }
 
     interface OnReadyListener {
-        void onReady(ProfileDetailContract.View view, Profile signUp);
+        void onReady(ProfileDetailContract.View view, ProfileDetailContract.Presenter presenter, Profile signUp);
     }
 }

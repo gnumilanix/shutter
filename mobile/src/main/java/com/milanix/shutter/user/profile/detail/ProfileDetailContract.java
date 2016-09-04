@@ -1,5 +1,6 @@
 package com.milanix.shutter.user.profile.detail;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
@@ -23,6 +24,10 @@ public interface ProfileDetailContract {
         void hideProgress();
 
         void logoutComplete();
+
+        void toggleFollow();
+
+        void handleToggleFollowError();
     }
 
     interface Presenter extends IPresenter {
@@ -32,10 +37,12 @@ public interface ProfileDetailContract {
 
         void refreshPosts();
 
-        void getProfile();
+        void toggleFollow();
 
         void logout();
 
-        boolean isCurrentUserProfile();
+        FirebaseUser getMe();
+
+        boolean isMyProfile();
     }
 }
