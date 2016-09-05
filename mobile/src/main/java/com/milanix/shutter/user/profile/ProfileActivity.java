@@ -16,6 +16,7 @@ import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.core.specification.IComponentProvider;
 import com.milanix.shutter.databinding.ActivityProfileBinding;
 import com.milanix.shutter.user.model.Profile;
+import com.milanix.shutter.user.profile.followers.FollowerListFragment;
 import com.milanix.shutter.user.profile.followings.FollowingListFragment;
 import com.milanix.shutter.user.profile.posts.PostListFragment;
 
@@ -175,7 +176,7 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
 
         switch (tab) {
             case FOLLOWERS:
-                transaction.replace(R.id.container, new FollowingListFragment(), tab);
+                transaction.replace(R.id.container, new FollowerListFragment(), tab);
                 break;
             case FOLLOWINGS:
                 transaction.replace(R.id.container, new FollowingListFragment(), tab);
