@@ -3,6 +3,7 @@ package com.milanix.shutter.feed.detail;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -28,11 +29,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentPostDetailBinding;
+import com.milanix.shutter.feed.PostComponent;
 import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.profile.ProfileModule;
 import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 /**
  * Fragment containing feeds
@@ -42,6 +46,7 @@ import javax.inject.Inject;
 public class PostDetailFragment extends AbstractFragment<PostDetailContract.Presenter, FragmentPostDetailBinding> implements PostDetailContract.View {
     private static final int RC_SHARE_POST = 100;
     private ProgressDialog progressDialog;
+    private OnReadyListener onReadyCallback;
 
     @Inject
     protected FirebaseUser user;
@@ -50,7 +55,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        getApp().getPostComponent().with(new PostDetailModule(this)).inject(this);
+        onReadyCallback.getPostComponent().with(new PostDetailModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_post_detail, container);
         setStatusColor(getActivity(), android.R.color.black);
 
@@ -75,6 +80,19 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     public void onStop() {
         super.onStop();
         presenter.unsubscribe();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        final Activity activity = getActivity();
+
+        if (activity instanceof OnReadyListener) {
+            this.onReadyCallback = (OnReadyListener) activity;
+        } else {
+            Timber.d("Caller did not implement OnReadyListener");
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -178,5 +196,9 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
                 //// TODO: 3/9/2016 map invitation ids to user
             }
         }
+    }
+
+    interface OnReadyListener {
+        PostComponent getPostComponent();
     }
 }

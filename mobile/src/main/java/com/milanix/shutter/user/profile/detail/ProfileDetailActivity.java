@@ -63,9 +63,7 @@ public class ProfileDetailActivity extends AbstractBindingActivity<ActivityProfi
         return profileComponent;
     }
 
-    public synchronized ProfileComponent createProfileComponent(String profileId) {
+    public void createProfileComponent(String profileId) {
         profileComponent = getUserComponent().with(new ProfileModule(profileId));
-
-        return profileComponent;
     }
 }

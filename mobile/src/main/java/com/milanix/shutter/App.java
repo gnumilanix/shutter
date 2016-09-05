@@ -11,8 +11,6 @@ import com.milanix.shutter.core.MessageSubscriber;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.dependencies.component.DaggerAppComponent;
 import com.milanix.shutter.dependencies.module.AppModule;
-import com.milanix.shutter.feed.PostComponent;
-import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.notification.model.NotificationMessagingService;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
@@ -29,7 +27,6 @@ import timber.log.Timber;
 public class App extends MultiDexApplication {
     protected AppComponent appComponent;
     protected UserComponent userComponent;
-    protected PostComponent postComponent;
 
     @Inject
     protected Timber.Tree logTree;
@@ -85,16 +82,6 @@ public class App extends MultiDexApplication {
     public void releaseUserComponent() {
         unsubscribeNotifications();
         userComponent = null;
-    }
-
-    public synchronized PostComponent createPostComponent(String postId) {
-        postComponent = getUserComponent().with(new PostModule(postId));
-
-        return postComponent;
-    }
-
-    public PostComponent getPostComponent() {
-        return postComponent;
     }
 
     private void subscribeNotifications() {
