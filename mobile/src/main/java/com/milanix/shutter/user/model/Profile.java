@@ -1,6 +1,7 @@
 package com.milanix.shutter.user.model;
 
 import com.google.firebase.database.Exclude;
+import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
  *
  * @author milan
  */
-public class Profile {
+public class Profile implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
     public String userId;
     public String email;
     public String avatar;
@@ -41,5 +42,10 @@ public class Profile {
         result.put("fullName", fullName);
 
         return result;
+    }
+
+    @Override
+    public String key() {
+        return userId;
     }
 }

@@ -15,8 +15,8 @@ import com.milanix.shutter.feed.favorite.FavoriteListFragment;
 import com.milanix.shutter.feed.list.FeedListFragment;
 import com.milanix.shutter.notification.NotificationListFragment;
 import com.milanix.shutter.post.NewPostActivity;
+import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileModule;
-import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import java.lang.annotation.Retention;
@@ -90,7 +90,7 @@ public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> i
         final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, binding.ivAvatar,
                 getString(R.string.transition_profile_image));
 
-        startActivity(new Intent(this, ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, profileId),
+        startActivity(new Intent(this, ProfileActivity.class).putExtra(ProfileModule.PROFILE_ID, profileId),
                 options.toBundle());
     }
 

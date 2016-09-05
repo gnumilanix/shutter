@@ -28,11 +28,12 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
+import com.milanix.shutter.core.specification.IComponentProvider;
 import com.milanix.shutter.databinding.FragmentPostDetailBinding;
 import com.milanix.shutter.feed.PostComponent;
 import com.milanix.shutter.feed.model.Post;
+import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileModule;
-import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
 
 import javax.inject.Inject;
 
@@ -46,7 +47,7 @@ import timber.log.Timber;
 public class PostDetailFragment extends AbstractFragment<PostDetailContract.Presenter, FragmentPostDetailBinding> implements PostDetailContract.View {
     private static final int RC_SHARE_POST = 100;
     private ProgressDialog progressDialog;
-    private OnReadyListener onReadyCallback;
+    private IComponentProvider<PostComponent> componentProvider;
 
     @Inject
     protected FirebaseUser user;
@@ -55,7 +56,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        onReadyCallback.getPostComponent().with(new PostDetailModule(this)).inject(this);
+        componentProvider.getComponent().with(new PostDetailModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_post_detail, container);
         setStatusColor(getActivity(), android.R.color.black);
 
@@ -88,8 +89,8 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
 
         final Activity activity = getActivity();
 
-        if (activity instanceof OnReadyListener) {
-            this.onReadyCallback = (OnReadyListener) activity;
+        if (activity instanceof IComponentProvider) {
+            this.componentProvider = (IComponentProvider) activity;
         } else {
             Timber.d("Caller did not implement OnReadyListener");
         }
@@ -183,7 +184,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
         final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), binding.ivAvatar,
                 getString(R.string.transition_profile_image));
 
-        startActivity(new Intent(getActivity(), ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, profileId),
+        startActivity(new Intent(getActivity(), ProfileActivity.class).putExtra(ProfileModule.PROFILE_ID, profileId),
                 options.toBundle());
     }
 
@@ -196,9 +197,5 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
                 //// TODO: 3/9/2016 map invitation ids to user
             }
         }
-    }
-
-    interface OnReadyListener {
-        PostComponent getPostComponent();
     }
 }

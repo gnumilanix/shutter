@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.HashMap" />
+
+        <variable
+            name="profile"
+            type="com.milanix.shutter.user.model.Profile" />
+
+        <variable
+            name="user"
+            type="com.google.firebase.auth.FirebaseUser" />
+
+        <variable
+            name="view"
+            type="com.milanix.shutter.user.profile.followings.FollowingListContract.View" />
+
+        <variable
+            name="presenter"
+            type="com.milanix.shutter.user.profile.followings.FollowingListContract.Presenter" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:onClick="@{(v)->view.openProfile(v,profile.userId)}"
+        android:padding="@dimen/padding_normal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivAuthor"
+            android:layout_width="@dimen/user_avatar"
+            android:layout_height="@dimen/user_avatar"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:transitionName="@string/transition_profile_image"
+            app:civ_border_color="@color/colorTextGrey400"
+            app:civ_border_width="2dp"
+            app:imageUrl="@{profile.avatar}"
+            app:placeHolder="@{@drawable/ic_placeholder_small}"
+            app:transformation="@{`crop`}"
+            tools:background="@color/colorAccentPink" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="2"
+            android:text="@{profile.fullName}"
+            android:textColor="@color/colorTextGrey900"
+            android:textSize="@dimen/text_medium"
+            tools:text="Material takes cues from contemporary architecture, road signs, pavement marking tape, and athletic courts." />
+
+
+        <ImageView
+            android:id="@+id/ivFollow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:onClick="@{()->presenter.unfollow(profile.userId)}"
+            android:src="@{profile.followers.containsKey(user.getUid()) ? @drawable/ic_action_unfollow_accent : @drawable/ic_action_follow_accent}" />
+
+    </LinearLayout>
+</layout>

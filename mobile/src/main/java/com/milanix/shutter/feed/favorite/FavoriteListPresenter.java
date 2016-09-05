@@ -15,13 +15,11 @@ import javax.inject.Inject;
  * @author milan
  */
 public class FavoriteListPresenter extends AbstractPresenter<FavoriteListContract.View> implements FavoriteListContract.Presenter {
-    private final FirebaseUser user;
     private final Query query;
 
     @Inject
     public FavoriteListPresenter(FavoriteListContract.View view, FirebaseUser user, FirebaseDatabase database) {
         super(view);
-        this.user = user;
         this.query = database.getReference().child("posts").orderByChild("favoriters/" + user.getUid() + "/").equalTo(true);
     }
 

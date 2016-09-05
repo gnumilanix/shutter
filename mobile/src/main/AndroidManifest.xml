@@ -90,7 +90,7 @@
         </activity>
 
         <activity
-            android:name=".user.profile.detail.ProfileDetailActivity"
+            android:name=".user.profile.ProfileActivity"
             android:parentActivityName=".home.HomeActivity"
             android:theme="@style/AppTheme.Home">
             <meta-data

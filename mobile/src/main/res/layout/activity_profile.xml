@@ -19,11 +19,11 @@
 
         <variable
             name="presenter"
-            type="com.milanix.shutter.user.profile.detail.ProfileDetailContract.Presenter" />
+            type="com.milanix.shutter.user.profile.ProfileContract.Presenter" />
 
         <variable
             name="view"
-            type="com.milanix.shutter.user.profile.detail.ProfileDetailContract.View" />
+            type="com.milanix.shutter.user.profile.ProfileContract.View" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -289,7 +289,7 @@
             style="@style/FabStyle"
             android:onClick="@{()->view.toggleFollow()}"
             android:src="@{profile.followers.containsKey(presenter.getMe().getUid()) ? @drawable/ic_action_unfollow : @drawable/ic_action_follow}"
-            android:visibility="@{presenter.myProfile?View.GONE : View.VISIBLE}"
+            android:visibility="@{presenter.isMe?View.GONE : View.VISIBLE}"
             app:backgroundTint="@color/colorAccent"
             app:layout_anchor="@+id/nestedContainer"
             app:layout_anchorGravity="bottom|end|right"

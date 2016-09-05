@@ -1,4 +1,4 @@
-package com.milanix.shutter.user.profile.detail;
+package com.milanix.shutter.user.profile.posts;
 
 import com.milanix.shutter.dependencies.scope.ActivityScope;
 
@@ -10,7 +10,7 @@ import dagger.Subcomponent;
  * @author milan
  */
 @ActivityScope
-@Subcomponent(modules = ProfileDetailModule.class)
-public interface ProfileDetailComponent {
-    void inject(ProfileDetailFragment fragment);
+@Subcomponent(modules = PostListModule.class)
+public interface PostListComponent {
+    void inject(PostListFragment fragment);
 }

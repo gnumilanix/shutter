@@ -5,6 +5,7 @@ import android.view.MenuItem;
 
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractBindingActivity;
+import com.milanix.shutter.core.specification.IComponentProvider;
 import com.milanix.shutter.databinding.ActivityPostDetailBinding;
 import com.milanix.shutter.feed.PostComponent;
 import com.milanix.shutter.feed.PostModule;
@@ -14,7 +15,7 @@ import com.milanix.shutter.feed.PostModule;
  *
  * @author milan
  */
-public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDetailBinding> implements PostDetailFragment.OnReadyListener {
+public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDetailBinding> implements IComponentProvider<PostComponent> {
     public static final String TAG_FRAGMENT_POST_DETAIL = "_fragment_post_detail";
     private PostComponent postComponent;
 
@@ -48,7 +49,7 @@ public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDeta
     }
 
     @Override
-    public PostComponent getPostComponent() {
+    public PostComponent getComponent() {
         return postComponent;
     }
 

@@ -1,4 +1,4 @@
-package com.milanix.shutter.user.profile.detail;
+package com.milanix.shutter.user.profile.posts;
 
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
@@ -19,12 +19,12 @@ import javax.inject.Inject;
  * @author milan
  */
 public class PostListAdapter extends AbstractFirebaseRecyclerAdapter<Post, PostListAdapter.NotificationHolder> {
-    private final ProfileDetailContract.View feedListView;
+    private final PostListContract.View feedListView;
     private final FirebaseUser user;
     private final LayoutInflater inflater;
 
     @Inject
-    public PostListAdapter(ProfileDetailContract.View feedListView, FirebaseUser user, LayoutInflater inflater) {
+    public PostListAdapter(PostListContract.View feedListView, FirebaseUser user, LayoutInflater inflater) {
         this.feedListView = feedListView;
         this.user = user;
         this.inflater = inflater;

@@ -8,7 +8,7 @@
 
         <variable
             name="adapter"
-            type="com.milanix.shutter.user.profile.detail.PostListAdapter" />
+            type="com.milanix.shutter.user.profile.posts.PostListAdapter" />
 
         <variable
             name="refreshListener"

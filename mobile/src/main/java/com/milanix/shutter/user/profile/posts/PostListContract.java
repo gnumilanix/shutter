@@ -1,33 +1,21 @@
-package com.milanix.shutter.user.profile.detail;
+package com.milanix.shutter.user.profile.posts;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
-import com.milanix.shutter.user.model.Profile;
 
 /**
  * Contract for profile related implementations
  *
  * @author milan
  */
-public interface ProfileDetailContract {
+public interface PostListContract {
     interface View extends IView {
-        void setProfile(Profile profile);
-
         void openPost(android.view.View view, String postId);
-
-        void handleProfileRefreshError();
 
         void showProgress();
 
         void hideProgress();
-
-        void logoutComplete();
-
-        void toggleFollow();
-
-        void handleToggleFollowError();
     }
 
     interface Presenter extends IPresenter {
@@ -37,12 +25,5 @@ public interface ProfileDetailContract {
 
         void refreshPosts();
 
-        void toggleFollow();
-
-        void logout();
-
-        FirebaseUser getMe();
-
-        boolean isMyProfile();
     }
 }

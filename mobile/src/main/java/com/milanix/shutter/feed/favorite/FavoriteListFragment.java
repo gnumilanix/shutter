@@ -17,8 +17,8 @@ import com.milanix.shutter.databinding.FragmentFavoriteListBinding;
 import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
 import com.milanix.shutter.feed.model.Post;
+import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileModule;
-import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
         final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
                 getString(R.string.transition_profile_image));
 
-        startActivity(new Intent(getActivity(), ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, authorId),
+        startActivity(new Intent(getActivity(), ProfileActivity.class).putExtra(ProfileModule.PROFILE_ID, authorId),
                 options.toBundle());
     }
 

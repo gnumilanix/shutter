@@ -1,8 +1,10 @@
 package com.milanix.shutter.user.profile;
 
 import com.milanix.shutter.dependencies.scope.ActivityScope;
-import com.milanix.shutter.user.profile.detail.ProfileDetailComponent;
-import com.milanix.shutter.user.profile.detail.ProfileDetailModule;
+import com.milanix.shutter.user.profile.followings.FollowingListComponent;
+import com.milanix.shutter.user.profile.followings.FollowingListModule;
+import com.milanix.shutter.user.profile.posts.PostListComponent;
+import com.milanix.shutter.user.profile.posts.PostListModule;
 
 import dagger.Subcomponent;
 
@@ -14,5 +16,7 @@ import dagger.Subcomponent;
 @ActivityScope
 @Subcomponent(modules = ProfileModule.class)
 public interface ProfileComponent {
-    ProfileDetailComponent with(ProfileDetailModule module);
+    PostListComponent with(PostListModule module);
+
+    FollowingListComponent with(FollowingListModule module);
 }
