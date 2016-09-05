@@ -24,50 +24,81 @@
             type="com.milanix.shutter.user.profile.followings.FollowingListContract.Presenter" />
     </data>
 
-    <LinearLayout
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:onClick="@{(v)->view.openProfile(v,profile.userId)}"
-        android:padding="@dimen/padding_normal">
+        android:onClick="@{(v)->view.openProfile(v,profile.userId)}">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivAuthor"
+            android:id="@+id/ivAvatar"
             android:layout_width="@dimen/user_avatar"
             android:layout_height="@dimen/user_avatar"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_margin="@dimen/margin_normal"
             android:transitionName="@string/transition_profile_image"
             app:civ_border_color="@color/colorTextGrey400"
             app:civ_border_width="2dp"
             app:imageUrl="@{profile.avatar}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:placeHolder="@{@drawable/ic_placeholder_small}"
             app:transformation="@{`crop`}"
             tools:background="@color/colorAccentPink" />
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:gravity="top"
-            android:maxLines="2"
-            android:text="@{profile.fullName}"
-            android:textColor="@color/colorTextGrey900"
-            android:textSize="@dimen/text_medium"
-            tools:text="Material takes cues from contemporary architecture, road signs, pavement marking tape, and athletic courts." />
-
 
         <ImageView
             android:id="@+id/ivFollow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_normal"
-            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
             android:onClick="@{()->presenter.unfollow(profile.userId)}"
-            android:src="@{profile.followers.containsKey(user.getUid()) ? @drawable/ic_action_unfollow_accent : @drawable/ic_action_follow_accent}" />
+            android:src="@{profile.followers.containsKey(user.getUid()) ? @drawable/ic_action_unfollow_accent : @drawable/ic_action_follow_accent}"
+            app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+            tools:src="@drawable/ic_action_unfollow_accent" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tvUser"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:text="@{profile.fullName}"
+            android:textColor="@color/colorTextGrey900"
+            android:textSize="@dimen/text_medium"
+            app:layout_constraintEnd_toStartOf="@+id/ivFollow"
+            app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
+            app:layout_constraintRight_toLeftOf="@+id/ivFollow"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+            tools:text="Material takes cues from contemporary architecture, road signs, pavement marking tape, and athletic courts." />
+
+        <TextView
+            android:id="@+id/tvFollowers"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:text="@{@string/message_formatted_followers(profile.followers.size())}"
+            android:textColor="@color/colorTextGrey400"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
+            app:layout_constraintEnd_toEndOf="@+id/tvUser"
+            app:layout_constraintLeft_toLeftOf="@+id/tvUser"
+            app:layout_constraintRight_toRightOf="@+id/tvUser"
+            app:layout_constraintStart_toStartOf="@+id/tvUser"
+            app:layout_constraintTop_toBottomOf="@+id/tvUser"
+            tools:text="100 followers" />
+
+
+    </android.support.constraint.ConstraintLayout>
 </layout>

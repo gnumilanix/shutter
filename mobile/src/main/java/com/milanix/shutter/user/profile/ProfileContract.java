@@ -12,6 +12,12 @@ import com.milanix.shutter.user.model.Profile;
  */
 public interface ProfileContract {
     interface View extends IView {
+        void viewPosts();
+
+        void viewFollowings();
+
+        void viewFollowers();
+
         void setProfile(Profile profile);
 
         void showProgress();
@@ -19,8 +25,6 @@ public interface ProfileContract {
         void hideProgress();
 
         void logoutComplete();
-
-        void toggleFollow();
 
         void handleProfileRefreshError();
 

@@ -1,9 +1,11 @@
 package com.milanix.shutter.user.profile;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,9 +16,17 @@ import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.core.specification.IComponentProvider;
 import com.milanix.shutter.databinding.ActivityProfileBinding;
 import com.milanix.shutter.user.model.Profile;
+import com.milanix.shutter.user.profile.followings.FollowingListFragment;
 import com.milanix.shutter.user.profile.posts.PostListFragment;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import javax.inject.Inject;
+
+import static com.milanix.shutter.user.profile.ProfileActivity.Tab.FOLLOWERS;
+import static com.milanix.shutter.user.profile.ProfileActivity.Tab.FOLLOWINGS;
+import static com.milanix.shutter.user.profile.ProfileActivity.Tab.POSTS;
 
 // TODO: 5/9/2016 refactor profile detail fragment to only contain posts and define view and presenter contract for this activity instead.
 
@@ -27,9 +37,15 @@ import javax.inject.Inject;
  */
 public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBinding> implements ProfileContract.View,
         IComponentProvider<ProfileComponent> {
-    public static final String TAG_FRAGMENT_PROFILE = "_fragment_profile";
+    @StringDef({POSTS, FOLLOWERS, FOLLOWINGS})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Tab {
+        String POSTS = "POSTS";
+        String FOLLOWERS = "FOLLOWERS";
+        String FOLLOWINGS = "FOLLOWINGS";
+    }
+
     private ProfileComponent profileComponent;
-    private ProgressDialog progressDialog;
 
     @Inject
     protected ProfileContract.Presenter presenter;
@@ -37,14 +53,20 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createProfileComponent(getIntent().getExtras().getString(ProfileModule.PROFILE_ID)).inject(this);
         performBinding(R.layout.activity_profile);
         setToolbar();
-        createProfileComponent(getIntent().getExtras().getString(ProfileModule.PROFILE_ID));
+        presenter.subscribe();
 
         if (null == savedInstanceState) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new PostListFragment(),
-                    TAG_FRAGMENT_PROFILE).commit();
+            viewPosts();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.unsubscribe();
     }
 
     private void setToolbar() {
@@ -52,6 +74,13 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    protected void performBinding(@LayoutRes int layout) {
+        super.performBinding(layout);
+        binding.setView(this);
+        binding.setPresenter(presenter);
     }
 
     @Override
@@ -86,14 +115,29 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
         return profileComponent;
     }
 
-    public void createProfileComponent(String profileId) {
+    public ProfileComponent createProfileComponent(String profileId) {
         profileComponent = getUserComponent().with(new ProfileModule(profileId, this));
+
+        return profileComponent;
+    }
+
+    @Override
+    public void viewPosts() {
+        switchFragment(Tab.POSTS);
+    }
+
+    @Override
+    public void viewFollowings() {
+        switchFragment(Tab.FOLLOWINGS);
+    }
+
+    @Override
+    public void viewFollowers() {
+        switchFragment(Tab.FOLLOWERS);
     }
 
     @Override
     public void setProfile(Profile profile) {
-        binding.setView(this);
-        binding.setPresenter(presenter);
         binding.setProfile(profile);
 
         invalidateOptionsMenu();
@@ -111,24 +155,36 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
 
     @Override
     public void showProgress() {
-        progressDialog = ProgressDialog.show(this, getString(R.string.title_uploading_post), getString(R.string.message_uploading_post), true);
+
     }
 
     @Override
     public void hideProgress() {
-        if (null != progressDialog)
-            progressDialog.dismiss();
+
     }
 
     @Override
     public void logoutComplete() {
-        presenter.toggleFollow();
-    }
-
-    @Override
-    public void toggleFollow() {
         finish();
         startActivity(new Intent(this, LandingActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK));
+    }
+
+    private void switchFragment(@ProfileActivity.Tab String tab) {
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        switch (tab) {
+            case FOLLOWERS:
+                transaction.replace(R.id.container, new FollowingListFragment(), tab);
+                break;
+            case FOLLOWINGS:
+                transaction.replace(R.id.container, new FollowingListFragment(), tab);
+                break;
+            case POSTS:
+                transaction.replace(R.id.container, new PostListFragment(), tab);
+                break;
+        }
+
+        transaction.commitNow();
     }
 }

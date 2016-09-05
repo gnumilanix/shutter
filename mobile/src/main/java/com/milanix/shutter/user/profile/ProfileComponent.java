@@ -19,4 +19,6 @@ public interface ProfileComponent {
     PostListComponent with(PostListModule module);
 
     FollowingListComponent with(FollowingListModule module);
+
+    void inject(ProfileActivity activity);
 }

@@ -58,6 +58,7 @@
     <string name="title_select_avatar">Select Avatar</string>
     <string name="title_select_image">Select Image</string>
 
+    <string name="message_formatted_followers">%d followers</string>
     <string name="message_logged_in">Logged in</string>
     <string name="message_hello">Hello %s</string>
     <string name="message_banner">Connecting amazing photographers to you</string>

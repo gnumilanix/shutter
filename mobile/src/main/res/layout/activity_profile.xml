@@ -14,10 +14,6 @@
             type="com.milanix.shutter.user.model.Profile" />
 
         <variable
-            name="tabSelectListener"
-            type="com.roughike.bottombar.OnTabSelectListener" />
-
-        <variable
             name="presenter"
             type="com.milanix.shutter.user.profile.ProfileContract.Presenter" />
 
@@ -136,6 +132,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="1"
+                        android:onClick="@{()->view.viewFollowers()}"
                         android:paddingLeft="@dimen/padding_normal"
                         android:paddingRight="@dimen/padding_normal"
                         android:text="@{String.valueOf(profile.followers.size())}"
@@ -174,6 +171,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="1"
+                        android:onClick="@{()->view.viewPosts()}"
                         android:paddingLeft="@dimen/padding_normal"
                         android:paddingRight="@dimen/padding_normal"
                         android:text="@{String.valueOf(profile.posts.size())}"
@@ -211,6 +209,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="1"
+                        android:onClick="@{()->view.viewFollowings()}"
                         android:paddingLeft="@dimen/padding_normal"
                         android:paddingRight="@dimen/padding_normal"
                         android:text="@{String.valueOf(profile.followings.size())}"
@@ -287,7 +286,7 @@
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabSend"
             style="@style/FabStyle"
-            android:onClick="@{()->view.toggleFollow()}"
+            android:onClick="@{()->presenter.toggleFollow()}"
             android:src="@{profile.followers.containsKey(presenter.getMe().getUid()) ? @drawable/ic_action_unfollow : @drawable/ic_action_follow}"
             android:visibility="@{presenter.isMe?View.GONE : View.VISIBLE}"
             app:backgroundTint="@color/colorAccent"
