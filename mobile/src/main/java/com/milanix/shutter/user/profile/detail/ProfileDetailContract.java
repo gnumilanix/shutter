@@ -15,7 +15,7 @@ public interface ProfileDetailContract {
     interface View extends IView {
         void setProfile(Profile profile);
 
-        void openPost(String postId);
+        void openPost(android.view.View view, String postId);
 
         void handleProfileRefreshError();
 

@@ -16,8 +16,6 @@ import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.notification.model.NotificationMessagingService;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
-import com.milanix.shutter.user.profile.ProfileComponent;
-import com.milanix.shutter.user.profile.ProfileModule;
 
 import javax.inject.Inject;
 
@@ -31,7 +29,6 @@ import timber.log.Timber;
 public class App extends MultiDexApplication {
     protected AppComponent appComponent;
     protected UserComponent userComponent;
-    protected ProfileComponent profileComponent;
     protected PostComponent postComponent;
 
     @Inject
@@ -88,16 +85,6 @@ public class App extends MultiDexApplication {
     public void releaseUserComponent() {
         unsubscribeNotifications();
         userComponent = null;
-    }
-
-    public synchronized ProfileComponent createProfileComponent(String profileId) {
-        profileComponent = getUserComponent().with(new ProfileModule(profileId));
-
-        return profileComponent;
-    }
-
-    public ProfileComponent getProfileComponent() {
-        return profileComponent;
     }
 
     public synchronized PostComponent createPostComponent(String postId) {

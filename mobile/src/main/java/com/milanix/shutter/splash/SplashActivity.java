@@ -25,7 +25,18 @@ public class SplashActivity extends AbstractActivity implements SplashContract.V
         super.onCreate(savedInstanceState);
 
         getAppComponent().with(new SplashModule(this)).inject(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         presenter.subscribe();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.unsubscribe();
     }
 
     @Override

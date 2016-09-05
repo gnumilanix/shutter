@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,14 +60,21 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
     }
 
     @Override
-    public void openProfile(String authorId) {
-        startActivity(new Intent(getActivity(), ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, authorId));
-        getActivity().overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
+    public void openProfile(View view, String authorId) {
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
+                getString(R.string.transition_profile_image));
+
+        startActivity(new Intent(getActivity(), ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, authorId),
+                options.toBundle());
     }
 
     @Override
-    public void openFeed(String feedId) {
-        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, feedId));
+    public void openFeed(android.view.View view, String feedId) {
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
+                getString(R.string.transition_post_image));
+
+        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, feedId),
+                options.toBundle());
     }
 
     @Override

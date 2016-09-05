@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{()->view.openPost(post.postId)}"
+        android:onClick="@{(v)->view.openPost(v,post.postId)}"
         android:padding="@dimen/margin_small"
         app:cardBackgroundColor="@android:color/white"
         tools:ignore="UnusedAttribute">
@@ -44,6 +44,7 @@
                     android:id="@+id/ivPost"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:transitionName="@string/transition_post_image"
                     app:imageUrl="@{post.image}"
                     app:placeHolder="@{@drawable/ic_placeholder_large}"
                     app:transformation="@{`crop`}"

@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface FavoriteListContract {
     interface View extends IView {
-        void openProfile(String authorId);
+        void openProfile(android.view.View view, String authorId);
 
         void showFeeds(List<Post> posts);
 
-        void openFeed(String feedId);
+        void openFeed(android.view.View view, String feedId);
 
         void handleFeedRefreshError();
 

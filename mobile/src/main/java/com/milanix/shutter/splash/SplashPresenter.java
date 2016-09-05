@@ -14,7 +14,7 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public class SplashPresenter extends AbstractPresenter<SplashContract.View> implements SplashContract.Presenter {
+public class SplashPresenter extends AbstractPresenter<SplashContract.View> implements SplashContract.Presenter, FirebaseAuth.AuthStateListener {
     private final App app;
     private final FirebaseAuth auth;
 
@@ -27,22 +27,26 @@ public class SplashPresenter extends AbstractPresenter<SplashContract.View> impl
 
     @Override
     public void subscribe() {
-        auth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                final FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
-                    app.createUserComponent(user);
-
-                    if (isActive())
-                        view.setSessionAvailable();
-                } else {
-                    if (isActive())
-                        view.setSessionUnavailable();
-                }
-            }
-        });
+        auth.addAuthStateListener(this);
     }
 
+    @Override
+    public void unsubscribe() {
+        auth.removeAuthStateListener(this);
+    }
+
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (user != null) {
+            app.createUserComponent(user);
+
+            if (isActive())
+                view.setSessionAvailable();
+        } else {
+            if (isActive())
+                view.setSessionUnavailable();
+        }
+    }
 }

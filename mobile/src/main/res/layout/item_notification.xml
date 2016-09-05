@@ -39,6 +39,7 @@
             android:layout_width="@dimen/notification_post_image"
             android:layout_height="@dimen/notification_post_image"
             android:layout_margin="@dimen/margin_normal"
+            android:transitionName="@string/transition_post_image"
             app:imageUrl="@{notification.post}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"

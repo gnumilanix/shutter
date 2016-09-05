@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import com.milanix.shutter.databinding.FragmentProfileBinding;
 import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
 import com.milanix.shutter.user.model.Profile;
+import com.milanix.shutter.user.profile.ProfileComponent;
 
 import javax.inject.Inject;
 
@@ -43,7 +45,7 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getApp().getProfileComponent().with(new ProfileDetailModule(this)).inject(this);
+        onReadyCallback.getProfileComponent().with(new ProfileDetailModule(this)).inject(this);
         presenter.subscribe(postListAdapter);
     }
 
@@ -75,6 +77,18 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        presenter.subscribe();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.unsubscribe();
+    }
+
+    @Override
     public void setProfile(Profile profile) {
         getActivity().invalidateOptionsMenu();
 
@@ -91,8 +105,12 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
     }
 
     @Override
-    public void openPost(String postId) {
-        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, postId));
+    public void openPost(android.view.View view, String postId) {
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
+                getString(R.string.transition_post_image));
+
+        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, postId),
+                options.toBundle());
     }
 
     @Override
@@ -160,5 +178,7 @@ public class ProfileDetailFragment extends AbstractFragment<ProfileDetailContrac
 
     interface OnReadyListener {
         void onReady(ProfileDetailContract.View view, ProfileDetailContract.Presenter presenter, Profile signUp);
+
+        ProfileComponent getProfileComponent();
     }
 }

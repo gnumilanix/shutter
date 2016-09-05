@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringDef;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -86,8 +87,11 @@ public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> i
 
     @Override
     public void openProfile(String profileId) {
-        startActivity(new Intent(this, ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, profileId));
-        overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, binding.ivAvatar,
+                getString(R.string.transition_profile_image));
+
+        startActivity(new Intent(this, ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, profileId),
+                options.toBundle());
     }
 
     @Override
