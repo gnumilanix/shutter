@@ -26,9 +26,9 @@ public class ProfileDetailActivity extends AbstractBindingActivity<ActivityProfi
         super.onCreate(savedInstanceState);
         performBinding(R.layout.activity_profile);
         setToolbar();
+        createProfileComponent(getIntent().getExtras().getString(ProfileModule.PROFILE_ID));
 
         if (null == savedInstanceState) {
-            createProfileComponent(getIntent().getExtras().getString(ProfileModule.PROFILE_ID));
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileDetailFragment(),
                     TAG_FRAGMENT_PROFILE).commit();
         }

@@ -23,9 +23,9 @@ public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDeta
         super.onCreate(savedInstanceState);
         performBinding(R.layout.activity_post_detail);
         setToolbar();
+        createPostComponent(getIntent().getExtras().getString(PostModule.POST_ID));
 
         if (null == savedInstanceState) {
-            createPostComponent(getIntent().getExtras().getString(PostModule.POST_ID));
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new PostDetailFragment(),
                     TAG_FRAGMENT_POST_DETAIL).commit();
         }
