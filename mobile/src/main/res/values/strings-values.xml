@@ -2,4 +2,6 @@
 
     <string name="facebook_app_id" translatable="false">294949287528683</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb294949287528683</string>
+    <string name="transition_profile_image" translatable="false">transition_profile_image</string>
+    <string name="transition_post_image" translatable="false">transition_post_image</string>
 </resources>

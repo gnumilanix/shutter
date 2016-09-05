@@ -14,6 +14,8 @@ import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentFeedListBinding;
 import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
+import com.milanix.shutter.user.profile.ProfileModule;
+import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
 
 import javax.inject.Inject;
 
@@ -54,6 +56,12 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
     public void onDestroy() {
         super.onDestroy();
         presenter.unsubscribe(feedListAdapter);
+    }
+
+    @Override
+    public void openProfile(String authorId) {
+        startActivity(new Intent(getActivity(), ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, authorId));
+        getActivity().overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
     }
 
     @Override

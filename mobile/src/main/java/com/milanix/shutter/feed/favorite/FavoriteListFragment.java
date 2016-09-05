@@ -16,6 +16,8 @@ import com.milanix.shutter.databinding.FragmentFavoriteListBinding;
 import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
 import com.milanix.shutter.feed.model.Post;
+import com.milanix.shutter.user.profile.ProfileModule;
+import com.milanix.shutter.user.profile.detail.ProfileDetailActivity;
 
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
     @Override
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
-        
+
         binding.setAdapter(favoriteListAdapter);
         binding.setRefreshListener(this);
     }
@@ -59,6 +61,12 @@ public class FavoriteListFragment extends AbstractFragment<FavoriteListContract.
     public void onDestroy() {
         super.onDestroy();
         presenter.unsubscribe(favoriteListAdapter);
+    }
+
+    @Override
+    public void openProfile(String authorId) {
+        startActivity(new Intent(getActivity(), ProfileDetailActivity.class).putExtra(ProfileModule.PROFILE_ID, authorId));
+        getActivity().overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
     }
 
     @Override

@@ -74,6 +74,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:src="@drawable/ic_icon_user"
+                            android:transitionName="@string/transition_profile_image"
                             app:civ_border_color="@android:color/white"
                             app:civ_border_width="2dp"
                             app:imageUrl="@{user.getPhotoUrl()}"

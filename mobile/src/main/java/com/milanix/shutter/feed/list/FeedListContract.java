@@ -11,6 +11,8 @@ import com.milanix.shutter.core.specification.IView;
  */
 public interface FeedListContract {
     interface View extends IView {
+        void openProfile(String authorId);
+
         void openFeed(String feedId);
 
         void showProgress();

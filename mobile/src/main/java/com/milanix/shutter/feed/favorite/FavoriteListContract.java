@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface FavoriteListContract {
     interface View extends IView {
+        void openProfile(String authorId);
+
         void showFeeds(List<Post> posts);
 
         void openFeed(String feedId);
