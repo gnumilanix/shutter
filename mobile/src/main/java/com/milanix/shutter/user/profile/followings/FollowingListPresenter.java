@@ -9,11 +9,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.milanix.shutter.core.AbstractPresenter;
 import com.milanix.shutter.user.model.Profile;
+import com.milanix.shutter.user.profile.ProfileModule;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Profile presenter
@@ -28,11 +30,11 @@ public class FollowingListPresenter extends AbstractPresenter<FollowingListContr
 
     @Inject
     public FollowingListPresenter(FollowingListContract.View view, FirebaseUser user,
-                                  FirebaseDatabase database) {
+                                  FirebaseDatabase database,@Named(ProfileModule.PROFILE_ID) String profileId) {
         super(view);
         this.user = user;
         this.database = database;
-        this.followingsQuery = database.getReference().child("users").orderByChild("followers/" + user.getUid() + "/").equalTo(true);
+        this.followingsQuery = database.getReference().child("users").orderByChild("followings/" + profileId+ "/").equalTo(true);
     }
 
 

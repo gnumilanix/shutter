@@ -91,7 +91,7 @@
             android:ellipsize="end"
             android:gravity="top"
             android:maxLines="1"
-            android:text="@{@plurals/followers(profile.followers.size())}"
+            android:text="@{@plurals/followers(profile.followers.size(),profile.followers.size())}"
             android:textColor="@color/colorTextGrey400"
             android:textSize="@dimen/text_small"
             app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
