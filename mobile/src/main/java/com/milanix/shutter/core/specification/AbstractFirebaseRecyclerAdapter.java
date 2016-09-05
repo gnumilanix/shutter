@@ -34,7 +34,9 @@ public abstract class AbstractFirebaseRecyclerAdapter<T extends AbstractFirebase
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
         final T item = getValue(dataSnapshot);
-        notifyItemRemoved(items.indexOf(item));
+        final int index = items.indexOf(item);
+        items.remove(index);
+        notifyItemRemoved(index);
     }
 
     @Override
@@ -43,7 +45,7 @@ public abstract class AbstractFirebaseRecyclerAdapter<T extends AbstractFirebase
         final int index = items.indexOf(item);
         items.remove(index);
 
-        notifyItemMoved(getIndexOf(s)+1, index);
+        notifyItemMoved(getIndexOf(s) + 1, index);
     }
 
     @Override

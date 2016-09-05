@@ -1,4 +1,4 @@
-package com.milanix.shutter.user.profile.followings;
+package com.milanix.shutter.user.profile.followers;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.core.specification.IComponentProvider;
-import com.milanix.shutter.databinding.FragmentFollowingListBinding;
+import com.milanix.shutter.databinding.FragmentFollowerListBinding;
 import com.milanix.shutter.user.model.Profile;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileComponent;
@@ -31,25 +31,25 @@ import timber.log.Timber;
  *
  * @author milan
  */
-public class FollowingListFragment extends AbstractFragment<FollowingListContract.Presenter, FragmentFollowingListBinding> implements
-        FollowingListContract.View {
+public class FollowerListFragment extends AbstractFragment<FollowerListContract.Presenter, FragmentFollowerListBinding> implements
+        FollowerListContract.View {
 
     @Inject
-    protected FollowingListAdapter followingListAdapter;
+    protected FollowerListAdapter followerListAdapter;
     private IComponentProvider<ProfileComponent> componentProvider;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        componentProvider.getComponent().with(new FollowingListModule(this)).inject(this);
-        presenter.subscribe(followingListAdapter);
+        componentProvider.getComponent().with(new FollowerListModule(this)).inject(this);
+        presenter.subscribe(followerListAdapter);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        performBinding(inflater, R.layout.fragment_following_list, container);
+        performBinding(inflater, R.layout.fragment_follower_list, container);
 
         return binding.getRoot();
     }
@@ -70,7 +70,7 @@ public class FollowingListFragment extends AbstractFragment<FollowingListContrac
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.unsubscribe(followingListAdapter);
+        presenter.unsubscribe(followerListAdapter);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class FollowingListFragment extends AbstractFragment<FollowingListContrac
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
         binding.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.setAdapter(followingListAdapter);
+        binding.setAdapter(followerListAdapter);
     }
 
 
@@ -103,8 +103,8 @@ public class FollowingListFragment extends AbstractFragment<FollowingListContrac
     }
 
     @Override
-    public void handleUnfollowError(Profile user) {
+    public void handleFollowError(Profile user) {
         Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
-                getString(R.string.error_unfollow_user, user.fullName), Snackbar.LENGTH_SHORT).show();
+                getString(R.string.error_follow_user, user.fullName), Snackbar.LENGTH_SHORT).show();
     }
 }

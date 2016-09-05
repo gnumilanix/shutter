@@ -1,4 +1,4 @@
-package com.milanix.shutter.user.profile.followings;
+package com.milanix.shutter.user.profile.followers;
 
 import android.support.annotation.NonNull;
 
@@ -20,21 +20,20 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public class FollowingListPresenter extends AbstractPresenter<FollowingListContract.View> implements
-        FollowingListContract.Presenter {
+public class FollowerListPresenter extends AbstractPresenter<FollowerListContract.View> implements
+        FollowerListContract.Presenter {
     private final FirebaseUser user;
     private FirebaseDatabase database;
     private final Query followingsQuery;
 
     @Inject
-    public FollowingListPresenter(FollowingListContract.View view, FirebaseUser user,
-                                  FirebaseDatabase database) {
+    public FollowerListPresenter(FollowerListContract.View view, FirebaseUser user,
+                                 FirebaseDatabase database) {
         super(view);
         this.user = user;
         this.database = database;
-        this.followingsQuery = database.getReference().child("users").orderByChild("followers/" + user.getUid() + "/").equalTo(true);
+        this.followingsQuery = database.getReference().child("users").orderByChild("followings/" + user.getUid() + "/").equalTo(true);
     }
-
 
     @Override
     public void subscribe(ChildEventListener childEventListener) {
@@ -47,16 +46,22 @@ public class FollowingListPresenter extends AbstractPresenter<FollowingListContr
     }
 
     @Override
-    public void unfollow(final Profile profile) {
+    public void follow(final Profile profile) {
+        final Map<String, Object> followerValue = new HashMap<>();
+        followerValue.put(user.getUid(), true);
+
+        final Map<String, Object> followingValue = new HashMap<>();
+        followingValue.put(profile.userId, true);
+
         final Map<String, Object> update = new HashMap<>();
-        update.put("/users/" + profile.userId + "/followers/" + user.getUid(), null);
-        update.put("/users/" + user.getUid() + "/followings/" + profile.userId, null);
+        update.put("/users/" + profile.userId + "/followers/", followerValue);
+        update.put("/users/" + user.getUid() + "/followings/", followingValue);
 
         database.getReference().updateChildren(update).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 if (isActive()) {
-                    view.handleUnfollowError(profile);
+                    view.handleFollowError(profile);
                 }
             }
         });

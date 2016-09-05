@@ -1,4 +1,4 @@
-package com.milanix.shutter.user.profile.followings;
+package com.milanix.shutter.user.profile.followers;
 
 import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
@@ -10,11 +10,11 @@ import com.milanix.shutter.user.model.Profile;
  *
  * @author milan
  */
-public interface FollowingListContract {
+public interface FollowerListContract {
     interface View extends IView {
         void openProfile(android.view.View view, String profileId);
 
-        void handleUnfollowError(Profile user);
+        void handleFollowError(Profile profile);
     }
 
     interface Presenter extends IPresenter {
@@ -22,6 +22,6 @@ public interface FollowingListContract {
 
         void unsubscribe(ChildEventListener childEventListener);
 
-        void unfollow(Profile user);
+        void follow(Profile user);
     }
 }

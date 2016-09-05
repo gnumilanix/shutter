@@ -35,6 +35,6 @@
 
     <dimen name="profile_avatar">60dp</dimen>
 
-    <dimen name="user_avatar">40dp</dimen>
+    <dimen name="user_avatar">48dp</dimen>
 
 </resources>

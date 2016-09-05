@@ -86,8 +86,8 @@
     <string name="error_download_post">Error downloading image</string>
     <string name="error_refresh_feeds">Error refreshing posts</string>
     <string name="error_refresh_favorites">Error refreshing favorites</string>
-    <string name="error_unfollow_user">Error unfollowing user</string>
-    <string name="error_follow_user">Error following user</string>
+    <string name="error_unfollow_user">Error unfollowing %s</string>
+    <string name="error_follow_user">Error following %s</string>
     <string name="error_refresh_notifications">Error refreshing notifications</string>
 
     <string name="storage_permission_request_title">Storage permission request</string>

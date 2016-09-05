@@ -48,4 +48,20 @@ public class Profile implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
     public String key() {
         return userId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Profile profile = (Profile) o;
+
+        return userId.equals(profile.userId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return userId.hashCode();
+    }
 }
