@@ -49,10 +49,10 @@ public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDeta
 
     @Override
     public PostComponent getPostComponent() {
-        return null;
+        return postComponent;
     }
 
     private void createPostComponent(String postId) {
-        postComponent = getUserComponent().with(new PostModule(getIntent().getExtras().getString(PostModule.POST_ID)));
+        postComponent = getUserComponent().with(new PostModule(postId));
     }
 }
