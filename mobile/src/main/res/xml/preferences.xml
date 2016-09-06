@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="pref_sync_group"
+        android:title="@string/title_muzei">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_muzei"
+            android:summary="@string/message_muzei_summary"
+            android:title="@string/title_muzei_source" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_sync_group"
+        android:title="@string/app_name">
+        <Preference
+            android:summary="@string/title_app_summary"
+            android:selectable="false"
+            android:title="@string/title_app_version"/>
+    </PreferenceCategory>
+</PreferenceScreen>

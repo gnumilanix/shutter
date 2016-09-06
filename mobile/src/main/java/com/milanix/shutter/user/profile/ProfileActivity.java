@@ -15,6 +15,7 @@ import com.milanix.shutter.auth.LandingActivity;
 import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.core.specification.IComponentProvider;
 import com.milanix.shutter.databinding.ActivityProfileBinding;
+import com.milanix.shutter.settings.SettingsActivity;
 import com.milanix.shutter.user.model.Profile;
 import com.milanix.shutter.user.profile.followers.FollowerListFragment;
 import com.milanix.shutter.user.profile.followings.FollowingListFragment;
@@ -89,6 +90,9 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
         switch (item.getItemId()) {
             case android.R.id.home:
                 supportFinishAfterTransition();
+                return true;
+            case R.id.action_settings:
+                launchSettings();
                 return true;
             case R.id.action_logout:
                 presenter.logout();
@@ -187,5 +191,9 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
         }
 
         transaction.commitNow();
+    }
+
+    private void launchSettings() {
+        startActivity(new Intent(this, SettingsActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

@@ -99,6 +99,15 @@
         </activity>
 
         <activity
+            android:name=".settings.SettingsActivity"
+            android:parentActivityName=".user.profile.ProfileActivity"
+            android:theme="@style/AppTheme.Home">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".user.profile.ProfileActivity" />
+        </activity>
+
+        <activity
             android:name=".feed.detail.PostDetailActivity"
             android:parentActivityName=".home.HomeActivity"
             android:theme="@style/AppTheme.Detail">

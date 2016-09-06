@@ -178,15 +178,9 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
     }
 
     private void follow() {
-        final Map<String, Object> followerValue = new HashMap<>();
-        followerValue.put(user.getUid(), true);
-
-        final Map<String, Object> followingValue = new HashMap<>();
-        followingValue.put(profileId, true);
-
         final Map<String, Object> update = new HashMap<>();
-        update.put("/users/" + profileId + "/followers/", followerValue);
-        update.put("/users/" + user.getUid() + "/followings/", followingValue);
+        update.put("/users/" + profileId + "/followers/" + user.getUid(), true);
+        update.put("/users/" + user.getUid() + "/followings/" + profileId, true);
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

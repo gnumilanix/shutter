@@ -111,19 +111,12 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
         } else {
             addFavorite(uid);
         }
-
     }
 
     private void addFavorite(String uid) {
-        final Map<String, Object> favoriterValue = new HashMap<>();
-        favoriterValue.put(uid, true);
-
-        final Map<String, Object> favoriteValue = new HashMap<>();
-        favoriteValue.put(postId, true);
-
         final Map<String, Object> update = new HashMap<>();
-        update.put("/posts/" + postId + "/favoriters", favoriterValue);
-        update.put("/users/" + uid + "/favorites", favoriteValue);
+        update.put("/posts/" + postId + "/favoriters/" + uid, true);
+        update.put("/users/" + uid + "/favorites/" + postId, true);
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
