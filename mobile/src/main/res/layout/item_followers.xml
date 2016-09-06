@@ -57,7 +57,7 @@
             android:layout_marginRight="@dimen/margin_normal"
             android:onClick="@{()->presenter.follow(profile)}"
             android:src="@{ @drawable/ic_action_follow_accent}"
-            android:visibility="@{profile.followings.containsKey(user.getUid())?View.VISIBLE:View.GONE}"
+            android:visibility="@{profile.followers.containsKey(user.getUid())?View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivAvatar"
