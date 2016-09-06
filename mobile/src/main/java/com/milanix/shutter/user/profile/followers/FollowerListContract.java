@@ -14,6 +14,8 @@ public interface FollowerListContract {
     interface View extends IView {
         void openProfile(android.view.View view, String profileId);
 
+        void handleUnfollowError(Profile profile);
+
         void handleFollowError(Profile profile);
     }
 
@@ -21,6 +23,8 @@ public interface FollowerListContract {
         void subscribe(ChildEventListener childEventListener);
 
         void unsubscribe(ChildEventListener childEventListener);
+
+        void unfollow(Profile user);
 
         void follow(Profile user);
     }

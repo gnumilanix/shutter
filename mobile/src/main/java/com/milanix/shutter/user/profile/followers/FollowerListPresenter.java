@@ -48,6 +48,22 @@ public class FollowerListPresenter extends AbstractPresenter<FollowerListContrac
     }
 
     @Override
+    public void unfollow(final Profile profile) {
+        final Map<String, Object> update = new HashMap<>();
+        update.put("/users/" + profile.userId + "/followers/" + user.getUid(), null);
+        update.put("/users/" + user.getUid() + "/followings/" + profile.userId, null);
+
+        database.getReference().updateChildren(update).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (isActive()) {
+                    view.handleUnfollowError(profile);
+                }
+            }
+        });
+    }
+
+    @Override
     public void follow(final Profile profile) {
         final Map<String, Object> followerValue = new HashMap<>();
         followerValue.put(user.getUid(), true);

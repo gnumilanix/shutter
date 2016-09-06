@@ -63,4 +63,26 @@ public class FollowingListPresenter extends AbstractPresenter<FollowingListContr
             }
         });
     }
+
+    @Override
+    public void follow(final Profile profile) {
+        final Map<String, Object> followerValue = new HashMap<>();
+        followerValue.put(user.getUid(), true);
+
+        final Map<String, Object> followingValue = new HashMap<>();
+        followingValue.put(profile.userId, true);
+
+        final Map<String, Object> update = new HashMap<>();
+        update.put("/users/" + profile.userId + "/followers/", followerValue);
+        update.put("/users/" + user.getUid() + "/followings/", followingValue);
+
+        database.getReference().updateChildren(update).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (isActive()) {
+                    view.handleFollowError(profile);
+                }
+            }
+        });
+    }
 }

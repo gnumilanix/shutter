@@ -14,7 +14,9 @@ public interface FollowingListContract {
     interface View extends IView {
         void openProfile(android.view.View view, String profileId);
 
-        void handleUnfollowError(Profile user);
+        void handleUnfollowError(Profile profile);
+
+        void handleFollowError(Profile profile);
     }
 
     interface Presenter extends IPresenter {
@@ -23,5 +25,7 @@ public interface FollowingListContract {
         void unsubscribe(ChildEventListener childEventListener);
 
         void unfollow(Profile user);
+
+        void follow(Profile user);
     }
 }

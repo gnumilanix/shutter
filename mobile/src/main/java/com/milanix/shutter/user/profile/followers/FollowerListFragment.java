@@ -103,8 +103,14 @@ public class FollowerListFragment extends AbstractFragment<FollowerListContract.
     }
 
     @Override
-    public void handleFollowError(Profile user) {
+    public void handleUnfollowError(Profile profile) {
         Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
-                getString(R.string.error_follow_user, user.fullName), Snackbar.LENGTH_SHORT).show();
+                getString(R.string.error_unfollow_user, profile.fullName), Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void handleFollowError(Profile profile) {
+        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
+                getString(R.string.error_follow_user, profile.fullName), Snackbar.LENGTH_SHORT).show();
     }
 }

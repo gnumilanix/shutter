@@ -42,9 +42,9 @@ public class FollowingListAdapter extends AbstractFirebaseRecyclerAdapter<Profil
     @Override
     protected void bind(int position, ProfileHolder viewHolder, Profile item) {
         viewHolder.binding.setProfile(item);
+        viewHolder.binding.setUser(user);
         viewHolder.binding.setView(followingListView);
         viewHolder.binding.setPresenter(followingListPresenter);
-        viewHolder.binding.setUser(user);
         viewHolder.binding.executePendingBindings();
     }
 
