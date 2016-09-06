@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.ValueEventListener;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.BindingViewHolder;
 import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
@@ -18,11 +20,12 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public class FollowingListAdapter extends AbstractFirebaseRecyclerAdapter<Profile, FollowingListAdapter.ProfileHolder> {
+public class FollowingListAdapter extends AbstractFirebaseRecyclerAdapter<Profile, FollowingListAdapter.ProfileHolder> implements ValueEventListener {
     private final FollowingListContract.View followingListView;
     private final FollowingListContract.Presenter followingListPresenter;
     private final FirebaseUser user;
     private final LayoutInflater inflater;
+    private Profile profile;
 
     @Inject
     public FollowingListAdapter(FollowingListContract.View followingListView,
@@ -42,6 +45,7 @@ public class FollowingListAdapter extends AbstractFirebaseRecyclerAdapter<Profil
     @Override
     protected void bind(int position, ProfileHolder viewHolder, Profile item) {
         viewHolder.binding.setProfile(item);
+        viewHolder.binding.setMe(profile);
         viewHolder.binding.setUser(user);
         viewHolder.binding.setView(followingListView);
         viewHolder.binding.setPresenter(followingListPresenter);
@@ -51,6 +55,12 @@ public class FollowingListAdapter extends AbstractFirebaseRecyclerAdapter<Profil
     @Override
     protected Class<Profile> getTypeClass() {
         return Profile.class;
+    }
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        profile = dataSnapshot.getValue(Profile.class);
+        notifyDataSetChanged();
     }
 
     class ProfileHolder extends BindingViewHolder<ItemFollowingBinding> {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -169,21 +170,25 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
     }
 
     private void switchFragment(@ProfileActivity.Tab String tab) {
-        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(tab);
 
-        switch (tab) {
-            case FOLLOWERS:
-                transaction.replace(R.id.container, new FollowerListFragment(), tab);
-                break;
-            case FOLLOWINGS:
-                transaction.replace(R.id.container, new FollowingListFragment(), tab);
-                break;
-            case POSTS:
-                transaction.replace(R.id.container, new PostListFragment(), tab);
-                break;
+        if (null == fragment) {
+            final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            switch (tab) {
+                case FOLLOWERS:
+                    transaction.replace(R.id.container, new FollowerListFragment(), tab);
+                    break;
+                case FOLLOWINGS:
+                    transaction.replace(R.id.container, new FollowingListFragment(), tab);
+                    break;
+                case POSTS:
+                    transaction.replace(R.id.container, new PostListFragment(), tab);
+                    break;
+            }
+
+            transaction.commitNow();
         }
-
-        transaction.commitNow();
     }
 
     private void launchSettings() {

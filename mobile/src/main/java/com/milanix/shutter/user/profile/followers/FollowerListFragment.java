@@ -43,7 +43,7 @@ public class FollowerListFragment extends AbstractFragment<FollowerListContract.
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         componentProvider.getComponent().with(new FollowerListModule(this)).inject(this);
-        presenter.subscribe(followerListAdapter);
+        presenter.subscribe(followerListAdapter, followerListAdapter);
     }
 
     @Nullable
@@ -70,7 +70,7 @@ public class FollowerListFragment extends AbstractFragment<FollowerListContract.
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.unsubscribe(followerListAdapter);
+        presenter.unsubscribe(followerListAdapter, followerListAdapter);
     }
 
     @Override

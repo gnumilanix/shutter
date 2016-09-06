@@ -1,6 +1,7 @@
 package com.milanix.shutter.user.profile.followings;
 
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.ValueEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.user.model.Profile;
@@ -20,9 +21,9 @@ public interface FollowingListContract {
     }
 
     interface Presenter extends IPresenter {
-        void subscribe(ChildEventListener childEventListener);
+        void subscribe(ChildEventListener followingChangesListener, ValueEventListener profileChangeListener);
 
-        void unsubscribe(ChildEventListener childEventListener);
+        void unsubscribe(ChildEventListener followingChangesListener, ValueEventListener profileChangeListener);
 
         void unfollow(Profile user);
 

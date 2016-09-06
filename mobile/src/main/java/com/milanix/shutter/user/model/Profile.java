@@ -1,10 +1,8 @@
 package com.milanix.shutter.user.model;
 
-import com.google.firebase.database.Exclude;
 import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Profile schema
@@ -31,17 +29,6 @@ public class Profile implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
         this.email = email;
         this.avatar = avatar;
         this.fullName = fullName;
-    }
-
-    @Exclude
-    public Map<String, Object> toCreateProfileMap() {
-        final HashMap<String, Object> result = new HashMap<>();
-        result.put("userId", userId);
-        result.put("email", email);
-        result.put("avatar", avatar);
-        result.put("fullName", fullName);
-
-        return result;
     }
 
     @Override

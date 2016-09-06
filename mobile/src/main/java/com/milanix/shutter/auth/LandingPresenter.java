@@ -32,7 +32,6 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.user.model.Profile;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -199,10 +198,12 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
 
     private void createProfile(final FirebaseUser user) {
         final UserInfo providerData = user.getProviderData().get(0);
-        final String avatarUrl = null == providerData.getPhotoUrl() ? null : providerData.getPhotoUrl().toString();
-        final Profile profile = new Profile(user.getUid(), user.getEmail(), avatarUrl, providerData.getDisplayName());
+
         final Map<String, Object> updates = new HashMap<>();
-        updates.put("/users/" + user.getUid(), profile.toCreateProfileMap());
+        updates.put("/users/" + user.getUid() + "/userId/", user.getUid());
+        updates.put("/users/" + user.getUid() + "/email/", user.getEmail());
+        updates.put("/users/" + user.getUid() + "/avatar/", null == providerData.getPhotoUrl() ? null : providerData.getPhotoUrl().toString());
+        updates.put("/users/" + user.getUid() + "/fullName/", providerData.getDisplayName());
 
         database.getReference().updateChildren(updates).
                 continueWith(new Continuation<Void, Void>() {

@@ -14,6 +14,10 @@
             type="com.milanix.shutter.user.model.Profile" />
 
         <variable
+            name="me"
+            type="com.milanix.shutter.user.model.Profile" />
+
+        <variable
             name="user"
             type="com.google.firebase.auth.FirebaseUser" />
 
@@ -55,8 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_normal"
             android:layout_marginRight="@dimen/margin_normal"
-            android:onClick="@{()->profile.followings.containsKey(user.getUid())?presenter.unfollow(profile):presenter.follow(profile)}"
-            android:src="@{profile.followers.containsKey(user.getUid()) ? @drawable/ic_action_unfollow_accent : @drawable/ic_action_follow_accent}"
+            android:onClick="@{()->me.followings.containsKey(profile.userId)?presenter.unfollow(profile):presenter.follow(profile)}"
+            android:src="@{me.followings.containsKey(profile.userId) ? @drawable/ic_action_unfollow_accent : @drawable/ic_action_follow_accent}"
             android:visibility="@{user.getUid().equals(profile.userId)?View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
             app:layout_constraintRight_toRightOf="parent"
