@@ -1,9 +1,10 @@
 package com.milanix.shutter.core;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.milanix.shutter.App;
-import com.milanix.shutter.R;
 import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.user.UserComponent;
@@ -41,10 +42,20 @@ public class AbstractActivity extends AppCompatActivity implements IView {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.activity_slide_in_left, R.anim.activity_slide_out_right);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
-
+    protected void setToolbar(Toolbar toolbar, boolean homeAsUp) {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUp);
+        getSupportActionBar().setDisplayShowHomeEnabled(homeAsUp);
+    }
 }

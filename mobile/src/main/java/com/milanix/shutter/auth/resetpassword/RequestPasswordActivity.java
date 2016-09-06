@@ -15,7 +15,7 @@ public class RequestPasswordActivity extends AbstractBindingActivity<ActivityReq
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         performBinding(R.layout.activity_request_password);
-        setToolbar();
+        setToolbar(binding.toolbar, true);
 
         if (null == savedInstanceState) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new RequestPasswordFragment(),
@@ -23,10 +23,9 @@ public class RequestPasswordActivity extends AbstractBindingActivity<ActivityReq
         }
     }
 
-    private void setToolbar() {
-        setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.activity_slide_in_left, R.anim.activity_slide_out_right);
     }
 }

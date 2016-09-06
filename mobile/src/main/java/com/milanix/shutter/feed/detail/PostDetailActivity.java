@@ -23,19 +23,13 @@ public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDeta
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         performBinding(R.layout.activity_post_detail);
-        setToolbar();
+        setToolbar(binding.toolbar, true);
         createPostComponent(getIntent().getExtras().getString(PostModule.POST_ID));
 
         if (null == savedInstanceState) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new PostDetailFragment(),
                     TAG_FRAGMENT_POST_DETAIL).commit();
         }
-    }
-
-    private void setToolbar() {
-        setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override

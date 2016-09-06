@@ -2,9 +2,7 @@ package com.milanix.shutter.post;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -50,7 +48,6 @@ public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter,
     };
     private DialogOnDeniedPermissionListener dialogOnDeniedStoragePermissionListener;
     private ProgressDialog progressDialog;
-    private OnReadyListener onReadyCallback;
 
     @Nullable
     @Override
@@ -72,23 +69,6 @@ public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter,
         binding.setPresenter(presenter);
         binding.setPost(new NewPost());
         binding.setView(this);
-
-        if (null != onReadyCallback) {
-            onReadyCallback.onReady(this, binding.getPost());
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        final Activity activity = getActivity();
-
-        if (activity instanceof OnReadyListener) {
-            this.onReadyCallback = (OnReadyListener) activity;
-        } else {
-            Timber.d("Caller did not implement OnReadyListener");
-        }
     }
 
     @Override
@@ -243,9 +223,5 @@ public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter,
     private void launchImagePicker() {
         startActivityForResult(Intent.createChooser(new Intent().setType("image/*").setAction(Intent.ACTION_GET_CONTENT),
                 getString(R.string.title_select_image)), PICK_POST_IMAGE_REQUEST);
-    }
-
-    interface OnReadyListener {
-        void onReady(NewPostContract.View view, NewPost post);
     }
 }

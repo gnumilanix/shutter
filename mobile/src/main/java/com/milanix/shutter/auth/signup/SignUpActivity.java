@@ -15,7 +15,7 @@ public class SignUpActivity extends AbstractBindingActivity<ActivitySignupBindin
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         performBinding(R.layout.activity_signup);
-        setToolbar();
+        setToolbar(binding.toolbar,true);
 
         if (null == savedInstanceState) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new SignUpFragment(),
@@ -23,11 +23,10 @@ public class SignUpActivity extends AbstractBindingActivity<ActivitySignupBindin
         }
     }
 
-    private void setToolbar() {
-        setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.activity_slide_in_left, R.anim.activity_slide_out_right);
     }
 
     @Override

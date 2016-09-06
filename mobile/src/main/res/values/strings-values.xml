@@ -5,5 +5,6 @@
     <string name="transition_profile_image" translatable="false">transition_profile_image</string>
     <string name="transition_post_image" translatable="false">transition_post_image</string>
 
+    <string name="pref_shutter" translatable="false">pref_shutter</string>
     <string name="pref_muzei" translatable="false">pref_muzei</string>
 </resources>

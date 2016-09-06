@@ -57,7 +57,7 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
         super.onCreate(savedInstanceState);
         createProfileComponent(getIntent().getExtras().getString(ProfileModule.PROFILE_ID)).inject(this);
         performBinding(R.layout.activity_profile);
-        setToolbar();
+        setToolbar(binding.toolbar, true);
         presenter.subscribe();
 
         if (null == savedInstanceState) {
@@ -69,13 +69,6 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
     protected void onDestroy() {
         super.onDestroy();
         presenter.unsubscribe();
-    }
-
-    private void setToolbar() {
-        setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -195,5 +188,6 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
 
     private void launchSettings() {
         startActivity(new Intent(this, SettingsActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
     }
 }
