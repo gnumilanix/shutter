@@ -3,7 +3,6 @@ package com.milanix.shutter.notification;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -14,8 +13,6 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentNotificationListBinding;
 import com.milanix.shutter.notification.model.Notification;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,12 +25,18 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
         NotificationListContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
-    protected NotificationListAdapter feedListAdapter;
+    protected NotificationListAdapter notificationListAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getUserComponent().with(new NotificationListModule(this)).inject(this);
+        presenter.subscribe(notificationListAdapter);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getUserComponent().with(new NotificationListModule(this)).inject(this);
         performBinding(inflater, R.layout.fragment_notification_list, container);
 
         return binding.getRoot();
@@ -43,19 +46,14 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
         binding.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.setAdapter(feedListAdapter);
+        binding.setAdapter(notificationListAdapter);
         binding.setRefreshListener(this);
     }
 
     @Override
-    public void showNotifications(List<Notification> notifications) {
-        binding.getAdapter().replaceItems(notifications);
-    }
-
-    @Override
-    public void handleNotificationsRefreshError() {
-        Snackbar.make(((ViewGroup) getActivity().getWindow().getDecorView()).getChildAt(0),
-                R.string.error_refresh_notifications, Snackbar.LENGTH_SHORT).show();
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.unsubscribe(notificationListAdapter);
     }
 
     @Override
@@ -75,6 +73,6 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
 
     @Override
     public void onRefresh() {
-        presenter.getNotifications();
+        presenter.refreshNotification();
     }
 }

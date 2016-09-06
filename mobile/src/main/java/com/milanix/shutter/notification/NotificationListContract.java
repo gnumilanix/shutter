@@ -1,10 +1,9 @@
 package com.milanix.shutter.notification;
 
+import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.notification.model.Notification;
-
-import java.util.List;
 
 /**
  * Contract for notification lsit related implementations
@@ -13,9 +12,6 @@ import java.util.List;
  */
 public interface NotificationListContract {
     interface View extends IView {
-        void showNotifications(List<Notification> notifications);
-
-        void handleNotificationsRefreshError();
 
         void showProgress();
 
@@ -25,8 +21,12 @@ public interface NotificationListContract {
     }
 
     interface Presenter extends IPresenter {
-        void getNotifications();
+        void subscribe(ChildEventListener notificationEventListener);
+
+        void unsubscribe(ChildEventListener notificationEventListener);
 
         void markRead(Notification notification);
+
+        void refreshNotification();
     }
 }

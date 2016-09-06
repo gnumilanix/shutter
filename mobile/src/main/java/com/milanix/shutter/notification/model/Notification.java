@@ -1,40 +1,66 @@
 package com.milanix.shutter.notification.model;
 
+import android.support.annotation.StringDef;
+
+import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import static com.milanix.shutter.notification.model.Notification.Type.COMMENT;
+import static com.milanix.shutter.notification.model.Notification.Type.FAVORITE;
+import static com.milanix.shutter.notification.model.Notification.Type.FOLLOW;
+import static com.milanix.shutter.notification.model.Notification.Type.NEWS;
+import static com.milanix.shutter.notification.model.Notification.Type.UNFOLLOW;
+
 /**
  * Notification data object
  *
  * @author milan
  */
-public class Notification {
+public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
+    @StringDef({FOLLOW, UNFOLLOW, FAVORITE, COMMENT, NEWS})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Type {
+        String FOLLOW = "follow";
+        String UNFOLLOW = "unfollow";
+        String FAVORITE = "favorite";
+        String COMMENT = "comment";
+        String NEWS = "news";
+    }
+
     private String id;
-    private String avatar;
+    @Type
+    private String type;
+    private Author author;
     private String post;
     private String message;
     private long time = 0L;
-    private boolean isRead = false;
+    private boolean read = false;
 
     public Notification() {
     }
 
-    public Notification(Notification other) {
-        this(other.id, other.avatar, other.post, other.message, other.time, other.isRead);
-    }
-
-    public Notification(String id, String avatar, String post, String message, long time, boolean isRead) {
-        this.id = id;
-        this.avatar = avatar;
-        this.post = post;
-        this.message = message;
+    public Notification(boolean read, long time, String message, String post, Author author, String type, String id) {
+        this.read = read;
         this.time = time;
-        this.isRead = isRead;
+        this.message = message;
+        this.post = post;
+        this.author = author;
+        this.type = type;
+        this.id = id;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getType() {
+        return type;
+    }
+
+    public Author getAuthor() {
+        return author;
     }
 
     public String getPost() {
@@ -49,12 +75,8 @@ public class Notification {
         return time;
     }
 
-    public void setRead(boolean isRead) {
-        this.isRead = isRead;
-    }
-
     public boolean isRead() {
-        return isRead;
+        return read;
     }
 
     @Override
@@ -76,11 +98,43 @@ public class Notification {
     public String toString() {
         return "Notification{" +
                 "id='" + id + '\'' +
-                ", avatar='" + avatar + '\'' +
+                ", author='" + author + '\'' +
                 ", post='" + post + '\'' +
                 ", message='" + message + '\'' +
                 ", time=" + time +
-                ", isRead=" + isRead +
+                ", read=" + read +
                 '}';
+    }
+
+    @Override
+    public String key() {
+        return id;
+    }
+
+    public class Author {
+        private String id;
+        private String name;
+        private String avatar;
+
+        public Author() {
+        }
+
+        public Author(String id, String name, String avatar) {
+            this.id = id;
+            this.name = name;
+            this.avatar = avatar;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
     }
 }
