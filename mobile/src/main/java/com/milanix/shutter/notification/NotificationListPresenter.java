@@ -18,17 +18,14 @@ import javax.inject.Inject;
  * @author milan
  */
 public class NotificationListPresenter extends AbstractPresenter<NotificationListContract.View> implements NotificationListContract.Presenter {
-    private final FirebaseUser user;
     private final FirebaseDatabase database;
     private final Query query;
 
     @Inject
-    public NotificationListPresenter(NotificationListContract.View view, FirebaseUser user,
-                                     FirebaseDatabase database) {
+    public NotificationListPresenter(NotificationListContract.View view, FirebaseUser user, FirebaseDatabase database) {
         super(view);
-        this.user = user;
         this.database = database;
-        this.query = database.getReference().child("activities").orderByChild("time");
+        this.query = database.getReference().child("activities").child(user.getUid()).orderByChild("time");
     }
 
     @Override

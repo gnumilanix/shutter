@@ -33,7 +33,7 @@ public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseMod
     @Type
     private String type;
     private Author author;
-    private String post;
+    private Post post;
     private String message;
     private long time = 0L;
     private boolean read = false;
@@ -41,7 +41,7 @@ public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseMod
     public Notification() {
     }
 
-    public Notification(boolean read, long time, String message, String post, Author author, String type, String id) {
+    public Notification(boolean read, long time, String message, Post post, Author author, String type, String id) {
         this.read = read;
         this.time = time;
         this.message = message;
@@ -63,7 +63,7 @@ public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseMod
         return author;
     }
 
-    public String getPost() {
+    public Post getPost() {
         return post;
     }
 
@@ -111,7 +111,7 @@ public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseMod
         return id;
     }
 
-    public class Author {
+    public static class Author {
         private String id;
         private String name;
         private String avatar;
@@ -135,6 +135,27 @@ public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseMod
 
         public String getAvatar() {
             return avatar;
+        }
+    }
+
+    public static class Post {
+        private String id;
+        private String image;
+
+        public Post() {
+        }
+
+        public Post(String id, String image) {
+            this.id = id;
+            this.image = image;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getImage() {
+            return image;
         }
     }
 }
