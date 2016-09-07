@@ -104,7 +104,7 @@
             android:checked="@={signup.isTermsAgreed}"
             android:onClick="@{()->view.openAgreement()}"
             android:text="@string/action_signin_accept_terms"
-            android:textColor="@color/colorTextGrey500"
+            android:textColor="@color/colorGrey500"
             android:textSize="@dimen/text_small" />
 
         <Button
@@ -135,7 +135,7 @@
             android:gravity="center"
             android:onClick="@{()->view.openLogin()}"
             android:text="@string/action_signin_accept_terms"
-            android:textColor="@color/colorTextGrey500"
+            android:textColor="@color/colorGrey500"
             android:textSize="@dimen/text_small" />
     </RelativeLayout>
 </layout>

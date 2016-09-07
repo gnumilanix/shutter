@@ -1,8 +1,10 @@
 package com.milanix.shutter.notification;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -12,7 +14,10 @@ import android.view.ViewGroup;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentNotificationListBinding;
-import com.milanix.shutter.notification.model.Notification;
+import com.milanix.shutter.feed.PostModule;
+import com.milanix.shutter.feed.detail.PostDetailActivity;
+import com.milanix.shutter.user.profile.ProfileActivity;
+import com.milanix.shutter.user.profile.ProfileModule;
 
 import javax.inject.Inject;
 
@@ -57,6 +62,28 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
     }
 
     @Override
+    public void openPost(View view, String notificationId, String postId) {
+        presenter.markRead(notificationId);
+
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
+                getString(R.string.transition_post_image));
+
+        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, postId),
+                options.toBundle());
+    }
+
+    @Override
+    public void openProfile(View view, String notificationId, String authorId) {
+        presenter.markRead(notificationId);
+
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
+                getString(R.string.transition_profile_image));
+
+        startActivity(new Intent(getActivity(), ProfileActivity.class).putExtra(ProfileModule.PROFILE_ID, authorId),
+                options.toBundle());
+    }
+
+    @Override
     public void showProgress() {
         binding.swipeRefreshLayout.setRefreshing(true);
     }
@@ -66,10 +93,6 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
         binding.swipeRefreshLayout.setRefreshing(false);
     }
 
-    @Override
-    public void openNotification(Notification notification) {
-        presenter.markRead(notification);
-    }
 
     @Override
     public void onRefresh() {

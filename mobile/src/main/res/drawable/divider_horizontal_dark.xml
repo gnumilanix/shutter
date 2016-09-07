@@ -3,6 +3,6 @@
 
     <size android:height="@dimen/divider" />
 
-    <solid android:color="@color/colorTextGrey300" />
+    <solid android:color="@color/colorGrey200" />
 
 </shape>

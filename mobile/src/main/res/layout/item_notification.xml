@@ -12,20 +12,26 @@
         <variable
             name="view"
             type="com.milanix.shutter.notification.NotificationListContract.View" />
+
+        <variable
+            name="presenter"
+            type="com.milanix.shutter.notification.NotificationListContract.Presenter" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:onClick="@{()->view.openNotification(notification)}">
+        android:background="@{notification.read? @android:color/white:@color/colorDeepOrange50}"
+        android:onClick="@{()->presenter.markRead(notification.id)}">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivImage"
             android:layout_width="@dimen/notification_avatar"
             android:layout_height="@dimen/notification_avatar"
             android:layout_margin="@dimen/margin_normal"
-            app:civ_border_color="@color/colorTextGrey400"
+            android:onClick="@{(v)->view.openProfile(v,notification.id,notification.author.id)}"
+            android:transitionName="@string/transition_profile_image"
+            app:civ_border_color="@color/colorGrey400"
             app:civ_border_width="2dp"
             app:imageUrl="@{notification.author.avatar}"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -39,6 +45,7 @@
             android:layout_width="@dimen/notification_post_image"
             android:layout_height="@dimen/notification_post_image"
             android:layout_margin="@dimen/margin_normal"
+            android:onClick="@{(v)->view.openPost(v,notification.id,notification.post.id)}"
             android:transitionName="@string/transition_post_image"
             app:imageUrl="@{notification.post.image}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +67,7 @@
             android:gravity="top"
             android:maxLines="2"
             android:text="@{notification.message}"
-            android:textColor="@color/colorTextGrey900"
+            android:textColor="@color/colorGrey900"
             android:textSize="@dimen/text_medium"
             app:layout_constraintBottom_toTopOf="@+id/tvTimeline"
             app:layout_constraintEnd_toEndOf="@+id/tvTimeline"
@@ -89,7 +96,7 @@
             android:layout_marginRight="@dimen/margin_normal"
             android:layout_marginStart="@dimen/margin_small"
             android:gravity="center_vertical"
-            android:textColor="@color/colorTextGrey500"
+            android:textColor="@color/colorGrey500"
             android:textSize="@dimen/text_small"
             app:layout_constraintBottom_toBottomOf="@+id/ivTimeline"
             app:layout_constraintEnd_toStartOf="@+id/ivPostImage"

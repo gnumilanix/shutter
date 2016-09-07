@@ -42,7 +42,7 @@
                     app:imageUrl="@{post.thumbnail}"
                     app:placeHolder="@{@drawable/ic_placeholder_small}"
                     app:transformation="@{`crop`}"
-                    tools:background="@color/colorTextGrey400" />
+                    tools:background="@color/colorGrey400" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivAvatar"
@@ -54,7 +54,7 @@
                     android:layout_margin="@dimen/margin_normal"
                     android:onClick="@{(v)->view.openProfile(v,post.authorId)}"
                     android:transitionName="@string/transition_profile_image"
-                    app:civ_border_color="@color/colorTextGrey400"
+                    app:civ_border_color="@color/colorGrey400"
                     app:civ_border_width="2dp"
                     app:imageUrl="@{post.author.avatar}"
                     app:placeHolder="@{@drawable/ic_placeholder_small}"

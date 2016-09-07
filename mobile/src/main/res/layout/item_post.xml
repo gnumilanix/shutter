@@ -80,7 +80,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="@{String.valueOf(post.favoriters.size())}"
-                android:textColor="@color/colorTextGrey500"
+                android:textColor="@color/colorGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />
 
@@ -111,7 +111,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="@{String.valueOf(post.viewers.size())}"
-                android:textColor="@color/colorTextGrey500"
+                android:textColor="@color/colorGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="10" />
         </RelativeLayout>

@@ -61,7 +61,7 @@
                 android:layout_margin="@dimen/margin_normal"
                 android:onClick="@{(v)->view.openProfile(v,post.authorId)}"
                 android:transitionName="@string/transition_profile_image"
-                app:civ_border_color="@color/colorTextGrey400"
+                app:civ_border_color="@color/colorGrey400"
                 app:civ_border_width="2dp"
                 app:imageUrl="@{post.author.avatar}"
                 app:placeHolder="@{@drawable/ic_placeholder_small}"
@@ -113,7 +113,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="@{String.valueOf(post.favoriters.size())}"
-                android:textColor="@color/colorTextGrey500"
+                android:textColor="@color/colorGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />
 
@@ -142,7 +142,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="@{String.valueOf(post.commenters.size())}"
-                android:textColor="@color/colorTextGrey500"
+                android:textColor="@color/colorGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />
 
@@ -173,7 +173,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="@{String.valueOf(post.viewers.size())}"
-                android:textColor="@color/colorTextGrey500"
+                android:textColor="@color/colorGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />
         </RelativeLayout>
