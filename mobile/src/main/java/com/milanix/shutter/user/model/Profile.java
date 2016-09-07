@@ -13,7 +13,7 @@ public class Profile implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
     public String userId;
     public String email;
     public String avatar;
-    public String fullName;
+    public String name;
     public HashMap<String, Boolean> followers = new HashMap<>();
     public HashMap<String, Boolean> followings = new HashMap<>();
     public HashMap<String, Boolean> posts = new HashMap<>();
@@ -24,11 +24,11 @@ public class Profile implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
 
     }
 
-    public Profile(String userId, String email, String avatar, String fullName) {
+    public Profile(String userId, String email, String avatar, String name) {
         this.userId = userId;
         this.email = email;
         this.avatar = avatar;
-        this.fullName = fullName;
+        this.name = name;
     }
 
     @Override
@@ -44,7 +44,6 @@ public class Profile implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
         Profile profile = (Profile) o;
 
         return userId.equals(profile.userId);
-
     }
 
     @Override

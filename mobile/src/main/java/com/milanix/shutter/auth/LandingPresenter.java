@@ -203,7 +203,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
         updates.put("/users/" + user.getUid() + "/userId/", user.getUid());
         updates.put("/users/" + user.getUid() + "/email/", user.getEmail());
         updates.put("/users/" + user.getUid() + "/avatar/", null == providerData.getPhotoUrl() ? null : providerData.getPhotoUrl().toString());
-        updates.put("/users/" + user.getUid() + "/fullName/", providerData.getDisplayName());
+        updates.put("/users/" + user.getUid() + "/name/", providerData.getDisplayName());
 
         database.getReference().updateChildren(updates).
                 continueWith(new Continuation<Void, Void>() {

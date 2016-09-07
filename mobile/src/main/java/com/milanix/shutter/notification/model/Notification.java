@@ -3,6 +3,7 @@ package com.milanix.shutter.notification.model;
 import android.support.annotation.StringDef;
 
 import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
+import com.milanix.shutter.feed.model.Author;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -111,33 +112,6 @@ public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseMod
         return id;
     }
 
-    public static class Author {
-        private String id;
-        private String name;
-        private String avatar;
-
-        public Author() {
-        }
-
-        public Author(String id, String name, String avatar) {
-            this.id = id;
-            this.name = name;
-            this.avatar = avatar;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getAvatar() {
-            return avatar;
-        }
-    }
-
     public static class Post {
         private String id;
         private String image;
@@ -156,6 +130,30 @@ public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseMod
 
         public String getImage() {
             return image;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Post post = (Post) o;
+
+            return id.equals(post.id);
+
+        }
+
+        @Override
+        public int hashCode() {
+            return id.hashCode();
+        }
+
+        @Override
+        public String toString() {
+            return "Post{" +
+                    "id='" + id + '\'' +
+                    ", image='" + image + '\'' +
+                    '}';
         }
     }
 }

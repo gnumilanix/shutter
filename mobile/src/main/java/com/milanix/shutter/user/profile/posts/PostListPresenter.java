@@ -22,7 +22,7 @@ public class PostListPresenter extends AbstractPresenter<PostListContract.View> 
     public PostListPresenter(PostListContract.View view, FirebaseDatabase database,
                              @Named(ProfileModule.PROFILE_ID) String profileId) {
         super(view);
-        this.postsQuery = database.getReference().child("posts").orderByChild("authorId").equalTo(profileId);
+        this.postsQuery = database.getReference().child("posts").orderByChild("author/id").equalTo(profileId);
     }
 
     @Override
