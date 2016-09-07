@@ -65,8 +65,8 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
     public void openPost(View view, String notificationId, String postId) {
         presenter.markRead(notificationId);
 
-        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), view,
-                getString(R.string.transition_post_image));
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                view.findViewById(R.id.ivPostImage), getString(R.string.transition_post_image));
 
         startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, postId),
                 options.toBundle());

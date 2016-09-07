@@ -12,17 +12,13 @@
         <variable
             name="view"
             type="com.milanix.shutter.notification.NotificationListContract.View" />
-
-        <variable
-            name="presenter"
-            type="com.milanix.shutter.notification.NotificationListContract.Presenter" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@{notification.read? @android:color/white:@color/colorDeepOrange50}"
-        android:onClick="@{()->presenter.markRead(notification.id)}">
+        android:onClick="@{(v)->view.openPost(v,notification.id,notification.post.id)}">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivImage"
@@ -45,7 +41,6 @@
             android:layout_width="@dimen/notification_post_image"
             android:layout_height="@dimen/notification_post_image"
             android:layout_margin="@dimen/margin_normal"
-            android:onClick="@{(v)->view.openPost(v,notification.id,notification.post.id)}"
             android:transitionName="@string/transition_post_image"
             app:imageUrl="@{notification.post.image}"
             app:layout_constraintBottom_toBottomOf="parent"
