@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="com.milanix.shutter.notification.model.Notification.Type" />
+
         <variable
             name="notification"
             type="com.milanix.shutter.notification.model.Notification" />
@@ -42,6 +48,7 @@
             android:layout_height="@dimen/notification_post_image"
             android:layout_margin="@dimen/margin_normal"
             android:transitionName="@string/transition_post_image"
+            android:visibility="@{TextUtils.isEmpty(notification.post.image)?View.INVISIBLE:View.VISIBLE}"
             app:imageUrl="@{notification.post.image}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -61,7 +68,6 @@
             android:ellipsize="end"
             android:gravity="top"
             android:maxLines="2"
-            android:text="@{notification.message}"
             android:textColor="@color/colorGrey900"
             android:textSize="@dimen/text_medium"
             app:layout_constraintBottom_toTopOf="@+id/tvTimeline"
@@ -70,6 +76,7 @@
             app:layout_constraintRight_toRightOf="@+id/tvTimeline"
             app:layout_constraintStart_toStartOf="@+id/ivTimeline"
             app:layout_constraintTop_toTopOf="parent"
+            app:notification="@{notification}"
             tools:text="Material takes cues from contemporary architecture, road signs, pavement marking tape, and athletic courts." />
 
         <ImageView

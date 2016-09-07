@@ -1,5 +1,10 @@
 package com.milanix.shutter.feed.model;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Author {
     private String id;
     private String name;
@@ -49,5 +54,15 @@ public class Author {
                 ", name='" + name + '\'' +
                 ", avatar='" + avatar + '\'' +
                 '}';
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        final HashMap<String, Object> result = new HashMap<>();
+        result.put("id", id);
+        result.put("name", name);
+        result.put("avatar", avatar);
+
+        return result;
     }
 }

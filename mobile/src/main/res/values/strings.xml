@@ -62,6 +62,9 @@
     <string name="title_app_version">Version</string>
     <string name="title_muzei">Muzei</string>
 
+    <string name="message_notification_comment">%s commented in your post.</string>
+    <string name="message_notification_favorite">%s favorited  your post.</string>
+    <string name="message_notification_following">%s started following you.</string>
     <string name="message_logged_in">Logged in</string>
     <string name="message_hello">Hello %s</string>
     <string name="message_banner">Connecting amazing photographers to you</string>

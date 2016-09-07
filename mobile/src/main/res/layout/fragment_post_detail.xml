@@ -98,8 +98,8 @@
 
         <android.support.design.widget.CheckableImageButton
             android:id="@+id/ivFavorites"
-            android:layout_width="@dimen/item_text_drawable"
-            android:layout_height="@dimen/item_text_drawable"
+            android:layout_width="@dimen/item_icon_drawable"
+            android:layout_height="@dimen/item_icon_drawable"
             android:layout_alignBottom="@+id/tvFavorites"
             android:layout_alignTop="@+id/tvFavorites"
             android:layout_marginEnd="@dimen/margin_small"
@@ -135,8 +135,8 @@
 
         <ImageView
             android:id="@+id/ivComments"
-            android:layout_width="@dimen/item_text_drawable"
-            android:layout_height="@dimen/item_text_drawable"
+            android:layout_width="@dimen/item_icon_drawable"
+            android:layout_height="@dimen/item_icon_drawable"
             android:layout_alignBottom="@+id/tvFavorites"
             android:layout_alignTop="@+id/tvFavorites"
             android:layout_marginEnd="@dimen/margin_small"

@@ -291,9 +291,10 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="?actionBarSize"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
+                        android:padding="@dimen/padding_normal"
                         android:src="@drawable/ic_title" />
                 </android.support.v7.widget.Toolbar>
             </android.support.design.widget.CollapsingToolbarLayout>

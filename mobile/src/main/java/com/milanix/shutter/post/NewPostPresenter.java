@@ -9,9 +9,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 import com.milanix.shutter.core.AbstractPresenter;
+import com.milanix.shutter.feed.model.Author;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -67,11 +69,15 @@ public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> im
     }
 
     private void createPost(String uid, String postId, NewPost post, String downloadUrl) {
+        final Map<String, Object> author = new Author(user.getUid(), user.getDisplayName(),
+                user.getPhotoUrl().toString()).toMap();
+
         final Map<String, Object> postValues = post.toMap();
         postValues.put("image", downloadUrl);
         postValues.put("thumbnail", downloadUrl);
-        postValues.put("authorId", uid);
+        postValues.put("author", author);
         postValues.put("postId", postId);
+        postValues.put("createTime", ServerValue.TIMESTAMP);
 
         final Map<String, Object> userPostValue = new HashMap<>();
         userPostValue.put(postId, true);

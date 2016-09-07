@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.milanix.shutter.App;
+import com.milanix.shutter.notification.Notifier;
 
 import javax.inject.Named;
 
@@ -23,7 +24,7 @@ public class ProfileModule {
     private final String profileId;
     private final ProfileContract.View view;
 
-    public ProfileModule(String profileId,ProfileContract.View view) {
+    public ProfileModule(String profileId, ProfileContract.View view) {
         this.profileId = profileId;
         this.view = view;
     }
@@ -42,12 +43,13 @@ public class ProfileModule {
 
     @Provides
     public ProfileContract.Presenter providePresenter(ProfileContract.View view,
-                                                            App app,
-                                                            FirebaseUser user,
-                                                            FirebaseAuth auth,
-                                                            FirebaseDatabase database,
-                                                            GoogleSignInOptions googleSignInOptions,
-                                                            @Named(ProfileModule.PROFILE_ID) String profileId) {
-        return new ProfilePresenter(view, app, user, auth, database, googleSignInOptions, profileId);
+                                                      App app,
+                                                      FirebaseUser user,
+                                                      FirebaseAuth auth,
+                                                      FirebaseDatabase database,
+                                                      GoogleSignInOptions googleSignInOptions,
+                                                      Notifier notifier,
+                                                      @Named(ProfileModule.PROFILE_ID) String profileId) {
+        return new ProfilePresenter(view, app, user, auth, database, googleSignInOptions, notifier, profileId);
     }
 }

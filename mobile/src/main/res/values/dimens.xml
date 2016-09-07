@@ -21,6 +21,7 @@
     <dimen name="item_feed_avatar">32dp</dimen>
     <dimen name="item_notification_size">80dp</dimen>
     <dimen name="item_text_drawable">20dp</dimen>
+    <dimen name="item_icon_drawable">28dp</dimen>
 
     <dimen name="text_tiny">12sp</dimen>
     <dimen name="text_small">14sp</dimen>

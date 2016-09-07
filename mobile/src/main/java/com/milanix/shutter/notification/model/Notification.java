@@ -2,16 +2,20 @@ package com.milanix.shutter.notification.model;
 
 import android.support.annotation.StringDef;
 
+import com.google.firebase.database.Exclude;
 import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
 import com.milanix.shutter.feed.model.Author;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.milanix.shutter.notification.model.Notification.Type.COMMENT;
 import static com.milanix.shutter.notification.model.Notification.Type.FAVORITE;
 import static com.milanix.shutter.notification.model.Notification.Type.FOLLOW;
 import static com.milanix.shutter.notification.model.Notification.Type.NEWS;
+import static com.milanix.shutter.notification.model.Notification.Type.UNFAVORITE;
 import static com.milanix.shutter.notification.model.Notification.Type.UNFOLLOW;
 
 /**
@@ -20,12 +24,13 @@ import static com.milanix.shutter.notification.model.Notification.Type.UNFOLLOW;
  * @author milan
  */
 public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
-    @StringDef({FOLLOW, UNFOLLOW, FAVORITE, COMMENT, NEWS})
+    @StringDef({FOLLOW, UNFOLLOW, FAVORITE, UNFAVORITE, COMMENT, NEWS})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
         String FOLLOW = "follow";
-        String UNFOLLOW = "unfollow";
+        String UNFOLLOW = "un-follow";
         String FAVORITE = "favorite";
+        String UNFAVORITE = "un-favorite";
         String COMMENT = "comment";
         String NEWS = "news";
     }

@@ -2,6 +2,7 @@ package com.milanix.shutter.user.profile.followers;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.milanix.shutter.notification.Notifier;
 import com.milanix.shutter.user.profile.ProfileModule;
 
 import javax.inject.Named;
@@ -31,7 +32,8 @@ public class FollowerListModule {
     public FollowerListContract.Presenter providePresenter(FollowerListContract.View view,
                                                            FirebaseUser user,
                                                            FirebaseDatabase database,
+                                                           Notifier notifier,
                                                            @Named(ProfileModule.PROFILE_ID) String profileId) {
-        return new FollowerListPresenter(view, user, database, profileId);
+        return new FollowerListPresenter(view, user, database, notifier,profileId);
     }
 }

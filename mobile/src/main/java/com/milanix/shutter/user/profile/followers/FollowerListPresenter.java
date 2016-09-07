@@ -10,6 +10,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.milanix.shutter.core.AbstractPresenter;
+import com.milanix.shutter.notification.Notifier;
+import com.milanix.shutter.notification.model.Notification;
 import com.milanix.shutter.user.model.Profile;
 import com.milanix.shutter.user.profile.ProfileModule;
 
@@ -29,14 +31,17 @@ public class FollowerListPresenter extends AbstractPresenter<FollowerListContrac
     private final FirebaseUser user;
     private final DatabaseReference profileReference;
     private final FirebaseDatabase database;
+    private Notifier notifier;
     private final Query followingsQuery;
 
     @Inject
-    public FollowerListPresenter(FollowerListContract.View view, FirebaseUser user,
-                                 FirebaseDatabase database, @Named(ProfileModule.PROFILE_ID) String profileId) {
+    public FollowerListPresenter(FollowerListContract.View view, FirebaseUser user, FirebaseDatabase database,
+                                 Notifier notifier,
+                                 @Named(ProfileModule.PROFILE_ID) String profileId) {
         super(view);
         this.user = user;
         this.database = database;
+        this.notifier = notifier;
         this.profileReference = database.getReference().child("users").child(user.getUid());
         this.followingsQuery = database.getReference().child("users").orderByChild("followings/" + profileId + "/").equalTo(true);
     }
@@ -58,6 +63,7 @@ public class FollowerListPresenter extends AbstractPresenter<FollowerListContrac
         final Map<String, Object> update = new HashMap<>();
         update.put("/users/" + profile.userId + "/followers/" + user.getUid(), null);
         update.put("/users/" + user.getUid() + "/followings/" + profile.userId, null);
+        update.putAll(notifier.generate(Notification.Type.UNFOLLOW));
 
         database.getReference().updateChildren(update).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -74,6 +80,7 @@ public class FollowerListPresenter extends AbstractPresenter<FollowerListContrac
         final Map<String, Object> update = new HashMap<>();
         update.put("/users/" + profile.userId + "/followers/" + user.getUid(), true);
         update.put("/users/" + user.getUid() + "/followings/" + profile.userId, true);
+        update.putAll(notifier.generate(Notification.Type.FOLLOW, profile.userId, null));
 
         database.getReference().updateChildren(update).addOnFailureListener(new OnFailureListener() {
             @Override

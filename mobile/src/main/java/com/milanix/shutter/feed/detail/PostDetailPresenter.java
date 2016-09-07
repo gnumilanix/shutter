@@ -16,6 +16,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.milanix.shutter.core.AbstractPresenter;
 import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.model.Post;
+import com.milanix.shutter.notification.Notifier;
+import com.milanix.shutter.notification.model.Notification;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,15 +38,18 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
     private FirebaseUser user;
     private final FirebaseDatabase database;
     private final FirebaseStorage storage;
+    private Notifier notifier;
     private final String postId;
 
     @Inject
     public PostDetailPresenter(PostDetailContract.View view, FirebaseUser user, FirebaseDatabase database,
-                               FirebaseStorage storage, @Named(PostModule.POST_ID) String postId) {
+                               FirebaseStorage storage, Notifier notifier,
+                               @Named(PostModule.POST_ID) String postId) {
         super(view);
         this.user = user;
         this.database = database;
         this.storage = storage;
+        this.notifier = notifier;
         this.postId = postId;
     }
 
@@ -107,16 +112,17 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
         final String uid = user.getUid();
 
         if (post.getFavoriters().containsKey(uid)) {
-            removeFavorite(uid);
+            removeFavorite(uid, post);
         } else {
-            addFavorite(uid);
+            addFavorite(uid, post);
         }
     }
 
-    private void addFavorite(String uid) {
+    private void addFavorite(String uid, Post post) {
         final Map<String, Object> update = new HashMap<>();
         update.put("/posts/" + postId + "/favoriters/" + uid, true);
         update.put("/users/" + uid + "/favorites/" + postId, true);
+        update.putAll(notifier.generate(Notification.Type.FAVORITE, post.getAuthor().getId(), new Notification.Post(post.getPostId(), post.getImage())));
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -135,10 +141,11 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
         });
     }
 
-    private void removeFavorite(String uid) {
+    private void removeFavorite(String uid, Post post) {
         final Map<String, Object> update = new HashMap<>();
         update.put("/posts/" + postId + "/favoriters/" + uid, null);
         update.put("/users/" + user.getUid() + "/favorites/" + postId, null);
+        update.putAll(notifier.generate(Notification.Type.UNFAVORITE));
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
