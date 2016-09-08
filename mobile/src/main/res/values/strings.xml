@@ -102,4 +102,6 @@
     <string name="storage_permission_request_rationale_avatar">Storage permission is needed for uploading profile avatar</string>
     <string name="storage_permission_request_rationale_post">Storage permission is needed for uploading post image</string>
     <string name="storage_permission_request_rationale_muzei">Storage permission is needed for muzei images</string>
+
+    <string name="notification_interactions_title">New interactions</string>
 </resources>

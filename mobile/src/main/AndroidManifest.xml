@@ -151,12 +151,13 @@
         </service>
 
         <!-- Sync services -->
-        <service android:name=".notification.model.NotificationMessagingService">
+        <service android:name=".core.MessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
+        <service android:name=".notification.model.NotificationService" />
 
         <!-- AccountAuthenticator service-->
         <service android:name=".user.account.AccountAuthenticatorService">
