@@ -5,6 +5,11 @@
         <item quantity="other">%d followers</item>
     </plurals>
 
+    <plurals name="new_followers">
+        <item quantity="one">1 new follower</item>
+        <item quantity="other">%d new followers</item>
+    </plurals>
+
     <plurals name="interactions">
         <item quantity="one">1 new interaction</item>
         <item quantity="other">%d new interactions</item>
