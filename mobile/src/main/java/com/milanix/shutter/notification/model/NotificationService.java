@@ -22,7 +22,6 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.user.UserComponent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,10 +33,7 @@ import javax.inject.Inject;
  */
 public class NotificationService extends Service implements ChildEventListener {
     private static final List<Notification> NOTIFICATIONS = new ArrayList<>();
-    private static final HashMap<String, Integer> NOTIFICATIONS_MAP = new HashMap<>();
     private static final String NOTIFICATION_GROUP = "_notification_group";
-    private static final String TAG_NOTIFICATION = "_notification_tag";
-    private static final int ID_NOTIFICATION = 100;
 
     @Inject
     protected FirebaseDatabase database;
@@ -102,12 +98,14 @@ public class NotificationService extends Service implements ChildEventListener {
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+        final Notification notification = dataSnapshot.getValue(Notification.class);
+        cancelNotification(notification);
+        generateNotification(notification);
     }
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+        cancelNotification(dataSnapshot.getValue(Notification.class));
     }
 
     @Override
@@ -123,37 +121,15 @@ public class NotificationService extends Service implements ChildEventListener {
     private void generateNotification(@Nullable Notification incomingNotification) {
         if (null != incomingNotification && !incomingNotification.isRead()) {
             NOTIFICATIONS.add(incomingNotification);
+
             final String recentNotificationMessage = getMessage(incomingNotification);
             final Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
             final NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender().
                     setBackground(BitmapFactory.decodeResource(getResources(), R.drawable.bg_branding_gradient));
-            final NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle().
+            final NotificationCompat.BigTextStyle style = new NotificationCompat.BigTextStyle().
                     setBigContentTitle(getString(R.string.notification_interactions_title)).
                     setSummaryText(getResources().getQuantityString(R.plurals.interactions,
                             NOTIFICATIONS.size(), NOTIFICATIONS.size()));
-
-            for (int i = 0, size = NOTIFICATIONS.size(); i < size; i++) {
-                final Notification notification = NOTIFICATIONS.get(i);
-                final String notificationMessage = getMessage(notification);
-
-                style.addLine(notificationMessage);
-
-                final NotificationCompat.BigTextStyle wearNotification = new NotificationCompat.BigTextStyle().
-                        bigText(notificationMessage);
-
-                final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                        .setContentTitle(getString(R.string.notification_interactions_title))
-                        .setContentText(recentNotificationMessage)
-                        .setSmallIcon(R.drawable.ic_tab_notifications)
-                        .setLargeIcon(largeIcon)
-                        .setStyle(wearNotification)
-                        .setAutoCancel(true)
-                        .setGroup(NOTIFICATION_GROUP)
-                        .setDefaults(android.app.Notification.DEFAULT_LIGHTS);
-
-                notificationManager.notify(TAG_NOTIFICATION, ID_NOTIFICATION + i,
-                        notificationBuilder.build());
-            }
 
             final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                     .setContentTitle(getString(R.string.notification_interactions_title))
@@ -166,10 +142,16 @@ public class NotificationService extends Service implements ChildEventListener {
                     .setGroup(NOTIFICATION_GROUP)
                     .setGroupSummary(true)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setCategory(NotificationCompat.CATEGORY_EVENT)
+                    .setCategory(NotificationCompat.CATEGORY_SOCIAL)
                     .extend(wearableExtender);
-            notificationManager.notify(TAG_NOTIFICATION, ID_NOTIFICATION,
+            notificationManager.notify(incomingNotification.getId(), incomingNotification.getId().hashCode(),
                     notificationBuilder.build());
+        }
+    }
+
+    private void cancelNotification(Notification notification) {
+        if (null != notification && !notification.isRead()) {
+            notificationManager.cancel(notification.getId(), notification.getId().hashCode());
         }
     }
 

@@ -22,6 +22,9 @@ gen/
 classes/
 gen-external-apklibs/
  
+# key stores
+keys/
+
 # maven output folder
 target
  
