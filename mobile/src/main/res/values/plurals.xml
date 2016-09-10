@@ -10,6 +10,16 @@
         <item quantity="other">%d new followers</item>
     </plurals>
 
+    <plurals name="new_comments">
+        <item quantity="one">1 new comment</item>
+        <item quantity="other">%d new comments</item>
+    </plurals>
+
+    <plurals name="new_favorites">
+        <item quantity="one">1 new favorite</item>
+        <item quantity="other">%d new favorites</item>
+    </plurals>
+
     <plurals name="interactions">
         <item quantity="one">1 new interaction</item>
         <item quantity="other">%d new interactions</item>

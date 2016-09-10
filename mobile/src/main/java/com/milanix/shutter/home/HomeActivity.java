@@ -6,6 +6,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.StringDef;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.R;
@@ -57,8 +58,15 @@ public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> i
         binding.setView(this);
         presenter.getUser();
 
+        switchToDefaultTab(savedInstanceState, getIntent().getAction());
+    }
+
+    private void switchToDefaultTab(Bundle savedInstanceState, String action) {
         if (null == savedInstanceState) {
-            switchFragment(Tab.FEEDS);
+            if (!TextUtils.isEmpty(action))
+                switchFragment(action);
+            else
+                switchFragment(Tab.FEEDS);
         }
     }
 

@@ -2,14 +2,11 @@ package com.milanix.shutter.notification.model;
 
 import android.support.annotation.StringDef;
 
-import com.google.firebase.database.Exclude;
 import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
 import com.milanix.shutter.feed.model.Author;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.milanix.shutter.notification.model.Notification.Type.COMMENT;
 import static com.milanix.shutter.notification.model.Notification.Type.FAVORITE;

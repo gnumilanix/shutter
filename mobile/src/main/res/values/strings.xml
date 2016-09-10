@@ -105,4 +105,6 @@
 
     <string name="notification_interactions_title">New interactions</string>
     <string name="notification_followers_title">New followers</string>
+    <string name="notification_comments_title">New comments</string>
+    <string name="notification_favorites_title">New favorites</string>
 </resources>

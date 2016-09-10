@@ -1,7 +1,6 @@
 package com.milanix.shutter.feed.model;
 
 import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
-import com.milanix.shutter.user.model.Profile;
 
 import java.util.HashMap;
 

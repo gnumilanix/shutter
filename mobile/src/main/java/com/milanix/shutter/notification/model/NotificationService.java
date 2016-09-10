@@ -21,11 +21,17 @@ import com.google.firebase.database.Query;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.milanix.shutter.App;
 import com.milanix.shutter.R;
+import com.milanix.shutter.feed.PostModule;
+import com.milanix.shutter.feed.detail.PostDetailActivity;
 import com.milanix.shutter.home.HomeActivity;
 import com.milanix.shutter.user.UserComponent;
+import com.milanix.shutter.user.profile.ProfileActivity;
+import com.milanix.shutter.user.profile.ProfileModule;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -36,10 +42,19 @@ import javax.inject.Inject;
  */
 public class NotificationService extends Service implements ChildEventListener {
     private static final String GROUP_FOLLOWERS = "_follower_group";
-    private static final String GROUP_INTERACTION = "intefaction_group";
+    private static final String GROUP_COMMENTS = "_comment_group";
+    private static final String GROUP_FAVORITES = "_favorite_group";
+    private static final String GROUP_INTERACTION = "interaction_group";
     private static final String TAG_FOLLOWERS = "followers_tag";
+    private static final String TAG_COMMENTS = "comments_tag";
+    private static final String TAG_COMMENT_PREFIX = "comment_tag_";
+    private static final String TAG_FAVORITES = "favorites_tag";
+    private static final String TAG_FAVORITE_PREFIX = "favorite_tag_";
     private static final int ID_FOLLOWERS = 76;
+
     private final List<Notification> FOLLOWING_NOTIFICATIONS = new ArrayList<>();
+    private final HashMap<String, List<Notification>> FAVORITE_NOTIFICATIONS = new HashMap<>();
+    private final HashMap<String, List<Notification>> COMMENT_NOTIFICATIONS = new HashMap<>();
 
     @Inject
     protected FirebaseDatabase database;
@@ -81,7 +96,7 @@ public class NotificationService extends Service implements ChildEventListener {
     @Nullable
     private Query getNotificationReference(FirebaseUser user) {
         if (null != database && null != user)
-            return database.getReference().child("activities").child(user.getUid()).orderByChild("time");
+            return database.getReference().child("activities").child(user.getUid()).orderByChild("notified").equalTo(false);
         else
             return null;
     }
@@ -104,7 +119,6 @@ public class NotificationService extends Service implements ChildEventListener {
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        regenerateNotification(dataSnapshot.getValue(Notification.class));
     }
 
     @Override
@@ -138,14 +152,52 @@ public class NotificationService extends Service implements ChildEventListener {
      * @param notification to generate
      */
     private void generateNotification(@Nullable Notification notification) {
-        if (null != notification && !notification.isRead()) {
+        if (null != user && null != notification) {
             switch (notification.getType()) {
                 case Notification.Type.FOLLOW:
                     generateFollowingNotification(notification);
                     break;
+                case Notification.Type.FAVORITE:
+                    generateFavoriteNotification(notification);
+                    break;
+                case Notification.Type.COMMENT:
+                    generateCommentNotification(notification);
+                    break;
                 default:
-                    generateInteractionNotification(notification);
+                    generateNewsNotification(notification);
             }
+
+            markNotified(notification);
+        }
+    }
+
+    private void markNotified(@NonNull Notification notification) {
+        final Map<String, Object> update = new HashMap<>();
+        update.put("/activities/" + user.getUid() + "/" + notification.getId() + "/notified", true);
+
+        database.getReference().updateChildren(update);
+    }
+
+    /**
+     * Cancels existing notification
+     *
+     * @param notification to cancel
+     */
+    private void cancelNotification(Notification notification) {
+        if (null != notification) {
+            switch (notification.getType()) {
+                case Notification.Type.FOLLOW:
+                    cancelFollowingNotification(notification);
+                    break;
+                case Notification.Type.FAVORITE:
+                    cancelFavoriteNotification(notification);
+                    break;
+                case Notification.Type.COMMENT:
+                    cancelCommentNotification(notification);
+                    break;
+            }
+
+            notificationManager.cancel(notification.getId(), notification.getId().hashCode());
         }
     }
 
@@ -157,7 +209,8 @@ public class NotificationService extends Service implements ChildEventListener {
     private void generateFollowingNotification(@NonNull Notification notification) {
         FOLLOWING_NOTIFICATIONS.add(notification);
 
-        final Intent notificationIntent = new Intent(this, HomeActivity.class).setAction(HomeActivity.Tab.NOTIFICATIONS);
+        final Intent notificationIntent = new Intent(this, ProfileActivity.class).setAction(ProfileActivity.Tab.FOLLOWERS).
+                putExtra(ProfileModule.PROFILE_ID, user.getUid());
         final TaskStackBuilder stackBuilder = TaskStackBuilder.create(this).addNextIntentWithParentStack(notificationIntent);
         final PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -180,7 +233,7 @@ public class NotificationService extends Service implements ChildEventListener {
             final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                     .setContentTitle(getString(R.string.notification_followers_title))
                     .setContentText(recentNotificationMessage)
-                    .setSmallIcon(R.drawable.ic_action_follow)
+                    .setSmallIcon(R.drawable.ic_notification_followers)
                     .setLargeIcon(largeIcon)
                     .setContentIntent(pendingIntent)
                     .setStyle(wearNotification)
@@ -197,7 +250,7 @@ public class NotificationService extends Service implements ChildEventListener {
         final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle(recentNotificationTitle)
                 .setContentText(recentNotificationMessage)
-                .setSmallIcon(R.drawable.ic_action_follow)
+                .setSmallIcon(R.drawable.ic_notification_followers)
                 .setLargeIcon(largeIcon)
                 .setContentIntent(pendingIntent)
                 .setStyle(style)
@@ -206,9 +259,158 @@ public class NotificationService extends Service implements ChildEventListener {
                 .setGroup(GROUP_FOLLOWERS)
                 .setGroupSummary(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setCategory(NotificationCompat.CATEGORY_EVENT)
+                .setCategory(NotificationCompat.CATEGORY_SOCIAL)
                 .extend(wearableExtender);
         notificationManager.notify(TAG_FOLLOWERS, ID_FOLLOWERS, notificationBuilder.build());
+    }
+
+    private void cancelFollowingNotification(@NonNull Notification notification) {
+        FOLLOWING_NOTIFICATIONS.remove(notification);
+        notificationManager.cancel(TAG_FOLLOWERS, ID_FOLLOWERS);
+    }
+
+    private void generateFavoriteNotification(Notification notification) {
+        final String recentPostId = notification.getPost().getId();
+
+        if (!FAVORITE_NOTIFICATIONS.containsKey(recentPostId))
+            FAVORITE_NOTIFICATIONS.put(recentPostId, new ArrayList<Notification>());
+
+        final List<Notification> notifications = FAVORITE_NOTIFICATIONS.get(recentPostId);
+        notifications.add(notification);
+
+        final Intent notificationIntent = new Intent(this, PostDetailActivity.class).putExtra(PostModule.POST_ID, recentPostId);
+        final TaskStackBuilder stackBuilder = TaskStackBuilder.create(this).addNextIntentWithParentStack(notificationIntent);
+        final PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        final String recentNotificationMessage = getMessage(notification);
+        final String recentNotificationTitle = getResources().getQuantityString(R.plurals.new_favorites,
+                notifications.size(), notifications.size());
+        final Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+
+        final NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender().
+                setBackground(BitmapFactory.decodeResource(getResources(), R.drawable.bg_branding_gradient));
+        final NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle().
+                setBigContentTitle(getString(R.string.notification_favorites_title)).
+                setSummaryText(recentNotificationTitle);
+
+        for (int i = 0, size = notifications.size(); i < size; i++) {
+            final Notification notificationItem = notifications.get(i);
+            final String postId = notificationItem.getPost().getId();
+            final String notificationMessage = getMessage(notificationItem);
+            final NotificationCompat.BigTextStyle wearNotification = new NotificationCompat.BigTextStyle().
+                    bigText(notificationMessage);
+            final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                    .setContentTitle(getString(R.string.notification_favorites_title))
+                    .setContentText(recentNotificationMessage)
+                    .setSmallIcon(R.drawable.ic_notification_favorite)
+                    .setLargeIcon(largeIcon)
+                    .setContentIntent(pendingIntent)
+                    .setStyle(wearNotification)
+                    .setAutoCancel(true)
+                    .setGroup(GROUP_FAVORITES)
+                    .setDefaults(android.app.Notification.DEFAULT_LIGHTS);
+
+            notificationManager.notify(TAG_FAVORITE_PREFIX + postId, postId.hashCode(), notificationBuilder.build());
+
+            style.addLine(notificationMessage);
+        }
+
+        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setContentTitle(recentNotificationTitle)
+                .setContentText(recentNotificationMessage)
+                .setSmallIcon(R.drawable.ic_notification_favorite)
+                .setLargeIcon(largeIcon)
+                .setContentIntent(pendingIntent)
+                .setStyle(style)
+                .setAutoCancel(true)
+                .setOngoing(false)
+                .setGroup(GROUP_FAVORITES)
+                .setGroupSummary(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_SOCIAL)
+                .extend(wearableExtender);
+        notificationManager.notify(TAG_FAVORITES, recentPostId.hashCode(), notificationBuilder.build());
+    }
+
+    private void cancelFavoriteNotification(Notification notification) {
+        final String postId = notification.getPost().getId();
+
+        if (FAVORITE_NOTIFICATIONS.containsKey(postId))
+            FAVORITE_NOTIFICATIONS.get(postId).remove(notification);
+
+        notificationManager.cancel(TAG_FAVORITES, postId.hashCode());
+    }
+
+    private void generateCommentNotification(Notification notification) {
+        final String recentPostId = notification.getPost().getId();
+
+        if (!COMMENT_NOTIFICATIONS.containsKey(recentPostId))
+            COMMENT_NOTIFICATIONS.put(recentPostId, new ArrayList<Notification>());
+
+        final List<Notification> notifications = COMMENT_NOTIFICATIONS.get(recentPostId);
+        notifications.add(notification);
+
+        final Intent notificationIntent = new Intent(this, PostDetailActivity.class).putExtra(PostModule.POST_ID, recentPostId);
+        final TaskStackBuilder stackBuilder = TaskStackBuilder.create(this).addNextIntentWithParentStack(notificationIntent);
+        final PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        final String recentNotificationMessage = getMessage(notification);
+        final String recentNotificationTitle = getResources().getQuantityString(R.plurals.new_comments,
+                notifications.size(), notifications.size());
+        final Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+
+        final NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender().
+                setBackground(BitmapFactory.decodeResource(getResources(), R.drawable.bg_branding_gradient));
+        final NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle().
+                setBigContentTitle(getString(R.string.notification_comments_title)).
+                setSummaryText(recentNotificationTitle);
+
+        for (int i = 0, size = notifications.size(); i < size; i++) {
+            final Notification notificationItem = notifications.get(i);
+            final String postId = notificationItem.getPost().getId();
+            final String notificationMessage = getMessage(notificationItem);
+            final NotificationCompat.BigTextStyle wearNotification = new NotificationCompat.BigTextStyle().
+                    bigText(notificationMessage);
+            final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                    .setContentTitle(getString(R.string.notification_comments_title))
+                    .setContentText(recentNotificationMessage)
+                    .setSmallIcon(R.drawable.ic_notiication_comment)
+                    .setLargeIcon(largeIcon)
+                    .setContentIntent(pendingIntent)
+                    .setStyle(wearNotification)
+                    .setAutoCancel(true)
+                    .setGroup(GROUP_COMMENTS)
+                    .setDefaults(android.app.Notification.DEFAULT_LIGHTS);
+
+            notificationManager.notify(TAG_COMMENT_PREFIX + postId, postId.hashCode(), notificationBuilder.build());
+
+            style.addLine(notificationMessage);
+        }
+
+        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setContentTitle(recentNotificationTitle)
+                .setContentText(recentNotificationMessage)
+                .setSmallIcon(R.drawable.ic_notiication_comment)
+                .setLargeIcon(largeIcon)
+                .setContentIntent(pendingIntent)
+                .setStyle(style)
+                .setAutoCancel(true)
+                .setOngoing(false)
+                .setGroup(GROUP_COMMENTS)
+                .setGroupSummary(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_SOCIAL)
+                .extend(wearableExtender);
+        notificationManager.notify(TAG_COMMENTS, recentPostId.hashCode(), notificationBuilder.build());
+    }
+
+    private void cancelCommentNotification(Notification notification) {
+        final String postId = notification.getPost().getId();
+
+        if (COMMENT_NOTIFICATIONS.containsKey(postId))
+            COMMENT_NOTIFICATIONS.get(postId).remove(notification);
+
+        notificationManager.cancel(TAG_COMMENTS, postId.hashCode());
     }
 
     /**
@@ -216,7 +418,10 @@ public class NotificationService extends Service implements ChildEventListener {
      *
      * @param notification to generate
      */
-    private void generateInteractionNotification(@NonNull Notification notification) {
+    private void generateNewsNotification(@NonNull Notification notification) {
+        final Intent notificationIntent = new Intent(this, HomeActivity.class).setAction(HomeActivity.Tab.NOTIFICATIONS);
+        final TaskStackBuilder stackBuilder = TaskStackBuilder.create(this).addNextIntentWithParentStack(notificationIntent);
+        final PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         final String recentNotificationMessage = getMessage(notification);
         final Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         final NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender().
@@ -228,29 +433,17 @@ public class NotificationService extends Service implements ChildEventListener {
         final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle(getString(R.string.notification_interactions_title))
                 .setContentText(recentNotificationMessage)
-                .setSmallIcon(R.drawable.ic_tab_notifications)
+                .setSmallIcon(R.drawable.ic_notification_news)
                 .setLargeIcon(largeIcon)
                 .setStyle(style)
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setOngoing(false)
                 .setGroup(GROUP_INTERACTION)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setCategory(NotificationCompat.CATEGORY_SOCIAL)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .extend(wearableExtender);
         notificationManager.notify(notification.getId(), notification.getId().hashCode(), notificationBuilder.build());
-    }
-
-    /**
-     * Cancels existing notification
-     *
-     * @param notification to cancel
-     */
-    private void cancelNotification(Notification notification) {
-        if (null != notification) {
-            FOLLOWING_NOTIFICATIONS.remove(notification);
-
-            notificationManager.cancel(notification.getId(), notification.getId().hashCode());
-        }
     }
 
     @Nullable

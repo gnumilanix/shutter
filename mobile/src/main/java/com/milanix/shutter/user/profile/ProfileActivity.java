@@ -7,6 +7,7 @@ import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -61,10 +62,18 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
         setToolbar(binding.toolbar, true);
         presenter.subscribe();
 
+        switchToDefaultTab(savedInstanceState, getIntent().getAction());
+    }
+
+    private void switchToDefaultTab(Bundle savedInstanceState, String action) {
         if (null == savedInstanceState) {
-            viewPosts();
+            if (!TextUtils.isEmpty(action))
+                switchFragment(action);
+            else
+                switchFragment(Tab.POSTS);
         }
     }
+
 
     @Override
     protected void onDestroy() {
