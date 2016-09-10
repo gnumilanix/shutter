@@ -27,33 +27,26 @@ public abstract class AbstractFirebaseRecyclerAdapter<T extends AbstractFirebase
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
         final T item = getValue(dataSnapshot);
         final int index = items.indexOf(item);
-
-        if (index > -1) {
-            items.set(index, item);
-            notifyItemChanged(index);
-        }
+        items.set(index, item);
+        notifyItemChanged(index);
     }
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
         final T item = getValue(dataSnapshot);
         final int index = items.indexOf(item);
-
-        if (index > -1) {
-            items.remove(index);
-            notifyItemRemoved(index);
-        }
+        items.remove(index);
+        notifyItemRemoved(index);
     }
 
     @Override
     public void onChildMoved(DataSnapshot dataSnapshot, String s) {
         final T item = getValue(dataSnapshot);
         final int index = items.indexOf(item);
-
-        if (index > -1) {
-            items.remove(index);
-            notifyItemMoved(getIndexOf(s) + 1, index);
-        }
+        items.remove(index);
+        int newIndex = s == null ? 0 : (getIndexOf(s) + 1);
+        items.add(newIndex, item);
+        notifyItemMoved(index, newIndex);
     }
 
     @Override
