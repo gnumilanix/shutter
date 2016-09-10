@@ -14,7 +14,7 @@ import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityHomeBinding;
 import com.milanix.shutter.feed.favorite.FavoriteListFragment;
 import com.milanix.shutter.feed.list.FeedListFragment;
-import com.milanix.shutter.notification.NotificationListFragment;
+import com.milanix.shutter.notification.list.NotificationListFragment;
 import com.milanix.shutter.post.NewPostActivity;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileModule;

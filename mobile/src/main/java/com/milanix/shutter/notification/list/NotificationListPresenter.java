@@ -1,4 +1,4 @@
-package com.milanix.shutter.notification;
+package com.milanix.shutter.notification.list;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;

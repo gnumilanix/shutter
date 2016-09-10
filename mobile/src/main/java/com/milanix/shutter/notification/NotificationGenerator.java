@@ -13,11 +13,11 @@ import com.milanix.shutter.notification.model.Notification;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Notifier {
+public class NotificationGenerator {
     private final FirebaseUser user;
     private final FirebaseDatabase database;
 
-    public Notifier(FirebaseUser user, FirebaseDatabase database) {
+    public NotificationGenerator(FirebaseUser user, FirebaseDatabase database) {
         this.user = user;
         this.database = database;
     }

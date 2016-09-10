@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.milanix.shutter.feed.PostModule;
-import com.milanix.shutter.notification.Notifier;
+import com.milanix.shutter.notification.NotificationGenerator;
 
 import javax.inject.Named;
 
@@ -34,8 +34,8 @@ public class PostDetailModule {
                                                          FirebaseUser user,
                                                          FirebaseDatabase database,
                                                          FirebaseStorage storage,
-                                                         Notifier notifier,
+                                                         NotificationGenerator notificationGenerator,
                                                          @Named(PostModule.POST_ID) String feedId) {
-        return new PostDetailPresenter(view, user, database, storage, notifier, feedId);
+        return new PostDetailPresenter(view, user, database, storage, notificationGenerator, feedId);
     }
 }

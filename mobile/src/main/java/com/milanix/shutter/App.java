@@ -13,7 +13,7 @@ import com.milanix.shutter.core.MessagingService;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.dependencies.component.DaggerAppComponent;
 import com.milanix.shutter.dependencies.module.AppModule;
-import com.milanix.shutter.notification.model.NotificationService;
+import com.milanix.shutter.notification.NotificationService;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
 
@@ -27,7 +27,6 @@ import timber.log.Timber;
  * @author milan
  */
 public class App extends MultiDexApplication {
-    protected NotificationService notificationService;
     protected AppComponent appComponent;
     protected UserComponent userComponent;
 

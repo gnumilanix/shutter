@@ -1,0 +1,17 @@
+package com.milanix.shutter.notification;
+
+import com.milanix.shutter.dependencies.scope.ActivityScope;
+
+import dagger.Subcomponent;
+
+/**
+ * Component that binds notification list related component and provide dependencies to it
+ *
+ * @author milan
+ */
+@ActivityScope
+@Subcomponent(modules = NotificationModule.class)
+public interface NotificationComponent {
+
+    void inject(NotificationService service);
+}

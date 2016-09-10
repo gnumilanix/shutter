@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
-import com.milanix.shutter.notification.Notifier;
+import com.milanix.shutter.notification.NotificationGenerator;
 import com.milanix.shutter.notification.model.Notification;
 import com.milanix.shutter.user.model.Profile;
 
@@ -45,7 +45,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
     private final FirebaseUser user;
     private final FirebaseAuth auth;
     private FirebaseDatabase database;
-    private Notifier notifier;
+    private NotificationGenerator notificationGenerator;
     private final GoogleApiClient googleApi;
     private final String profileId;
     private final DatabaseReference profileReference;
@@ -53,14 +53,14 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
     @Inject
     public ProfilePresenter(ProfileContract.View view, App app, FirebaseUser user, FirebaseAuth auth,
                             FirebaseDatabase database, GoogleSignInOptions googleSignInOptions,
-                            Notifier notifier,
+                            NotificationGenerator notificationGenerator,
                             @Named(ProfileModule.PROFILE_ID) String profileId) {
         super(view);
         this.app = app;
         this.user = user;
         this.auth = auth;
         this.database = database;
-        this.notifier = notifier;
+        this.notificationGenerator = notificationGenerator;
         this.googleApi = new GoogleApiClient.Builder(app)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
@@ -186,7 +186,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
         final Map<String, Object> update = new HashMap<>();
         update.put("/users/" + profileId + "/followers/" + user.getUid(), true);
         update.put("/users/" + user.getUid() + "/followings/" + profileId, true);
-        update.putAll(notifier.generate(Notification.Type.FOLLOW, profileId, null));
+        update.putAll(notificationGenerator.generate(Notification.Type.FOLLOW, profileId, null));
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -205,7 +205,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
         final Map<String, Object> update = new HashMap<>();
         update.put("/users/" + profileId + "/followers/" + user.getUid(), null);
         update.put("/users/" + user.getUid() + "/followings/" + profileId, null);
-        update.putAll(notifier.generate(Notification.Type.UNFOLLOW));
+        update.putAll(notificationGenerator.generate(Notification.Type.UNFOLLOW));
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

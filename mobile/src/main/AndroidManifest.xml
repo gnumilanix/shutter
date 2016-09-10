@@ -157,7 +157,16 @@
             </intent-filter>
         </service>
 
-        <service android:name=".notification.model.NotificationService" />
+        <service android:name=".notification.NotificationService" />
+
+        <service
+            android:name=".notification.NotificationJobService"
+            android:exported="true"
+            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
+            <intent-filter>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
+            </intent-filter>
+        </service>
 
         <!-- AccountAuthenticator service-->
         <service android:name=".user.account.AccountAuthenticatorService">

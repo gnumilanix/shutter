@@ -3,7 +3,7 @@ package com.milanix.shutter.user;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.milanix.shutter.dependencies.scope.UserScope;
-import com.milanix.shutter.notification.Notifier;
+import com.milanix.shutter.notification.NotificationGenerator;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,7 +29,7 @@ public class UserModule {
 
     @UserScope
     @Provides
-    public Notifier provideNotificationGenerator(FirebaseUser user, FirebaseDatabase database) {
-        return new Notifier(user, database);
+    public NotificationGenerator provideNotificationGenerator(FirebaseUser user, FirebaseDatabase database) {
+        return new NotificationGenerator(user, database);
     }
 }

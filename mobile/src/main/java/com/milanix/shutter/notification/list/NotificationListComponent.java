@@ -1,4 +1,4 @@
-package com.milanix.shutter.notification;
+package com.milanix.shutter.notification.list;
 
 import com.milanix.shutter.dependencies.scope.ActivityScope;
 

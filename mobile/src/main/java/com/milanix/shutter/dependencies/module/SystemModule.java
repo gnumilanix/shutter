@@ -3,7 +3,6 @@ package com.milanix.shutter.dependencies.module;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.support.v4.app.NotificationManagerCompat;
 import android.view.LayoutInflater;
 import android.view.inputmethod.InputMethodManager;
 
@@ -36,12 +35,6 @@ public class SystemModule {
     @Provides
     public ConnectivityManager provideConnectivityManager(Context context) {
         return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    }
-
-    @Singleton
-    @Provides
-    public NotificationManagerCompat provideNotificationManager(Context context) {
-        return NotificationManagerCompat.from(context);
     }
 
     @Singleton

@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.milanix.shutter.App;
-import com.milanix.shutter.notification.Notifier;
+import com.milanix.shutter.notification.NotificationGenerator;
 
 import javax.inject.Named;
 
@@ -48,8 +48,8 @@ public class ProfileModule {
                                                       FirebaseAuth auth,
                                                       FirebaseDatabase database,
                                                       GoogleSignInOptions googleSignInOptions,
-                                                      Notifier notifier,
+                                                      NotificationGenerator notificationGenerator,
                                                       @Named(ProfileModule.PROFILE_ID) String profileId) {
-        return new ProfilePresenter(view, app, user, auth, database, googleSignInOptions, notifier, profileId);
+        return new ProfilePresenter(view, app, user, auth, database, googleSignInOptions, notificationGenerator, profileId);
     }
 }

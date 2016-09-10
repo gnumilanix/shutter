@@ -17,7 +17,7 @@
 
         <variable
             name="view"
-            type="com.milanix.shutter.notification.NotificationListContract.View" />
+            type="com.milanix.shutter.notification.list.NotificationListContract.View" />
     </data>
 
     <android.support.constraint.ConstraintLayout

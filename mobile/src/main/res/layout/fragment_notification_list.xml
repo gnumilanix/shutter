@@ -9,7 +9,7 @@
 
         <variable
             name="adapter"
-            type="com.milanix.shutter.notification.NotificationListAdapter" />
+            type="com.milanix.shutter.notification.list.NotificationListAdapter" />
 
         <variable
             name="refreshListener"

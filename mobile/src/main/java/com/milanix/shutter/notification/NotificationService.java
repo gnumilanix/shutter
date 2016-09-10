@@ -1,4 +1,4 @@
-package com.milanix.shutter.notification.model;
+package com.milanix.shutter.notification;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.TaskStackBuilder;
 
+import com.firebase.jobdispatcher.Job;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -21,9 +22,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.milanix.shutter.App;
 import com.milanix.shutter.R;
+import com.milanix.shutter.core.JobScheduler;
 import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
 import com.milanix.shutter.home.HomeActivity;
+import com.milanix.shutter.notification.model.Notification;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileModule;
@@ -34,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Implementation of {@link FirebaseMessagingService} used by this app
@@ -41,6 +45,7 @@ import javax.inject.Inject;
  * @author milan
  */
 public class NotificationService extends Service implements ChildEventListener {
+    public static final String TAG = "NotificationService";
     private static final String GROUP_FOLLOWERS = "_follower_group";
     private static final String GROUP_COMMENTS = "_comment_group";
     private static final String GROUP_FAVORITES = "_favorite_group";
@@ -61,6 +66,11 @@ public class NotificationService extends Service implements ChildEventListener {
     @Inject
     protected FirebaseUser user;
     @Inject
+    protected JobScheduler jobScheduler;
+    @Inject
+    @Named(NotificationModule.NOTIFICATION_JOB)
+    protected Job notificationJob;
+    @Inject
     protected NotificationManagerCompat notificationManager;
 
     @Override
@@ -71,7 +81,8 @@ public class NotificationService extends Service implements ChildEventListener {
 
     private void subscribe(UserComponent component) {
         if (null != component) {
-            component.inject(this);
+            component.with(new NotificationModule()).inject(this);
+            jobScheduler.schedule(notificationJob);
 
             final Query reference = getNotificationReference(user);
 

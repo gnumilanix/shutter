@@ -9,9 +9,10 @@ import com.milanix.shutter.feed.list.FeedListComponent;
 import com.milanix.shutter.feed.list.FeedListModule;
 import com.milanix.shutter.home.HomeComponent;
 import com.milanix.shutter.home.HomeModule;
-import com.milanix.shutter.notification.NotificationListComponent;
-import com.milanix.shutter.notification.NotificationListModule;
-import com.milanix.shutter.notification.model.NotificationService;
+import com.milanix.shutter.notification.NotificationComponent;
+import com.milanix.shutter.notification.NotificationModule;
+import com.milanix.shutter.notification.list.NotificationListComponent;
+import com.milanix.shutter.notification.list.NotificationListModule;
 import com.milanix.shutter.post.NewPostComponent;
 import com.milanix.shutter.post.NewPostModule;
 import com.milanix.shutter.user.profile.ProfileComponent;
@@ -29,6 +30,8 @@ import dagger.Subcomponent;
 public interface UserComponent {
     HomeComponent with(HomeModule module);
 
+    NotificationComponent with(NotificationModule module);
+
     ProfileComponent with(ProfileModule module);
 
     PostComponent with(PostModule module);
@@ -40,6 +43,4 @@ public interface UserComponent {
     FavoriteListComponent with(FavoriteListModule module);
 
     NotificationListComponent with(NotificationListModule module);
-
-    void inject(NotificationService service);
 }

@@ -1,4 +1,4 @@
-package com.milanix.shutter.notification;
+package com.milanix.shutter.notification.list;
 
 import android.content.Intent;
 import android.os.Bundle;
