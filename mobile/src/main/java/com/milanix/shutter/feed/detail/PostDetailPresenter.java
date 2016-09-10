@@ -122,7 +122,10 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
         final Map<String, Object> update = new HashMap<>();
         update.put("/posts/" + postId + "/favoriters/" + uid, true);
         update.put("/users/" + uid + "/favorites/" + postId, true);
-        update.putAll(notificationGenerator.generate(Notification.Type.FAVORITE, post.getAuthor().getId(), new Notification.Post(post.getPostId(), post.getImage())));
+
+        if (!isMe(post.getAuthor().getId()))
+            update.putAll(notificationGenerator.generate(Notification.Type.FAVORITE, post.getAuthor().getId(),
+                    new Notification.Post(post.getPostId(), post.getImage())));
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -145,7 +148,9 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
         final Map<String, Object> update = new HashMap<>();
         update.put("/posts/" + postId + "/favoriters/" + uid, null);
         update.put("/users/" + user.getUid() + "/favorites/" + postId, null);
-        update.putAll(notificationGenerator.generate(Notification.Type.UNFAVORITE));
+
+        if (!isMe(post.getAuthor().getId()))
+            update.putAll(notificationGenerator.generate(Notification.Type.UNFAVORITE));
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -172,5 +177,9 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
             Timber.w(e, "Error while creating temporary file");
             return null;
         }
+    }
+
+    private boolean isMe(String uid) {
+        return uid.equals(user.getUid());
     }
 }
