@@ -1,14 +1,9 @@
 package com.milanix.shutter.dependencies.module;
 
-import android.accounts.AccountManager;
 import android.content.Context;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.milanix.shutter.R;
-import com.milanix.shutter.user.account.AccountStore;
-import com.milanix.shutter.user.account.IAccountStore;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,12 +15,6 @@ import dagger.Provides;
  */
 @Module
 public class AuthModule {
-
-    @Provides
-    @Singleton
-    public IAccountStore provideAccountStore(AccountManager accountManager) {
-        return new AccountStore(accountManager);
-    }
 
     @Provides
     public GoogleSignInOptions provideGoogleSignInOptions(Context context) {

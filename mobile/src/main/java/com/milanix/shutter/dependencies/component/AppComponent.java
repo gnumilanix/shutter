@@ -20,7 +20,6 @@ import com.milanix.shutter.splash.SplashComponent;
 import com.milanix.shutter.splash.SplashModule;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
-import com.milanix.shutter.user.account.AccountAuthenticator;
 
 import javax.inject.Singleton;
 
@@ -32,14 +31,12 @@ import dagger.Component;
  * @author milan
  */
 @Singleton
-@Component(modules = {AppModule.class, DataModule.class, SystemModule.class, LogModule.class, AuthModule.class,
-        FirebaseModule.class})
+@Component(modules = {AppModule.class, DataModule.class, SystemModule.class, LogModule.class,
+        FirebaseModule.class, AuthModule.class})
 public interface AppComponent {
     void inject(App app);
 
     void inject(ShutterArtSource artSource);
-
-    void inject(AccountAuthenticator accountAuthenticator);
 
     SplashComponent with(SplashModule module);
 

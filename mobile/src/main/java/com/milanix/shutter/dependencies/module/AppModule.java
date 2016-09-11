@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.milanix.shutter.App;
 
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -32,11 +30,5 @@ public class AppModule {
     @Singleton
     public Context provideContext() {
         return app;
-    }
-
-    @Provides
-    @Singleton
-    public EventBus provideBus() {
-        return EventBus.getDefault();
     }
 }
