@@ -16,6 +16,7 @@ import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentNotificationListBinding;
 import com.milanix.shutter.feed.PostModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
+import com.milanix.shutter.notification.model.Notification;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileModule;
 
@@ -62,14 +63,16 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
     }
 
     @Override
-    public void openPost(View view, String notificationId, String postId) {
-        presenter.markRead(notificationId);
+    public void openPost(View view, Notification notification) {
+        presenter.markRead(notification.getId());
 
-        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                view.findViewById(R.id.ivPostImage), getString(R.string.transition_post_image));
+        if (null != notification.getPost()) {
+            final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                    view.findViewById(R.id.ivPostImage), getString(R.string.transition_post_image));
 
-        startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, postId),
-                options.toBundle());
+            startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID,
+                    notification.getPost().getId()), options.toBundle());
+        }
     }
 
     @Override

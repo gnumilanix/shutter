@@ -3,6 +3,7 @@ package com.milanix.shutter.notification.list;
 import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
+import com.milanix.shutter.notification.model.Notification;
 
 /**
  * Contract for notification lsit related implementations
@@ -12,7 +13,7 @@ import com.milanix.shutter.core.specification.IView;
 public interface NotificationListContract {
     interface View extends IView {
 
-        void openPost(android.view.View view, String notificationId, String postId);
+        void openPost(android.view.View view, Notification notification);
 
         void openProfile(android.view.View view, String notificationId, String authorId);
 

@@ -83,7 +83,6 @@
     <string name="message_reset_password_send_email">We will send instructions on how to reset you password to your email address.</string>
     <string name="message_reset_password_complete">We have sent instructions on how to reset your password to your email address:\n%s</string>
     <string name="message_muzei_summary">Show trending posts as wallpaper with Muzei</string>
-    <string name="title_app_summary">v 0.160805</string>
 
     <string name="missing_email">Please enter your email</string>
     <string name="missing_password">Please enter your password</string>

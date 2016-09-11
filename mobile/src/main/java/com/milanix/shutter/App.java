@@ -7,7 +7,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.karumi.dexter.Dexter;
 import com.milanix.shutter.core.MessageSubscriber;
 import com.milanix.shutter.core.MessagingService;
 import com.milanix.shutter.dependencies.component.AppComponent;
@@ -45,7 +44,6 @@ public class App extends MultiDexApplication {
     }
 
     private void initSDKs() {
-        Dexter.initialize(this);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
     }

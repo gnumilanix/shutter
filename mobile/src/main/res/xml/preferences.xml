@@ -16,7 +16,7 @@
         android:title="@string/app_name">
         <Preference
             android:selectable="false"
-            android:summary="@string/title_app_summary"
+            android:summary="@string/version"
             android:title="@string/title_app_version" />
     </PreferenceCategory>
 </PreferenceScreen>

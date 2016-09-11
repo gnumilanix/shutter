@@ -9,7 +9,7 @@ def versionPatch = getPatch()
 def fullVersion = "${majorVersion}.${minorVersion}.${versionPatch}"
 
 def getPatch() {
-    return Long.valueOf(new SimpleDateFormat("yyyyMMddHHmm").format(new Date(System.currentTimeMillis())))
+    return Long.valueOf(new SimpleDateFormat("MMddHHmm").format(new Date(System.currentTimeMillis())))
 }
 
 android {
@@ -37,6 +37,8 @@ android {
         versionName fullVersion
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        resValue "string", "version", "v " + fullVersion
     }
 
     buildTypes {
@@ -137,12 +139,13 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.5.0'
 
-    compile 'com.karumi:dexter:2.2.2'
     compile 'com.jakewharton.timber:timber:4.1.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.google.dagger:dagger:2.6'
     apt 'com.google.dagger:dagger-compiler:2.6'
     provided 'javax.annotation:jsr250-api:1.0'
+    compile 'com.github.hotchemi:permissionsdispatcher:2.1.3'
+    apt 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
 
     androidTestCompile 'com.android.support:support-annotations:24.2.0'
     androidTestCompile 'com.android.support.test:runner:0.5'
