@@ -61,8 +61,8 @@ public class FollowingListPresenter extends AbstractPresenter<FollowingListContr
     @Override
     public void follow(final Profile profile) {
         final Map<String, Object> update = new HashMap<>();
-        update.put("/users/" + user.getUid() + "/followers/" + profile.userId, true);
-        update.put("/users/" + profile.userId + "/followings/" + user.getUid(), true);
+        update.put("/users/" + profile.userId + "/followers/" + user.getUid(), true);
+        update.put("/users/" + user.getUid() + "/followings/" + profile.userId, true);
         update.putAll(notificationGenerator.generate(Notification.Type.FOLLOW, profile.userId, null));
 
         database.getReference().updateChildren(update).addOnFailureListener(new OnFailureListener() {
