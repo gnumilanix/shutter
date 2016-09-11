@@ -2,7 +2,7 @@ package com.milanix.shutter.notification.model;
 
 import android.support.annotation.StringDef;
 
-import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
+import com.milanix.shutter.core.specification.IFirebaseModel;
 import com.milanix.shutter.feed.model.Author;
 
 import java.lang.annotation.Retention;
@@ -20,7 +20,7 @@ import static com.milanix.shutter.notification.model.Notification.Type.UNFOLLOW;
  *
  * @author milan
  */
-public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
+public class Notification implements IFirebaseModel {
     @StringDef({FOLLOW, UNFOLLOW, FAVORITE, UNFAVORITE, COMMENT, NEWS})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Type {
@@ -114,11 +114,15 @@ public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseMod
         return id;
     }
 
-    public static class Post {
+    public static class Post implements IFirebaseModel {
         private String id;
         private String image;
 
         public Post() {
+        }
+
+        public Post(com.milanix.shutter.feed.model.Post post) {
+            this(post.getPostId(), post.getImage());
         }
 
         public Post(String id, String image) {
@@ -156,6 +160,11 @@ public class Notification implements AbstractFirebaseRecyclerAdapter.FirebaseMod
                     "id='" + id + '\'' +
                     ", image='" + image + '\'' +
                     '}';
+        }
+
+        @Override
+        public String key() {
+            return id;
         }
     }
 }

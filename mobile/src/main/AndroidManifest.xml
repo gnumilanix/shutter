@@ -150,6 +150,13 @@
                 android:value="@color/colorPrimary" />
         </service>
 
+        <!-- Boot completed Receiver -->
+        <receiver android:name=".core.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <!-- Sync services -->
         <service android:name=".core.MessagingService">
             <intent-filter>

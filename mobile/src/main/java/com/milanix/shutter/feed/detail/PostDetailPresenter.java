@@ -125,7 +125,7 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
 
         if (!isMe(post.getAuthor().getId()))
             update.putAll(notificationGenerator.generate(Notification.Type.FAVORITE, post.getAuthor().getId(),
-                    new Notification.Post(post.getPostId(), post.getImage())));
+                    new Notification.Post(post)));
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -144,13 +144,12 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
         });
     }
 
-    private void removeFavorite(String uid, Post post) {
+    private void removeFavorite(final String uid, final Post post) {
         final Map<String, Object> update = new HashMap<>();
         update.put("/posts/" + postId + "/favoriters/" + uid, null);
         update.put("/users/" + user.getUid() + "/favorites/" + postId, null);
-
-        if (!isMe(post.getAuthor().getId()))
-            update.putAll(notificationGenerator.generate(Notification.Type.UNFAVORITE));
+        update.putAll(notificationGenerator.generate(Notification.Type.UNFAVORITE, post.getAuthor().getId(),
+                new Notification.Post(post)));
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

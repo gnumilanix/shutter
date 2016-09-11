@@ -1,6 +1,6 @@
 package com.milanix.shutter.feed.model;
 
-import com.milanix.shutter.core.specification.AbstractFirebaseRecyclerAdapter;
+import com.milanix.shutter.core.specification.IFirebaseModel;
 
 import java.util.HashMap;
 
@@ -10,7 +10,7 @@ import java.util.HashMap;
  *
  * @author milan
  */
-public class Post implements AbstractFirebaseRecyclerAdapter.FirebaseModel {
+public class Post implements IFirebaseModel {
     private String postId;
     private String title;
     private String description;

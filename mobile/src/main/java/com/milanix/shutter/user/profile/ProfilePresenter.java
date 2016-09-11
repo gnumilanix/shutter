@@ -205,7 +205,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
         final Map<String, Object> update = new HashMap<>();
         update.put("/users/" + profileId + "/followers/" + user.getUid(), null);
         update.put("/users/" + user.getUid() + "/followings/" + profileId, null);
-        update.putAll(notificationGenerator.generate(Notification.Type.UNFOLLOW));
+        update.putAll(notificationGenerator.generate(Notification.Type.UNFOLLOW, profileId, null));
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
