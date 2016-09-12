@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "481407916760-b6usv50k693cjarccttocopggmpmnnsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.milanix.shutter",
+            "certificate_hash": "B01D40322112E2E6E305C0F580BC1A4B187EC502"
+          }
+        },
+        {
           "client_id": "481407916760-v9b02th95bpnqgo9bkdl0e5r4774dbs1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
