@@ -111,6 +111,15 @@
                 android:value=".home.HomeActivity" />
         </activity>
 
+        <activity
+            android:name=".feed.comment.CommentListActivity"
+            android:parentActivityName=".feed.detail.PostDetailActivity"
+            android:theme="@style/AppTheme.Comment">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".feed.detail.PostDetailActivity" />
+        </activity>
+
         <!-- Facebook activity -->
         <activity
             android:name="com.facebook.FacebookActivity"

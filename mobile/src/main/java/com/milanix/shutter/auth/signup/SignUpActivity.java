@@ -30,7 +30,7 @@ public class SignUpActivity extends AbstractBindingActivity<ActivitySignupBindin
     }
 
     @Override
-    public void onReady(SignUpContract.View view, SignUp signUp) {
+    public void onReady(SignUpContract.View view, SignUpModel signUp) {
         binding.setView(view);
         binding.setSignup(signUp);
     }

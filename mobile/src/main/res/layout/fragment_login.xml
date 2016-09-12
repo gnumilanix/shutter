@@ -14,7 +14,7 @@
 
         <variable
             name="login"
-            type="com.milanix.shutter.auth.login.Login" />
+            type="com.milanix.shutter.auth.login.LoginModel" />
     </data>
 
     <RelativeLayout

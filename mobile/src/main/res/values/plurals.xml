@@ -4,6 +4,11 @@
         <item quantity="one">1 follower</item>
         <item quantity="other">%d followers</item>
     </plurals>
+    <plurals name="comments">
+        <item quantity="zero">no comments on this post yet</item>
+        <item quantity="one">1 comment on this post</item>
+        <item quantity="other">%d comments on this post</item>
+    </plurals>
 
     <plurals name="new_followers">
         <item quantity="one">1 new follower</item>

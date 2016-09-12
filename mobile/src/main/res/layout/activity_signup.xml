@@ -10,7 +10,7 @@
 
         <variable
             name="signup"
-            type="com.milanix.shutter.auth.signup.SignUp" />
+            type="com.milanix.shutter.auth.signup.SignUpModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout

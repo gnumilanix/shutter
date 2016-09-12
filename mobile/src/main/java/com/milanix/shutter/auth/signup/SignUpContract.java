@@ -32,6 +32,6 @@ public interface SignUpContract {
     }
 
     interface Presenter extends IPresenter {
-        void signUp(@NonNull SignUp signUp);
+        void signUp(@NonNull SignUpModel signUp);
     }
 }

@@ -49,7 +49,7 @@ public class LoginFragment extends AbstractFragment<LoginContract.Presenter, Fra
 
         binding.setPresenter(presenter);
         binding.setFragment(this);
-        binding.setLogin(new Login());
+        binding.setLogin(new LoginModel());
 
         setBoldUnderlineSpan(binding.tvRequestPassword, getString(R.string.action_signin_forget_password),
                 getString(R.string.action_signin_forget_password_highlight));

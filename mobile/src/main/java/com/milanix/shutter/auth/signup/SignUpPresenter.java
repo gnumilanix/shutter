@@ -42,7 +42,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
     }
 
     @Override
-    public void signUp(@NonNull final SignUp signUp) {
+    public void signUp(@NonNull final SignUpModel signUp) {
         if (isActive()) {
             view.showProgress();
         }
@@ -60,7 +60,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
                 });
     }
 
-    private void uploadAvatar(final SignUp signUp, final FirebaseUser user) {
+    private void uploadAvatar(final SignUpModel signUp, final FirebaseUser user) {
         final InputStream avatarStream = getInputStream(signUp.getAvatar());
 
         if (null != avatarStream) {
@@ -81,7 +81,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
         }
     }
 
-    private void createProfile(final SignUp signUp, final FirebaseUser user, final Uri avatarUri) {
+    private void createProfile(final SignUpModel signUp, final FirebaseUser user, final Uri avatarUri) {
         final Profile profile = new Profile(user.getUid(), user.getEmail(), avatarUri == null ? null :
                 avatarUri.toString(), signUp.getUsername());
         database.getReference().child("users").child(user.getUid()).setValue(profile).
@@ -95,7 +95,7 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
                 });
     }
 
-    private void updateProfile(SignUp signUp, FirebaseUser user, Uri avatarUri) {
+    private void updateProfile(SignUpModel signUp, FirebaseUser user, Uri avatarUri) {
         user.updateProfile(new UserProfileChangeRequest.Builder()
                 .setDisplayName(signUp.getUsername())
                 .setPhotoUri(avatarUri)

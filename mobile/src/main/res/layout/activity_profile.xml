@@ -101,7 +101,6 @@
                         app:layout_constraintRight_toLeftOf="@+id/glStats25"
                         app:layout_constraintTop_toTopOf="parent"
                         app:placeHolder="@{@drawable/ic_placeholder_small}"
-                        app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
                         app:transformation="@{`crop`}"
                         tools:background="@color/colorAccentPink" />
 

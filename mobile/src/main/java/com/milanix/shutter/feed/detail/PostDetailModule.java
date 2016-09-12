@@ -35,7 +35,7 @@ public class PostDetailModule {
                                                          FirebaseDatabase database,
                                                          FirebaseStorage storage,
                                                          NotificationGenerator notificationGenerator,
-                                                         @Named(PostModule.POST_ID) String feedId) {
-        return new PostDetailPresenter(view, user, database, storage, notificationGenerator, feedId);
+                                                         @Named(PostModule.POST_ID) String postId) {
+        return new PostDetailPresenter(view, user, database, storage, notificationGenerator, postId);
     }
 }

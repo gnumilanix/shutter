@@ -58,7 +58,7 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
 
         binding.setPresenter(presenter);
         binding.setFragment(this);
-        binding.setSignup(new SignUp());
+        binding.setSignup(new SignUpModel());
         binding.setView(this);
 
         setBoldUnderlineSpan(binding.cbAgreement, getString(R.string.action_signin_accept_terms),
@@ -181,6 +181,6 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
     }
 
     interface OnReadyListener {
-        void onReady(SignUpContract.View view, SignUp signUp);
+        void onReady(SignUpContract.View view, SignUpModel signUp);
     }
 }

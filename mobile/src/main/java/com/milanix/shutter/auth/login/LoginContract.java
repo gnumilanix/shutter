@@ -29,7 +29,7 @@ public interface LoginContract {
     }
 
     interface Presenter extends IPresenter {
-        void login(@NonNull Login login);
+        void login(@NonNull LoginModel login);
 
         void requestPassword(String email);
     }

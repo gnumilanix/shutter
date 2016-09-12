@@ -11,14 +11,14 @@ import com.milanix.shutter.BR;
  *
  * @author milan
  */
-public class SignUp extends BaseObservable {
+public class SignUpModel extends BaseObservable {
     private String username;
     private String email;
     private String password;
     private Uri avatar;
     private boolean isTermsAgreed;
 
-    public SignUp() {
+    public SignUpModel() {
     }
 
     @Bindable

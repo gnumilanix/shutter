@@ -16,9 +16,12 @@ public interface HomeContract {
         void openProfile(String profileId);
 
         void addPost();
+
+        void removeUnread();
+
+        void showUnread(int unreadCount);
     }
 
     interface Presenter extends IPresenter {
-        void getUser();
     }
 }

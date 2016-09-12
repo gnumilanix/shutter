@@ -12,6 +12,7 @@
 # Gson uses generic type information stored in a class file when working with fields. Proguard
 # removes such information by default, so configure it to keep all of it.
 -keepattributes Signature
+-keepattributes EnclosingMethod
 -keepattributes SourceFile,LineNumberTable
 
 # Facebook related methods
@@ -31,8 +32,8 @@
 -keep class com.milanix.shutter.notification.model.** { *; }
 -keep class com.milanix.shutter.feed.model.** { *; }
 -keep class com.milanix.shutter.user.model.** { *; }
--keep class com.milanix.shutter.auth.signup.SignUp { *; }
--keep class com.milanix.shutter.auth.login.Login { *; }
+-keep class com.milanix.shutter.auth.signup.SignUpModel { *; }
+-keep class com.milanix.shutter.auth.login.LoginModel { *; }
 
 #glide
 -keep public class * implements com.bumptech.glide.module.GlideModule

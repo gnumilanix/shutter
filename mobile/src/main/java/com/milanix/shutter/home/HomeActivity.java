@@ -3,6 +3,7 @@ package com.milanix.shutter.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.StringDef;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentTransaction;
@@ -54,11 +55,22 @@ public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> i
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setTitle(null);
         getUserComponent().with(new HomeModule(this)).inject(this);
-        binding.setTabSelectListener(this);
-        binding.setView(this);
-        presenter.getUser();
+        presenter.subscribe();
 
         switchToDefaultTab(savedInstanceState, getIntent().getAction());
+    }
+
+    @Override
+    protected void performBinding(@LayoutRes int layout) {
+        super.performBinding(layout);
+        binding.setTabSelectListener(this);
+        binding.setView(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.unsubscribe();
     }
 
     private void switchToDefaultTab(Bundle savedInstanceState, String action) {
@@ -106,6 +118,16 @@ public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> i
     public void addPost() {
         startActivity(new Intent(this, NewPostActivity.class));
         overridePendingTransition(R.anim.activity_slide_in_right, R.anim.activity_slide_out_left);
+    }
+
+    @Override
+    public void removeUnread() {
+        binding.bottomBar.getTabWithId(R.id.tab_notifications).removeBadge();
+    }
+
+    @Override
+    public void showUnread(int unreadCount) {
+        binding.bottomBar.getTabWithId(R.id.tab_notifications).setBadgeCount(unreadCount < 100 ? unreadCount : 99);
     }
 
     private void switchFragment(@Tab String tab) {

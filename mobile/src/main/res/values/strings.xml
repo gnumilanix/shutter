@@ -17,6 +17,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_ok">OK</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_send">Send</string>
     <string name="action_request_now">Request Now</string>
     <string name="action_not_now">Not now</string>
     <string name="action_logout">Log out</string>
@@ -83,6 +84,7 @@
     <string name="message_reset_password_send_email">We will send instructions on how to reset you password to your email address.</string>
     <string name="message_reset_password_complete">We have sent instructions on how to reset your password to your email address:\n%s</string>
     <string name="message_muzei_summary">Show trending posts as wallpaper with Muzei</string>
+    <string name="message_comment_hint">Share what you think about the post</string>
 
     <string name="missing_email">Please enter your email</string>
     <string name="missing_password">Please enter your password</string>
@@ -92,6 +94,8 @@
     <string name="error_refresh_feed">Error refreshing post</string>
     <string name="error_download_post">Error downloading image</string>
     <string name="error_refresh_feeds">Error refreshing posts</string>
+    <string name="error_retrieve_post">Error retrieving post</string>
+    <string name="error_send_comment">Error sending comment</string>
     <string name="error_refresh_favorites">Error refreshing favorites</string>
     <string name="error_unfollow_user">Error unfollowing %s</string>
     <string name="error_follow_user">Error following %s</string>

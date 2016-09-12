@@ -3,6 +3,8 @@ package com.milanix.shutter.user;
 import com.milanix.shutter.dependencies.scope.UserScope;
 import com.milanix.shutter.feed.PostComponent;
 import com.milanix.shutter.feed.PostModule;
+import com.milanix.shutter.feed.comment.CommentListComponent;
+import com.milanix.shutter.feed.comment.CommentListModule;
 import com.milanix.shutter.feed.favorite.FavoriteListComponent;
 import com.milanix.shutter.feed.favorite.FavoriteListModule;
 import com.milanix.shutter.feed.list.FeedListComponent;
@@ -43,4 +45,6 @@ public interface UserComponent {
     FavoriteListComponent with(FavoriteListModule module);
 
     NotificationListComponent with(NotificationListModule module);
+
+    CommentListComponent with(CommentListModule module);
 }

@@ -30,6 +30,8 @@ public interface PostDetailContract {
         void handleMarkFavoriteError();
 
         void openProfile(String authorId);
+
+        void openComment(Post post);
     }
 
     interface Presenter extends IPresenter {

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="post"
+            type="com.milanix.shutter.feed.model.Post" />
+
+        <variable
+            name="comment"
+            type="com.milanix.shutter.feed.comment.CommentModel" />
+
+        <variable
+            name="presenter"
+            type="com.milanix.shutter.feed.comment.CommentListContract.Presenter" />
+
+        <variable
+            name="layoutManager"
+            type="android.support.v7.widget.LinearLayoutManager" />
+
+        <variable
+            name="adapter"
+            type="com.milanix.shutter.feed.comment.CommentListAdapter" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@android:color/black"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <com.milanix.shutter.view.ProportionalFrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/toolbar"
+                    app:layout_collapseMode="parallax"
+                    app:proportion=".75">
+
+                    <ImageView
+                        android:id="@+id/ivCover"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:transitionName="@string/transition_post_image"
+                        app:imageUrl="@{post.image}"
+                        app:placeHolder="@{@drawable/ic_placeholder_small}"
+                        app:transformation="@{`crop`}"
+                        tools:background="@color/colorAccentPink" />
+                </com.milanix.shutter.view.ProportionalFrameLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@drawable/bg_gradient_black_99_top"
+                    android:contentInsetEnd="0dp"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetRight="0dp"
+                    android:contentInsetStart="0dp"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+                    tools:targetApi="lollipop" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvCommentList"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:adapter="@{adapter}"
+                    app:dividerItemDecoration="@{@drawable/divider_horizontal_dark}"
+                    app:hasFixedSize="@{true}"
+                    app:layoutManager="@{layoutManager}"
+                    app:layout_constraintBottom_toTopOf="@+id/commentDivider"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/commentDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:background="@drawable/divider_horizontal_dark"
+                    app:layout_constraintBottom_toTopOf="@+id/etComment" />
+
+                <EditText
+                    android:id="@+id/etComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:background="@null"
+                    android:hint="@string/message_comment_hint"
+                    android:maxLength="250"
+                    android:maxLines="4"
+                    android:padding="@dimen/padding_normal"
+                    android:text="@={comment.comment}"
+                    android:textSize="@dimen/text_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnSend"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/btnSend"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/btnSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:onClick="@{()->presenter.sendComment(post,comment)}"
+                    android:text="@string/action_send"
+                    android:textSize="@dimen/text_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/etComment" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

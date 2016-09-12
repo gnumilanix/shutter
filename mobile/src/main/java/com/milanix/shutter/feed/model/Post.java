@@ -2,6 +2,8 @@ package com.milanix.shutter.feed.model;
 
 import com.milanix.shutter.core.specification.IFirebaseModel;
 
+import org.parceler.Parcel;
+
 import java.util.HashMap;
 
 
@@ -10,17 +12,18 @@ import java.util.HashMap;
  *
  * @author milan
  */
+@Parcel
 public class Post implements IFirebaseModel {
-    private String postId;
-    private String title;
-    private String description;
-    private String thumbnail;
-    private String image;
-    private Author author;
-    private long createTime;
-    private HashMap<String, Boolean> favoriters = new HashMap<>();
-    private HashMap<String, Boolean> viewers = new HashMap<>();
-    private HashMap<String, Boolean> commenters = new HashMap<>();
+    public String postId;
+    public String title;
+    public String description;
+    public String thumbnail;
+    public String image;
+    public Author author;
+    public long createTime;
+    public HashMap<String, Boolean> favoriters = new HashMap<>();
+    public HashMap<String, Boolean> viewers = new HashMap<>();
+    public HashMap<String, Comment> comments = new HashMap<>();
 
     public Post() {
     }
@@ -66,8 +69,8 @@ public class Post implements IFirebaseModel {
         return viewers;
     }
 
-    public HashMap<String, Boolean> getCommenters() {
-        return commenters;
+    public HashMap<String, Comment> getComments() {
+        return comments;
     }
 
     @Override
@@ -98,7 +101,7 @@ public class Post implements IFirebaseModel {
                 ", createTime=" + createTime +
                 ", favoriters=" + favoriters +
                 ", viewers=" + viewers +
-                ", commenters=" + commenters +
+                ", comments=" + comments +
                 '}';
     }
 }

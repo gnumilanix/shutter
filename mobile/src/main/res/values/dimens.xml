@@ -38,4 +38,5 @@
 
     <dimen name="user_avatar">48dp</dimen>
 
+    <dimen name="comment_editor_height">48dp</dimen>
 </resources>

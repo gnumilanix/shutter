@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/pflPost"
-                android:background="@drawable/bg_gradient_black_99"
+                android:background="@drawable/bg_gradient_black_99_bottom"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-condensed"
                 android:maxLines="1"
@@ -141,7 +141,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="@{String.valueOf(post.commenters.size())}"
+                android:text="@{String.valueOf(post.comments.size())}"
                 android:textColor="@color/colorGrey500"
                 android:textSize="@dimen/text_small"
                 tools:text="100" />

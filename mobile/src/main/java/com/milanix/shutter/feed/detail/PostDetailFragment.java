@@ -31,9 +31,13 @@ import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.core.specification.IComponentProvider;
 import com.milanix.shutter.databinding.FragmentPostDetailBinding;
 import com.milanix.shutter.feed.PostComponent;
+import com.milanix.shutter.feed.comment.CommentListActivity;
+import com.milanix.shutter.feed.comment.CommentListModule;
 import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileModule;
+
+import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
@@ -181,11 +185,20 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
 
     @Override
     public void openProfile(String profileId) {
-        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), binding.ivAvatar,
-                getString(R.string.transition_profile_image));
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                binding.ivAvatar, getString(R.string.transition_profile_image));
 
         startActivity(new Intent(getActivity(), ProfileActivity.class).putExtra(ProfileModule.PROFILE_ID, profileId),
                 options.toBundle());
+    }
+
+    @Override
+    public void openComment(Post post) {
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                binding.ivImage, getString(R.string.transition_post_image));
+
+        startActivity(new Intent(getActivity(), CommentListActivity.class).putExtra(CommentListModule.POST,
+                Parcels.wrap(post)), options.toBundle());
     }
 
     @Override

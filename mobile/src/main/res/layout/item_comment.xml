@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="comment"
+            type="com.milanix.shutter.feed.model.Comment" />
+
+        <variable
+            name="view"
+            type="com.milanix.shutter.feed.comment.CommentListContract.View" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/margin_normal"
+            android:onClick="@{(v)->view.openProfile(v,comment.author.id)}"
+            android:transitionName="@string/transition_profile_image"
+            app:civ_border_color="@color/colorGrey400"
+            app:civ_border_width="2dp"
+            app:imageUrl="@{comment.author.avatar}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeHolder="@{@drawable/ic_placeholder_small}"
+            app:transformation="@{`crop`}"
+            tools:background="@color/colorAccentPink" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_large"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:text="@{comment.author.name}"
+            android:textColor="@color/colorGrey900"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvTimeline"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
+            app:layout_constraintRight_toLeftOf="@+id/tvTimeline"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Material takes cues from contemporary architecture, road signs, pavement marking tape, and athletic courts." />
+
+        <TextView
+            android:id="@+id/tvTimeline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tvName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:textInMillis="@{comment.time}"
+            tools:text="20 minutes ago" />
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:text="@{comment.comment}"
+            android:textColor="@color/colorGrey500"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/tvName"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="Material takes cues from contemporary architecture, road signs, pavement marking tape, and athletic courts." />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -26,6 +26,8 @@
 
     <style name="AppTheme.Detail" parent="AppTheme" />
 
+    <style name="AppTheme.Comment" parent="AppTheme" />
+
     <!-- Fab-->
     <style name="FabStyle">
         <item name="android:layout_width">wrap_content</item>

@@ -6,18 +6,18 @@ import android.databinding.Bindable;
 import com.milanix.shutter.BR;
 
 /**
- * Login data model with support for two way data binding
+ * LoginModel data model with support for two way data binding
  *
  * @author milan
  */
-public class Login extends BaseObservable {
+public class LoginModel extends BaseObservable {
     private String username;
     private String password;
 
-    public Login() {
+    public LoginModel() {
     }
 
-    public Login(String username, String password) {
+    public LoginModel(String username, String password) {
         this.username = username;
         this.password = password;
     }

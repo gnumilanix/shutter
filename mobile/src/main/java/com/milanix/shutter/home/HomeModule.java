@@ -1,6 +1,7 @@
 package com.milanix.shutter.home;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,7 +25,8 @@ public class HomeModule {
     }
 
     @Provides
-    public HomeContract.Presenter providePresenter(HomeContract.View view, FirebaseUser user) {
-        return new HomePresenter(view, user);
+    public HomeContract.Presenter providePresenter(HomeContract.View view, FirebaseUser user,
+                                                   FirebaseDatabase database) {
+        return new HomePresenter(view, user, database);
     }
 }
