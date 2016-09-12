@@ -7,7 +7,7 @@ Properties props = new Properties()
 props.load(new FileInputStream('/Users/milan/Documents/repos/Shutter/keys/signing.properties'))
 
 def majorVersion = 0
-def minorVersion = 25
+def minorVersion = 26
 def versionPatch = getPatch()
 def fullVersion = "${majorVersion}.${minorVersion}.${versionPatch}"
 
@@ -140,7 +140,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.roughike:bottom-bar:2.0.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.5.0'
+    compile 'it.sephiroth.android.library.imagezoom:imagezoom:2.2.5'
 
     compile 'com.jakewharton.timber:timber:4.1.2'
     compile 'com.google.dagger:dagger:2.6'

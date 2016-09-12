@@ -6,10 +6,10 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Comment implements IFirebaseModel {
-    private String id;
-    private long time;
-    private String comment;
-    private Author author;
+    public String id;
+    public long time;
+    public String comment;
+    public Author author;
 
     public Comment() {
     }

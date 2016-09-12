@@ -1,7 +1,6 @@
 package com.milanix.shutter.core;
 
 import android.databinding.BindingAdapter;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.DimenRes;
@@ -11,13 +10,8 @@ import android.text.format.DateUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.milanix.shutter.view.DividerItemDecoration;
 import com.milanix.shutter.view.ItemOffsetDecoration;
 
@@ -66,32 +60,6 @@ public class Binding {
             }
         }
         requestBuilder.into(view);
-    }
-
-    /**
-     * Loads given image url to the given view
-     *
-     * @param view        to load image to
-     * @param url         to load image from
-     * @param placeHolder to load on error
-     */
-    @BindingAdapter(value = {"imageUrl", "placeHolder", "transformation"}, requireAll = false)
-    public static void loadImage(final SubsamplingScaleImageView view, String url, Drawable placeHolder, String transformation) {
-        final BitmapRequestBuilder<String, Bitmap> requestBuilder = Glide.with(view.getContext()).load(url).asBitmap().error(placeHolder);
-
-        if (!TextUtils.isEmpty(transformation)) {
-            switch (transformation) {
-                case "crop":
-                    requestBuilder.centerCrop();
-            }
-        }
-
-        requestBuilder.into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                view.setImage(ImageSource.bitmap(resource));
-            }
-        });
     }
 
     /**

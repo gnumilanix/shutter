@@ -41,6 +41,7 @@ import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
+import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 import timber.log.Timber;
 
 /**
@@ -73,6 +74,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
         binding.setPresenter(presenter);
         binding.setUser(user);
         binding.setView(this);
+        binding.ivImage.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
     }
 
     @Override

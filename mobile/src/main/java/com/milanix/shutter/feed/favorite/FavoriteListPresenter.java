@@ -35,6 +35,8 @@ public class FavoriteListPresenter extends AbstractPresenter<FavoriteListContrac
 
     @Override
     public void refreshFavorites() {
-
+        if (isActive()) {
+            view.hideProgress();
+        }
     }
 }
