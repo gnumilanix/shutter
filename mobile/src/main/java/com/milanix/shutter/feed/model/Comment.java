@@ -2,6 +2,9 @@ package com.milanix.shutter.feed.model;
 
 import com.milanix.shutter.core.specification.IFirebaseModel;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Comment implements IFirebaseModel {
     private String id;
     private long time;

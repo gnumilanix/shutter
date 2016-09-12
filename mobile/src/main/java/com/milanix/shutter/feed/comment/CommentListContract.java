@@ -19,6 +19,8 @@ public interface CommentListContract {
         void handleSendCommentError();
 
         void openProfile(android.view.View view, String authorId);
+
+        void clearComment();
     }
 
     interface Presenter extends IPresenter {

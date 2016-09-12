@@ -1,8 +1,9 @@
 package com.milanix.shutter.core;
 
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @author milan
  */
 public abstract class AbstractRecyclerAdapter<T, H extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<H> {
-    protected final List<T> items = new ArrayList<>();
+    protected final ObservableList<T> items = new ObservableArrayList<>();
 
     @Override
     public void onBindViewHolder(final H viewHolder, final int position) {
@@ -78,4 +79,12 @@ public abstract class AbstractRecyclerAdapter<T, H extends RecyclerView.ViewHold
         return position > -1 && position < items.size();
     }
 
+    /**
+     * Returns all items
+     *
+     * @return items
+     */
+    public ObservableList<T> getItems() {
+        return items;
+    }
 }

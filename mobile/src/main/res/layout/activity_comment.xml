@@ -5,6 +5,16 @@
 
     <data>
 
+        <import type="com.milanix.shutter.R" />
+
+        <import type="android.databinding.ObservableList" />
+
+        <import type="com.milanix.shutter.feed.model.Comment" />
+
+        <variable
+            name="comments"
+            type="ObservableList&lt;Comment&gt;" />
+
         <variable
             name="post"
             type="com.milanix.shutter.feed.model.Post" />
@@ -43,12 +53,14 @@
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"
+                android:background="?colorPrimary"
                 android:fitsSystemWindows="true"
-                app:contentScrim="@android:color/black"
-                app:expandedTitleMarginEnd="64dp"
-                app:expandedTitleMarginStart="48dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:contentScrim="?colorPrimary"
+                app:expandedTitleMarginBottom="40dp"
+                app:expandedTitleMarginEnd="@dimen/margin_large"
+                app:expandedTitleMarginStart="@dimen/margin_large"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:statusBarScrim="?colorPrimary">
 
                 <com.milanix.shutter.view.ProportionalFrameLayout
                     android:layout_width="match_parent"
@@ -69,11 +81,26 @@
                         tools:background="@color/colorAccentPink" />
                 </com.milanix.shutter.view.ProportionalFrameLayout>
 
+                <TextView
+                    android:id="@+id/tvCommentCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:paddingBottom="@dimen/padding_normal"
+                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:paddingLeft="@dimen/margin_large"
+                    android:paddingRight="@dimen/margin_large"
+                    android:paddingTop="@dimen/padding_normal"
+                    android:text="@{@plurals/comments(comments.size(),comments.size())}"
+                    android:textColor="@android:color/white"
+                    app:layout_collapseMode="parallax"
+                    tools:text="4 comments on this post" />
+
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@drawable/bg_gradient_black_99_top"
+                    android:background="@android:color/transparent"
                     android:contentInsetEnd="0dp"
                     android:contentInsetLeft="0dp"
                     android:contentInsetRight="0dp"
@@ -87,68 +114,71 @@
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
+
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
+            android:paddingBottom="@dimen/margin_small"
+            android:paddingTop="@dimen/margin_small"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.constraint.ConstraintLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvCommentList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:adapter="@{adapter}"
+                app:hasFixedSize="@{true}"
+                app:itemOffsetDecoration="@{R.dimen.padding_small}"
+                app:layoutManager="@{layoutManager}" />
 
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rvCommentList"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:adapter="@{adapter}"
-                    app:dividerItemDecoration="@{@drawable/divider_horizontal_dark}"
-                    app:hasFixedSize="@{true}"
-                    app:layoutManager="@{layoutManager}"
-                    app:layout_constraintBottom_toTopOf="@+id/commentDivider"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/commentDivider"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/divider"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:background="@drawable/divider_horizontal_dark"
-                    app:layout_constraintBottom_toTopOf="@+id/etComment" />
-
-                <EditText
-                    android:id="@+id/etComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_small"
-                    android:background="@null"
-                    android:hint="@string/message_comment_hint"
-                    android:maxLength="250"
-                    android:maxLines="4"
-                    android:padding="@dimen/padding_normal"
-                    android:text="@={comment.comment}"
-                    android:textSize="@dimen/text_small"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btnSend"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/btnSend"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <Button
-                    android:id="@+id/btnSend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:onClick="@{()->presenter.sendComment(post,comment)}"
-                    android:text="@string/action_send"
-                    android:textSize="@dimen/text_small"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/etComment" />
-            </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@android:color/white">
+
+            <View
+                android:id="@+id/commentDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/divider_horizontal_dark" />
+
+            <EditText
+                android:id="@+id/etComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/commentDivider"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_toLeftOf="@+id/btnSend"
+                android:layout_toStartOf="@+id/btnSend"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="@string/message_comment_hint"
+                android:maxLength="250"
+                android:maxLines="4"
+                android:padding="@dimen/padding_large"
+                android:text="@={comment.comment}"
+                android:textSize="@dimen/text_small" />
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/commentDivider"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="@{()->presenter.sendComment(post,comment)}"
+                android:text="@string/action_send"
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

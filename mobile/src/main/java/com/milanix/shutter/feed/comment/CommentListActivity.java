@@ -1,10 +1,13 @@
 package com.milanix.shutter.feed.comment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
@@ -26,7 +29,10 @@ import javax.inject.Inject;
  *
  * @author milan
  */
-public class CommentListActivity extends AbstractBindingActivity<ActivityCommentBinding> implements CommentListContract.View {
+public class CommentListActivity extends AbstractBindingActivity<ActivityCommentBinding> implements
+        CommentListContract.View, AppBarLayout.OnOffsetChangedListener {
+    private int colorBlack;
+    private int colorPrimaryDark;
 
     @Inject
     protected CommentListContract.Presenter presenter;
@@ -40,6 +46,7 @@ public class CommentListActivity extends AbstractBindingActivity<ActivityComment
         performBinding(R.layout.activity_comment);
         setToolbar(binding.toolbar, true);
         presenter.subscribe(adapter);
+        binding.appbar.addOnOffsetChangedListener(this);
     }
 
     private Post getPost(Bundle bundle) {
@@ -53,12 +60,17 @@ public class CommentListActivity extends AbstractBindingActivity<ActivityComment
         binding.setComment(new CommentModel());
         binding.setLayoutManager(new LinearLayoutManager(this));
         binding.setAdapter(adapter);
+        binding.setComments(adapter.getItems());
+
+        this.colorBlack = ContextCompat.getColor(this, android.R.color.black);
+        this.colorPrimaryDark = ContextCompat.getColor(this, R.color.colorPrimaryDark);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.unsubscribe(adapter);
+        binding.appbar.removeOnOffsetChangedListener(this);
     }
 
     @Override
@@ -86,5 +98,24 @@ public class CommentListActivity extends AbstractBindingActivity<ActivityComment
 
         startActivity(new Intent(this, ProfileActivity.class).putExtra(ProfileModule.PROFILE_ID, authorId),
                 options.toBundle());
+    }
+
+    @Override
+    public void clearComment() {
+        binding.etComment.setText("");
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            verticalOffset = Math.abs(verticalOffset);
+            int difference = appBarLayout.getTotalScrollRange() - binding.toolbar.getHeight();
+
+            if (verticalOffset >= difference) {
+                getWindow().setStatusBarColor(colorPrimaryDark);
+            } else {
+                getWindow().setStatusBarColor(colorBlack);
+            }
+        }
     }
 }
