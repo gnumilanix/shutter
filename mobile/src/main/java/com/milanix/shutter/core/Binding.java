@@ -31,7 +31,7 @@ public class Binding {
      */
     @BindingAdapter(value = {"imageUrl", "placeHolder", "transformation"}, requireAll = false)
     public static void loadImage(ImageView view, String url, Drawable placeHolder, String transformation) {
-        final DrawableRequestBuilder<String> requestBuilder = Glide.with(view.getContext()).load(url).error(placeHolder);
+        final DrawableRequestBuilder<String> requestBuilder = Glide.with(view.getContext()).load(url).error(placeHolder).placeholder(placeHolder);
 
         if (!TextUtils.isEmpty(transformation)) {
             switch (transformation) {
@@ -51,7 +51,7 @@ public class Binding {
      */
     @BindingAdapter(value = {"imageUrl", "placeHolder", "transformation"}, requireAll = false)
     public static void loadImage(ImageView view, Uri uri, Drawable placeHolder, String transformation) {
-        final DrawableRequestBuilder<Uri> requestBuilder = Glide.with(view.getContext()).load(uri).error(placeHolder);
+        final DrawableRequestBuilder<Uri> requestBuilder = Glide.with(view.getContext()).load(uri).error(placeHolder).placeholder(placeHolder);
 
         if (!TextUtils.isEmpty(transformation)) {
             switch (transformation) {

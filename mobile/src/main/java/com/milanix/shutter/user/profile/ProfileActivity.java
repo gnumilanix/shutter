@@ -104,18 +104,16 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_logout).setVisible(null != presenter && presenter.isMe());
-
-        return super.onPrepareOptionsMenu(menu);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        final MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_profile, menu);
-        return true;
+        if(null != presenter && presenter.isMe()) {
+            final MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_profile, menu);
+            return true;
+        }
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

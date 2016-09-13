@@ -151,7 +151,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     @Override
     public void share(String title, String message, Uri imageUri) {
         startActivityForResult(new AppInviteInvitation.IntentBuilder(title)
-                .setMessage(message)
+                .setMessage(truncate(message,99))
                 .setCustomImage(imageUri)
                 .setCallToActionText(getString(R.string.action_view))
                 .build(), RC_SHARE_POST);
@@ -212,5 +212,9 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
                 //// TODO: 3/9/2016 map invitation ids to user
             }
         }
+    }
+
+    public static String truncate(String text, int maxLength){
+        return (text.length() > maxLength) ? text.substring(0, maxLength - 3) + "..." : text;
     }
 }

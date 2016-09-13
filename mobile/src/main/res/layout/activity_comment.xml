@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.text.TextUtils" />
 
         <import type="com.milanix.shutter.R" />
 
@@ -168,6 +169,7 @@
 
             <Button
                 android:id="@+id/btnSend"
+                android:enabled="@{!TextUtils.isEmpty(comment.comment)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

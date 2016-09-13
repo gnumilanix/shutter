@@ -31,6 +31,42 @@ public class Profile implements IFirebaseModel {
         this.name = name;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public HashMap<String, Boolean> getFollowers() {
+        return followers;
+    }
+
+    public HashMap<String, Boolean> getFollowings() {
+        return followings;
+    }
+
+    public HashMap<String, Boolean> getPosts() {
+        return posts;
+    }
+
+    public HashMap<String, Boolean> getFavorites() {
+        return favorites;
+    }
+
+    public HashMap<String, Boolean> getViews() {
+        return views;
+    }
+
     @Override
     public String key() {
         return userId;

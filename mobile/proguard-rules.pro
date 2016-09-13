@@ -29,6 +29,7 @@
 -dontwarn org.shaded.apache.**
 -dontwarn org.ietf.jgss.**
 
+-keep class com.milanix.shutter.view.** { *; }
 -keep class com.milanix.shutter.notification.model.** { *; }
 -keep class com.milanix.shutter.feed.model.** { *; }
 -keep class com.milanix.shutter.user.model.** { *; }
