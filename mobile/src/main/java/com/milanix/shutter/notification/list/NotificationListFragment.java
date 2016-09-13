@@ -51,9 +51,18 @@ public class NotificationListFragment extends AbstractFragment<NotificationListC
     @Override
     protected void performBinding(LayoutInflater inflater, @LayoutRes int layout, ViewGroup container) {
         super.performBinding(inflater, layout, container);
-        binding.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        binding.setLayoutManager(getLayoutManager());
         binding.setAdapter(notificationListAdapter);
         binding.setRefreshListener(this);
+    }
+
+    private LinearLayoutManager getLayoutManager() {
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+
+        return layoutManager;
     }
 
     @Override
