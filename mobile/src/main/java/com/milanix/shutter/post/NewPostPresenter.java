@@ -79,12 +79,9 @@ public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> im
         postValues.put("postId", postId);
         postValues.put("time", ServerValue.TIMESTAMP);
 
-        final Map<String, Object> userPostValue = new HashMap<>();
-        userPostValue.put(postId, true);
-
         final Map<String, Object> update = new HashMap<>();
         update.put("/posts/" + postId, postValues);
-        update.put("/users/" + uid + "/posts", userPostValue);
+        update.put("/users/" + uid + "/posts/" + postId, true);
 
         database.getReference().updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
