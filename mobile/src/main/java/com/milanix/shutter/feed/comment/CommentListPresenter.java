@@ -3,6 +3,7 @@ package com.milanix.shutter.feed.comment;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.FirebaseDatabase;
@@ -80,11 +81,14 @@ public class CommentListPresenter extends AbstractPresenter<CommentListContract.
                     view.handleSendCommentError();
                 }
             }
+        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                if (isActive()) {
+                    view.clearComment();
+                }
+            }
         });
-
-        if (isActive()) {
-            view.clearComment();
-        }
     }
 
 }

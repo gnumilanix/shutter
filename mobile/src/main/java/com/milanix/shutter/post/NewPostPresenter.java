@@ -77,7 +77,7 @@ public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> im
         postValues.put("thumbnail", downloadUrl);
         postValues.put("author", author);
         postValues.put("postId", postId);
-        postValues.put("createTime", ServerValue.TIMESTAMP);
+        postValues.put("time", ServerValue.TIMESTAMP);
 
         final Map<String, Object> userPostValue = new HashMap<>();
         userPostValue.put(postId, true);

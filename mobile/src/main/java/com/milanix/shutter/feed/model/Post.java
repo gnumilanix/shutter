@@ -20,7 +20,7 @@ public class Post implements IFirebaseModel {
     public String thumbnail;
     public String image;
     public Author author;
-    public long createTime;
+    public long time;
     public HashMap<String, Boolean> favoriters = new HashMap<>();
     public HashMap<String, Boolean> viewers = new HashMap<>();
     public HashMap<String, Comment> comments = new HashMap<>();
@@ -57,8 +57,8 @@ public class Post implements IFirebaseModel {
         return author;
     }
 
-    public long getCreateTime() {
-        return createTime;
+    public long getTime() {
+        return time;
     }
 
     public HashMap<String, Boolean> getFavoriters() {
@@ -98,7 +98,7 @@ public class Post implements IFirebaseModel {
                 ", thumbnail='" + thumbnail + '\'' +
                 ", image='" + image + '\'' +
                 ", author=" + author +
-                ", createTime=" + createTime +
+                ", time=" + time +
                 ", favoriters=" + favoriters +
                 ", viewers=" + viewers +
                 ", comments=" + comments +
