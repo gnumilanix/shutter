@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.android.annotations.Nullable;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
@@ -17,6 +19,7 @@ import com.milanix.shutter.feed.model.Author;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,7 +71,7 @@ public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> im
         }
     }
 
-    private void createPost(String uid, String postId, NewPost post, String downloadUrl) {
+    private void createPost(String uid, final String postId, NewPost post, String downloadUrl) {
         final Map<String, Object> author = new Author(user.getUid(), user.getDisplayName(),
                 user.getPhotoUrl().toString()).toMap();
 
@@ -94,6 +97,12 @@ public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> im
             @Override
             public void onFailure(@NonNull Exception e) {
                 handleUploadPostError();
+            }
+        }).continueWith(new Continuation<Void, Void>() {
+            @Override
+            public Void then(@NonNull Task<Void> task) throws Exception {
+                database.getReference("/posts/" + postId).setPriority(0 - new Date().getTime());
+                return null;
             }
         });
     }

@@ -9,7 +9,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
@@ -81,7 +80,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
 
     private void initFacebookApi() {
         if (null == facebookCallbackManager) {
-            FacebookSdk.sdkInitialize(app);
+            app.initializeFacebookSDK();
 
             this.facebookCallbackManager = CallbackManager.Factory.create();
             this.facebookCallback = new FacebookCallback<LoginResult>() {

@@ -58,7 +58,7 @@ public class ShutterArtSource extends RemoteMuzeiArtSource {
         if (null != post) {
             publishArtwork(new Artwork.Builder()
                     .title(post.getTitle())
-                    .byline(post.getDescription())
+                    .byline(post.getAuthor().getName())
                     .imageUri(Uri.parse(post.getImage()))
                     .token(post.getPostId())
                     .build());

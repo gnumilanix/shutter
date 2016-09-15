@@ -117,6 +117,7 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
     }
 
     private void logoutFromFacebook() {
+        app.initializeFacebookSDK();
         LoginManager.getInstance().logOut();
         finishLogout();
     }

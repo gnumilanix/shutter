@@ -18,7 +18,7 @@ public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> 
     @Inject
     public FeedListPresenter(FeedListContract.View view, FirebaseDatabase database) {
         super(view);
-        this.query = database.getReference().child("posts");
+        this.query = database.getReference().child("posts").orderByPriority();
     }
 
     @Override

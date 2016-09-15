@@ -3,6 +3,7 @@ package com.milanix.shutter;
 import android.content.Intent;
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.FacebookSdk;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.core.MessageSubscriber;
@@ -83,5 +84,11 @@ public class App extends MultiDexApplication {
     private void unsubscribeNotifications() {
         messageSubscriber.unsubscribe(NotificationService.NOTIFICATIONS);
         stopService(new Intent(this, NotificationService.class));
+    }
+
+    public void initializeFacebookSDK() {
+        if (!FacebookSdk.isInitialized()) {
+            FacebookSdk.sdkInitialize(this);
+        }
     }
 }
