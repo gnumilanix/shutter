@@ -77,7 +77,7 @@
                         android:scaleType="centerCrop"
                         android:transitionName="@string/transition_post_image"
                         app:imageUrl="@{post.image}"
-                        app:placeHolder="@{@drawable/ic_placeholder_small}"
+                        app:placeHolder="@{@drawable/ic_placeholder_large}"
                         app:transformation="@{`crop`}"
                         tools:background="@color/colorAccentPink" />
                 </com.milanix.shutter.view.ProportionalFrameLayout>

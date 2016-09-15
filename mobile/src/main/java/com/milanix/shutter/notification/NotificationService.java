@@ -45,7 +45,8 @@ import javax.inject.Named;
  * @author milan
  */
 public class NotificationService extends Service implements ChildEventListener {
-    public static final String TAG = "NotificationService";
+    public static final String NOTIFICATIONS = "notifications";
+
     private static final String GROUP_FOLLOWERS = "_follower_group";
     private static final String GROUP_COMMENTS = "_comment_group";
     private static final String GROUP_FAVORITES = "_favorite_group";

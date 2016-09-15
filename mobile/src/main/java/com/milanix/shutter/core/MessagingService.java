@@ -8,7 +8,6 @@ import com.google.firebase.messaging.FirebaseMessagingService;
  * @author milan
  */
 public class MessagingService extends FirebaseMessagingService {
-    public static final String NOTIFICATIONS = "notifications";
 
 
 }

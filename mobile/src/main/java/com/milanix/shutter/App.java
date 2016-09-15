@@ -3,12 +3,9 @@ package com.milanix.shutter;
 import android.content.Intent;
 import android.support.multidex.MultiDexApplication;
 
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.core.MessageSubscriber;
-import com.milanix.shutter.core.MessagingService;
 import com.milanix.shutter.dependencies.component.AppComponent;
 import com.milanix.shutter.dependencies.component.DaggerAppComponent;
 import com.milanix.shutter.dependencies.module.AppModule;
@@ -38,14 +35,8 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        initSDKs();
         createAppComponent(this).inject(this);
         Timber.plant(logTree);
-    }
-
-    private void initSDKs() {
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
     }
 
     public synchronized AppComponent createAppComponent(App app) {
@@ -60,8 +51,7 @@ public class App extends MultiDexApplication {
 
     public synchronized UserComponent createUserComponent(FirebaseUser user) {
         userComponent = getAppComponent().with(new UserModule(user));
-        messageSubscriber.subscribe(MessagingService.NOTIFICATIONS);
-        startService(new Intent(this, NotificationService.class));
+        subscribeNotifications();
 
         return userComponent;
     }
@@ -81,8 +71,17 @@ public class App extends MultiDexApplication {
     }
 
     public void releaseUserComponent() {
-        messageSubscriber.unsubscribe(MessagingService.NOTIFICATIONS);
+        unsubscribeNotifications();
         userComponent = null;
+    }
+
+    private void subscribeNotifications() {
+        messageSubscriber.subscribe(NotificationService.NOTIFICATIONS);
+        startService(new Intent(this, NotificationService.class));
+    }
+
+    private void unsubscribeNotifications() {
+        messageSubscriber.unsubscribe(NotificationService.NOTIFICATIONS);
         stopService(new Intent(this, NotificationService.class));
     }
 }
