@@ -36,10 +36,4 @@ public class SystemModule {
     public ConnectivityManager provideConnectivityManager(Context context) {
         return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
-
-    @Singleton
-    @Provides
-    public AccountManager provideAccountManager(Context context) {
-        return AccountManager.get(context);
-    }
 }

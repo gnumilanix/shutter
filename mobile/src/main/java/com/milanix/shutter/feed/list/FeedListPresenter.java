@@ -7,34 +7,44 @@ import com.milanix.shutter.core.AbstractPresenter;
 
 import javax.inject.Inject;
 
+import dagger.Lazy;
+
 /**
  * Feeds presenter
  *
  * @author milan
  */
 public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> implements FeedListContract.Presenter {
-    private final Query query;
+    private Query postsQuery;
+    private Lazy<FirebaseDatabase> database;
 
     @Inject
-    public FeedListPresenter(FeedListContract.View view, FirebaseDatabase database) {
+    public FeedListPresenter(FeedListContract.View view, Lazy<FirebaseDatabase> database) {
         super(view);
-        this.query = database.getReference().child("posts").orderByPriority();
+        this.database = database;
     }
 
     @Override
     public void subscribe(ChildEventListener childEventListener) {
         super.subscribe();
-        query.addChildEventListener(childEventListener);
+        getPostsQuery().addChildEventListener(childEventListener);
     }
 
     @Override
     public void unsubscribe(ChildEventListener childEventListener) {
         super.unsubscribe();
-        query.removeEventListener(childEventListener);
+        getPostsQuery().removeEventListener(childEventListener);
     }
 
     @Override
     public void refreshFeeds() {
         view.hideProgress();
+    }
+
+    public Query getPostsQuery() {
+        if (null == postsQuery) {
+            this.postsQuery = database.get().getReference().child("posts").orderByPriority();
+        }
+        return postsQuery;
     }
 }

@@ -3,6 +3,7 @@ package com.milanix.shutter.splash;
 import com.google.firebase.auth.FirebaseAuth;
 import com.milanix.shutter.App;
 
+import dagger.Lazy;
 import dagger.Module;
 import dagger.Provides;
 
@@ -26,7 +27,7 @@ public class SplashModule {
 
     @Provides
     public SplashContract.Presenter providePresenter(SplashContract.View view, App app,
-                                                     FirebaseAuth auth) {
+                                                     Lazy<FirebaseAuth> auth) {
         return new SplashPresenter(view, app, auth);
     }
 }

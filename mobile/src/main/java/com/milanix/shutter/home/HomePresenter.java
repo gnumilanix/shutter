@@ -8,46 +8,57 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.milanix.shutter.core.AbstractPresenter;
 
+import dagger.Lazy;
+
 /**
  * Home presenter
  *
  * @author milan
  */
 public class HomePresenter extends AbstractPresenter<HomeContract.View> implements HomeContract.Presenter, ValueEventListener {
-    private final FirebaseUser user;
-    private final Query unreadQuery;
+    private final Lazy<FirebaseUser> user;
+    private final Lazy<FirebaseDatabase> database;
+    private Query unreadQuery;
 
-    public HomePresenter(HomeContract.View view, FirebaseUser user,FirebaseDatabase database) {
+    public HomePresenter(HomeContract.View view, Lazy<FirebaseUser> user, Lazy<FirebaseDatabase> database) {
         super(view);
         this.user = user;
-        unreadQuery=database.getReference().child("activities").child(user.getUid()).orderByChild("read").equalTo(false);
+        this.database = database;
     }
 
     @Override
     public void subscribe() {
         super.subscribe();
-        unreadQuery.addValueEventListener(this);
-        view.setUser(user);
+        getUnreadQuery().addValueEventListener(this);
+        view.setUser(user.get());
     }
 
     @Override
     public void unsubscribe() {
         super.unsubscribe();
-        unreadQuery.removeEventListener(this);
+        getUnreadQuery().removeEventListener(this);
     }
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        if(isActive()){
-            if(!dataSnapshot.hasChildren())
+        if (isActive()) {
+            if (!dataSnapshot.hasChildren())
                 view.removeUnread();
             else
-                view.showUnread((int)dataSnapshot.getChildrenCount());
+                view.showUnread((int) dataSnapshot.getChildrenCount());
         }
     }
 
     @Override
     public void onCancelled(DatabaseError databaseError) {
 
+    }
+
+    public Query getUnreadQuery() {
+        if (null == unreadQuery) {
+            unreadQuery = database.get().getReference().child("activities").child(user.get().getUid()).orderByChild("read").equalTo(false);
+        }
+
+        return unreadQuery;
     }
 }

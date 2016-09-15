@@ -9,6 +9,8 @@ import com.milanix.shutter.core.AbstractPresenter;
 
 import javax.inject.Inject;
 
+import dagger.Lazy;
+
 /**
  * LoginModel presenter
  *
@@ -16,10 +18,10 @@ import javax.inject.Inject;
  */
 public class SplashPresenter extends AbstractPresenter<SplashContract.View> implements SplashContract.Presenter, FirebaseAuth.AuthStateListener {
     private final App app;
-    private final FirebaseAuth auth;
+    private final Lazy<FirebaseAuth> auth;
 
     @Inject
-    public SplashPresenter(SplashContract.View view, App app, FirebaseAuth auth) {
+    public SplashPresenter(SplashContract.View view, App app, Lazy<FirebaseAuth> auth) {
         super(view);
         this.app = app;
         this.auth = auth;
@@ -27,12 +29,12 @@ public class SplashPresenter extends AbstractPresenter<SplashContract.View> impl
 
     @Override
     public void subscribe() {
-        auth.addAuthStateListener(this);
+        auth.get().addAuthStateListener(this);
     }
 
     @Override
     public void unsubscribe() {
-        auth.removeAuthStateListener(this);
+        auth.get().removeAuthStateListener(this);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.milanix.shutter.feed.list;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import dagger.Lazy;
 import dagger.Module;
 import dagger.Provides;
 
@@ -25,7 +26,7 @@ public class FeedListModule {
 
     @Provides
     public FeedListContract.Presenter providePresenter(FeedListContract.View view,
-                                                       FirebaseDatabase database) {
+                                                       Lazy<FirebaseDatabase> database) {
         return new FeedListPresenter(view, database);
     }
 }

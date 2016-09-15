@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.milanix.shutter.App;
 
+import dagger.Lazy;
 import dagger.Module;
 import dagger.Provides;
 
@@ -28,8 +29,9 @@ public class LandingModule {
 
     @Provides
     public LandingContract.Presenter providePresenter(LandingContract.View view, App app,
-                                                      FirebaseAuth auth, FirebaseDatabase database,
-                                                      GoogleSignInOptions googleSignInOptions) {
-        return new LandingPresenter(view, app, auth, database, googleSignInOptions);
+                                                      GoogleSignInOptions googleSignInOptions,
+                                                      Lazy<FirebaseAuth> auth,
+                                                      Lazy<FirebaseDatabase> database) {
+        return new LandingPresenter(view, app, googleSignInOptions, auth, database);
     }
 }
