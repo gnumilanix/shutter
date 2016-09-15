@@ -47,9 +47,8 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
     private final App app;
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
+    private final GoogleApiClient googleApi;
     private CallbackManager facebookCallbackManager;
-    private GoogleApiClient googleApi;
-    private FacebookCallback<LoginResult> facebookCallback;
 
     public LandingPresenter(LandingContract.View view, App app, FirebaseAuth auth, FirebaseDatabase database,
                             GoogleSignInOptions googleSignInOptions) {
@@ -70,7 +69,6 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
         initFacebookApi();
         googleApi.registerConnectionCallbacks(this);
         googleApi.registerConnectionFailedListener(this);
-        LoginManager.getInstance().registerCallback(facebookCallbackManager, facebookCallback);
     }
 
     private void initGoogleAPi() {
@@ -81,9 +79,9 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
     private void initFacebookApi() {
         if (null == facebookCallbackManager) {
             app.initializeFacebookSDK();
+            facebookCallbackManager = CallbackManager.Factory.create();
 
-            this.facebookCallbackManager = CallbackManager.Factory.create();
-            this.facebookCallback = new FacebookCallback<LoginResult>() {
+            LoginManager.getInstance().registerCallback(facebookCallbackManager, new FacebookCallback<LoginResult>() {
 
                 @Override
                 public void onSuccess(LoginResult loginResult) {
@@ -99,7 +97,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
                 public void onError(FacebookException error) {
                     handleLoginError();
                 }
-            };
+            });
         }
     }
 
