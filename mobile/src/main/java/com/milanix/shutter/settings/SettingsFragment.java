@@ -39,7 +39,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     public boolean onPreferenceClick(Preference preference) {
         if (preference.getKey().equals(getString(R.string.pref_muzei))) {
             validateMuzeiSettings();
-            SettingsFragmentPermissionsDispatcher.validateStoragePermissionWithCheck(this);
         }
 
         return false;
@@ -47,8 +46,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     private void validateMuzeiSettings() {
         if (!PermissionUtils.hasSelfPermissions(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             muzeiPref.setChecked(false);
+            SettingsFragmentPermissionsDispatcher.validateStoragePermissionWithCheck(this);
+        }
     }
 
     @Override
@@ -59,6 +60,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     @NeedsPermission(value = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void validateStoragePermission() {
+        muzeiPref.setChecked(true);
     }
 
     @OnPermissionDenied(value = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})

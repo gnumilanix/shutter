@@ -24,7 +24,6 @@ public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDeta
         super.onCreate(savedInstanceState);
         performBinding(R.layout.activity_post_detail);
         setToolbar(binding.toolbar, true);
-        createPostComponent(getIntent().getExtras().getString(PostModule.POST_ID));
 
         if (null == savedInstanceState) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new PostDetailFragment(),
@@ -44,10 +43,9 @@ public class PostDetailActivity extends AbstractBindingActivity<ActivityPostDeta
 
     @Override
     public PostComponent getComponent() {
+        if (null == postComponent) {
+            postComponent = getUserComponent().with(new PostModule(getIntent().getExtras().getString(PostModule.POST_ID)));
+        }
         return postComponent;
-    }
-
-    private void createPostComponent(String postId) {
-        postComponent = getUserComponent().with(new PostModule(postId));
     }
 }

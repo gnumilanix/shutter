@@ -57,7 +57,7 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createProfileComponent(getIntent().getExtras().getString(ProfileModule.PROFILE_ID)).inject(this);
+        getComponent().inject(this);
         performBinding(R.layout.activity_profile);
         setToolbar(binding.toolbar, true);
         presenter.subscribe();
@@ -107,7 +107,7 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(null != presenter && presenter.isMe()) {
+        if (null != presenter && presenter.isMe()) {
             final MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_profile, menu);
             return true;
@@ -118,14 +118,12 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
 
     @Override
     public ProfileComponent getComponent() {
-        return profileComponent;
-    }
-
-    public ProfileComponent createProfileComponent(String profileId) {
-        profileComponent = getUserComponent().with(new ProfileModule(profileId, this));
+        if (null == profileComponent)
+            profileComponent = getUserComponent().with(new ProfileModule(getIntent().getExtras().getString(ProfileModule.PROFILE_ID), this));
 
         return profileComponent;
     }
+
 
     @Override
     public void viewPosts() {
