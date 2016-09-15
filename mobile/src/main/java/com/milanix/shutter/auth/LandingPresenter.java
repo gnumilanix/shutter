@@ -38,6 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dagger.Lazy;
+
 //// TODO: 1/9/2016 comment this
 public class LandingPresenter extends AbstractPresenter<LandingContract.View> implements LandingContract.Presenter,
         FirebaseAuth.AuthStateListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
@@ -45,14 +47,13 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
     public static final List<String> PERMISSIONS_FACEBOOK = Arrays.asList("public_profile", "email");
 
     private final App app;
-    private final FirebaseAuth auth;
-    private final FirebaseDatabase database;
+    private final Lazy<FirebaseAuth> auth;
+    private final Lazy<FirebaseDatabase> database;
     private CallbackManager facebookCallbackManager;
     private GoogleApiClient googleApi;
-    private FacebookCallback<LoginResult> facebookCallback;
 
-    public LandingPresenter(LandingContract.View view, App app, FirebaseAuth auth, FirebaseDatabase database,
-                            GoogleSignInOptions googleSignInOptions) {
+    public LandingPresenter(LandingContract.View view, App app, GoogleSignInOptions googleSignInOptions,
+                            Lazy<FirebaseAuth> auth, Lazy<FirebaseDatabase> database) {
         super(view);
         this.app = app;
         this.auth = auth;
@@ -64,13 +65,11 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
 
     @Override
     public void subscribe() {
-        auth.addAuthStateListener(this);
+        auth.get().addAuthStateListener(this);
 
         initGoogleAPi();
-        initFacebookApi();
         googleApi.registerConnectionCallbacks(this);
         googleApi.registerConnectionFailedListener(this);
-        LoginManager.getInstance().registerCallback(facebookCallbackManager, facebookCallback);
     }
 
     private void initGoogleAPi() {
@@ -81,9 +80,9 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
     private void initFacebookApi() {
         if (null == facebookCallbackManager) {
             app.initializeFacebookSDK();
+            facebookCallbackManager = CallbackManager.Factory.create();
 
-            this.facebookCallbackManager = CallbackManager.Factory.create();
-            this.facebookCallback = new FacebookCallback<LoginResult>() {
+            LoginManager.getInstance().registerCallback(facebookCallbackManager, new FacebookCallback<LoginResult>() {
 
                 @Override
                 public void onSuccess(LoginResult loginResult) {
@@ -99,7 +98,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
                 public void onError(FacebookException error) {
                     handleLoginError();
                 }
-            };
+            });
         }
     }
 
@@ -108,7 +107,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
         super.unsubscribe();
         googleApi.unregisterConnectionCallbacks(this);
         googleApi.unregisterConnectionFailedListener(this);
-        auth.removeAuthStateListener(this);
+        auth.get().removeAuthStateListener(this);
     }
 
     @Override
@@ -136,6 +135,8 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
 
     @Override
     public void loginWithFacebook() {
+        initFacebookApi();
+
         if (isActive()) {
             view.showProgress();
             view.loginWithFacebook(PERMISSIONS_FACEBOOK);
@@ -182,7 +183,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
     }
 
     private void loginWithCredential(AuthCredential credential) {
-        auth.signInWithCredential(credential).
+        auth.get().signInWithCredential(credential).
                 addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -206,7 +207,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
         updates.put("/users/" + user.getUid() + "/avatar/", null == providerData.getPhotoUrl() ? null : providerData.getPhotoUrl().toString());
         updates.put("/users/" + user.getUid() + "/name/", providerData.getDisplayName());
 
-        database.getReference().updateChildren(updates).
+        database.get().getReference().updateChildren(updates).
                 continueWith(new Continuation<Void, Void>() {
                     @Override
                     public Void then(@NonNull Task<Void> task) throws Exception {
@@ -236,7 +237,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
 
     private void completeSignUp() {
         if (isActive()) {
-            app.createUserComponent(auth.getCurrentUser());
+            app.createUserComponent(auth.get().getCurrentUser());
             view.completeLogin();
         }
     }
