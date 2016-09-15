@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.text.TextUtils" />
 
         <import type="com.milanix.shutter.R" />
@@ -74,13 +75,19 @@
                         android:id="@+id/ivCover"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@android:color/black"
                         android:scaleType="centerCrop"
                         android:transitionName="@string/transition_post_image"
                         app:imageUrl="@{post.image}"
                         app:placeHolder="@{@drawable/ic_placeholder_large}"
-                        app:transformation="@{`crop`}"
-                        tools:background="@color/colorAccentPink" />
+                        app:transformation="@{`crop`}" />
                 </com.milanix.shutter.view.ProportionalFrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/bg_gradient_black_99_bottom" />
 
                 <TextView
                     android:id="@+id/tvCommentCount"
@@ -169,13 +176,13 @@
 
             <Button
                 android:id="@+id/btnSend"
-                android:enabled="@{!TextUtils.isEmpty(comment.comment)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/commentDivider"
                 android:background="?selectableItemBackgroundBorderless"
+                android:enabled="@{!TextUtils.isEmpty(comment.comment)}"
                 android:onClick="@{()->presenter.sendComment(post,comment)}"
                 android:text="@string/action_send"
                 android:textSize="@dimen/text_small" />

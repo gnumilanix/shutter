@@ -59,8 +59,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     @NeedsPermission(value = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void validateStoragePermission() {
-        if (!muzeiPref.isChecked())
-            muzeiPref.setChecked(true);
     }
 
     @OnPermissionDenied(value = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
