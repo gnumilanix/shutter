@@ -11,12 +11,12 @@ import dagger.Provides;
  * @author milan
  */
 @Module
-public class WebModule {
+public class WebPageModule {
     public static final String WEB_PAGE = "_page";
 
     private final WebPage webPage;
 
-    public WebModule(WebPage webPage) {
+    public WebPageModule(WebPage webPage) {
         this.webPage = webPage;
     }
 
