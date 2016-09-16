@@ -28,6 +28,8 @@ import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Inject;
 
+import static android.graphics.Typeface.BOLD;
+import static android.graphics.Typeface.NORMAL;
 import static com.milanix.shutter.user.profile.ProfileActivity.Tab.FOLLOWERS;
 import static com.milanix.shutter.user.profile.ProfileActivity.Tab.FOLLOWINGS;
 import static com.milanix.shutter.user.profile.ProfileActivity.Tab.POSTS;
@@ -175,6 +177,8 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
     }
 
     private void switchFragment(@ProfileActivity.Tab String tab) {
+        updateSelection(tab);
+
         final Fragment fragment = getSupportFragmentManager().findFragmentByTag(tab);
 
         if (null == fragment) {
@@ -194,6 +198,15 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
 
             transaction.commitNow();
         }
+    }
+
+    private void updateSelection(@ProfileActivity.Tab String tab) {
+        binding.tvFollowers.setTypeface(null, tab.equals(FOLLOWERS) ? BOLD : NORMAL);
+        binding.tvFollowersHint.setTypeface(null, tab.equals(FOLLOWERS) ? BOLD : NORMAL);
+        binding.tvPosts.setTypeface(null, tab.equals(POSTS) ? BOLD : NORMAL);
+        binding.tvPostsHint.setTypeface(null, tab.equals(POSTS) ? BOLD : NORMAL);
+        binding.tvFollowing.setTypeface(null, tab.equals(FOLLOWINGS) ? BOLD : NORMAL);
+        binding.tvFollowingHint.setTypeface(null, tab.equals(FOLLOWINGS) ? BOLD : NORMAL);
     }
 
     private void launchSettings() {

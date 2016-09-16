@@ -43,7 +43,7 @@ public class FollowingListPresenter extends AbstractPresenter<FollowingListContr
         this.database = database;
         this.notificationGenerator = notificationGenerator;
         this.profileReference = database.getReference().child("users").child(user.getUid());
-        this.followingsQuery = database.getReference().child("users").orderByChild("followers/" + profileId + "/").equalTo(true);
+        this.followingsQuery = database.getReference().child("users").orderByChild("followers/" + profileId).equalTo(true);
     }
 
     @Override

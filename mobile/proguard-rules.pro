@@ -33,6 +33,7 @@
 -keep class com.milanix.shutter.notification.model.** { *; }
 -keep class com.milanix.shutter.feed.model.** { *; }
 -keep class com.milanix.shutter.user.model.** { *; }
+-keep class com.milanix.shutter.web.WebPage { *; }
 -keep class com.milanix.shutter.auth.signup.SignUpModel { *; }
 -keep class com.milanix.shutter.auth.login.LoginModel { *; }
 
