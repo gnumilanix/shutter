@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="activity"
+            type="com.milanix.shutter.web.WebPageActivity" />
+    </data>
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/root"
@@ -30,7 +35,6 @@
                 app:contentInsetLeft="0dp"
                 app:contentInsetRight="0dp"
                 app:contentInsetStart="0dp"
-                app:layout_scrollFlags="scroll|enterAlways"
                 tools:targetApi="lollipop">
 
                 <ImageView
@@ -57,6 +61,14 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabSend"
+            style="@style/FabStyle"
+            android:onClick="@{()->activity.completeReading()}"
+            android:src="@drawable/ic_action_done"
+            app:backgroundTint="@color/colorAccent"
+            app:layout_anchor="@+id/nestedContainer"
+            app:layout_anchorGravity="bottom|end|right"
+            app:rippleColor="@color/colorRipple" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

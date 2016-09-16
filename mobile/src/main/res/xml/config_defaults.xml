@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>url_terms</key>
+        <value>https://shutter-fd81d.firebaseapp.com/terms-and-conditions.html</value>
+    </entry>
+    <entry>
+        <key>url_privacy</key>
+        <value>https://shutter-fd81d.firebaseapp.com/privacy-policy.html</value>
+    </entry>
+</defaultsMap>

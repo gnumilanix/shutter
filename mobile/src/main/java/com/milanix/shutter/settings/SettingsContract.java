@@ -17,9 +17,13 @@ public interface SettingsContract {
         void requestMuzeiInstallation();
 
         void installMuzei(Intent intent);
+
+        void cannotEnableMuzei();
     }
 
     interface Presenter extends IPresenter {
+        void initMuzeiSettings();
+
         void validateMuzeiSettings();
 
         void handleMuzeiNotInstalled();

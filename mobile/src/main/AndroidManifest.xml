@@ -120,6 +120,12 @@
                 android:value=".feed.detail.PostDetailActivity" />
         </activity>
 
+        <!-- Web page activity -->
+        <activity
+            android:name=".web.WebPageActivity"
+            android:theme="@style/AppTheme.Home" />
+
+
         <!-- Facebook activity -->
         <activity
             android:name="com.facebook.FacebookActivity"

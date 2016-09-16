@@ -14,9 +14,11 @@ import dagger.Provides;
 public class WebPageModule {
     public static final String WEB_PAGE = "_page";
 
+    private final WebPageContract.View view;
     private final WebPage webPage;
 
-    public WebPageModule(WebPage webPage) {
+    public WebPageModule(WebPageContract.View view, WebPage webPage) {
+        this.view = view;
         this.webPage = webPage;
     }
 
@@ -24,5 +26,16 @@ public class WebPageModule {
     @Named(WEB_PAGE)
     public WebPage provideWebPage() {
         return webPage;
+    }
+
+    @Provides
+    public WebPageContract.View provideView() {
+        return view;
+    }
+
+    @Provides
+    public WebPageContract.Presenter providePresenter(WebPageContract.View view,
+                                                      @Named(WEB_PAGE) WebPage webPage) {
+        return new WebPagePresenter(view, webPage);
     }
 }

@@ -32,10 +32,18 @@ public class SettingsPresenter extends AbstractPresenter<SettingsContract.View> 
     }
 
     @Override
+    public void initMuzeiSettings() {
+        if (!isMuzeiInstalled() || !hasStoragePermission()) {
+            view.cannotEnableMuzei();
+        }
+    }
+
+    @Override
     public void validateMuzeiSettings() {
         if (isMuzeiInstalled()) {
             checkStoragePermission();
         } else if (isActive()) {
+            view.cannotEnableMuzei();
             view.requestMuzeiInstallation();
         }
     }
@@ -52,12 +60,17 @@ public class SettingsPresenter extends AbstractPresenter<SettingsContract.View> 
     }
 
     private void checkStoragePermission() {
-        if (!PermissionUtils.hasSelfPermissions(context, Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (!hasStoragePermission()) {
             if (isActive()) {
+                view.cannotEnableMuzei();
                 view.requestMuzeiStoragePermission();
             }
         }
+    }
+
+    private boolean hasStoragePermission() {
+        return PermissionUtils.hasSelfPermissions(context, Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private boolean isMuzeiInstalled() {

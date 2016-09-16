@@ -75,6 +75,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     }
 
     @Override
+    public void cannotEnableMuzei() {
+        muzeiPref.setChecked(false);
+    }
+
+    @Override
     public boolean isActive() {
         return isAdded();
     }
@@ -120,7 +125,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     @Override
     public void requestMuzeiStoragePermission() {
-        muzeiPref.setChecked(false);
         SettingsFragmentPermissionsDispatcher.validateStoragePermissionWithCheck(this);
     }
 }

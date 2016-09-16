@@ -22,6 +22,8 @@ import com.milanix.shutter.splash.SplashComponent;
 import com.milanix.shutter.splash.SplashModule;
 import com.milanix.shutter.user.UserComponent;
 import com.milanix.shutter.user.UserModule;
+import com.milanix.shutter.web.WebPageComponent;
+import com.milanix.shutter.web.WebPageModule;
 
 import javax.inject.Singleton;
 
@@ -53,4 +55,6 @@ public interface AppComponent {
     UserComponent with(UserModule module);
 
     SettingsComponent with(SettingsModule module);
+
+    WebPageComponent with(WebPageModule module);
 }
