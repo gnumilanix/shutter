@@ -7,6 +7,7 @@ import android.support.annotation.DimenRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -94,5 +95,16 @@ public class Binding {
     @BindingAdapter(value = {"itemOffsetDecoration"})
     public static void setItemOffsetDecoration(RecyclerView view, @DimenRes int dimenRes) {
         view.addItemDecoration(new ItemOffsetDecoration(view.getContext(), dimenRes));
+    }
+
+    /**
+     * Loads given url to given {@link WebView}
+     *
+     * @param view to load url to
+     * @param url  to load
+     */
+    @BindingAdapter(value = {"url"})
+    public static void setUrl(WebView view, String url) {
+        view.loadUrl(url);
     }
 }
