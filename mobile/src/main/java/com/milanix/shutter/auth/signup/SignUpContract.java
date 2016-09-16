@@ -22,7 +22,7 @@ public interface SignUpContract {
 
         void selectAvatar();
 
-        void openAgreement();
+        void openTerms();
 
         void openLogin();
 
@@ -33,5 +33,7 @@ public interface SignUpContract {
 
     interface Presenter extends IPresenter {
         void signUp(@NonNull SignUpModel signUp);
+
+        String getTermsUrl();
     }
 }

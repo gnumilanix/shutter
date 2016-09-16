@@ -30,8 +30,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
+import com.milanix.shutter.dependencies.module.FirebaseModule;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,21 +43,24 @@ import java.util.Map;
 //// TODO: 1/9/2016 comment this
 public class LandingPresenter extends AbstractPresenter<LandingContract.View> implements LandingContract.Presenter,
         FirebaseAuth.AuthStateListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+    private static final long CONFIG_CACHE_EXPIRATION = 2 * 60 * 60;
     private static final int RC_GOOGLE_LOG_IN = 100;
     public static final List<String> PERMISSIONS_FACEBOOK = Arrays.asList("public_profile", "email");
 
     private final App app;
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
+    private final FirebaseRemoteConfig remoteConfig;
     private final GoogleApiClient googleApi;
     private CallbackManager facebookCallbackManager;
 
     public LandingPresenter(LandingContract.View view, App app, FirebaseAuth auth, FirebaseDatabase database,
-                            GoogleSignInOptions googleSignInOptions) {
+                            FirebaseRemoteConfig remoteConfig, GoogleSignInOptions googleSignInOptions) {
         super(view);
         this.app = app;
         this.auth = auth;
         this.database = database;
+        this.remoteConfig = remoteConfig;
         this.googleApi = new GoogleApiClient.Builder(app)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
                 .build();
@@ -67,6 +72,7 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
 
         initGoogleAPi();
         initFacebookApi();
+        initRemoteConfig();
         googleApi.registerConnectionCallbacks(this);
         googleApi.registerConnectionFailedListener(this);
     }
@@ -99,6 +105,15 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
                 }
             });
         }
+    }
+
+    private void initRemoteConfig() {
+        remoteConfig.fetch(CONFIG_CACHE_EXPIRATION).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                remoteConfig.activateFetched();
+            }
+        });
     }
 
     @Override
@@ -147,6 +162,11 @@ public class LandingPresenter extends AbstractPresenter<LandingContract.View> im
         } else {
             facebookCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public String getTermsUrl() {
+        return remoteConfig.getString(FirebaseModule.KEY_TERMS);
     }
 
     @Override

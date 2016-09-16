@@ -12,17 +12,10 @@
             type="android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener" />
     </data>
 
-    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeRefreshLayout"
+    <WebView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/wv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:onRefreshListener="@{refreshListener}">
-
-        <WebView
-            android:id="@+id/wv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            app:url="@{webpage.url}" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:url="@{webpage.url}" />
 </layout>

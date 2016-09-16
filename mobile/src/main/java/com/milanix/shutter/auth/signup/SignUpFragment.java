@@ -27,6 +27,12 @@ import com.milanix.shutter.auth.LandingActivity;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentSignupBinding;
 import com.milanix.shutter.home.HomeActivity;
+import com.milanix.shutter.web.WebPage;
+import com.milanix.shutter.web.WebPageActivity;
+import com.milanix.shutter.web.WebPageBuilder;
+import com.milanix.shutter.web.WebPageModule;
+
+import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
@@ -132,8 +138,12 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
     }
 
     @Override
-    public void openAgreement() {
+    public void openTerms() {
+        final WebPage webPage = new WebPageBuilder().setTitle(getString(R.string.title_terms)).
+                setUrl(presenter.getTermsUrl()).build();
 
+        startActivity(new Intent(getActivity(), WebPageActivity.class).putExtra(WebPageModule.WEB_PAGE,
+                Parcels.wrap(webPage)));
     }
 
     @Override

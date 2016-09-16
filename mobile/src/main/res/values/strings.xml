@@ -64,6 +64,7 @@
     <string name="title_app_version">Version</string>
     <string name="title_muzei">Muzei</string>
     <string name="title_install_muzei">Install Muzei</string>
+    <string name="title_terms">Terms and Conditions</string>
 
     <string name="message_notification_comment">%s commented in your post.</string>
     <string name="message_notification_favorite">%s favorited  your post.</string>

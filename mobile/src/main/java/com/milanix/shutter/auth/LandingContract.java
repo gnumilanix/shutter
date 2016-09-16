@@ -22,7 +22,7 @@ public interface LandingContract {
 
         void handleLoginError();
 
-        void openAgreement();
+        void openTerms();
 
         void showProgress();
 
@@ -41,5 +41,7 @@ public interface LandingContract {
         void loginWithFacebook();
 
         void handleActivityResult(int requestCode, int resultCode, Intent data);
+
+        String getTermsUrl();
     }
 }

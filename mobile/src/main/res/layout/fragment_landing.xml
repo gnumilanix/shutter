@@ -88,7 +88,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/margin_large"
             android:gravity="center"
-            android:onClick="@{()->view.openAgreement()}"
+            android:onClick="@{()->view.openTerms()}"
             android:text="@string/action_signin_accept_terms"
             android:textColor="@color/colorGrey500"
             android:textSize="@dimen/text_small" />

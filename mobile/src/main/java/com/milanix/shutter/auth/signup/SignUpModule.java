@@ -2,6 +2,7 @@ package com.milanix.shutter.auth.signup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.storage.FirebaseStorage;
 import com.milanix.shutter.App;
 
@@ -29,7 +30,8 @@ public class SignUpModule {
     @Provides
     public SignUpContract.Presenter providePresenter(SignUpContract.View view, App app,
                                                      FirebaseAuth auth, FirebaseDatabase database,
-                                                     FirebaseStorage storage) {
-        return new SignUpPresenter(view, app, auth, database, storage);
+                                                     FirebaseStorage storage,
+                                                     FirebaseRemoteConfig remoteConfig) {
+        return new SignUpPresenter(view, app, auth, database, storage, remoteConfig);
     }
 }

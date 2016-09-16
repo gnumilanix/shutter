@@ -14,10 +14,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 import com.milanix.shutter.App;
 import com.milanix.shutter.core.AbstractPresenter;
+import com.milanix.shutter.dependencies.module.FirebaseModule;
 import com.milanix.shutter.user.model.Profile;
 
 import java.io.FileNotFoundException;
@@ -31,14 +33,17 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
     private final FirebaseStorage storage;
+    private final FirebaseRemoteConfig remoteConfig;
 
     @Inject
-    public SignUpPresenter(SignUpContract.View view, App app, FirebaseAuth auth, FirebaseDatabase database, FirebaseStorage storage) {
+    public SignUpPresenter(SignUpContract.View view, App app, FirebaseAuth auth, FirebaseDatabase database,
+                           FirebaseStorage storage, FirebaseRemoteConfig remoteConfig) {
         super(view);
         this.app = app;
         this.auth = auth;
         this.database = database;
         this.storage = storage;
+        this.remoteConfig = remoteConfig;
     }
 
     @Override
@@ -58,6 +63,11 @@ public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> impl
                         }
                     }
                 });
+    }
+
+    @Override
+    public String getTermsUrl() {
+        return remoteConfig.getString(FirebaseModule.KEY_TERMS);
     }
 
     private void uploadAvatar(final SignUpModel signUp, final FirebaseUser user) {

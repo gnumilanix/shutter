@@ -23,6 +23,12 @@ import com.milanix.shutter.auth.signup.SignUpActivity;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentLandingBinding;
 import com.milanix.shutter.home.HomeActivity;
+import com.milanix.shutter.web.WebPage;
+import com.milanix.shutter.web.WebPageActivity;
+import com.milanix.shutter.web.WebPageBuilder;
+import com.milanix.shutter.web.WebPageModule;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -103,8 +109,12 @@ public class LandingFragment extends AbstractFragment<LandingContract.Presenter,
     }
 
     @Override
-    public void openAgreement() {
+    public void openTerms() {
+        final WebPage webPage = new WebPageBuilder().setTitle(getString(R.string.title_terms)).
+                setUrl(presenter.getTermsUrl()).build();
 
+        startActivity(new Intent(getActivity(), WebPageActivity.class).putExtra(WebPageModule.WEB_PAGE,
+                Parcels.wrap(webPage)));
     }
 
     @Override
