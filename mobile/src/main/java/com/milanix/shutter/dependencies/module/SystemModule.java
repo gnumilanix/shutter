@@ -2,6 +2,7 @@ package com.milanix.shutter.dependencies.module;
 
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.view.LayoutInflater;
 import android.view.inputmethod.InputMethodManager;
@@ -29,6 +30,12 @@ public class SystemModule {
     @Provides
     public InputMethodManager provideInputMethodManager(Context context) {
         return (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    }
+
+    @Singleton
+    @Provides
+    public PackageManager providePackageManager(Context context) {
+        return context.getPackageManager();
     }
 
     @Singleton

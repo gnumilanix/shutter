@@ -17,6 +17,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_ok">OK</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_install_now">Install Now</string>
     <string name="action_send">Send</string>
     <string name="action_request_now">Request Now</string>
     <string name="action_not_now">Not now</string>
@@ -62,6 +63,7 @@
     <string name="title_muzei_source">Muzei Source</string>
     <string name="title_app_version">Version</string>
     <string name="title_muzei">Muzei</string>
+    <string name="title_install_muzei">Install Muzei</string>
 
     <string name="message_notification_comment">%s commented in your post.</string>
     <string name="message_notification_favorite">%s favorited  your post.</string>
@@ -84,6 +86,7 @@
     <string name="message_reset_password_send_email">We will send instructions on how to reset you password to your email address.</string>
     <string name="message_reset_password_complete">We have sent instructions on how to reset your password to your email address:\n%s</string>
     <string name="message_muzei_summary">Show trending posts as wallpaper with Muzei</string>
+    <string name="message_muzei_install">Muzei is not installed. Let\'s install it now?</string>
     <string name="message_comment_hint">Share what you think about the post</string>
 
     <string name="missing_email">Please enter your email</string>

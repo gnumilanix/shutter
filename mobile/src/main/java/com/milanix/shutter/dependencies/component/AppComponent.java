@@ -16,6 +16,8 @@ import com.milanix.shutter.dependencies.module.FirebaseModule;
 import com.milanix.shutter.dependencies.module.LogModule;
 import com.milanix.shutter.dependencies.module.SystemModule;
 import com.milanix.shutter.muzei.ShutterArtSource;
+import com.milanix.shutter.settings.SettingsComponent;
+import com.milanix.shutter.settings.SettingsModule;
 import com.milanix.shutter.splash.SplashComponent;
 import com.milanix.shutter.splash.SplashModule;
 import com.milanix.shutter.user.UserComponent;
@@ -50,4 +52,5 @@ public interface AppComponent {
 
     UserComponent with(UserModule module);
 
+    SettingsComponent with(SettingsModule module);
 }

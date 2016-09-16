@@ -2,6 +2,7 @@ package com.milanix.shutter.settings;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -9,53 +10,73 @@ import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
+import com.milanix.shutter.App;
 import com.milanix.shutter.R;
+
+import javax.inject.Inject;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
-import permissions.dispatcher.PermissionUtils;
 import permissions.dispatcher.RuntimePermissions;
 
 //todo comment
 @RuntimePermissions
-public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
-
-
+public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener, SettingsContract.View {
     private CheckBoxPreference muzeiPref;
+
+    @Inject
+    protected SettingsContract.Presenter presenter;
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.preferences);
+        ((App) getActivity().getApplication()).getAppComponent().with(new SettingsModule(this)).inject(this);
 
         muzeiPref = (CheckBoxPreference) findPreference(getString(R.string.pref_muzei));
         muzeiPref.setOnPreferenceClickListener(this);
-        validateMuzeiSettings();
+        presenter.validateMuzeiSettings();
     }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
         if (preference.getKey().equals(getString(R.string.pref_muzei))) {
-            validateMuzeiSettings();
+            presenter.validateMuzeiSettings();
         }
 
         return false;
-    }
-
-    private void validateMuzeiSettings() {
-        if (!PermissionUtils.hasSelfPermissions(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            muzeiPref.setChecked(false);
-            SettingsFragmentPermissionsDispatcher.validateStoragePermissionWithCheck(this);
-        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         SettingsFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
+    public void requestMuzeiInstallation() {
+        new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialog)
+                .setTitle(R.string.title_install_muzei)
+                .setMessage(R.string.message_muzei_install)
+                .setPositiveButton(getText(R.string.action_install_now), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.handleMuzeiNotInstalled();
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void installMuzei(Intent intent) {
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean isActive() {
+        return isAdded();
     }
 
     @NeedsPermission(value = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -95,5 +116,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                         request.proceed();
                     }
                 }).show();
+    }
+
+    @Override
+    public void requestMuzeiStoragePermission() {
+        muzeiPref.setChecked(false);
+        SettingsFragmentPermissionsDispatcher.validateStoragePermissionWithCheck(this);
     }
 }
