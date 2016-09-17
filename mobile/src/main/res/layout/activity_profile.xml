@@ -257,6 +257,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:background="@drawable/bg_toolbar"
                     android:contentInsetEnd="0dp"
                     android:contentInsetLeft="0dp"
                     android:contentInsetRight="0dp"
@@ -265,10 +266,10 @@
                     app:contentInsetEnd="0dp"
                     app:contentInsetLeft="0dp"
                     app:contentInsetRight="0dp"
-                    android:background="@drawable/bg_toolbar"
                     app:contentInsetStart="0dp"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                    tools:targetApi="lollipop"/>
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/Toolbar.PopUp"
+                    tools:targetApi="lollipop" />
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
