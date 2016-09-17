@@ -32,6 +32,8 @@ public interface PostDetailContract {
         void openProfile(String authorId);
 
         void openComment(Post post);
+
+        void toggleViewState();
     }
 
     interface Presenter extends IPresenter {

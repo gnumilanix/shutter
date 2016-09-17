@@ -1,5 +1,7 @@
 package com.milanix.shutter.feed.detail;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -41,7 +43,6 @@ import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
-import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 import timber.log.Timber;
 
 /**
@@ -49,7 +50,8 @@ import timber.log.Timber;
  *
  * @author milan
  */
-public class PostDetailFragment extends AbstractFragment<PostDetailContract.Presenter, FragmentPostDetailBinding> implements PostDetailContract.View {
+public class PostDetailFragment extends AbstractFragment<PostDetailContract.Presenter, FragmentPostDetailBinding> implements
+        PostDetailContract.View {
     private static final int RC_SHARE_POST = 100;
     private ProgressDialog progressDialog;
     private IComponentProvider<PostComponent> componentProvider;
@@ -74,7 +76,6 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
         binding.setPresenter(presenter);
         binding.setUser(user);
         binding.setView(this);
-        binding.ivImage.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
     }
 
     @Override
@@ -151,7 +152,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     @Override
     public void share(String title, String message, Uri imageUri) {
         startActivityForResult(new AppInviteInvitation.IntentBuilder(title)
-                .setMessage(truncate(message,99))
+                .setMessage(truncate(message, 99))
                 .setCustomImage(imageUri)
                 .setCallToActionText(getString(R.string.action_view))
                 .build(), RC_SHARE_POST);
@@ -204,6 +205,12 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
     }
 
     @Override
+    public void toggleViewState() {
+ toggleToolbarVisibility();
+        toggleActionsVisibility();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -214,7 +221,67 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
         }
     }
 
-    public static String truncate(String text, int maxLength){
+    public static String truncate(String text, int maxLength) {
         return (text.length() > maxLength) ? text.substring(0, maxLength - 3) + "..." : text;
+    }
+
+    private void toggleToolbarVisibility() {
+        final View toolbar = getActivity().findViewById(R.id.toolbar);
+
+        if (toolbar.getVisibility() == View.VISIBLE) {
+            toolbar.setAlpha(1.0f);
+            toolbar.animate()
+                    .translationY(-toolbar.getHeight())
+                    .alpha(0.0f)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            toolbar.setVisibility(View.GONE);
+                        }
+                    });
+        } else {
+            toolbar.setVisibility(View.VISIBLE);
+            toolbar.setAlpha(0.0f);
+            toolbar.setTranslationY(-toolbar.getHeight());
+            toolbar.animate()
+                    .translationY(0.0f)
+                    .alpha(1.0f)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            toolbar.setTranslationY(0);
+                            toolbar.setAlpha(1.0f);
+                        }
+                    });
+        }
+    }
+
+    private void toggleActionsVisibility() {
+        if (binding.clActions.getVisibility() == View.VISIBLE) {
+            binding.clActions.setAlpha(1.0f);
+            binding.clActions.animate()
+                    .translationY(binding.clActions.getHeight())
+                    .alpha(0.0f)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            binding.clActions.setVisibility(View.GONE);
+                        }
+                    });
+        } else {
+            binding.clActions.setVisibility(View.VISIBLE);
+            binding.clActions.setAlpha(0.0f);
+            binding.clActions.setTranslationY(binding.clActions.getHeight());
+            binding.clActions.animate()
+                    .translationY(0.0f)
+                    .alpha(1.0f)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            binding.clActions.setTranslationY(0);
+                            binding.clActions.setAlpha(1.0f);
+                        }
+                    });
+        }
     }
 }
