@@ -14,7 +14,8 @@ import com.milanix.shutter.core.AbstractRecyclerAdapter;
  * @param <H> of the view holder
  * @author milan
  */
-public abstract class AbstractFirebaseRecyclerAdapter<T extends IFirebaseModel, H extends RecyclerView.ViewHolder> extends AbstractRecyclerAdapter<T, H> implements ChildEventListener {
+public abstract class AbstractFirebaseRecyclerAdapter<T extends IFirebaseModel, H extends RecyclerView.ViewHolder>
+        extends AbstractRecyclerAdapter<T, H> implements ChildEventListener {
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {

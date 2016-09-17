@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <import type="com.milanix.shutter.R" />
 
         <variable
@@ -20,15 +22,30 @@
         android:layout_height="match_parent"
         app:onRefreshListener="@{refreshListener}">
 
-        <com.milanix.shutter.view.AutoFitRecyclerView
-            android:id="@+id/rvFeedList"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey100"
-            android:columnWidth="@dimen/item_post_width"
-            android:padding="@dimen/margin_small"
-            app:adapter="@{adapter}"
-            app:hasFixedSize="@{true}"
-            app:itemOffsetDecoration="@{R.dimen.margin_small}" />
+            android:layout_height="match_parent">
+
+            <com.milanix.shutter.view.InfoView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{adapter.getItems().isEmpty()?View.VISIBLE:View.GONE}"
+                app:info_bg_color="@android:color/white"
+                app:info_icon="@drawable/ic_icon_no_favorite"
+                app:info_text="@string/message_no_favorites"
+                app:info_text_color="@color/colorGrey500" />
+
+            <com.milanix.shutter.view.AutoFitRecyclerView
+                android:id="@+id/rvFeedList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorGrey100"
+                android:columnWidth="@dimen/item_post_width"
+                android:padding="@dimen/margin_small"
+                android:visibility="@{adapter.getItems().isEmpty()?View.GONE:View.VISIBLE}"
+                app:adapter="@{adapter}"
+                app:hasFixedSize="@{true}"
+                app:itemOffsetDecoration="@{R.dimen.margin_small}" />
+        </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

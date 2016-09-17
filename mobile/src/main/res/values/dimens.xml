@@ -36,8 +36,6 @@
     <dimen name="notification_post_image">65dp</dimen>
 
     <dimen name="profile_avatar">60dp</dimen>
-
     <dimen name="user_avatar">48dp</dimen>
-
     <dimen name="comment_editor_height">48dp</dimen>
 </resources>

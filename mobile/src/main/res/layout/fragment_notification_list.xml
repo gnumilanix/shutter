@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="layoutManager"
             type="android.support.v7.widget.LinearLayoutManager" />
@@ -22,14 +24,29 @@
         android:layout_height="match_parent"
         app:onRefreshListener="@{refreshListener}">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvNotificationList"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey100"
-            app:adapter="@{adapter}"
-            app:dividerItemDecoration="@{@drawable/divider_horizontal_dark}"
-            app:hasFixedSize="@{true}"
-            app:layoutManager="@{layoutManager}" />
+            android:layout_height="match_parent">
+
+            <com.milanix.shutter.view.InfoView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{adapter.getItems().isEmpty()?View.VISIBLE:View.GONE}"
+                app:info_bg_color="@android:color/white"
+                app:info_icon="@drawable/ic_icon_no_content"
+                app:info_text="@string/message_no_notifications"
+                app:info_text_color="@color/colorGrey500" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvNotificationList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorGrey100"
+                android:visibility="@{adapter.getItems().isEmpty()?View.GONE:View.VISIBLE}"
+                app:adapter="@{adapter}"
+                app:dividerItemDecoration="@{@drawable/divider_horizontal_dark}"
+                app:hasFixedSize="@{true}"
+                app:layoutManager="@{layoutManager}" />
+        </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>
