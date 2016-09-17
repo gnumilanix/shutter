@@ -34,6 +34,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/bg_toolbar"
                 android:contentInsetEnd="0dp"
                 android:contentInsetLeft="0dp"
                 android:contentInsetRight="0dp"
@@ -50,13 +51,6 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:padding="@dimen/padding_normal"
-                        android:src="@drawable/ic_title" />
 
                     <com.milanix.shutter.view.ProportionalFrameLayout
                         android:id="@+id/flAvatar"

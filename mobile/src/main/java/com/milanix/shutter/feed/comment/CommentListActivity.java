@@ -75,9 +75,7 @@ public class CommentListActivity extends AbstractBindingActivity<ActivityComment
 
     @Override
     public void showPost(Post post) {
-        getSupportActionBar().setTitle(post.getTitle());
-        getSupportActionBar().setSubtitle(getResources().getQuantityString(R.plurals.comments,
-                adapter.getItemCount(), adapter.getItemCount()));
+        binding.collapsingToolbar.setTitle(post.getTitle());
         binding.setPost(post);
     }
 
