@@ -90,9 +90,9 @@
     <string name="message_muzei_install">Muzei is not installed. Let\'s install it now?</string>
     <string name="message_comment_hint">Share what you think about the post</string>
     <string name="message_no_notifications">No notifications yet.</string>
-    <string name="message_no_favorites">No favorites yet. Don\'t you really like anything here?</string>
-    <string name="message_no_followers">No followers yet.</string>
-    <string name="message_no_followings">Following no one yet? Why not extend your reach by following others?</string>
+    <string name="message_no_favorites">No favorites yet? Don\'t you really like anything here?</string>
+    <string name="message_no_followers">No followers yet? Upload those awesome shots to let people know about your talent</string>
+    <string name="message_no_followings">Following no one yet? Why not extend your reach connecting with others?</string>
     <string name="message_no_posts">No posts yet! Why not unleash your talent by sharing your awesome shots?</string>
 
     <string name="missing_email">Please enter your email</string>
