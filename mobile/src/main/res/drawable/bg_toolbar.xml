@@ -1,8 +1,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape
-            android:bottom="@dimen/padding_normal"
-            android:shape="rectangle">
+    <item
+        android:bottom="@dimen/padding_normal"
+        android:left="@dimen/padding_normal"
+        android:right="@dimen/padding_normal"
+        android:top="@dimen/padding_normal">
+        <shape android:shape="rectangle">
             <solid android:color="@android:color/transparent" />
         </shape>
     </item>
