@@ -7,6 +7,11 @@ import org.parceler.Parcel;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Author model
+ *
+ * @author milan
+ */
 @Parcel
 public class Author {
     public String id;

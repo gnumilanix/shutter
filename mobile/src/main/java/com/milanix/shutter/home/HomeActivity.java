@@ -31,7 +31,7 @@ import static com.milanix.shutter.home.HomeActivity.Tab.FEEDS;
 import static com.milanix.shutter.home.HomeActivity.Tab.NOTIFICATIONS;
 
 /**
- * Activity containing feeds
+ * Activity containing home view
  *
  * @author milan
  */

@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Profile presenter
+ * Post list presenter
  *
  * @author milan
  */

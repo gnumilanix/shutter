@@ -7,7 +7,11 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivitySignupBinding;
 
-//// TODO: 30/8/2016 add comment
+/**
+ * Activity containing sign up view
+ *
+ * @author milan
+ */
 public class SignUpActivity extends AbstractBindingActivity<ActivitySignupBinding> implements SignUpFragment.OnReadyListener {
     public static final String TAG_FRAGMENT_SIGNUP = "_fragment_signup";
 
@@ -15,7 +19,7 @@ public class SignUpActivity extends AbstractBindingActivity<ActivitySignupBindin
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         performBinding(R.layout.activity_signup);
-        setToolbar(binding.toolbar,true);
+        setToolbar(binding.toolbar, true);
 
         if (null == savedInstanceState) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new SignUpFragment(),

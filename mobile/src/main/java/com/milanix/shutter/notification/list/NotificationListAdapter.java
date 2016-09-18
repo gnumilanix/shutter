@@ -18,7 +18,7 @@ import javax.inject.Inject;
  * @author milan
  */
 public class NotificationListAdapter extends AbstractFirebaseRecyclerAdapter<Notification, NotificationListAdapter.NotificationHolder> {
-    private NotificationListContract.View feedListView;
+    private final NotificationListContract.View feedListView;
     private final LayoutInflater inflater;
 
     @Inject

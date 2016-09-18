@@ -6,13 +6,12 @@ import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
 
 /**
- * Contract for feed related implementations
+ * Contract for sign up  related implementations
  *
  * @author milan
  */
 public interface SignUpContract {
     interface View extends IView {
-        void handleExistingUser();
 
         void handleSignUpFailure();
 

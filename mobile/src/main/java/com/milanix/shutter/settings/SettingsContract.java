@@ -6,7 +6,7 @@ import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
 
 /**
- * Contract for new post related implementations
+ * Contract defining settings related view/presenter implementations
  *
  * @author milan
  */

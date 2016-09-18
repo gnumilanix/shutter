@@ -44,8 +44,8 @@ public class ProfilePresenter extends AbstractPresenter<ProfileContract.View> im
     private final App app;
     private final FirebaseUser user;
     private final FirebaseAuth auth;
-    private FirebaseDatabase database;
-    private NotificationGenerator notificationGenerator;
+    private final FirebaseDatabase database;
+    private final NotificationGenerator notificationGenerator;
     private final GoogleApiClient googleApi;
     private final String profileId;
     private final DatabaseReference profileReference;

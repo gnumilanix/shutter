@@ -40,7 +40,11 @@ import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
 
-//// TODO: 30/8/2016 comment
+/**
+ * Fragment containing sign up view
+ *
+ * @author milan
+ */
 public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, FragmentSignupBinding> implements SignUpContract.View {
     private static final int PICK_AVATAR_REQUEST = 1;
     @Inject
@@ -99,11 +103,6 @@ public class SignUpFragment extends AbstractFragment<SignUpContract.Presenter, F
         spannableString.setSpan(new UnderlineSpan(), beginIndex, endIndex, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 
         view.setText(spannableString);
-    }
-
-    @Override
-    public void handleExistingUser() {
-
     }
 
     @Override

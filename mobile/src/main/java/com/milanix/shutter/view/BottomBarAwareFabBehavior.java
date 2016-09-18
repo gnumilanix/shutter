@@ -11,6 +11,8 @@ import com.roughike.bottombar.BottomBar;
 
 /**
  * {@link FloatingActionButton} behavior that is aware of {@link BottomBar}
+ *
+ * @author milan
  */
 public class BottomBarAwareFabBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
     public BottomBarAwareFabBehavior(Context context, AttributeSet attrs) {

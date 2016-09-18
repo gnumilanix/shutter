@@ -5,7 +5,6 @@ package com.milanix.shutter.core.specification;
  *
  * @author milan
  */
-
 public interface IView {
     boolean isActive();
 }

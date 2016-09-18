@@ -27,7 +27,11 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
-//// TODO: 31/8/2016 comment it
+/**
+ * Sign up presenter
+ *
+ * @author milan
+ */
 public class SignUpPresenter extends AbstractPresenter<SignUpContract.View> implements SignUpContract.Presenter {
     private final App app;
     private final FirebaseAuth auth;

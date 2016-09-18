@@ -28,7 +28,11 @@ import com.milanix.shutter.home.HomeActivity;
 
 import javax.inject.Inject;
 
-//// TODO: 30/8/2016 comment
+/**
+ * Fragment containing login view
+ *
+ * @author milan
+ */
 public class LoginFragment extends AbstractFragment<LoginContract.Presenter, FragmentLoginBinding> implements LoginContract.View {
     @Inject
     InputMethodManager inputMethodManager;
@@ -81,11 +85,6 @@ public class LoginFragment extends AbstractFragment<LoginContract.Presenter, Fra
         getActivity().finish();
         startActivity(new Intent(getActivity(), HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK));
-    }
-
-    @Override
-    public void setSessionUnavailable() {
-
     }
 
     @Override

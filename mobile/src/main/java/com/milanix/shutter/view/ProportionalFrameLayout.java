@@ -17,7 +17,7 @@ import static com.milanix.shutter.view.ProportionalFrameLayout.ProportionTo.HORI
 import static com.milanix.shutter.view.ProportionalFrameLayout.ProportionTo.VERTICAL;
 
 /**
- * Extension of {@link FrameLayout} with height proportional to it's weight
+ * Extension of {@link FrameLayout} with height/width proportional to given {@link ProportionTo}
  *
  * @author milan
  */
@@ -73,10 +73,5 @@ public class ProportionalFrameLayout extends FrameLayout {
                         MeasureSpec.makeMeasureSpec((int) (width * proportion), MeasureSpec.EXACTLY));
                 break;
         }
-    }
-
-    @Override
-    public void setOnClickListener(OnClickListener l) {
-        super.setOnClickListener(l);
     }
 }

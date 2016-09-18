@@ -21,7 +21,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 /**
- * Notification list presenter
+ * Comment list presenter
  *
  * @author milan
  */

@@ -40,7 +40,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//// TODO: 1/9/2016 comment this
+/**
+ * Landing presenter
+ *
+ * @author milan
+ */
 public class LandingPresenter extends AbstractPresenter<LandingContract.View> implements LandingContract.Presenter,
         FirebaseAuth.AuthStateListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
     private static final long CONFIG_CACHE_EXPIRATION = 2 * 60 * 60;

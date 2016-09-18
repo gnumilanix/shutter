@@ -23,7 +23,7 @@ import com.milanix.shutter.user.profile.ProfileModule;
 import dagger.Subcomponent;
 
 /**
- * Component that binds login related component and provide dependencies to it
+ * Component that binds user related component and provide dependencies to it
  *
  * @author milan
  */

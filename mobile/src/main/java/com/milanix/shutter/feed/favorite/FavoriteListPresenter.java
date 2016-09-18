@@ -8,9 +8,8 @@ import com.milanix.shutter.core.AbstractPresenter;
 
 import javax.inject.Inject;
 
-
 /**
- * Feeds presenter
+ * Favorites presenter
  *
  * @author milan
  */

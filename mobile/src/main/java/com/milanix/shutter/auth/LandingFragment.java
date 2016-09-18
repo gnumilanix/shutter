@@ -32,7 +32,11 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-//// TODO: 30/8/2016 comment
+/**
+ * Fragment containing not logged in users view
+ *
+ * @author milan
+ */
 public class LandingFragment extends AbstractFragment<LandingContract.Presenter, FragmentLandingBinding> implements LandingContract.View {
     private ProgressDialog progressDialog;
 

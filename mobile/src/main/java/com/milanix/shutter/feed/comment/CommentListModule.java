@@ -11,7 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module providing feed related dependencies
+ * Module providing comment list related dependencies
  *
  * @author milan
  */

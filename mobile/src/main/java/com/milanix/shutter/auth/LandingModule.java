@@ -10,7 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module providing login related dependencies
+ * Module providing landing related dependencies
  *
  * @author milan
  */

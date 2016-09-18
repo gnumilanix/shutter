@@ -22,7 +22,11 @@ import com.milanix.shutter.databinding.FragmentNewPostBinding;
 
 import static android.app.Activity.RESULT_OK;
 
-//// TODO: 30/8/2016 comment
+/**
+ * Fragment containing new post view
+ *
+ * @author milan
+ */
 public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter, FragmentNewPostBinding> implements NewPostContract.View {
     private static final int PICK_POST_IMAGE_REQUEST = 1;
     private final Observable.OnPropertyChangedCallback propertyChangedCallback = new Observable.OnPropertyChangedCallback() {

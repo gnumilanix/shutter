@@ -7,7 +7,7 @@ import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityNewPostBinding;
 
 /**
- * Activity containing a single feed
+ * Activity containing a new post related view components
  *
  * @author milan
  */

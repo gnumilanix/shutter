@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import permissions.dispatcher.PermissionUtils;
 
 /**
- * New post presenter
+ * Settings presenter
  *
  * @author milan
  */
@@ -21,8 +21,8 @@ public class SettingsPresenter extends AbstractPresenter<SettingsContract.View> 
     private static final String PKG_MUZEI = "net.nurik.roman.muzei";
     private static final String URI_MARKET_MUZEI = "market://details?id=" + PKG_MUZEI;
     private static final String URI_PLAY_MUZEI = "https://play.google.com/store/apps/details?id=" + PKG_MUZEI;
-    private Context context;
-    private PackageManager packageManager;
+    private final Context context;
+    private final PackageManager packageManager;
 
     @Inject
     public SettingsPresenter(SettingsContract.View view, Context context, PackageManager packageManager) {

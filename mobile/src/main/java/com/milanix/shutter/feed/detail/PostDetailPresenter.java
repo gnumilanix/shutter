@@ -30,15 +30,15 @@ import javax.inject.Named;
 import timber.log.Timber;
 
 /**
- * Feeds presenter
+ * Post detail presenter
  *
  * @author milan
  */
 public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.View> implements PostDetailContract.Presenter, ValueEventListener {
-    private FirebaseUser user;
+    private final FirebaseUser user;
     private final FirebaseDatabase database;
     private final FirebaseStorage storage;
-    private NotificationGenerator notificationGenerator;
+    private final NotificationGenerator notificationGenerator;
     private final String postId;
 
     @Inject

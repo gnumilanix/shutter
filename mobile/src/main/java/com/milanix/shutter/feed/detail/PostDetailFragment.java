@@ -46,7 +46,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 /**
- * Fragment containing feeds
+ * Fragment containing post detail
  *
  * @author milan
  */
@@ -206,7 +206,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
 
     @Override
     public void toggleViewState() {
- toggleToolbarVisibility();
+        toggleToolbarVisibility();
         toggleActionsVisibility();
     }
 

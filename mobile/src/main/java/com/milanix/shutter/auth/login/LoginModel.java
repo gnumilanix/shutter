@@ -6,7 +6,7 @@ import android.databinding.Bindable;
 import com.milanix.shutter.BR;
 
 /**
- * LoginModel data model with support for two way data binding
+ * Login model data model with support for two way data binding
  *
  * @author milan
  */

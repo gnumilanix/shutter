@@ -14,7 +14,11 @@ import com.milanix.shutter.databinding.FragmentWebpageBinding;
 
 import org.parceler.Parcels;
 
-//// TODO: 30/8/2016 comment
+/**
+ * Fragment containing a web page
+ *
+ * @author milan
+ */
 public class WebPageFragment extends AbstractFragment<WebPageContract.Presenter, FragmentWebpageBinding> implements
         WebPageContract.View, SwipeRefreshLayout.OnRefreshListener {
 

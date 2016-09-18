@@ -19,7 +19,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.messaging.FirebaseMessagingService;
 import com.milanix.shutter.App;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.JobScheduler;
@@ -40,7 +39,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Implementation of {@link FirebaseMessagingService} used by this app
+ * Implementation of {@link Service} that generates notifications from changes in /activities/{userId} reference
  *
  * @author milan
  */

@@ -15,6 +15,11 @@ import android.widget.TextView;
 
 import com.milanix.shutter.R;
 
+/**
+ * View that provides info including text and icon in error view pattern
+ *
+ * @author milan
+ */
 public class InfoView extends RelativeLayout {
     private int bgColor;
     private Drawable icon;
@@ -70,7 +75,7 @@ public class InfoView extends RelativeLayout {
 
         final RelativeLayout.LayoutParams iconParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        iconParams.bottomMargin=getResources().getDimensionPixelSize(R.dimen.margin_normal);
+        iconParams.bottomMargin = getResources().getDimensionPixelSize(R.dimen.margin_normal);
         iconParams.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
         iconParams.addRule(RelativeLayout.ABOVE, R.id.info_view_text);
 

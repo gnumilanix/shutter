@@ -6,7 +6,7 @@ import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.notification.model.Notification;
 
 /**
- * Contract for notification lsit related implementations
+ * Contract defining notification list related view/presenter implementations
  *
  * @author milan
  */

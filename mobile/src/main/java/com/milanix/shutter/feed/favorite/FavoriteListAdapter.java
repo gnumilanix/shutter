@@ -13,12 +13,12 @@ import com.milanix.shutter.feed.model.Post;
 import javax.inject.Inject;
 
 /**
- * Adapter containing list of feed
+ * Adapter containing list of favorites
  *
  * @author milan
  */
 public class FavoriteListAdapter extends AbstractFirebaseRecyclerAdapter<Post, FavoriteListAdapter.FeedHolder> {
-    private FavoriteListContract.View feedListView;
+    private final FavoriteListContract.View feedListView;
     private final LayoutInflater inflater;
 
     @Inject

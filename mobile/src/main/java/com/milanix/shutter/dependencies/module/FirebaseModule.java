@@ -14,7 +14,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module providing auth related dependencies
+ * Module providing firebase related dependencies
  *
  * @author milan
  */

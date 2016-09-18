@@ -4,6 +4,11 @@ import com.milanix.shutter.core.specification.IFirebaseModel;
 
 import org.parceler.Parcel;
 
+/**
+ * Comment model
+ *
+ * @author milan
+ */
 @Parcel
 public class Comment implements IFirebaseModel {
     public String id;

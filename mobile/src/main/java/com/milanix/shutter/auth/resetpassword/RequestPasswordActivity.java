@@ -7,7 +7,11 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityRequestPasswordBinding;
 
-//// TODO: 30/8/2016 add comment
+/**
+ * Activity containing reset password view
+ *
+ * @author milan
+ */
 public class RequestPasswordActivity extends AbstractBindingActivity<ActivityRequestPasswordBinding> {
     public static final String TAG_FRAGMENT_RESET_PASSWORD = "_fragment_reset_password";
 

@@ -11,7 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module providing profile related dependencies
+ * Module providing following list related dependencies
  *
  * @author milan
  */

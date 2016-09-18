@@ -1,5 +1,10 @@
 package com.milanix.shutter.web;
 
+/**
+ * Builder class that builds a {@link WebPage}
+ *
+ * @author milan
+ */
 public class WebPageBuilder {
     private String title;
     private String url;

@@ -5,7 +5,7 @@ import com.milanix.shutter.dependencies.scope.ActivityScope;
 import dagger.Subcomponent;
 
 /**
- * Component that binds feeds related component and provide dependencies to it
+ * Component that binds comment list related component and provide dependencies to it
  *
  * @author milan
  */

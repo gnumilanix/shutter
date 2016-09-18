@@ -14,7 +14,7 @@ import com.milanix.shutter.user.UserComponent;
  *
  * @author milan
  */
-public class AbstractActivity extends AppCompatActivity implements IView {
+public abstract class AbstractActivity extends AppCompatActivity implements IView {
     private boolean isDestroyed = false;
 
     public App getApp() {

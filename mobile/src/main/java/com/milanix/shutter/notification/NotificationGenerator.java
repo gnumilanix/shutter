@@ -22,6 +22,11 @@ import static com.milanix.shutter.notification.model.Notification.Type.NEWS;
 import static com.milanix.shutter.notification.model.Notification.Type.UNFAVORITE;
 import static com.milanix.shutter.notification.model.Notification.Type.UNFOLLOW;
 
+/**
+ * Helper class that generates activity notification
+ *
+ * @author milan
+ */
 public class NotificationGenerator {
     private final FirebaseUser user;
     private final FirebaseDatabase database;

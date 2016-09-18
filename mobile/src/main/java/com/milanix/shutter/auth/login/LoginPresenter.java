@@ -13,7 +13,7 @@ import com.milanix.shutter.core.AbstractPresenter;
 import javax.inject.Inject;
 
 /**
- * LoginModel presenter
+ * Login presenter
  *
  * @author milan
  */
@@ -29,7 +29,7 @@ public class LoginPresenter extends AbstractPresenter<LoginContract.View> implem
     }
 
     @Override
-    public void login(final LoginModel login) {
+    public void login(@NonNull final LoginModel login) {
         if (areLoginFieldsValid(login)) {
             if (isActive())
                 view.showProgress();

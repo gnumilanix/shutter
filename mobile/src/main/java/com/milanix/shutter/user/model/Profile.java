@@ -5,7 +5,7 @@ import com.milanix.shutter.core.specification.IFirebaseModel;
 import java.util.HashMap;
 
 /**
- * Profile schema
+ * Profile model
  *
  * @author milan
  */
@@ -14,11 +14,11 @@ public class Profile implements IFirebaseModel {
     public String email;
     public String avatar;
     public String name;
-    public HashMap<String, Boolean> followers = new HashMap<>();
-    public HashMap<String, Boolean> followings = new HashMap<>();
-    public HashMap<String, Boolean> posts = new HashMap<>();
-    public HashMap<String, Boolean> favorites = new HashMap<>();
-    public HashMap<String, Boolean> views = new HashMap<>();
+    public final HashMap<String, Boolean> followers = new HashMap<>();
+    public final HashMap<String, Boolean> followings = new HashMap<>();
+    public final HashMap<String, Boolean> posts = new HashMap<>();
+    public final HashMap<String, Boolean> favorites = new HashMap<>();
+    public final HashMap<String, Boolean> views = new HashMap<>();
 
     public Profile() {
 

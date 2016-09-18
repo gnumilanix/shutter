@@ -8,7 +8,7 @@ import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityWebpageBinding;
 
 /**
- * Activity containing a single feed
+ * Activity containing a web page
  *
  * @author milan
  */

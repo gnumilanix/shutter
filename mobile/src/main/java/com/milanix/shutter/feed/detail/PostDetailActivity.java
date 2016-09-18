@@ -11,7 +11,7 @@ import com.milanix.shutter.feed.PostComponent;
 import com.milanix.shutter.feed.PostModule;
 
 /**
- * Activity containing a single feed
+ * Activity containing a post detail
  *
  * @author milan
  */

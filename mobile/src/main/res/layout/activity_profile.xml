@@ -106,6 +106,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_normal"
+                        android:layout_marginStart="@dimen/margin_normal"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:maxLines="2"

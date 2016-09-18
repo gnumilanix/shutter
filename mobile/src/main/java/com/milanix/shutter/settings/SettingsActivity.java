@@ -7,7 +7,7 @@ import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivitySettingsBinding;
 
 /**
- * Activity containing a single feed
+ * Activity containing a settings
  *
  * @author milan
  */

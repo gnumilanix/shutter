@@ -6,7 +6,7 @@ import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
 
 /**
- * Contract for feed related implementations
+ * Contract for login related implementations
  *
  * @author milan
  */
@@ -19,8 +19,6 @@ public interface LoginContract {
         void handleInvalidLogin();
 
         void setSessionAvailable();
-
-        void setSessionUnavailable();
 
         void showProgress();
 

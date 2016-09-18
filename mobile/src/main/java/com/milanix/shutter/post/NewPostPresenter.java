@@ -31,10 +31,10 @@ import javax.inject.Inject;
  * @author milan
  */
 public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> implements NewPostContract.Presenter {
-    private Context context;
+    private final Context context;
     private final FirebaseUser user;
-    private FirebaseDatabase database;
-    private FirebaseStorage storage;
+    private final FirebaseDatabase database;
+    private final FirebaseStorage storage;
 
     @Inject
     public NewPostPresenter(NewPostContract.View view, Context context, FirebaseUser user, FirebaseDatabase database,

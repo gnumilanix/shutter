@@ -5,7 +5,7 @@ import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
 
 /**
- * Contract for feeds related implementations
+ * Contract defining feed list related view/presenter implementations
  *
  * @author milan
  */

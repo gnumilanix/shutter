@@ -13,12 +13,12 @@ import com.milanix.shutter.feed.model.Comment;
 import javax.inject.Inject;
 
 /**
- * Adapter containing list of notifications
+ * Adapter containing list of comments
  *
  * @author milan
  */
 public class CommentListAdapter extends AbstractFirebaseRecyclerAdapter<Comment, CommentListAdapter.CommentHolder> {
-    private CommentListContract.View commentListView;
+    private final CommentListContract.View commentListView;
     private final LayoutInflater inflater;
 
     @Inject

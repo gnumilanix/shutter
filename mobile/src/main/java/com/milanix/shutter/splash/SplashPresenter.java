@@ -10,7 +10,7 @@ import com.milanix.shutter.core.AbstractPresenter;
 import javax.inject.Inject;
 
 /**
- * LoginModel presenter
+ * Splash presenter
  *
  * @author milan
  */

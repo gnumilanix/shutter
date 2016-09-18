@@ -7,7 +7,11 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityLoginBinding;
 
-//// TODO: 30/8/2016 add comment
+/**
+ * Activity containing login related view
+ *
+ * @author milan
+ */
 public class LoginActivity extends AbstractBindingActivity<ActivityLoginBinding> {
     public static final String TAG_FRAGMENT_LOGIN = "_fragment_login";
 

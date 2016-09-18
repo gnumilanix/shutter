@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Profile presenter
+ * Follower list presenter
  *
  * @author milan
  */
@@ -31,7 +31,7 @@ public class FollowerListPresenter extends AbstractPresenter<FollowerListContrac
     private final FirebaseUser user;
     private final DatabaseReference profileReference;
     private final FirebaseDatabase database;
-    private NotificationGenerator notificationGenerator;
+    private final NotificationGenerator notificationGenerator;
     private final Query followingsQuery;
 
     @Inject

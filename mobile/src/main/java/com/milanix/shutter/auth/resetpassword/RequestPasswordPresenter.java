@@ -9,7 +9,11 @@ import com.milanix.shutter.core.AbstractPresenter;
 
 import javax.inject.Inject;
 
-//// TODO: 31/8/2016 comment it
+/**
+ * Reset password presenter
+ *
+ * @author milan
+ */
 public class RequestPasswordPresenter extends AbstractPresenter<RequestPasswordContract.View> implements RequestPasswordContract.Presenter {
     private final FirebaseAuth auth;
 

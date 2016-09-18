@@ -6,7 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module providing login related dependencies
+ * Module providing reset password related dependencies
  *
  * @author milan
  */

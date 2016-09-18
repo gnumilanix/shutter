@@ -19,7 +19,7 @@ import android.view.View;
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
-    private Drawable mDivider;
+    private final Drawable mDivider;
     private boolean mShowFirstDivider = false;
     private boolean mShowLastDivider = false;
 
@@ -56,7 +56,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         if (mDivider == null) {
             return;
         }
-        if (parent.getChildPosition(view) < 1) {
+        if (parent.getChildAdapterPosition(view) < 1) {
             return;
         }
 

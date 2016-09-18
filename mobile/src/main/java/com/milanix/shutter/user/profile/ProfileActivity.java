@@ -34,8 +34,6 @@ import static com.milanix.shutter.user.profile.ProfileActivity.Tab.FOLLOWERS;
 import static com.milanix.shutter.user.profile.ProfileActivity.Tab.FOLLOWINGS;
 import static com.milanix.shutter.user.profile.ProfileActivity.Tab.POSTS;
 
-// TODO: 5/9/2016 refactor profile detail fragment to only contain posts and define view and presenter contract for this activity instead.
-
 /**
  * Activity containing a user profile
  *

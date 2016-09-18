@@ -8,7 +8,9 @@ import com.milanix.shutter.core.AbstractBindingActivity;
 import com.milanix.shutter.databinding.ActivityLandingBinding;
 
 /**
- * Created by milan on 30/8/2016.
+ * Landing activity for non logged in users
+ *
+ * @author milan
  */
 public class LandingActivity extends AbstractBindingActivity<ActivityLandingBinding> {
     public static final String TAG_FRAGMENT_AUTH = "_fragment_auth";

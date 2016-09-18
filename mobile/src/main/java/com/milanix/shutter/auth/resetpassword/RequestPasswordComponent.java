@@ -5,7 +5,7 @@ import com.milanix.shutter.dependencies.scope.ActivityScope;
 import dagger.Subcomponent;
 
 /**
- * Component that binds login related component and provide dependencies to it
+ * Component that binds reset password related component and provide dependencies to it
  *
  * @author milan
  */

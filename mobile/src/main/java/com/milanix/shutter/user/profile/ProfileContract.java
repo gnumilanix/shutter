@@ -6,7 +6,7 @@ import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.user.model.Profile;
 
 /**
- * Contract for profile related implementations
+ * Contract defining profile related view/presenter implementations
  *
  * @author milan
  */

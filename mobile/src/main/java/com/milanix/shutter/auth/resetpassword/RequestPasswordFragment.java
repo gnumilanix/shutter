@@ -21,7 +21,11 @@ import com.milanix.shutter.databinding.FragmentResetPasswordBinding;
 
 import javax.inject.Inject;
 
-//// TODO: 30/8/2016 comment
+/**
+ * Fragment containing reset password view
+ *
+ * @author milan
+ */
 public class RequestPasswordFragment extends AbstractFragment<RequestPasswordContract.Presenter, FragmentResetPasswordBinding> implements RequestPasswordContract.View {
     @Inject
     InputMethodManager inputMethodManager;

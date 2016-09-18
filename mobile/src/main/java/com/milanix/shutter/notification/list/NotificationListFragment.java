@@ -23,7 +23,7 @@ import com.milanix.shutter.user.profile.ProfileModule;
 import javax.inject.Inject;
 
 /**
- * Fragment containing feeds
+ * Fragment containing notification list view
  *
  * @author milan
  */

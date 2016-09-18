@@ -7,7 +7,7 @@ import com.milanix.shutter.feed.detail.PostDetailModule;
 import dagger.Subcomponent;
 
 /**
- * Component that binds feeds related component and provide dependencies to it
+ * Component that binds post related component and provide dependencies to it
  *
  * @author milan
  */

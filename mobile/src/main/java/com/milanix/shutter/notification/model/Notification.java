@@ -16,7 +16,7 @@ import static com.milanix.shutter.notification.model.Notification.Type.UNFAVORIT
 import static com.milanix.shutter.notification.model.Notification.Type.UNFOLLOW;
 
 /**
- * Notification data object
+ * Notification model
  *
  * @author milan
  */

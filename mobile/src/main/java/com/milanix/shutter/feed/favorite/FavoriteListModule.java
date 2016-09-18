@@ -7,7 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module providing feed related dependencies
+ * Module providing favorites related dependencies
  *
  * @author milan
  */
@@ -28,6 +28,6 @@ public class FavoriteListModule {
     public FavoriteListContract.Presenter providePresenter(FavoriteListContract.View view,
                                                            FirebaseUser user,
                                                            FirebaseDatabase database) {
-        return new FavoriteListPresenter(view, user,database);
+        return new FavoriteListPresenter(view, user, database);
     }
 }

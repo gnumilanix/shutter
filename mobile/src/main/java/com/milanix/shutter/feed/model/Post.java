@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 
 /**
- * Post data object
+ * Post model
  *
  * @author milan
  */

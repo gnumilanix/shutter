@@ -7,7 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module providing login related dependencies
+ * Module providing splash related dependencies
  *
  * @author milan
  */

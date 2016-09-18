@@ -2,6 +2,11 @@ package com.milanix.shutter.web;
 
 import org.parceler.Parcel;
 
+/**
+ * Model defining web page
+ *
+ * @author milan
+ */
 @Parcel
 public class WebPage {
     public String title;

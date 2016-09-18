@@ -22,7 +22,11 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
-//todo comment
+/**
+ * Fragment containing settings preferences view
+ *
+ * @author milan
+ */
 @RuntimePermissions
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener, SettingsContract.View {
     private CheckBoxPreference muzeiPref;
@@ -37,7 +41,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
         muzeiPref = (CheckBoxPreference) findPreference(getString(R.string.pref_muzei));
         muzeiPref.setOnPreferenceClickListener(this);
-        presenter.validateMuzeiSettings();
+        presenter.initMuzeiSettings();
     }
 
     @Override

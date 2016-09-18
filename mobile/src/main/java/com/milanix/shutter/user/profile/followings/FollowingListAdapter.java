@@ -16,7 +16,7 @@ import com.milanix.shutter.user.model.Profile;
 import javax.inject.Inject;
 
 /**
- * Adapter containing list of posts
+ * Adapter containing following list
  *
  * @author milan
  */

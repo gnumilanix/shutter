@@ -11,7 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module providing profile related dependencies
+ * Module providing follower list related dependencies
  *
  * @author milan
  */
@@ -34,6 +34,6 @@ public class FollowerListModule {
                                                            FirebaseDatabase database,
                                                            NotificationGenerator notificationGenerator,
                                                            @Named(ProfileModule.PROFILE_ID) String profileId) {
-        return new FollowerListPresenter(view, user, database, notificationGenerator,profileId);
+        return new FollowerListPresenter(view, user, database, notificationGenerator, profileId);
     }
 }

@@ -7,7 +7,7 @@ import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.feed.model.Post;
 
 /**
- * Contract for feed related implementations
+ * Contract defining post detail related view/presenter implementations
  *
  * @author milan
  */

@@ -9,7 +9,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module providing profile related dependencies
+ * Module providing posts related dependencies
  *
  * @author milan
  */

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Topic data object
+ * Topic model
  *
  * @author milan
  */
 public class Topic {
-    private List<String> topics;
+    private final List<String> topics;
 
     public Topic() {
         topics = new ArrayList<>();

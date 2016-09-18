@@ -27,7 +27,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 /**
- * Fragment containing profile
+ * Fragment containing following list
  *
  * @author milan
  */
