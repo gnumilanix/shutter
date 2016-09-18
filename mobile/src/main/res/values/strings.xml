@@ -7,8 +7,6 @@
     <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password (optional)</string>
-    <string name="hint_caption">Caption</string>
-    <string name="hint_or">or</string>
     <string name="hint_title">Title</string>
     <string name="hint_description">Description</string>
 
@@ -19,8 +17,6 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_install_now">Install Now</string>
     <string name="action_send">Send</string>
-    <string name="action_request_now">Request Now</string>
-    <string name="action_not_now">Not now</string>
     <string name="action_logout">Log out</string>
     <string name="action_settings">Settings</string>
     <string name="action_post">Post</string>
@@ -43,8 +39,6 @@
     <string name="title_post_upload_error">Upload post error</string>
     <string name="title_publish_post_error">Publish post error</string>
     <string name="title_request_password_error">Request password error</string>
-    <string name="title_settings">Settings</string>
-    <string name="title_logout">Log Out</string>
     <string name="title_feeds">Feeds</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_notifications">Notifications</string>
@@ -56,7 +50,6 @@
     <string name="title_preparing_image">Preparing image</string>
     <string name="title_uploading_post">Uploading post</string>
     <string name="title_requesting_password">Requesting reset instructions</string>
-    <string name="title_request_email">Reset Password</string>
     <string name="title_request_email_sent">Reset instructions sent</string>
     <string name="title_select_avatar">Select Avatar</string>
     <string name="title_select_image">Select Image</string>
@@ -69,16 +62,12 @@
     <string name="message_notification_comment">%s commented in your post.</string>
     <string name="message_notification_favorite">%s favorited  your post.</string>
     <string name="message_notification_following">%s started following you.</string>
-    <string name="message_logged_in">Logged in</string>
-    <string name="message_hello">Hello %s</string>
-    <string name="message_banner">Connecting amazing photographers to you</string>
     <string name="message_login_error">There was an error while logging in.</string>
     <string name="message_avatar_upload_error">There was an error while uploading avatar.</string>
     <string name="message_signup_error">There was an error while signing up.</string>
     <string name="message_post_upload_error">There was an error while uploading post.</string>
     <string name="message_publish_post_error">There was an error while publishing post.</string>
     <string name="message_request_password_error">There was an error while requesting a password reset email.</string>
-    <string name="message_network_disconnected">Can\'t connect to the internet</string>
     <string name="message_logging_in">Please wait while we log you in.</string>
     <string name="message_signing_up">Please wait while we sign you up.</string>
     <string name="message_preparing_image">Please wait while we are preparing to share.</string>
@@ -98,21 +87,17 @@
     <string name="missing_email">Please enter your email</string>
     <string name="missing_password">Please enter your password</string>
 
-    <string name="error_email_invalid">Please enter a valid email</string>
     <string name="error_refresh_profile">Error refreshing profile</string>
     <string name="error_refresh_feed">Error refreshing post</string>
     <string name="error_download_post">Error downloading image</string>
-    <string name="error_refresh_feeds">Error refreshing posts</string>
     <string name="error_retrieve_post">Error retrieving post</string>
     <string name="error_send_comment">Error sending comment</string>
     <string name="error_refresh_favorites">Error refreshing favorites</string>
     <string name="error_unfollow_user">Error unfollowing %s</string>
     <string name="error_follow_user">Error following %s</string>
-    <string name="error_refresh_notifications">Error refreshing notifications</string>
 
     <string name="storage_permission_request_title">Storage permission request</string>
     <string name="storage_permission_request_rationale_avatar">Storage permission is needed for uploading profile avatar</string>
-    <string name="storage_permission_request_rationale_post">Storage permission is needed for uploading post image</string>
     <string name="storage_permission_request_rationale_muzei">Storage permission is needed for muzei images</string>
 
     <string name="notification_interactions_title">New interactions</string>

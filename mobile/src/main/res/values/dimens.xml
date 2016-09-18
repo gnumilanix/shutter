@@ -20,7 +20,6 @@
     <dimen name="item_feed_width">250dp</dimen>
     <dimen name="item_feed_size">120dp</dimen>
     <dimen name="item_feed_avatar">32dp</dimen>
-    <dimen name="item_notification_size">80dp</dimen>
     <dimen name="item_text_drawable">20dp</dimen>
     <dimen name="item_icon_drawable">28dp</dimen>
 
@@ -35,7 +34,5 @@
     <dimen name="notification_avatar">40dp</dimen>
     <dimen name="notification_post_image">65dp</dimen>
 
-    <dimen name="profile_avatar">60dp</dimen>
     <dimen name="user_avatar">48dp</dimen>
-    <dimen name="comment_editor_height">48dp</dimen>
 </resources>

@@ -25,9 +25,5 @@
         <item quantity="other">%d new favorites</item>
     </plurals>
 
-    <plurals name="interactions">
-        <item quantity="one">1 new interaction</item>
-        <item quantity="other">%d new interactions</item>
-    </plurals>
 </resources>
 
