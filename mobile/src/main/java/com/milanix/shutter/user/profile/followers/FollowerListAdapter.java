@@ -21,18 +21,17 @@ import javax.inject.Inject;
  * @author milan
  */
 public class FollowerListAdapter extends AbstractFirebaseRecyclerAdapter<Profile, FollowerListAdapter.ProfileHolder> implements ValueEventListener {
-    private final FollowerListContract.View followerListView;
-    private final FollowerListContract.Presenter followerListPresenter;
+    private final FollowerListContract.View view;
+    private final FollowerListContract.Presenter presenter;
     private final FirebaseUser user;
     private final LayoutInflater inflater;
     private Profile profile;
 
     @Inject
-    public FollowerListAdapter(FollowerListContract.View followerListView,
-                               FollowerListContract.Presenter followerListPresenter,
+    public FollowerListAdapter(FollowerListContract.View view, FollowerListContract.Presenter presenter,
                                FirebaseUser user, LayoutInflater inflater) {
-        this.followerListView = followerListView;
-        this.followerListPresenter = followerListPresenter;
+        this.view = view;
+        this.presenter = presenter;
         this.user = user;
         this.inflater = inflater;
     }
@@ -47,8 +46,8 @@ public class FollowerListAdapter extends AbstractFirebaseRecyclerAdapter<Profile
         viewHolder.binding.setProfile(item);
         viewHolder.binding.setMe(profile);
         viewHolder.binding.setUser(user);
-        viewHolder.binding.setView(followerListView);
-        viewHolder.binding.setPresenter(followerListPresenter);
+        viewHolder.binding.setView(view);
+        viewHolder.binding.setPresenter(presenter);
         viewHolder.binding.executePendingBindings();
     }
 
@@ -60,7 +59,6 @@ public class FollowerListAdapter extends AbstractFirebaseRecyclerAdapter<Profile
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         profile = dataSnapshot.getValue(Profile.class);
-        notifyDataSetChanged();
     }
 
     class ProfileHolder extends BindingViewHolder<ItemFollowersBinding> {

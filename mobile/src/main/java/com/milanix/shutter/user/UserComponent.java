@@ -15,6 +15,7 @@ import com.milanix.shutter.notification.NotificationComponent;
 import com.milanix.shutter.notification.NotificationModule;
 import com.milanix.shutter.notification.list.NotificationListComponent;
 import com.milanix.shutter.notification.list.NotificationListModule;
+import com.milanix.shutter.post.NewPostActivity;
 import com.milanix.shutter.post.NewPostComponent;
 import com.milanix.shutter.post.NewPostModule;
 import com.milanix.shutter.user.profile.ProfileComponent;
@@ -47,4 +48,6 @@ public interface UserComponent {
     NotificationListComponent with(NotificationListModule module);
 
     CommentListComponent with(CommentListModule module);
+
+    void inject(NewPostActivity activity);
 }

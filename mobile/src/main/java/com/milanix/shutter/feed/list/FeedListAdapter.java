@@ -19,13 +19,16 @@ import javax.inject.Inject;
  * @author milan
  */
 public class FeedListAdapter extends AbstractFirebaseRecyclerAdapter<Post, FeedListAdapter.FeedHolder> {
-    private final FeedListContract.View feedListView;
+    private final FeedListContract.View view;
+    private final FeedListContract.Presenter presenter;
     private final FirebaseUser user;
     private final LayoutInflater inflater;
 
     @Inject
-    public FeedListAdapter(FeedListContract.View feedListView, FirebaseUser user, LayoutInflater inflater) {
-        this.feedListView = feedListView;
+    public FeedListAdapter(FeedListContract.View view, FeedListContract.Presenter presenter,
+                           FirebaseUser user, LayoutInflater inflater) {
+        this.view = view;
+        this.presenter = presenter;
         this.user = user;
         this.inflater = inflater;
     }
@@ -38,7 +41,8 @@ public class FeedListAdapter extends AbstractFirebaseRecyclerAdapter<Post, FeedL
     @Override
     protected void bind(int position, FeedHolder viewHolder, Post item) {
         viewHolder.binding.setPost(item);
-        viewHolder.binding.setView(feedListView);
+        viewHolder.binding.setView(view);
+        viewHolder.binding.setPresenter(presenter);
         viewHolder.binding.setUser(user);
         viewHolder.binding.executePendingBindings();
     }

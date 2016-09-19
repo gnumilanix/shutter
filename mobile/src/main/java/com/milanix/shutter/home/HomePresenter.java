@@ -20,7 +20,7 @@ public class HomePresenter extends AbstractPresenter<HomeContract.View> implemen
     public HomePresenter(HomeContract.View view, FirebaseUser user,FirebaseDatabase database) {
         super(view);
         this.user = user;
-        unreadQuery=database.getReference().child("activities").child(user.getUid()).orderByChild("read").equalTo(false);
+        unreadQuery=database.getReference().child("activities").child(user.getUid()).orderByChild("notified").equalTo(false);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class HomePresenter extends AbstractPresenter<HomeContract.View> implemen
     public void onDataChange(DataSnapshot dataSnapshot) {
         if(isActive()){
             if(!dataSnapshot.hasChildren())
-                view.removeUnread();
+                view.removeUnnotified();
             else
-                view.showUnread((int)dataSnapshot.getChildrenCount());
+                view.showUnnotified((int)dataSnapshot.getChildrenCount());
         }
     }
 

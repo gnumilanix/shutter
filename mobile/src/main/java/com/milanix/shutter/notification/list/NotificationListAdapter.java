@@ -18,13 +18,12 @@ import javax.inject.Inject;
  * @author milan
  */
 public class NotificationListAdapter extends AbstractFirebaseRecyclerAdapter<Notification, NotificationListAdapter.NotificationHolder> {
-    private final NotificationListContract.View feedListView;
+    private final NotificationListContract.View view;
     private final LayoutInflater inflater;
 
     @Inject
-    public NotificationListAdapter(NotificationListContract.View feedListView,
-                                   LayoutInflater inflater) {
-        this.feedListView = feedListView;
+    public NotificationListAdapter(NotificationListContract.View view, LayoutInflater inflater) {
+        this.view = view;
         this.inflater = inflater;
     }
 
@@ -36,7 +35,7 @@ public class NotificationListAdapter extends AbstractFirebaseRecyclerAdapter<Not
     @Override
     protected void bind(int position, NotificationHolder viewHolder, Notification item) {
         viewHolder.binding.setNotification(item);
-        viewHolder.binding.setView(feedListView);
+        viewHolder.binding.setView(view);
         viewHolder.binding.executePendingBindings();
     }
 

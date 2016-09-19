@@ -67,6 +67,7 @@
     <string name="message_signup_error">There was an error while signing up.</string>
     <string name="message_post_upload_error">There was an error while uploading post.</string>
     <string name="message_publish_post_error">There was an error while publishing post.</string>
+    <string name="message_publish_post_complete">Successfully published the image.</string>
     <string name="message_request_password_error">There was an error while requesting a password reset email.</string>
     <string name="message_logging_in">Please wait while we log you in.</string>
     <string name="message_signing_up">Please wait while we sign you up.</string>

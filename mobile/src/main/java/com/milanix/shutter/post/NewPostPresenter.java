@@ -47,7 +47,7 @@ public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> im
     }
 
     @Override
-    public void publishPost(final NewPost post) {
+    public void publishPost(final PostModel post) {
         view.showProgress();
         final InputStream avatarStream = getInputStream(post.getImageUri());
 
@@ -71,7 +71,7 @@ public class NewPostPresenter extends AbstractPresenter<NewPostContract.View> im
         }
     }
 
-    private void createPost(String uid, final String postId, NewPost post, String downloadUrl) {
+    private void createPost(String uid, final String postId, PostModel post, String downloadUrl) {
         final Map<String, Object> author = new Author(user.getUid(), user.getDisplayName(),
                 user.getPhotoUrl().toString()).toMap();
 

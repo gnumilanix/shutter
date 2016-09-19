@@ -14,9 +14,14 @@ import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentFeedListBinding;
 import com.milanix.shutter.feed.PostModule;
+import com.milanix.shutter.feed.comment.CommentListActivity;
+import com.milanix.shutter.feed.comment.CommentListModule;
 import com.milanix.shutter.feed.detail.PostDetailActivity;
+import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileModule;
+
+import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
@@ -75,6 +80,15 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
 
         startActivity(new Intent(getActivity(), PostDetailActivity.class).putExtra(PostModule.POST_ID, feedId),
                 options.toBundle());
+    }
+
+    @Override
+    public void openComment(android.view.View view, Post post) {
+        final ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                view, getString(R.string.transition_post_image));
+
+        startActivity(new Intent(getActivity(), CommentListActivity.class).putExtra(CommentListModule.POST,
+                Parcels.wrap(post)), options.toBundle());
     }
 
     @Override

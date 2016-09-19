@@ -3,6 +3,7 @@ package com.milanix.shutter.feed.list;
 import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
+import com.milanix.shutter.feed.model.Post;
 
 /**
  * Contract defining feed list related view/presenter implementations
@@ -15,6 +16,8 @@ public interface FeedListContract {
 
         void openFeed(android.view.View view, String feedId);
 
+        void openComment(android.view.View view, Post post);
+
         void showProgress();
 
         void hideProgress();
@@ -26,5 +29,7 @@ public interface FeedListContract {
         void unsubscribe(ChildEventListener childEventListener);
 
         void refreshFeeds();
+
+        void markFavorite(Post post);
     }
 }

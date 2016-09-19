@@ -15,18 +15,12 @@ import java.util.Map;
  *
  * @author milan
  */
-public class NewPost extends BaseObservable {
+public class PostModel extends BaseObservable {
     private Uri imageUri;
     private String title;
     private String description;
 
-    public NewPost() {
-    }
-
-    public NewPost(Uri imageUri, String title, String description) {
-        this.imageUri = imageUri;
-        this.title = title;
-        this.description = description;
+    public PostModel() {
     }
 
     @Bindable

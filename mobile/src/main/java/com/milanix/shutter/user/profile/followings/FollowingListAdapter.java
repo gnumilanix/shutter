@@ -21,18 +21,17 @@ import javax.inject.Inject;
  * @author milan
  */
 public class FollowingListAdapter extends AbstractFirebaseRecyclerAdapter<Profile, FollowingListAdapter.ProfileHolder> implements ValueEventListener {
-    private final FollowingListContract.View followingListView;
-    private final FollowingListContract.Presenter followingListPresenter;
+    private final FollowingListContract.View view;
+    private final FollowingListContract.Presenter presenter;
     private final FirebaseUser user;
     private final LayoutInflater inflater;
     private Profile profile;
 
     @Inject
-    public FollowingListAdapter(FollowingListContract.View followingListView,
-                                FollowingListContract.Presenter followingListPresenter,
+    public FollowingListAdapter(FollowingListContract.View view, FollowingListContract.Presenter presenter,
                                 FirebaseUser user, LayoutInflater inflater) {
-        this.followingListView = followingListView;
-        this.followingListPresenter = followingListPresenter;
+        this.view = view;
+        this.presenter = presenter;
         this.user = user;
         this.inflater = inflater;
     }
@@ -47,8 +46,8 @@ public class FollowingListAdapter extends AbstractFirebaseRecyclerAdapter<Profil
         viewHolder.binding.setProfile(item);
         viewHolder.binding.setMe(profile);
         viewHolder.binding.setUser(user);
-        viewHolder.binding.setView(followingListView);
-        viewHolder.binding.setPresenter(followingListPresenter);
+        viewHolder.binding.setView(view);
+        viewHolder.binding.setPresenter(presenter);
         viewHolder.binding.executePendingBindings();
     }
 
@@ -60,7 +59,6 @@ public class FollowingListAdapter extends AbstractFirebaseRecyclerAdapter<Profil
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         profile = dataSnapshot.getValue(Profile.class);
-        notifyDataSetChanged();
     }
 
     class ProfileHolder extends BindingViewHolder<ItemFollowingBinding> {

@@ -18,13 +18,12 @@ import javax.inject.Inject;
  * @author milan
  */
 public class CommentListAdapter extends AbstractFirebaseRecyclerAdapter<Comment, CommentListAdapter.CommentHolder> {
-    private final CommentListContract.View commentListView;
+    private final CommentListContract.View view;
     private final LayoutInflater inflater;
 
     @Inject
-    public CommentListAdapter(CommentListContract.View commentListView,
-                              LayoutInflater inflater) {
-        this.commentListView = commentListView;
+    public CommentListAdapter(CommentListContract.View view, LayoutInflater inflater) {
+        this.view = view;
         this.inflater = inflater;
     }
 
@@ -36,7 +35,7 @@ public class CommentListAdapter extends AbstractFirebaseRecyclerAdapter<Comment,
     @Override
     protected void bind(int position, CommentHolder viewHolder, Comment item) {
         viewHolder.binding.setComment(item);
-        viewHolder.binding.setView(commentListView);
+        viewHolder.binding.setView(view);
         viewHolder.binding.executePendingBindings();
     }
 

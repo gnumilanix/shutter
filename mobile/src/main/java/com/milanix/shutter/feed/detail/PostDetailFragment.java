@@ -183,7 +183,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
 
     @Override
     public void handleMarkFavoriteError() {
-        binding.ivFavorites.setChecked(true);
+
     }
 
     @Override

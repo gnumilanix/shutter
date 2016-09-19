@@ -54,7 +54,7 @@
         </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabSend"
+            android:id="@+id/fabAdd"
             style="@style/FabStyle"
             android:onClick="@{()->activity.completeReading()}"
             android:src="@drawable/ic_action_done"

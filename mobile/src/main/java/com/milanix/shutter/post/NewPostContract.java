@@ -25,7 +25,7 @@ public interface NewPostContract {
     }
 
     interface Presenter extends IPresenter {
-        void publishPost(NewPost post);
+        void publishPost(PostModel post);
 
     }
 }

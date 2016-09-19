@@ -121,13 +121,13 @@ public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> i
     }
 
     @Override
-    public void removeUnread() {
+    public void removeUnnotified() {
         binding.bottomBar.getTabWithId(R.id.tab_notifications).removeBadge();
     }
 
     @Override
-    public void showUnread(int unreadCount) {
-        binding.bottomBar.getTabWithId(R.id.tab_notifications).setBadgeCount(unreadCount < 100 ? unreadCount : 99);
+    public void showUnnotified(int unnotifiedCount) {
+        binding.bottomBar.getTabWithId(R.id.tab_notifications).setBadgeCount(unnotifiedCount < 100 ? unnotifiedCount : 99);
     }
 
     private void switchFragment(@Tab String tab) {

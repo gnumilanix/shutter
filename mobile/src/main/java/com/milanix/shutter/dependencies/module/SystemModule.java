@@ -4,6 +4,7 @@ import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.inputmethod.InputMethodManager;
 
@@ -48,5 +49,11 @@ public class SystemModule {
     @Provides
     public AccountManager provideAccountManager(Context context) {
         return AccountManager.get(context);
+    }
+
+    @Singleton
+    @Provides
+    public LocalBroadcastManager provideLocalBroadcastManager(Context context) {
+        return LocalBroadcastManager.getInstance(context);
     }
 }

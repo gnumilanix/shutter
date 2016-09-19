@@ -18,12 +18,12 @@ import javax.inject.Inject;
  * @author milan
  */
 public class FavoriteListAdapter extends AbstractFirebaseRecyclerAdapter<Post, FavoriteListAdapter.FeedHolder> {
-    private final FavoriteListContract.View feedListView;
+    private final FavoriteListContract.View view;
     private final LayoutInflater inflater;
 
     @Inject
-    public FavoriteListAdapter(FavoriteListContract.View feedListView, LayoutInflater inflater) {
-        this.feedListView = feedListView;
+    public FavoriteListAdapter(FavoriteListContract.View view, LayoutInflater inflater) {
+        this.view = view;
         this.inflater = inflater;
     }
 
@@ -35,7 +35,7 @@ public class FavoriteListAdapter extends AbstractFirebaseRecyclerAdapter<Post, F
     @Override
     protected void bind(int position, FeedHolder viewHolder, Post item) {
         viewHolder.binding.setPost(item);
-        viewHolder.binding.setView(feedListView);
+        viewHolder.binding.setView(view);
         viewHolder.binding.executePendingBindings();
     }
 

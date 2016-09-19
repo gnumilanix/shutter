@@ -17,9 +17,9 @@ public interface HomeContract {
 
         void addPost();
 
-        void removeUnread();
+        void removeUnnotified();
 
-        void showUnread(int unreadCount);
+        void showUnnotified(int unnotifiedCount);
     }
 
     interface Presenter extends IPresenter {

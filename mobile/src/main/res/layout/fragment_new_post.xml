@@ -8,7 +8,7 @@
 
         <variable
             name="post"
-            type="com.milanix.shutter.post.NewPost" />
+            type="com.milanix.shutter.post.PostModel" />
 
         <variable
             name="presenter"
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                app:proportion="1">
+                app:proportion="0.75">
 
                 <android.support.design.widget.CoordinatorLayout
                     android:id="@+id/clPost"
@@ -79,6 +79,7 @@
                 android:id="@+id/tlDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/btnSend"
                 android:layout_below="@+id/tlTitle"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin">
@@ -90,15 +91,30 @@
                     android:gravity="top"
                     android:hint="@string/hint_description"
                     android:inputType="textMultiLine"
-                    android:lines="5"
+                    android:lines="3"
                     android:maxLength="250"
                     android:text="@={post.description}" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/margin_large"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:background="@drawable/btn_shutter"
+                android:enabled="@{!TextUtils.isEmpty(post.imageUri.toString()) &amp;&amp; !TextUtils.isEmpty(post.title) &amp;&amp; !TextUtils.isEmpty(post.description)}"
+                android:onClick="@{()->presenter.publishPost(post)}"
+                android:text="@string/action_post"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabSend"
+            android:id="@+id/fabAdd"
             style="@style/FabStyle"
             android:onClick="@{()->view.selectPostImage()}"
             android:src="@drawable/ic_action_add"

@@ -1,6 +1,8 @@
 package com.milanix.shutter.feed.list;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.milanix.shutter.notification.NotificationGenerator;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,7 +27,9 @@ public class FeedListModule {
 
     @Provides
     public FeedListContract.Presenter providePresenter(FeedListContract.View view,
-                                                       FirebaseDatabase database) {
-        return new FeedListPresenter(view, database);
+                                                       FirebaseUser user,
+                                                       FirebaseDatabase database,
+                                                       NotificationGenerator notificationGenerator) {
+        return new FeedListPresenter(view, user, database, notificationGenerator);
     }
 }

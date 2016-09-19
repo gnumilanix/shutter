@@ -1,24 +1,28 @@
 package com.milanix.shutter.post;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.databinding.Observable;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
 import com.milanix.shutter.databinding.FragmentNewPostBinding;
+
+import javax.inject.Inject;
+
+import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -29,22 +33,34 @@ import static android.app.Activity.RESULT_OK;
  */
 public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter, FragmentNewPostBinding> implements NewPostContract.View {
     private static final int PICK_POST_IMAGE_REQUEST = 1;
-    private final Observable.OnPropertyChangedCallback propertyChangedCallback = new Observable.OnPropertyChangedCallback() {
+    private final BroadcastReceiver INTENT_RECEIVER = new BroadcastReceiver() {
+
         @Override
-        public void onPropertyChanged(Observable observable, int i) {
-            getActivity().invalidateOptionsMenu();
+        public void onReceive(Context context, Intent intent) {
+            handleExtras(intent.getExtras());
         }
     };
     private ProgressDialog progressDialog;
+
+    @Inject
+    protected LocalBroadcastManager localBroadcastManager;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getUserComponent().with(new NewPostModule(this)).inject(this);
-        setHasOptionsMenu(true);
         performBinding(inflater, R.layout.fragment_new_post, container);
+        handleExtras(getArguments());
 
         return binding.getRoot();
+    }
+
+    private void handleExtras(Bundle bundle) {
+        try {
+            binding.getPost().setImageUri((Uri) bundle.getParcelable(Intent.EXTRA_STREAM));
+        } catch (Exception e) {
+            Timber.wtf(e, "Some one sent us a bad intent");
+        }
     }
 
     @Override
@@ -52,50 +68,20 @@ public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter,
         super.performBinding(inflater, layout, container);
 
         binding.setPresenter(presenter);
-        binding.setPost(new NewPost());
+        binding.setPost(new PostModel());
         binding.setView(this);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        binding.getPost().addOnPropertyChangedCallback(propertyChangedCallback);
+    public void onPause() {
+        super.onPause();
+        localBroadcastManager.unregisterReceiver(INTENT_RECEIVER);
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        binding.getPost().removeOnPropertyChangedCallback(propertyChangedCallback);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_new_post, menu);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        setPostState(binding.getPost(), menu.findItem(R.id.action_post));
-    }
-
-    private void setPostState(NewPost post, MenuItem item) {
-        final Uri imageUri = post.getImageUri();
-        item.setVisible(null != imageUri && !TextUtils.isEmpty(imageUri.toString()) &&
-                !TextUtils.isEmpty(post.getTitle()) && !TextUtils.isEmpty(post.getDescription()));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_post:
-                presenter.publishPost(binding.getPost());
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public void onResume() {
+        super.onResume();
+        localBroadcastManager.registerReceiver(INTENT_RECEIVER, new IntentFilter(Intent.ACTION_SEND));
     }
 
     @Override
@@ -106,6 +92,7 @@ public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter,
 
     @Override
     public void completePublishPost() {
+        Toast.makeText(getActivity(), R.string.message_publish_post_complete, Toast.LENGTH_SHORT).show();
         getActivity().finish();
     }
 
@@ -144,7 +131,6 @@ public class NewPostFragment extends AbstractFragment<NewPostContract.Presenter,
 
         if (requestCode == PICK_POST_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             binding.getPost().setImageUri(data.getData());
-            getActivity().invalidateOptionsMenu();
         }
     }
 

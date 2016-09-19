@@ -289,7 +289,7 @@
         </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabSend"
+            android:id="@+id/fabAdd"
             style="@style/FabStyle"
             android:onClick="@{()->presenter.toggleFollow()}"
             android:src="@{profile.followers.containsKey(presenter.getMe().getUid()) ? @drawable/ic_action_unfollow : @drawable/ic_action_follow}"
