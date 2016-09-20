@@ -21,8 +21,8 @@ public class Post implements IFirebaseModel {
     public String image;
     public Author author;
     public long time;
+    public long viewCount = 0;
     public HashMap<String, Boolean> favoriters = new HashMap<>();
-    public HashMap<String, Boolean> viewers = new HashMap<>();
     public HashMap<String, Comment> comments = new HashMap<>();
 
     public Post() {
@@ -65,10 +65,6 @@ public class Post implements IFirebaseModel {
         return favoriters;
     }
 
-    public HashMap<String, Boolean> getViewers() {
-        return viewers;
-    }
-
     public HashMap<String, Comment> getComments() {
         return comments;
     }
@@ -99,8 +95,8 @@ public class Post implements IFirebaseModel {
                 ", image='" + image + '\'' +
                 ", author=" + author +
                 ", time=" + time +
+                ", viewCount=" + viewCount +
                 ", favoriters=" + favoriters +
-                ", viewers=" + viewers +
                 ", comments=" + comments +
                 '}';
     }

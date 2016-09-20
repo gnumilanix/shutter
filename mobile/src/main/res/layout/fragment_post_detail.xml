@@ -7,6 +7,10 @@
 
         <import type="java.util.HashMap" />
 
+        <import type="com.bumptech.glide.request.RequestListener" />
+
+        <import type="com.bumptech.glide.load.resource.drawable.GlideDrawable" />
+
         <import type="it.sephiroth.android.library.imagezoom.ImageViewTouchBase.DisplayType" />
 
         <variable
@@ -24,6 +28,10 @@
         <variable
             name="presenter"
             type="com.milanix.shutter.feed.detail.PostDetailContract.Presenter" />
+
+        <variable
+            name="postImageListener"
+            type="RequestListener&lt;String,GlideDrawable&gt;" />
     </data>
 
     <FrameLayout
@@ -38,6 +46,7 @@
             android:transitionName="@string/transition_post_image"
             app:displayType="@{DisplayType.FIT_TO_SCREEN}"
             app:imageUrl="@{post.image}"
+            app:listener="@{postImageListener}"
             app:placeHolder="@{@drawable/bg_transparent}"
             app:singleTapListener="@{()->view.toggleViewState()}" />
 

@@ -10,6 +10,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -116,6 +118,27 @@ public class PostDetailPresenter extends AbstractPresenter<PostDetailContract.Vi
         } else {
             addFavorite(uid, post);
         }
+    }
+
+    @Override
+    public void markViewed() {
+        database.getReference().child("posts/" + postId + "/viewCount").runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                if (mutableData.getValue() == null) {
+                    mutableData.setValue(1);
+                } else {
+                    mutableData.setValue((Long) mutableData.getValue() + 1);
+                }
+
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+            }
+        });
     }
 
     private void addFavorite(String uid, Post post) {

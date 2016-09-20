@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.milanix.shutter.view.DividerItemDecoration;
 import com.milanix.shutter.view.ItemOffsetDecoration;
 
@@ -29,10 +31,13 @@ public class Binding {
      * @param view        to load image to
      * @param url         to load image from
      * @param placeHolder to load on error
+     * @param listener
      */
-    @BindingAdapter(value = {"imageUrl", "placeHolder", "transformation"}, requireAll = false)
-    public static void loadImage(ImageView view, String url, Drawable placeHolder, String transformation) {
-        final DrawableRequestBuilder<String> requestBuilder = Glide.with(view.getContext()).load(url).error(placeHolder).placeholder(placeHolder);
+    @BindingAdapter(value = {"imageUrl", "placeHolder", "transformation", "listener"}, requireAll = false)
+    public static void loadImage(ImageView view, String url, Drawable placeHolder, String transformation,
+                                 RequestListener<String, GlideDrawable> listener) {
+        final DrawableRequestBuilder<String> requestBuilder = Glide.with(view.getContext()).load(url).
+                error(placeHolder).placeholder(placeHolder);
 
         if (!TextUtils.isEmpty(transformation)) {
             switch (transformation) {
@@ -40,6 +45,11 @@ public class Binding {
                     requestBuilder.centerCrop();
             }
         }
+
+        if (null != listener) {
+            requestBuilder.listener(listener);
+        }
+
         requestBuilder.into(view);
     }
 
@@ -50,9 +60,11 @@ public class Binding {
      * @param uri         to load image from
      * @param placeHolder to load on error
      */
-    @BindingAdapter(value = {"imageUrl", "placeHolder", "transformation"}, requireAll = false)
-    public static void loadImage(ImageView view, Uri uri, Drawable placeHolder, String transformation) {
-        final DrawableRequestBuilder<Uri> requestBuilder = Glide.with(view.getContext()).load(uri).error(placeHolder).placeholder(placeHolder);
+    @BindingAdapter(value = {"imageUrl", "placeHolder", "transformation", "listener"}, requireAll = false)
+    public static void loadImage(ImageView view, Uri uri, Drawable placeHolder, String transformation,
+                                 RequestListener<Uri, GlideDrawable> listener) {
+        final DrawableRequestBuilder<Uri> requestBuilder = Glide.with(view.getContext()).load(uri).
+                error(placeHolder).placeholder(placeHolder);
 
         if (!TextUtils.isEmpty(transformation)) {
             switch (transformation) {
@@ -60,6 +72,11 @@ public class Binding {
                     requestBuilder.centerCrop();
             }
         }
+
+        if (null != listener) {
+            requestBuilder.listener(listener);
+        }
+
         requestBuilder.into(view);
     }
 

@@ -42,7 +42,7 @@ public class ShutterArtSource extends RemoteMuzeiArtSource {
 
     @Override
     protected void onTryUpdate(int reason) throws RetryException {
-        database.getReference().child("posts").orderByKey().limitToFirst(10).addListenerForSingleValueEvent(new ValueEventListener() {
+        database.getReference().child("posts").orderByPriority().limitToFirst(10).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 publishArtwork(getRandom(dataSnapshot.getChildren()));
@@ -75,9 +75,8 @@ public class ShutterArtSource extends RemoteMuzeiArtSource {
             posts.add(postSnapshot.getValue(Post.class));
         }
 
-        Collections.shuffle(posts);
-
         if (!posts.isEmpty()) {
+            Collections.shuffle(posts);
             return posts.get(0);
         }
 

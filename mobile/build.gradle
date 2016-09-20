@@ -7,7 +7,7 @@ Properties props = new Properties()
 props.load(new FileInputStream('/Users/milan/Documents/repos/Shutter/keys/signing.properties'))
 
 def majorVersion = 0
-def minorVersion = 38
+def minorVersion = 39
 def versionPatch = getPatch()
 def fullVersion = "${majorVersion}.${minorVersion}.${versionPatch}"
 

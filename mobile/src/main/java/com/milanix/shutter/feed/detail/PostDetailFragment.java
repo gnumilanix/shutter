@@ -26,6 +26,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.R;
@@ -41,6 +44,8 @@ import com.milanix.shutter.user.profile.ProfileModule;
 
 import org.parceler.Parcels;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.inject.Inject;
 
 import timber.log.Timber;
@@ -51,8 +56,9 @@ import timber.log.Timber;
  * @author milan
  */
 public class PostDetailFragment extends AbstractFragment<PostDetailContract.Presenter, FragmentPostDetailBinding> implements
-        PostDetailContract.View {
+        PostDetailContract.View, RequestListener<String, GlideDrawable> {
     private static final int RC_SHARE_POST = 100;
+    private final AtomicBoolean isViewMarked = new AtomicBoolean(false);
     private ProgressDialog progressDialog;
     private IComponentProvider<PostComponent> componentProvider;
 
@@ -76,6 +82,7 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
         binding.setPresenter(presenter);
         binding.setUser(user);
         binding.setView(this);
+        binding.setPostImageListener(this);
     }
 
     @Override
@@ -283,5 +290,20 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
                         }
                     });
         }
+    }
+
+    @Override
+    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+        return false;
+    }
+
+    @Override
+    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
+                                   boolean isFromMemoryCache, boolean isFirstResource) {
+        if (!isViewMarked.get() && isActive()) {
+            isViewMarked.set(true);
+            presenter.markViewed();
+        }
+        return false;
     }
 }

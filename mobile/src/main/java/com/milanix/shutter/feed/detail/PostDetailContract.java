@@ -40,5 +40,7 @@ public interface PostDetailContract {
         void share(Post post);
 
         void markFavorite(Post post);
+
+        void markViewed();
     }
 }
