@@ -1,6 +1,7 @@
 package com.milanix.shutter.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -9,6 +10,10 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractBindingActivity;
@@ -36,6 +41,42 @@ import static com.milanix.shutter.home.HomeActivity.Tab.NOTIFICATIONS;
  * @author milan
  */
 public class HomeActivity extends AbstractBindingActivity<ActivityHomeBinding> implements HomeContract.View, OnTabSelectListener {
+
+    private GoogleApiClient client;
+
+    public GoogleApiClient getGoogleApiClient() {
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        return client;
+    }
+
+    public Action getIndexApiAction() {
+        final Thing object = new Thing.Builder()
+                .setName("Home Page")
+                .setUrl(Uri.parse("http://shutter-fd81d.firebaseapp.com/home"))
+                .build();
+
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        getGoogleApiClient().connect();
+        AppIndex.AppIndexApi.start(getGoogleApiClient(), getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        AppIndex.AppIndexApi.end(getGoogleApiClient(), getIndexApiAction());
+        getGoogleApiClient().disconnect();
+    }
 
     @StringDef({FEEDS, FAVORITES, NOTIFICATIONS})
     @Retention(RetentionPolicy.SOURCE)

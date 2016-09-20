@@ -7,4 +7,5 @@
 
     <string name="pref_shutter" translatable="false">pref_shutter</string>
     <string name="pref_muzei" translatable="false">pref_muzei</string>
+    <string name="link_host" translatable="false">shutter-fd81d.firebaseapp.com</string>
 </resources>
