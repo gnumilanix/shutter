@@ -99,7 +99,7 @@ public class Binding {
      * @param dividerDrawable to set drawable as
      */
     @BindingAdapter(value = {"dividerItemDecoration"})
-    public static void setDivideritemDecoration(RecyclerView view, Drawable dividerDrawable) {
+    public static void setDividerItemDecoration(RecyclerView view, Drawable dividerDrawable) {
         view.addItemDecoration(new DividerItemDecoration(dividerDrawable));
     }
 

@@ -4,6 +4,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.milanix.shutter.core.specification.IPresenter;
 import com.milanix.shutter.core.specification.IView;
 import com.milanix.shutter.feed.model.Post;
+import com.milanix.shutter.view.pagination.OnPaginateListener;
 
 /**
  * Contract defining feed list related view/presenter implementations
@@ -23,7 +24,7 @@ public interface FeedListContract {
         void hideProgress();
     }
 
-    interface Presenter extends IPresenter {
+    interface Presenter extends IPresenter, OnPaginateListener {
         void subscribe(ChildEventListener childEventListener);
 
         void unsubscribe(ChildEventListener childEventListener);

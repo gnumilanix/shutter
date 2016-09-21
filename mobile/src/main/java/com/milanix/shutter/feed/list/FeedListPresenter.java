@@ -14,37 +14,40 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import static com.milanix.shutter.dependencies.module.FirebaseModule.ITEM_PER_PAGE;
+
 /**
  * Feeds presenter
  *
  * @author milan
  */
-public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> implements FeedListContract.Presenter {
+public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> implements
+        FeedListContract.Presenter {
     private final FirebaseUser user;
-    private final Query query;
     private final FirebaseDatabase database;
     private final NotificationGenerator notificationGenerator;
+    private Query query;
 
     @Inject
     public FeedListPresenter(FeedListContract.View view, FirebaseUser user, FirebaseDatabase database,
                              NotificationGenerator notificationGenerator) {
         super(view);
         this.user = user;
-        this.query = database.getReference().child("posts").orderByPriority();
         this.database = database;
         this.notificationGenerator = notificationGenerator;
+        this.query = createQuery(1);
     }
 
     @Override
     public void subscribe(ChildEventListener childEventListener) {
         super.subscribe();
-        query.addChildEventListener(childEventListener);
+        this.query.addChildEventListener(childEventListener);
     }
 
     @Override
     public void unsubscribe(ChildEventListener childEventListener) {
         super.unsubscribe();
-        query.removeEventListener(childEventListener);
+        this.query.removeEventListener(childEventListener);
     }
 
     @Override
@@ -87,5 +90,20 @@ public class FeedListPresenter extends AbstractPresenter<FeedListContract.View> 
 
     private boolean isMe(String uid) {
         return uid.equals(user.getUid());
+    }
+
+    @Override
+    public int getItemPerPage() {
+        return ITEM_PER_PAGE;
+    }
+
+    @Override
+    public void onNextPage(int page) {
+        //createQuery(page);
+    }
+
+    private Query createQuery(int page) {
+        query = database.getReference().child("posts").orderByPriority().limitToFirst(page * getItemPerPage());
+        return query;
     }
 }

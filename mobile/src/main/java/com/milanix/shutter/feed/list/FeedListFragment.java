@@ -6,6 +6,8 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.milanix.shutter.feed.detail.PostDetailActivity;
 import com.milanix.shutter.feed.model.Post;
 import com.milanix.shutter.user.profile.ProfileActivity;
 import com.milanix.shutter.user.profile.ProfileModule;
+import com.milanix.shutter.view.pagination.GridRecyclerPager;
 
 import org.parceler.Parcels;
 
@@ -56,6 +59,11 @@ public class FeedListFragment extends AbstractFragment<FeedListContract.Presente
         super.performBinding(inflater, layout, container);
         binding.setAdapter(feedListAdapter);
         binding.setRefreshListener(this);
+        binding.rvFeedList.addOnScrollListener(getPager());
+    }
+
+    private RecyclerView.OnScrollListener getPager() {
+        return new GridRecyclerPager(binding.rvFeedList.getLayoutManager(), presenter);
     }
 
     @Override

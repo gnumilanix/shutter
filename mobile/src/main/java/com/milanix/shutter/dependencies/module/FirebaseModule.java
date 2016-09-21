@@ -20,6 +20,7 @@ import dagger.Provides;
  */
 @Module
 public class FirebaseModule {
+    public static final int ITEM_PER_PAGE = 20;
     public static final String KEY_TERMS = "url_terms";
     public static final String KEY_PRIVACY = "url_privacy";
 
