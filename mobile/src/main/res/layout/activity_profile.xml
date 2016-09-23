@@ -37,7 +37,7 @@
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_branding_gradient"
+                android:background="@drawable/bg_branding_gradient_layer"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginEnd="64dp"
@@ -51,6 +51,7 @@
                     android:layout_marginLeft="@dimen/padding_large"
                     android:layout_marginRight="@dimen/padding_large"
                     android:layout_marginTop="?attr/actionBarSize"
+                    android:paddingBottom="2dp"
                     app:layout_collapseMode="pin">
 
                     <android.support.constraint.Guideline
@@ -315,8 +316,8 @@
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <FrameLayout
-                android:id="@+id/container"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vpContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

@@ -15,6 +15,7 @@ public class NotificationJobService extends JobService {
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
         startService(new Intent(this, NotificationService.class));
+        jobFinished(jobParameters, false);
         return true;
     }
 

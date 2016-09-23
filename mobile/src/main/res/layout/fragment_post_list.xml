@@ -40,7 +40,6 @@
                 android:id="@+id/rvPostList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_normal"
                 android:background="@color/colorGrey100"
                 android:columnWidth="@dimen/item_post_width"
                 android:padding="@dimen/margin_small"

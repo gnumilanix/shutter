@@ -1,21 +1,15 @@
 package com.milanix.shutter.feed.detail;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,8 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
@@ -33,6 +25,7 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseUser;
 import com.milanix.shutter.R;
 import com.milanix.shutter.core.AbstractFragment;
+import com.milanix.shutter.core.Animator;
 import com.milanix.shutter.core.specification.IComponentProvider;
 import com.milanix.shutter.databinding.FragmentPostDetailBinding;
 import com.milanix.shutter.feed.PostComponent;
@@ -107,15 +100,6 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
             this.componentProvider = (IComponentProvider) activity;
         } else {
             Timber.d("Caller did not implement OnReadyListener");
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setStatusColor(Activity activity, @ColorRes int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final Window window = activity.getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(ContextCompat.getColor(activity, color));
         }
     }
 
@@ -228,70 +212,6 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
         }
     }
 
-    public static String truncate(String text, int maxLength) {
-        return (text.length() > maxLength) ? text.substring(0, maxLength - 3) + "..." : text;
-    }
-
-    private void toggleToolbarVisibility() {
-        final View toolbar = getActivity().findViewById(R.id.toolbar);
-
-        if (toolbar.getVisibility() == View.VISIBLE) {
-            toolbar.setAlpha(1.0f);
-            toolbar.animate()
-                    .translationY(-toolbar.getHeight())
-                    .alpha(0.0f)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            toolbar.setVisibility(View.GONE);
-                        }
-                    });
-        } else {
-            toolbar.setVisibility(View.VISIBLE);
-            toolbar.setAlpha(0.0f);
-            toolbar.setTranslationY(-toolbar.getHeight());
-            toolbar.animate()
-                    .translationY(0.0f)
-                    .alpha(1.0f)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            toolbar.setTranslationY(0);
-                            toolbar.setAlpha(1.0f);
-                        }
-                    });
-        }
-    }
-
-    private void toggleActionsVisibility() {
-        if (binding.clActions.getVisibility() == View.VISIBLE) {
-            binding.clActions.setAlpha(1.0f);
-            binding.clActions.animate()
-                    .translationY(binding.clActions.getHeight())
-                    .alpha(0.0f)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            binding.clActions.setVisibility(View.GONE);
-                        }
-                    });
-        } else {
-            binding.clActions.setVisibility(View.VISIBLE);
-            binding.clActions.setAlpha(0.0f);
-            binding.clActions.setTranslationY(binding.clActions.getHeight());
-            binding.clActions.animate()
-                    .translationY(0.0f)
-                    .alpha(1.0f)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            binding.clActions.setTranslationY(0);
-                            binding.clActions.setAlpha(1.0f);
-                        }
-                    });
-        }
-    }
-
     @Override
     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
         return false;
@@ -305,5 +225,27 @@ public class PostDetailFragment extends AbstractFragment<PostDetailContract.Pres
             presenter.markViewed();
         }
         return false;
+    }
+
+    public static String truncate(String text, int maxLength) {
+        return (text.length() > maxLength) ? text.substring(0, maxLength - 3) + "..." : text;
+    }
+
+    private void toggleToolbarVisibility() {
+        final View toolbar = getActivity().findViewById(R.id.toolbar);
+
+        if (toolbar.getVisibility() == View.VISIBLE) {
+            Animator.animateHideUp(toolbar);
+        } else {
+            Animator.animateShowDown(toolbar);
+        }
+    }
+
+    private void toggleActionsVisibility() {
+        if (binding.clActions.getVisibility() == View.VISIBLE) {
+            Animator.animateHideDown(binding.clActions);
+        } else {
+            Animator.animateShowUp(binding.clActions);
+        }
     }
 }

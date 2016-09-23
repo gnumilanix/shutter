@@ -220,7 +220,8 @@ public class NotificationService extends Service implements ChildEventListener {
     private void generateFollowingNotification(@NonNull Notification notification) {
         FOLLOWING_NOTIFICATIONS.add(notification);
 
-        final Intent notificationIntent = new Intent(this, ProfileActivity.class).setAction(ProfileActivity.Tab.FOLLOWERS).
+        final Intent notificationIntent = new Intent(this, ProfileActivity.class).
+                putExtra(ProfileModule.PROFILE_TAB, ProfileActivity.Tab.FOLLOWERS).
                 putExtra(ProfileModule.PROFILE_ID, user.getUid());
         final TaskStackBuilder stackBuilder = TaskStackBuilder.create(this).addNextIntentWithParentStack(notificationIntent);
         final PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);

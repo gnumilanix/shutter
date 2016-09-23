@@ -19,6 +19,7 @@ import dagger.Provides;
  */
 @Module
 public class ProfileModule {
+    public static final String PROFILE_TAB = "_profile_tab";
     public static final String PROFILE_ID = "_profile_id";
 
     private final String profileId;

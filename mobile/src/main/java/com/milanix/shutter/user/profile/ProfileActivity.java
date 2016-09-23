@@ -2,12 +2,10 @@ package com.milanix.shutter.user.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +24,8 @@ import com.milanix.shutter.user.profile.posts.PostListFragment;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -34,6 +34,7 @@ import static android.graphics.Typeface.NORMAL;
 import static com.milanix.shutter.user.profile.ProfileActivity.Tab.FOLLOWERS;
 import static com.milanix.shutter.user.profile.ProfileActivity.Tab.FOLLOWINGS;
 import static com.milanix.shutter.user.profile.ProfileActivity.Tab.POSTS;
+import static com.milanix.shutter.user.profile.ProfileModule.PROFILE_TAB;
 
 /**
  * Activity containing a user profile
@@ -42,14 +43,26 @@ import static com.milanix.shutter.user.profile.ProfileActivity.Tab.POSTS;
  */
 public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBinding> implements ProfileContract.View,
         IComponentProvider<ProfileComponent> {
-    @StringDef({POSTS, FOLLOWERS, FOLLOWINGS})
+    @IntDef({POSTS, FOLLOWERS, FOLLOWINGS})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Tab {
-        String POSTS = "POSTS";
-        String FOLLOWERS = "FOLLOWERS";
-        String FOLLOWINGS = "FOLLOWINGS";
+        int FOLLOWERS = 0;
+        int POSTS = 1;
+        int FOLLOWINGS = 2;
     }
 
+    private final ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
+        @Override
+        public void onPageSelected(int position) {
+            binding.tvFollowersHint.setTypeface(null, position == FOLLOWERS ? BOLD : NORMAL);
+            binding.tvPostsHint.setTypeface(null, position == POSTS ? BOLD : NORMAL);
+            binding.tvFollowingHint.setTypeface(null, position == FOLLOWINGS ? BOLD : NORMAL);
+
+            binding.hlFollowers.setVisibility(position == FOLLOWERS ? View.VISIBLE : View.GONE);
+            binding.hlPosts.setVisibility(position == POSTS ? View.VISIBLE : View.GONE);
+            binding.hlFollowings.setVisibility(position == FOLLOWINGS ? View.VISIBLE : View.GONE);
+        }
+    };
     private ProfileComponent profileComponent;
 
     @Inject
@@ -61,25 +74,35 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
         getComponent().inject(this);
         performBinding(R.layout.activity_profile);
         setToolbar(binding.toolbar, true);
-        presenter.subscribe();
-
-        switchToDefaultTab(savedInstanceState, getIntent().getAction());
+        setUpPager();
+        switchToDefaultTab(savedInstanceState, getIntent().getIntExtra(PROFILE_TAB, POSTS));
     }
 
-    private void switchToDefaultTab(Bundle savedInstanceState, String action) {
+    private void setUpPager() {
+        binding.vpContainer.setAdapter(new PageAdapter(this, getSupportFragmentManager(), getPages()));
+        binding.vpContainer.addOnPageChangeListener(pageChangeListener);
+    }
+
+    private List<PageAdapter.Page> getPages() {
+        final List<PageAdapter.Page> page = new ArrayList<>();
+        page.add(FOLLOWERS, new PageAdapter.Page(FollowerListFragment.class, null));
+        page.add(POSTS, new PageAdapter.Page(PostListFragment.class, null));
+        page.add(FOLLOWINGS, new PageAdapter.Page(FollowingListFragment.class, null));
+
+        return page;
+    }
+
+    private void switchToDefaultTab(Bundle savedInstanceState, int action) {
         if (null == savedInstanceState) {
-            if (!TextUtils.isEmpty(action))
-                switchFragment(action);
-            else
-                switchFragment(Tab.POSTS);
+            switchFragment(Tab.POSTS);
         }
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.unsubscribe();
+        binding.vpContainer.removeOnPageChangeListener(pageChangeListener);
     }
 
     @Override
@@ -87,6 +110,7 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
         super.performBinding(layout);
         binding.setView(this);
         binding.setPresenter(presenter);
+        presenter.subscribe();
     }
 
     @Override
@@ -175,38 +199,8 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
                 Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
-    private void switchFragment(@ProfileActivity.Tab String tab) {
-        updateSelection(tab);
-
-        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(tab);
-
-        if (null == fragment) {
-            final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-            switch (tab) {
-                case FOLLOWERS:
-                    transaction.replace(R.id.container, new FollowerListFragment(), tab);
-                    break;
-                case FOLLOWINGS:
-                    transaction.replace(R.id.container, new FollowingListFragment(), tab);
-                    break;
-                case POSTS:
-                    transaction.replace(R.id.container, new PostListFragment(), tab);
-                    break;
-            }
-
-            transaction.commitNow();
-        }
-    }
-
-    private void updateSelection(@ProfileActivity.Tab String tab) {
-        binding.tvFollowersHint.setTypeface(null, tab.equals(FOLLOWERS) ? BOLD : NORMAL);
-        binding.tvPostsHint.setTypeface(null, tab.equals(POSTS) ? BOLD : NORMAL);
-        binding.tvFollowingHint.setTypeface(null, tab.equals(FOLLOWINGS) ? BOLD : NORMAL);
-
-        binding.hlFollowers.setVisibility(tab.equals(FOLLOWERS) ? View.VISIBLE : View.GONE);
-        binding.hlPosts.setVisibility(tab.equals(POSTS) ? View.VISIBLE : View.GONE);
-        binding.hlFollowings.setVisibility(tab.equals(FOLLOWINGS) ? View.VISIBLE : View.GONE);
+    private void switchFragment(@ProfileActivity.Tab int tab) {
+        binding.vpContainer.setCurrentItem(tab);
     }
 
     private void launchSettings() {
