@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.milanix.shutter.R;
 import com.milanix.shutter.auth.LandingActivity;
@@ -199,12 +200,13 @@ public class ProfileActivity extends AbstractBindingActivity<ActivityProfileBind
     }
 
     private void updateSelection(@ProfileActivity.Tab String tab) {
-        binding.tvFollowers.setTypeface(null, tab.equals(FOLLOWERS) ? BOLD : NORMAL);
         binding.tvFollowersHint.setTypeface(null, tab.equals(FOLLOWERS) ? BOLD : NORMAL);
-        binding.tvPosts.setTypeface(null, tab.equals(POSTS) ? BOLD : NORMAL);
         binding.tvPostsHint.setTypeface(null, tab.equals(POSTS) ? BOLD : NORMAL);
-        binding.tvFollowing.setTypeface(null, tab.equals(FOLLOWINGS) ? BOLD : NORMAL);
         binding.tvFollowingHint.setTypeface(null, tab.equals(FOLLOWINGS) ? BOLD : NORMAL);
+
+        binding.hlFollowers.setVisibility(tab.equals(FOLLOWERS) ? View.VISIBLE : View.GONE);
+        binding.hlPosts.setVisibility(tab.equals(POSTS) ? View.VISIBLE : View.GONE);
+        binding.hlFollowings.setVisibility(tab.equals(FOLLOWINGS) ? View.VISIBLE : View.GONE);
     }
 
     private void launchSettings() {

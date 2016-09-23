@@ -48,7 +48,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/toolbar"
-                    android:layout_marginBottom="@dimen/padding_large"
                     android:layout_marginLeft="@dimen/padding_large"
                     android:layout_marginRight="@dimen/padding_large"
                     android:layout_marginTop="?attr/actionBarSize"
@@ -141,10 +140,10 @@
                         android:id="@+id/tvFollowersHint"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_normal"
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="1"
+                        android:paddingBottom="@dimen/padding_large"
                         android:paddingLeft="@dimen/padding_normal"
                         android:paddingRight="@dimen/padding_normal"
                         android:text="@string/title_followers"
@@ -178,6 +177,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="1"
+                        android:paddingBottom="@dimen/padding_large"
                         android:paddingLeft="@dimen/padding_normal"
                         android:paddingRight="@dimen/padding_normal"
                         android:text="@string/title_posts"
@@ -211,6 +211,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="1"
+                        android:paddingBottom="@dimen/padding_large"
                         android:paddingLeft="@dimen/padding_normal"
                         android:paddingRight="@dimen/padding_normal"
                         android:text="@string/title_following"
@@ -232,6 +233,16 @@
                         app:layout_constraintTop_toTopOf="@+id/tvFollowers" />
 
                     <View
+                        android:id="@+id/hlFollowers"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/size_hairline"
+                        android:background="@drawable/bg_indicator_hairline"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@+id/tvFollowers"
+                        app:layout_constraintRight_toRightOf="@+id/tvFollowers"
+                        app:layout_constraintTop_toBottomOf="@+id/followers" />
+
+                    <View
                         android:id="@+id/posts"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -243,6 +254,17 @@
                         app:layout_constraintTop_toTopOf="@+id/tvPosts" />
 
                     <View
+                        android:id="@+id/hlPosts"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/size_hairline"
+                        android:background="@drawable/bg_indicator_hairline"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@+id/tvPosts"
+                        app:layout_constraintRight_toRightOf="@+id/tvPosts"
+                        app:layout_constraintTop_toBottomOf="@+id/posts" />
+
+                    <View
                         android:id="@+id/followings"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -252,6 +274,17 @@
                         app:layout_constraintLeft_toLeftOf="@+id/tvFollowing"
                         app:layout_constraintRight_toRightOf="@+id/tvFollowing"
                         app:layout_constraintTop_toTopOf="@+id/tvFollowing" />
+
+                    <View
+                        android:id="@+id/hlFollowings"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/size_hairline"
+                        android:background="@drawable/bg_indicator_hairline"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@+id/tvFollowing"
+                        app:layout_constraintRight_toRightOf="@+id/tvFollowing"
+                        app:layout_constraintTop_toBottomOf="@+id/followings" />
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.v7.widget.Toolbar
@@ -270,7 +303,8 @@
                     app:contentInsetStart="0dp"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/Toolbar.PopUp"
-                    tools:targetApi="lollipop" />
+                    tools:targetApi="lollipop"
+                    tools:visibility="gone" />
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 

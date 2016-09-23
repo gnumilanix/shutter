@@ -35,4 +35,5 @@
     <dimen name="notification_post_image">65dp</dimen>
 
     <dimen name="user_avatar">48dp</dimen>
+    <dimen name="size_hairline">3dp</dimen>
 </resources>
