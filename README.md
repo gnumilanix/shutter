@@ -6,6 +6,14 @@ If you are looking for inspiration with our trending photos, Shutter also works 
 
 We are still in alpha stage of development. We will appreciate your feedback to constantly improve Shutter.
 
+## Technolofies
+Shutter is developed using bleeding edge technology during the time including:
+- Databinding
+- Constraint layout
+- Dagger
+- Firebase (database, storage, authentication, remote config and crash reporting, work manager)
+
+
 ## Screenshots
 
 ### Play Store feature
